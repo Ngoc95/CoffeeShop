@@ -49,3 +49,10 @@ D:\WPF\QuanLiCoffeeShop\obj\Debug\Theme\MenuTextTheme.baml
 D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Admin\MainAdminWindow.g.cs
 D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Admin\MainAdminWindow.baml
 D:\WPF\QuanLiCoffeeShop\obj\Debug\Theme\MenuButtonTheme.baml
+D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Admin\CustomerWindow.g.cs
+D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Admin\CustomerWindow.baml
+D:\WPF\QuanLiCoffeeShop\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\WPF\QuanLiCoffeeShop\obj\Debug\Theme\SearchTextBoxTheme.baml
+D:\WPF\QuanLiCoffeeShop\obj\Debug\Theme\ButtonTheme.baml
+D:\WPF\QuanLiCoffeeShop\obj\Debug\Theme\TextBoxTheme.baml
+D:\WPF\QuanLiCoffeeShop\obj\Debug\Theme\GenderToggleButtonTheme.baml
