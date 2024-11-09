@@ -78,7 +78,19 @@
     </Compile>
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />
-    <Page Include="MVVM\View\Admin\CustomerWindow.xaml">
+    <Page Include="MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\CustomerManagement\CustomerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\EmployeeManagement\AddEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\EmployeeManagement\EmployeeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -114,8 +126,17 @@
   <ItemGroup>
     <Compile Include="MVVM\ViewModel\Admin\CustomerViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\MainViewModel.cs" />
-    <Compile Include="MVVM\View\Admin\CustomerWindow.xaml.cs">
+    <Compile Include="MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml.cs">
+      <DependentUpon>AddCustomerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\CustomerManagement\CustomerWindow.xaml.cs">
       <DependentUpon>CustomerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\EmployeeManagement\AddEmployeeWindow.xaml.cs">
+      <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\EmployeeManagement\EmployeeWindow.xaml.cs">
+      <DependentUpon>EmployeeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>

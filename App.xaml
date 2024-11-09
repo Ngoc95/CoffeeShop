@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:QuanLiCoffeeShop"
              xmlns:viewModelAdmin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
-             xmlns:viewAdmin="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin"
+             xmlns:viewAdminCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
              StartupUri="/MVVM/View/Admin/MainAdminWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -24,7 +24,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModelAdmin:CustomerViewModel}">
-                <viewAdmin:CustomerWindow/>
+                <viewAdminCus:CustomerWindow/>
             </DataTemplate>
             
         </ResourceDictionary>
