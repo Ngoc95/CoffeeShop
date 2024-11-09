@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement
 {
-    /// <summary>
-    /// Interaction logic for CustomerWindow.xaml
-    /// </summary>
     public partial class CustomerWindow : UserControl
     {
         public CustomerWindow()

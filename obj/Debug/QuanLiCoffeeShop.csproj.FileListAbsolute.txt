@@ -62,3 +62,5 @@ D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Admin\CustomerManagement\AddCustomer
 D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Admin\CustomerManagement\CustomerWindow.baml
 D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Admin\EmployeeManagement\AddEmployeeWindow.baml
 D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Admin\EmployeeManagement\EmployeeWindow.baml
+D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Message\DeleteMessage.g.cs
+D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Message\DeleteMessage.baml
