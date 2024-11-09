@@ -7,7 +7,7 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="borderBtn" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="30"
-                            Background="#F0997D"
+                            Background="{TemplateBinding Background}"
                             Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
                         <!-- ContentPresenter to display Button content -->
                         <ContentPresenter x:Name="contentPresenter"

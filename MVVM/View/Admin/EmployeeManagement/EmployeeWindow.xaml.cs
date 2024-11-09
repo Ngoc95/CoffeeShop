@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiCoffeeShop.MVVM.View.Admin
+namespace QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement
 {
     /// <summary>
-    /// Interaction logic for CustomerWindow.xaml
+    /// Interaction logic for EmployeeWindow.xaml
     /// </summary>
-    public partial class CustomerWindow : UserControl
+    public partial class EmployeeWindow : UserControl
     {
-        public CustomerWindow()
+        public EmployeeWindow()
         {
             InitializeComponent();
         }

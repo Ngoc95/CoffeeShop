@@ -17,7 +17,7 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="tgbtnBorder" Property="Background" Value="transparent"/>
+                            <Setter TargetName="tgbtnBorder" Property="Background" Value="white"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

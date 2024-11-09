@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\WPF\QuanLiCoffeeShop\App.xaml
-81701049480
+11430359316
 
-11941468355
+14611808263
 18-511435384
-MVVM\View\Admin\CustomerWindow.xaml;MVVM\View\Admin\MainAdminWindow.xaml;Theme\ButtonTheme.xaml;Theme\GenderToggleButtonTheme.xaml;Theme\MenuButtonTheme.xaml;Theme\MenuTextTheme.xaml;Theme\SearchTextBoxTheme.xaml;Theme\TextBoxTheme.xaml;
+MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml;MVVM\View\Admin\CustomerManagement\CustomerWindow.xaml;MVVM\View\Admin\EmployeeManagement\AddEmployeeWindow.xaml;MVVM\View\Admin\EmployeeManagement\EmployeeWindow.xaml;MVVM\View\Admin\MainAdminWindow.xaml;Theme\ButtonTheme.xaml;Theme\GenderToggleButtonTheme.xaml;Theme\MenuButtonTheme.xaml;Theme\MenuTextTheme.xaml;Theme\SearchTextBoxTheme.xaml;Theme\TextBoxTheme.xaml;
 
 False
 

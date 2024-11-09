@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="QuanLiCoffeeShop.MVVM.View.Admin.CustomerWindow"
+﻿<UserControl x:Class="QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement.CustomerWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin"
+             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="930">
     <Grid Background="White">
@@ -31,13 +31,13 @@
             <Button Style="{StaticResource btn_style}" BorderThickness="0"
                     Content="Xóa khách hàng" Foreground="Black" FontWeight="DemiBold"
                     FontFamily="Fonts/Roboto-Light.ttf #Roboto"
-                    FontSize="22" Width="210" Height="65"
-                    Margin="35,0,0,0"/>
+                    FontSize="22" Width="210" Height="65" Background="#F0997D"
+                    Margin="35,0,0,0" Click="deleteCus_Button_Click"/>
             <Button Style="{StaticResource btn_style}" BorderThickness="0"
                     Content="Thêm khách hàng" Foreground="Black" FontWeight="DemiBold"
                     FontFamily="Fonts/Roboto-Light.ttf #Roboto"
-                    FontSize="22" Width="210" Height="65"
-                    Margin="50,0,0,0"/>
+                    FontSize="22" Width="210" Height="65" Background="#F0997D"
+                    Margin="50,0,0,0" Click="addCus_Button_Click"/>
         </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -117,7 +117,7 @@
 
                             <Button  Margin="0,40,20,0" Style="{StaticResource btn_style}" BorderBrush="Black" BorderThickness="1"
                                     Content="Lưu thay đổi" Foreground="Black" FontWeight="DemiBold"
-                                    FontFamily="Fonts/Roboto-Light.ttf #Roboto"
+                                    FontFamily="Fonts/Roboto-Light.ttf #Roboto" Background="#F0997D"
                                     FontSize="22" Width="230" Height="55">
                             </Button>
                         </StackPanel>

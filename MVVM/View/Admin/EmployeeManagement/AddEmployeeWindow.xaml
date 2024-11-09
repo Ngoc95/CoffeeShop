@@ -1,0 +1,14 @@
+﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement.DeleteCustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement"
+        mc:Ignorable="d"
+        Title="AddEmployeeWindow" Height="630" Width="430"
+        WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen" Background="Transparent">
+    <Border >
+        
+    </Border>
+</Window>

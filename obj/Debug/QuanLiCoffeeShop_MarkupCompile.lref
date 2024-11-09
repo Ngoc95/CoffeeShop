@@ -1,5 +1,8 @@
 ﻿
 FD:\WPF\QuanLiCoffeeShop\App.xaml;;
-FD:\WPF\QuanLiCoffeeShop\MVVM\View\Admin\CustomerWindow.xaml;;
+FD:\WPF\QuanLiCoffeeShop\MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml;;
+FD:\WPF\QuanLiCoffeeShop\MVVM\View\Admin\CustomerManagement\CustomerWindow.xaml;;
+FD:\WPF\QuanLiCoffeeShop\MVVM\View\Admin\EmployeeManagement\AddEmployeeWindow.xaml;;
+FD:\WPF\QuanLiCoffeeShop\MVVM\View\Admin\EmployeeManagement\EmployeeWindow.xaml;;
 FD:\WPF\QuanLiCoffeeShop\MVVM\View\Admin\MainAdminWindow.xaml;;
 
