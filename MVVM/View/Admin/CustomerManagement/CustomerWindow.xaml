@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="930">
@@ -115,7 +116,7 @@
 
                             </TextBox>
 
-                            <Button  Margin="0,40,20,0" Style="{StaticResource btn_style}" BorderBrush="Black" BorderThickness="1"
+                            <Button  Margin="0,40,20,0"  materialDesign:ButtonAssist.CornerRadius="15.36" BorderBrush="Black" BorderThickness="1"
                                     Content="Lưu thay đổi" Foreground="Black" FontWeight="DemiBold"
                                     FontFamily="Fonts/Roboto-Light.ttf #Roboto" Background="#F0997D"
                                     FontSize="22" Width="230" Height="55">

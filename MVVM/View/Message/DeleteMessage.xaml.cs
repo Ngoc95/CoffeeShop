@@ -12,26 +12,33 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement
+namespace QuanLiCoffeeShop.MVVM.View.Message
 {
-    public partial class AddCustomerWindow : Window
+    public partial class DeleteMessage : Window
     {
-        public AddCustomerWindow()
+        public DeleteMessage()
         {
             InitializeComponent();
         }
 
-        private void moveCusWin_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                this.DragMove();
+                DragMove();
             }
         }
 
-        private void pass_Click(object sender, RoutedEventArgs e)
+        private void Yes_Button_Click(object sender, RoutedEventArgs e)
         {
+            this.DialogResult = true;
             this.Close();
+        }
+
+        private void No_Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            Window.GetWindow(this).Close();
         }
     }
 }

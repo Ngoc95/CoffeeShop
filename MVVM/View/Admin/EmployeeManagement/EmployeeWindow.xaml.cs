@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement
 {
-    /// <summary>
-    /// Interaction logic for EmployeeWindow.xaml
-    /// </summary>
     public partial class EmployeeWindow : UserControl
     {
         public EmployeeWindow()

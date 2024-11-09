@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement
 {
-    /// <summary>
-    /// Interaction logic for DeleteCustomerWindow.xaml
-    /// </summary>
     public partial class DeleteCustomerWindow : Window
     {
         public DeleteCustomerWindow()
