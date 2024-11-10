@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="QuanLiCoffeeShop.MVVM.View.Admin.TableManagament.TableUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagament"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="930"
+             FontSize="16"
+             FontFamily="Fonts/Roboto-Light.ttf #Roboto"
+             Background="White">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="110"></RowDefinition>
+                <RowDefinition Height="80"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox 
+                Margin="52,0,15,0"
+                Grid.Column="0"
+                Style="{DynamicResource ComboBoxStyle1}" 
+                ItemContainerStyle="{DynamicResource ComboBoxItemContainerStyle1}" 
+                materialDesign:HintAssist.Hint="Vị trí"
+                VerticalAlignment="Bottom">
+                    <!--command cho combobox xaml-->
+
+                    <ComboBoxItem
+                    Content="Tầng 1"
+                    x:Name="stFloor">
+                    </ComboBoxItem>
+                    <ComboBoxItem Content="Tầng 2"></ComboBoxItem>
+                </ComboBox>
+
+                <Button 
+                Margin="15,0,15,0"
+                Width="210" Height="56"
+                HorizontalAlignment="Left"
+                Style="{DynamicResource ButtonStyle1}" 
+                Grid.Column="1"
+                Content="Thêm bàn"
+                VerticalAlignment="Bottom">
+
+                </Button>
+            </Grid>
+            <StackPanel 
+            Grid.Row="1"
+            Margin="0" 
+            Orientation="Horizontal"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center">
+                <RadioButton                    
+                Command="{Binding AllTable}"
+                HorizontalAlignment="Stretch"
+                Cursor="Hand"
+                Margin="40, 0"
+                Content="Tất cả"
+                FontSize="25"
+                IsChecked="True"                   
+                Style="{DynamicResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" />
+                <RadioButton
+                Command="{Binding TableFilter}"
+                HorizontalAlignment="Stretch"
+                x:Name="Table2"
+                CommandParameter="{Binding ElementName=Table2}"
+                Cursor="Hand"
+                Margin="40, 0"
+                FontSize="25"
+                Content="Bàn 2"
+                IsChecked="False"
+                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" />
+                <RadioButton
+                HorizontalAlignment="Stretch"
+                Command="{Binding TableFilter}"
+                x:Name="Table3"
+                CommandParameter="{Binding ElementName=Table3}"
+                Cursor="Hand"
+                Margin="40, 0"
+                FontSize="25"
+                Content="Bàn 3"
+                IsChecked="False"                   
+                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+                <RadioButton
+                HorizontalAlignment="Stretch"
+                Command="{Binding TableFilter}"
+                x:Name="Table4"
+                CommandParameter="{Binding ElementName=Table4}"
+                Cursor="Hand"
+                Margin="40, 0"
+                FontSize="25"
+                Content="Bàn 4"
+                IsChecked="False"                   
+                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+                <RadioButton
+                HorizontalAlignment="Stretch"
+                Command="{Binding ProductFilter}"
+                x:Name="Table6"
+                CommandParameter="{Binding ElementName=Table6}"
+                Cursor="Hand"
+                FontSize="25"
+                Margin="40, 0"
+                Content="Bàn 6"
+                IsChecked="False"                   
+                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+            </StackPanel>
+
+        </Grid>
+    </UserControl>

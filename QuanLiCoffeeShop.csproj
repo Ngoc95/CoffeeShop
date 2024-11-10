@@ -98,7 +98,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\Admin\TableManagement\AddTableWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\TableManagement\TableUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\ControlBarX\ControlBarUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Message\DeleteMessage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\Table2Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\Table3Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\Table4Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\Table6Card.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -122,12 +150,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Theme\Styles\ButtonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\Styles\ComboBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\Styles\RectangleStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\Styles\TextBlockStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Theme\TextBoxTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVVM\ViewModel\Admin\ControlBarViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\CustomerViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\MainViewModel.cs" />
     <Compile Include="MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml.cs">
@@ -145,8 +190,29 @@
     <Compile Include="MVVM\View\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\Admin\TableManagement\AddTableWindow.xaml.cs">
+      <DependentUpon>AddTableWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\TableManagement\TableUserControl.xaml.cs">
+      <DependentUpon>TableUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\ControlBarX\ControlBarUserControl.xaml.cs">
+      <DependentUpon>ControlBarUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Message\DeleteMessage.xaml.cs">
       <DependentUpon>DeleteMessage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\Table2Card.xaml.cs">
+      <DependentUpon>Table2Card.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\Table3Card.xaml.cs">
+      <DependentUpon>Table3Card.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\Table4Card.xaml.cs">
+      <DependentUpon>Table4Card.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\Table6Card.xaml.cs">
+      <DependentUpon>Table6Card.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -202,6 +268,28 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Message\infoMessage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Table\Ban2.png" />
+    <Resource Include="Images\Table\Ban3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Table\Ban4.png" />
+    <Resource Include="Images\Table\Ban6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Table\DesignIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Table\binIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ControlBarImg\minimize.png" />
+    <Resource Include="Images\ControlBarImg\minimize_mouseover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ControlBarImg\close.png" />
+    <Resource Include="Images\ControlBarImg\close_mouseover.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets')" />

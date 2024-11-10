@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:QuanLiCoffeeShop"
              xmlns:viewModelAdmin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
              xmlns:viewAdminCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
-             StartupUri="/MVVM/View/Admin/MainAdminWindow.xaml">
+             StartupUri="/MVVM/View/Admin/TableManagement/AddTableWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -21,6 +21,10 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.Lime.xaml" />
 
+                <ResourceDictionary Source="Theme/Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/RectangleStyles.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/ComboBoxStyle.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/TextBlockStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModelAdmin:CustomerViewModel}">
