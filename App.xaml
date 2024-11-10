@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:QuanLiCoffeeShop"
              xmlns:viewModelAdmin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
              xmlns:viewAdminCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
-             StartupUri="/MVVM/View/Admin/TableManagement/AddTableWindow.xaml">
+             StartupUri="/MVVM/View/Admin/MenuManagement/AddProductWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -25,6 +25,7 @@
                 <ResourceDictionary Source="Theme/Styles/RectangleStyles.xaml"/>
                 <ResourceDictionary Source="Theme/Styles/ComboBoxStyle.xaml"/>
                 <ResourceDictionary Source="Theme/Styles/TextBlockStyles.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/TextBoxStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModelAdmin:CustomerViewModel}">

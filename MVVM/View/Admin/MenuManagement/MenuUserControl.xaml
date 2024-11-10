@@ -1,0 +1,156 @@
+﻿<UserControl x:Class="QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement.MenuUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement"
+
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="930"
+             FontFamily="Fonts/Roboto-Light.ttf #Roboto"
+             FontSize="16"
+             Background="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110"></RowDefinition>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="280"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Width="350" Height="74" Margin="15,0,0,0" VerticalAlignment="Bottom">
+                <TextBox Style="{StaticResource searchTextbox_style}"/>
+                <Button x:Name="searchBtn"
+                    Width="65" Height="50"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="0,0,5,0"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    FontSize="30"
+                    Foreground="#49454F">
+                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE721;"/>
+                </Button>
+            </Grid>
+
+
+
+            <Button 
+                Width="250" Height="76"
+                HorizontalAlignment="Right"
+                Style="{DynamicResource ButtonStyle1}" 
+                Grid.Column="1"
+                Content="Thêm món"
+                VerticalAlignment="Bottom">
+
+            </Button>
+
+            <Grid Grid.Column="2" Margin="0,0,15,0">
+                
+            <Button 
+                
+                Width="250" Height="76"
+                HorizontalAlignment="Right"
+                Style="{DynamicResource ButtonStyle1}" 
+                Content="In menu"
+                VerticalAlignment="Bottom">
+
+            </Button>
+            </Grid>
+
+        </Grid>
+        <StackPanel 
+            Grid.Row="1"
+            Margin="0" 
+            Orientation="Horizontal"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center">
+            <RadioButton                    
+                Command="{Binding AllProduct}"
+                HorizontalAlignment="Stretch"
+                Cursor="Hand"
+                Margin="40, 0, 15, 0"
+                Content="Tất cả"
+                FontSize="25"
+                IsChecked="True"                   
+                Style="{DynamicResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" />
+            <RadioButton
+                Command="{Binding ProductFilter}"
+                HorizontalAlignment="Stretch"
+                x:Name="Coffee"
+                CommandParameter="{Binding ElementName=Coffee}"
+                Cursor="Hand"
+                Margin="15, 0"
+                FontSize="25"
+                Content="Coffee"
+                IsChecked="False"
+                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" />
+            <RadioButton
+                HorizontalAlignment="Stretch"
+                Command="{Binding ProductFilter}"
+                x:Name="MIlkTea"
+                CommandParameter="{Binding ElementName=MilkTea}"
+                Cursor="Hand"
+                Margin="15, 0"
+                FontSize="25"
+                Content="Trà sữa"
+                IsChecked="False"                   
+                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+            <RadioButton
+                HorizontalAlignment="Stretch"
+                Command="{Binding ProductFilter}"
+                x:Name="Tea"
+                CommandParameter="{Binding ElementName=Tea}"
+                Cursor="Hand"
+                Margin="15, 0"
+                FontSize="25"
+                Content="Trà"
+                IsChecked="False"                   
+                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+            <RadioButton
+                HorizontalAlignment="Stretch"
+                Command="{Binding ProductFilter}"
+                x:Name="Freeze"
+                CommandParameter="{Binding ElementName=Freeze}"
+                Cursor="Hand"
+                FontSize="25"
+                Margin="15, 0"
+                Content="Freeze"
+
+                IsChecked="False"                   
+                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" Checked="Table6_Checked"/>
+            <RadioButton
+                HorizontalAlignment="Stretch"
+                Command="{Binding ProductFilter}"
+                x:Name="Topping"
+                CommandParameter="{Binding ElementName=Topping}"
+                Cursor="Hand"
+                FontSize="25"
+                Margin="15, 0"
+                Content="Topping"
+                IsChecked="False"                   
+                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+            <RadioButton
+                HorizontalAlignment="Stretch"
+                Command="{Binding ProductFilter}"
+                x:Name="Other"
+                CommandParameter="{Binding ElementName=Other}"
+                Cursor="Hand"
+                FontSize="25"
+                Margin="15, 0"
+                Content="khác"
+                IsChecked="False"                   
+                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+        </StackPanel>
+        <Separator Grid.Row="2" Margin="20, 0, 20, 0" ></Separator>
+
+    </Grid>
+</UserControl>

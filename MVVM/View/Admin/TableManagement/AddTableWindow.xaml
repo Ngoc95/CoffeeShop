@@ -9,9 +9,9 @@
         mc:Ignorable="d"
         Title="AddTableWindow" Height="464" Width="350"
         Background="Transparent"
-        WindowStyle="none" 
+        WindowStyle="none" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-    <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="5" Background="White">
+    <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>

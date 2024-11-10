@@ -59,24 +59,25 @@
 
     <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="#FFC3A1"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="16,4,16,4"/>
         <Setter Property="BorderThickness" Value="0"/>
-
         <Setter Property="TextBlock.FontSize" Value="14"/>
         <Setter Property="TextBlock.FontWeight" Value="Medium"/>
-
+        <Setter Property="FontSize" Value="22"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" 
-                        Height="{TemplateBinding Height}"
-                        BorderBrush="{TemplateBinding BorderBrush}" 
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="30">
-                        <!--Phai biding BorderBrush va BoderThickness de dung duoc trigger-->
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                            Height="65" 
+                            Width="{TemplateBinding Width}"
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Center"
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="30"
+                            Padding="{TemplateBinding Padding}"
+                            Margin="{TemplateBinding Margin}">
+                            <!--Phai biding BorderBrush va BoderThickness de dung duoc trigger-->
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
                                   Content="{TemplateBinding Content}"/>
                     </Border>
@@ -104,9 +105,11 @@
                             Width="{TemplateBinding Width}"/>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="BorderImg" Property="Background" Value="{StaticResource CloseIconMouseOverSource}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseCaptured" Value="True">
                             <Setter TargetName="BorderImg" Property="Width" Value="35"/>
                             <Setter TargetName="BorderImg" Property="Height" Value="35"/>
-                            <Setter TargetName="BorderImg" Property="Background" Value="{StaticResource CloseIconMouseOverSource}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -126,9 +129,11 @@
                             Width="{TemplateBinding Width}"/>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="BorderImg" Property="Background" Value="{StaticResource MinusIconMouseOverSource}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseCaptured" Value="True">
                             <Setter TargetName="BorderImg" Property="Width" Value="35"/>
                             <Setter TargetName="BorderImg" Property="Height" Value="35"/>
-                            <Setter TargetName="BorderImg" Property="Background" Value="{StaticResource MinusIconMouseOverSource}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -249,4 +254,48 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!--button MenuWindow-->
+    <Style x:Key="ButtonEditMenu" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Image Source="../../Images/Table/DesignIcon.png" ></Image>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Height" Value="43"/>
+                <Setter Property="Width" Value="43"/>
+            </Trigger>
+
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
+        
+    </Style>
+
+
+    <Style x:Key="ButtonDeleteMenu" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Image Source="../../Images/MenuAndError/binIconMenuWD.png" ></Image>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Height" Value="43"/>
+                <Setter Property="Width" Value="43"/>
+            </Trigger>
+
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

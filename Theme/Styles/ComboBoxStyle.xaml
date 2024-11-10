@@ -57,4 +57,88 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+
+    <Style x:Key="ComboBoxStyleMenu" TargetType="ComboBox">
+        <!--chua co scollbar-->
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <Border 
+                            x:Name="ComboBoxBorder"
+                            Background="#ffc3a1" 
+                            CornerRadius="15" 
+                            Height="52">
+                            <ContentPresenter 
+                                IsEnabled="True"
+                                Margin="11,0,25,0"
+                                IsHitTestVisible="False"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Content="{TemplateBinding SelectionBoxItem}">
+                            </ContentPresenter>
+                        </Border>
+                        <ToggleButton x:Name="ToggleButton"
+                                      Template="{DynamicResource MyToggleButtonTemplate}"
+                                      ClickMode="Press"
+                                      Focusable="False"
+                                      Grid.Column="2"
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                      HorizontalAlignment="Right"
+                                      VerticalAlignment="Center"></ToggleButton>
+
+                        <Popup 
+                            x:Name="Popup"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            Placement="right"
+                            Width="200"
+                            HorizontalOffset="-200"
+                            VerticalOffset="50"
+                            PopupAnimation="Slide">
+                            <Border 
+                                x:Name="PopupBorder"
+                                Background="White"
+                                BorderBrush="#603721"
+                                BorderThickness="1">
+                                <ScrollViewer Margin="4">
+                                    <StackPanel IsItemsHost="True" />
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="ToggleButton" Property="IsPressed" Value="True">
+                            <Setter TargetName="ComboBoxBorder" Property="BorderBrush" Value="#603127"/>
+                            <Setter TargetName="ComboBoxBorder" Property="BorderThickness" Value="2"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ComboBoxBorder" Property="BorderBrush" Value="#603127"/>
+                            <Setter TargetName="ComboBoxBorder" Property="BorderThickness" Value="2"/>
+
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="MyToggleButtonTemplate" TargetType="{x:Type ToggleButton}">
+        <Border Width="25" Height="25" 
+                Background="Transparent"
+                x:Name="ToggleBorder">
+            <Path
+                x:Name="ArrowIcon"
+                Data="M 0 0 L 4 4 L 8 0 Z"
+                Fill="Black"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+        </Border>
+    </ControlTemplate>
 </ResourceDictionary>
+    

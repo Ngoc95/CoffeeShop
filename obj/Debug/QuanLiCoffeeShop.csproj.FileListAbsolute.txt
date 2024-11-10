@@ -130,3 +130,10 @@ D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\TableManagement\
 D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\TableManagement\AddTableWindow.baml
 D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\TableManagement\TableUserControl.baml
 D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\Theme\Styles\TextBlockStyles.baml
+D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\MenuManagement\MenuUserControl.g.cs
+D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\MenuManagement\MenuUserControl.baml
+D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\ProductCard\ProductCard.g.cs
+D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\ProductCard\ProductCard.baml
+D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\MenuManagement\AddProductWindow.g.cs
+D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\MenuManagement\AddProductWindow.baml
+D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\Theme\Styles\TextBoxStyles.baml
