@@ -77,7 +77,7 @@
                 Command="{Binding AllProduct}"
                 HorizontalAlignment="Stretch"
                 Cursor="Hand"
-                Margin="40, 0, 15, 0"
+                Margin="30, 0, 15, 0"
                 Content="Tất cả"
                 FontSize="25"
                 IsChecked="True"                   

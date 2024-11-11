@@ -87,7 +87,12 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="BorderThickness" Value="1"/>
-                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderBrush" Value="#603127"/>
+            </Trigger>
+
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="BorderBrush" Value="#603127"/>
             </Trigger>
         </Style.Triggers>
     </Style>

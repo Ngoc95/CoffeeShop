@@ -4,8 +4,11 @@ FD:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\MVVM\View\Admin\CustomerManagement\AddCus
 FD:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\MVVM\View\Admin\CustomerManagement\CustomerWindow.xaml;;
 FD:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\MVVM\View\Admin\EmployeeManagement\AddEmployeeWindow.xaml;;
 FD:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\MVVM\View\Admin\EmployeeManagement\EmployeeWindow.xaml;;
+FD:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\MVVM\View\Admin\ErrorManagement\AddErrorWindow.xaml;;
+FD:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\MVVM\View\Admin\ErrorManagement\ErrorUserControl.xaml;;
 FD:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\MVVM\View\Admin\MainAdminWindow.xaml;;
 FD:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\MVVM\View\Admin\MenuManagement\AddProductWindow.xaml;;
+FD:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\MVVM\View\Admin\MenuManagement\EditProductWindow.xaml;;
 FD:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\MVVM\View\Admin\MenuManagement\MenuUserControl.xaml;;
 FD:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\MVVM\View\Admin\TableManagement\AddTableWindow.xaml;;
 FD:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\MVVM\View\Admin\TableManagement\TableUserControl.xaml;;

@@ -94,6 +94,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\Admin\ErrorManagement\AddErrorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\ErrorManagement\EditErrorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\ErrorManagement\ErrorUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Admin\MainAdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,6 +218,15 @@
     </Compile>
     <Compile Include="MVVM\View\Admin\EmployeeManagement\EmployeeWindow.xaml.cs">
       <DependentUpon>EmployeeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\ErrorManagement\AddErrorWindow.xaml.cs">
+      <DependentUpon>AddErrorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\ErrorManagement\EditErrorWindow.xaml.cs">
+      <DependentUpon>EditErrorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\ErrorManagement\ErrorUserControl.xaml.cs">
+      <DependentUpon>ErrorUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>

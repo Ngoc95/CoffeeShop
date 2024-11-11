@@ -63,6 +63,39 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+
+    <Style x:Key="InputTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="AcceptsReturn" Value="True"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border
+                        x:Name="BorderTBox"
+                        BorderBrush="#603127"
+                        BorderThickness="0,0,0,1"
+                        Background="White"
+                        CornerRadius="5,5,0,0"
+                        Padding="10">
+                        <ScrollViewer x:Name="PART_ContentHost"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="BorderTBox" Property="BorderBrush" Value="#603127" />
+                            <Setter TargetName="BorderTBox" Property="BorderThickness" Value="2" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="BorderTBox" Property="BorderBrush" Value="#603127" />
+                            <Setter TargetName="BorderTBox" Property="BorderThickness" Value="2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     
 </ResourceDictionary>
     

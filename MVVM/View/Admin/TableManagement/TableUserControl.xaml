@@ -24,24 +24,26 @@
                 </Grid.ColumnDefinitions>
 
                 <ComboBox 
-                Margin="52,0,15,0"
-                Grid.Column="0"
-                Style="{DynamicResource ComboBoxStyle1}" 
-                ItemContainerStyle="{DynamicResource ComboBoxItemContainerStyle1}" 
-                materialDesign:HintAssist.Hint="Vị trí"
-                VerticalAlignment="Bottom">
+                    Grid.Column="0"
+                    Margin="52,0,15,0"
+                    Tag="Vị trí"
+                    Style="{DynamicResource ComboBoxStyle1}" 
+                    ItemContainerStyle="{DynamicResource ComboBoxItemContainerStyle1}" 
+                    materialDesign:HintAssist.Hint="Vị trí"
+                    VerticalAlignment="Bottom">
                     <!--command cho combobox xaml-->
 
                     <ComboBoxItem
-                    Content="Tầng 1"
-                    x:Name="stFloor">
+                        Width="100"
+                        Content="Tầng 1">
                     </ComboBoxItem>
-                    <ComboBoxItem Content="Tầng 2"></ComboBoxItem>
+                    <ComboBoxItem 
+                        Width="100"  
+                        Content="Tầng 2"></ComboBoxItem>
                 </ComboBox>
 
                 <Button 
-                Margin="15,0,15,0"
-                Width="210" Height="56"
+                Width="210" 
                 HorizontalAlignment="Left"
                 Style="{DynamicResource ButtonStyle1}" 
                 Grid.Column="1"

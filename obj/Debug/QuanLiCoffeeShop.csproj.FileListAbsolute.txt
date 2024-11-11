@@ -137,3 +137,9 @@ D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\ProductCard\ProductCar
 D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\MenuManagement\AddProductWindow.g.cs
 D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\MenuManagement\AddProductWindow.baml
 D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\Theme\Styles\TextBoxStyles.baml
+D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\MenuManagement\EditProductWindow.g.cs
+D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\MenuManagement\EditProductWindow.baml
+D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\ErrorManagement\AddErrorWindow.g.cs
+D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\ErrorManagement\ErrorUserControl.g.cs
+D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\ErrorManagement\AddErrorWindow.baml
+D:\uit\KI_3\DoANLTTQ\Table\CoffeeShop\obj\Debug\MVVM\View\Admin\ErrorManagement\ErrorUserControl.baml
