@@ -5,8 +5,206 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="930">
+             d:DesignHeight="800" d:DesignWidth="930"
+             FontFamily="Fonts/Roboto-Light.ttf #Roboto">
     <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="160"/>
+            <RowDefinition Height="411"/>
+            <RowDefinition Height="129"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="0,40,0,0" Orientation="Horizontal">
+            <ComboBox Style="{StaticResource filterCombobox_style}" Margin="40,0,0,10" Height="66" Background="#FDB2B2"
+                      FontSize="22" Foreground="Black" VerticalAlignment="Center" Width="198" Text="Lọc nhân viên">
+                    <ComboBoxItem Content="Quản lý"/>
+                    <ComboBoxItem Content="Pha chế"/>
+                    <ComboBoxItem Content="Phục vụ"/>
+                    <ComboBoxItem Content="Thu ngân"/>
+            </ComboBox>
             
+            <Button Style="{StaticResource btn_style}" BorderThickness="0" Margin="60,0,0,7"
+                    Content="Thêm nhân viên" Foreground="Black"
+                    FontSize="22" Width="210" Height="64" Background="#FFC3A1"
+                    Click="addEmp_Button_Click"/>
+
+            <Grid Width="350" Height="74" Margin="30,0,0,10">
+                <TextBox Style="{StaticResource searchTextbox_style}"/>
+                <Button x:Name="searchBtn"
+                        Width="65" Height="50"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,0,5,0"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        FontSize="30"
+                        Foreground="#49454F">
+                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE721;"/>
+                </Button>
+            </Grid>
+        </StackPanel>
+
+        <Border Grid.Row="1" Background="#FFC3A1" CornerRadius="10" Margin="45,0,45,26">
+            <Border
+                Margin="18"
+                Background="White"
+                CornerRadius="10">
+                <DataGrid
+                    x:Name="dataGrid"
+                    Margin="15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    AutoGenerateColumns="False"
+                    Background="White"
+                    CanUserReorderColumns="False"
+                    CanUserResizeColumns="False"
+                    CanUserSortColumns="True"
+                    ColumnWidth="SizeToCells"
+                    IsReadOnly="True"
+                    SelectionMode="Single"
+                    SelectionUnit="FullRow"
+                    ItemsSource="{Binding StaffObservation, Mode=TwoWay}"
+                    SelectedItem="{Binding SelectedItem}">
+                    <DataGrid.CellStyle>
+                        <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="auto" Header="ID" SortMemberPath="ID">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        FontSize="22"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding ID}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="auto" Header="Họ tên" SortMemberPath="DisplayName">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        FontSize="22"  
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding DisplayName}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="auto" Header="SĐT" SortMemberPath="PhoneNumber">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        FontSize="22"       
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding PhoneNumber}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="auto" Header="Email" SortMemberPath="Email">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        FontSize="22"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Email}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                        <DataGridTemplateColumn Width="auto" Header="Chức vụ" SortMemberPath="Role">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        FontSize="22"                
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Role}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="auto" Header="Tổng ca làm trong tuần" SortMemberPath="WorkTime">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        FontSize="22"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding WorkTime}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        
+                        <DataGridTemplateColumn Width="auto" Header="Lương tuần" SortMemberPath="Wage">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        FontSize="22"     
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Wage, StringFormat={}{0:N0} VNĐ}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="auto" Header="Trạng thái" SortMemberPath="Status">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        FontSize="22"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Status}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Border>
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="1" Orientation="Horizontal" Margin="0,390,40,0" Grid.RowSpan="2">
+            <Label Margin="0,0,0,0" Content="Nhân viên:" FontSize="22" 
+                           Foreground="Black" VerticalAlignment="Center"
+                           FontWeight="Medium"/>
+            <Label Margin="0,0,0,0" Content="3" VerticalAlignment="Center"
+                           FontSize="22" 
+                           Foreground="Black"
+                           FontWeight="Medium"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Margin="45,0,45,0">
+            <Border Width="840" Height="1" Background="#603127" Margin="0,20,0,0" />
+            <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
+                <Label Content="Mã nhân viên truy xuất:" FontSize="22" Foreground="Black"
+                       FontWeight="Medium" VerticalAlignment="Center"/>
+                <Label Content="PC001" Width="100" FontSize="22" Foreground="Black"
+                       FontWeight="Medium" VerticalAlignment="Center"/>
+                <Button x:Name="btnShowDetail"
+                    Style="{StaticResource btn_style}" BorderThickness="0"
+                    Content="Thông tin chi tiết" Foreground="Black"
+                    FontSize="22" Width="210" Height="55" Background="#FFC3A1"
+                    Margin="40,0,0,0" Click="btnShowDetail_Click"/>
+                <Button Style="{StaticResource btn_style}" BorderThickness="0"
+                    Content="Xóa nhân viên" Foreground="Black"
+                    FontSize="22" Width="210" Height="55" Background="#FDB2B2"
+                    Margin="35,0,0,0"/>
+            </StackPanel>
+            <Border Width="840" Height="1" Background="#603127" Margin="0,20,0,0" />
+        </StackPanel>
+
+        <Button Grid.Row="3" Style="{StaticResource btn_style}" BorderThickness="0" Margin="0,0,45,30"
+                Content="Xuất excel" Foreground="#603127" HorizontalAlignment="Right"
+                FontSize="22" Width="180" Height="60" Background="#F0997D"/>
+
     </Grid>
 </UserControl>

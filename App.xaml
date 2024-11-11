@@ -2,8 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:QuanLiCoffeeShop"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModelAdmin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
              xmlns:viewAdminCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
+             xmlns:viewAdminEmp="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement"
              StartupUri="/MVVM/View/Admin/MainAdminWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -14,6 +16,8 @@
                 <ResourceDictionary Source="Theme/TextBoxTheme.xaml"/>
                 <ResourceDictionary Source="Theme/GenderToggleButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/ButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme/FilterComboboxTheme.xaml"/>
+                <ResourceDictionary Source="Theme/DatePickerTheme.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
@@ -27,6 +31,9 @@
                 <viewAdminCus:CustomerWindow/>
             </DataTemplate>
             
+            <DataTemplate DataType="{x:Type viewModelAdmin:EmployeeViewModel}">
+                <viewAdminEmp:EmployeeWindow/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

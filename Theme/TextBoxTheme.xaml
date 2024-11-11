@@ -6,12 +6,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border CornerRadius="10" BorderBrush="#B9B9B9" BorderThickness="1"
-                            Background="White"
+                            Background="{TemplateBinding Background}" 
                             Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
                         <TextBox Style="{x:Null}"
                                  Margin="10,0,10,0"
                                  FontSize="22"
-                                 Text="{TemplateBinding Text}"
+                                 Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text}"
                                  BorderThickness="0"
                                  VerticalAlignment="Center"
                                  Background="Transparent"

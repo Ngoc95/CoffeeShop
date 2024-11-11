@@ -21,5 +21,17 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement
         {
             InitializeComponent();
         }
+
+        private void addEmp_Button_Click(object sender, RoutedEventArgs e)
+        {
+            var addEmpView = new AddEmployeeWindow();
+            addEmpView.ShowDialog();
+        }
+
+        private void btnShowDetail_Click(object sender, RoutedEventArgs e)
+        {
+            var showDetailEmpView = new EditEmployeeWindow();
+            showDetailEmpView.ShowDialog();
+        }
     }
 }
