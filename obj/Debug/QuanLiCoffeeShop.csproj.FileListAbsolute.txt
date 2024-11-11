@@ -64,3 +64,13 @@ D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Admin\EmployeeManagement\AddEmployee
 D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Admin\EmployeeManagement\EmployeeWindow.baml
 D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Message\DeleteMessage.g.cs
 D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Message\DeleteMessage.baml
+D:\WPF\QuanLiCoffeeShop\obj\Debug\Theme\FilterComboboxTheme.baml
+D:\WPF\QuanLiCoffeeShop\bin\Debug\OxyPlot.dll
+D:\WPF\QuanLiCoffeeShop\bin\Debug\OxyPlot.Wpf.dll
+D:\WPF\QuanLiCoffeeShop\bin\Debug\OxyPlot.Wpf.Shared.dll
+D:\WPF\QuanLiCoffeeShop\bin\Debug\OxyPlot.xml
+D:\WPF\QuanLiCoffeeShop\bin\Debug\OxyPlot.Wpf.xml
+D:\WPF\QuanLiCoffeeShop\bin\Debug\OxyPlot.Wpf.Shared.xml
+D:\WPF\QuanLiCoffeeShop\obj\Debug\Theme\DatePickerTheme.baml
+D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Admin\EmployeeManagement\EditEmployeeWindow.g.cs
+D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Admin\EmployeeManagement\EditEmployeeWindow.baml

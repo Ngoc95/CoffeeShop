@@ -10,7 +10,7 @@
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         WindowStartupLocation="CenterScreen" Background="Transparent">
     <Border Background="White" CornerRadius="30" BorderBrush="#603127" BorderThickness="1"
-            MouseDown="moveCusWin_MouseDown">
+            MouseDown="moveAddCusWin_MouseDown">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"/>

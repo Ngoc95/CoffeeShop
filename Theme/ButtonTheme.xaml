@@ -17,6 +17,10 @@
                     </Border>
                     <!-- Triggers to change content color when clicked -->
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="Black" />
+                            <Setter TargetName="borderBtn" Property="Background" Value="#F0997D"/>                        
+                        </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="White" />
                             <Setter TargetName="borderBtn" Property="Background" Value="#A55731"/>

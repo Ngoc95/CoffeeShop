@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\WPF\QuanLiCoffeeShop\App.xaml
-12-1742772160
+151740844794
 
-152009906167
-18-511435384
-MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml;MVVM\View\Admin\CustomerManagement\CustomerWindow.xaml;MVVM\View\Admin\EmployeeManagement\AddEmployeeWindow.xaml;MVVM\View\Admin\EmployeeManagement\EmployeeWindow.xaml;MVVM\View\Admin\MainAdminWindow.xaml;MVVM\View\Message\DeleteMessage.xaml;Theme\ButtonTheme.xaml;Theme\GenderToggleButtonTheme.xaml;Theme\MenuButtonTheme.xaml;Theme\MenuTextTheme.xaml;Theme\SearchTextBoxTheme.xaml;Theme\TextBoxTheme.xaml;
+17-37963193
+23-464246875
+MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml;MVVM\View\Admin\CustomerManagement\CustomerWindow.xaml;MVVM\View\Admin\EmployeeManagement\AddEmployeeWindow.xaml;MVVM\View\Admin\EmployeeManagement\EditEmployeeWindow.xaml;MVVM\View\Admin\EmployeeManagement\EmployeeWindow.xaml;MVVM\View\Admin\MainAdminWindow.xaml;MVVM\View\Message\DeleteMessage.xaml;Theme\ButtonTheme.xaml;Theme\DatePickerTheme.xaml;Theme\FilterComboboxTheme.xaml;Theme\GenderToggleButtonTheme.xaml;Theme\MenuButtonTheme.xaml;Theme\MenuTextTheme.xaml;Theme\SearchTextBoxTheme.xaml;Theme\TextBoxTheme.xaml;
 
-True
+False
 
