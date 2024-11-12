@@ -6,7 +6,7 @@
              xmlns:viewModelAdmin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
              xmlns:viewAdminCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
              xmlns:viewAdminEmp="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement"
-             StartupUri="/MVVM/View/Login/LoginWindow.xaml">
+             StartupUri="/MVVM/View/ThongKe/ThongKeTable.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,6 +18,8 @@
                 <ResourceDictionary Source="Theme/ButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/FilterComboboxTheme.xaml"/>
                 <ResourceDictionary Source="Theme/DatePickerTheme.xaml"/>
+                <ResourceDictionary Source="Theme/ButtonThongKeTheme.xaml"/>
+                <ResourceDictionary Source="Theme/GroupBoxTheme.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />

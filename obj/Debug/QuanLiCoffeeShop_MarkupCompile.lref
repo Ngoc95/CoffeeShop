@@ -1,12 +1,13 @@
-﻿
-FD:\WPF\QuanLiCoffeeShop\App.xaml;;
-FD:\WPF\QuanLiCoffeeShop\MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml;;
-FD:\WPF\QuanLiCoffeeShop\MVVM\View\Admin\CustomerManagement\CustomerWindow.xaml;;
-FD:\WPF\QuanLiCoffeeShop\MVVM\View\Admin\EmployeeManagement\AddEmployeeWindow.xaml;;
-FD:\WPF\QuanLiCoffeeShop\MVVM\View\Admin\EmployeeManagement\EditEmployeeWindow.xaml;;
-FD:\WPF\QuanLiCoffeeShop\MVVM\View\Admin\EmployeeManagement\EmployeeWindow.xaml;;
-FD:\WPF\QuanLiCoffeeShop\MVVM\View\Admin\MainAdminWindow.xaml;;
-FD:\WPF\QuanLiCoffeeShop\MVVM\View\Login\LoginWindow.xaml;;
-FD:\WPF\QuanLiCoffeeShop\MVVM\View\Message\DeleteMessage.xaml;;
-FD:\WPF\QuanLiCoffeeShop\MVVM\View\Login\ForgotPasswordWindow.xaml;;
+﻿D:\LTTQ\Quản Lí Tiệm Cà Phê\CoffeeShop\obj\Debug\GeneratedInternalTypeHelper.g.cs
+FD:\LTTQ\Quản Lí Tiệm Cà Phê\CoffeeShop\App.xaml;;
+FD:\LTTQ\Quản Lí Tiệm Cà Phê\CoffeeShop\MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml;;
+FD:\LTTQ\Quản Lí Tiệm Cà Phê\CoffeeShop\MVVM\View\Admin\CustomerManagement\CustomerWindow.xaml;;
+FD:\LTTQ\Quản Lí Tiệm Cà Phê\CoffeeShop\MVVM\View\Admin\EmployeeManagement\AddEmployeeWindow.xaml;;
+FD:\LTTQ\Quản Lí Tiệm Cà Phê\CoffeeShop\MVVM\View\Admin\EmployeeManagement\EditEmployeeWindow.xaml;;
+FD:\LTTQ\Quản Lí Tiệm Cà Phê\CoffeeShop\MVVM\View\Admin\EmployeeManagement\EmployeeWindow.xaml;;
+FD:\LTTQ\Quản Lí Tiệm Cà Phê\CoffeeShop\MVVM\View\Admin\MainAdminWindow.xaml;;
+FD:\LTTQ\Quản Lí Tiệm Cà Phê\CoffeeShop\MVVM\View\Login\ForgotPasswordWindow.xaml;;
+FD:\LTTQ\Quản Lí Tiệm Cà Phê\CoffeeShop\MVVM\View\Login\LoginWindow.xaml;;
+FD:\LTTQ\Quản Lí Tiệm Cà Phê\CoffeeShop\MVVM\View\Message\DeleteMessage.xaml;;
+FD:\LTTQ\Quản Lí Tiệm Cà Phê\CoffeeShop\MVVM\View\ThongKe\ThongKeTable.xaml;;
 
