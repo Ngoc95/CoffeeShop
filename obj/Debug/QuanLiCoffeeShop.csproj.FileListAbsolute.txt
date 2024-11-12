@@ -74,3 +74,7 @@ D:\WPF\QuanLiCoffeeShop\bin\Debug\OxyPlot.Wpf.Shared.xml
 D:\WPF\QuanLiCoffeeShop\obj\Debug\Theme\DatePickerTheme.baml
 D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Admin\EmployeeManagement\EditEmployeeWindow.g.cs
 D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Admin\EmployeeManagement\EditEmployeeWindow.baml
+D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Login\LoginWindow.g.cs
+D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Login\LoginWindow.baml
+D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Login\ForgotPasswordWindow.g.cs
+D:\WPF\QuanLiCoffeeShop\obj\Debug\MVVM\View\Login\ForgotPasswordWindow.baml
