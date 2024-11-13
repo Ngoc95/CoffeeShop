@@ -125,7 +125,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-<<<<<<< HEAD
     <Page Include="MVVM\View\Admin\MenuManagement\AddProductWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -147,13 +146,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\ControlBarX\ControlBarUserControl.xaml">
-=======
+		<SubType>Designer</SubType>
+		<Generator>MSBuild:Compile</Generator>
+	</Page>
     <Page Include="MVVM\View\Login\ForgotPasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Login\LoginWindow.xaml">
->>>>>>> f22f6d39624a9648ea18ae12217fc16626107fac
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -161,7 +161,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-<<<<<<< HEAD
     <Page Include="MVVM\View\ProductCard\ProductCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,10 +177,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\TableCard\Table6Card.xaml">
-=======
+	<Page Include="MVVM\View\TableCard\Table6Card.xaml">
+		<SubType>Designer</SubType>
+		<Generator>MSBuild:Compile</Generator>
+	</Page>
     <Page Include="MVVM\View\ThongKe\ThongKeTable.xaml">
->>>>>>> f22f6d39624a9648ea18ae12217fc16626107fac
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -278,7 +278,6 @@
     <Compile Include="MVVM\View\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="MVVM\View\Admin\MenuManagement\AddProductWindow.xaml.cs">
       <DependentUpon>AddProductWindow.xaml</DependentUpon>
     </Compile>
@@ -296,18 +295,16 @@
     </Compile>
     <Compile Include="MVVM\View\ControlBarX\ControlBarUserControl.xaml.cs">
       <DependentUpon>ControlBarUserControl.xaml</DependentUpon>
-=======
+    </Compile>
     <Compile Include="MVVM\View\Login\ForgotPasswordWindow.xaml.cs">
       <DependentUpon>ForgotPasswordWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
->>>>>>> f22f6d39624a9648ea18ae12217fc16626107fac
     </Compile>
     <Compile Include="MVVM\View\Message\DeleteMessage.xaml.cs">
       <DependentUpon>DeleteMessage.xaml</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="MVVM\View\ProductCard\ProductCard.xaml.cs">
       <DependentUpon>ProductCard.xaml</DependentUpon>
     </Compile>
@@ -322,10 +319,9 @@
     </Compile>
     <Compile Include="MVVM\View\TableCard\Table6Card.xaml.cs">
       <DependentUpon>Table6Card.xaml</DependentUpon>
-=======
+    </Compile>
     <Compile Include="MVVM\View\ThongKe\ThongKeTable.xaml.cs">
       <DependentUpon>ThongKeTable.xaml</DependentUpon>
->>>>>>> f22f6d39624a9648ea18ae12217fc16626107fac
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -383,7 +379,6 @@
     <Resource Include="Images\Message\infoMessage.png" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Resource Include="Images\Table\Ban2.png" />
     <Resource Include="Images\Table\Ban3.png" />
   </ItemGroup>
@@ -410,9 +405,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\MenuAndError\binIconMenuWD.png" />
-=======
     <Resource Include="Images\Login\login.png" />
->>>>>>> f22f6d39624a9648ea18ae12217fc16626107fac
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets')" />
