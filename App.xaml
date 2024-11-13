@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:QuanLiCoffeeShop"
              xmlns:viewModelAdmin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
              xmlns:viewAdminCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
-             StartupUri="/MVVM/View/Admin/ErrorManagement/AddErrorWindow.xaml">
+             StartupUri="/MVVM/View/Admin/MenuManagement/MenuUserControl.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

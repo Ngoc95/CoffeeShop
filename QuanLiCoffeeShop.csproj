@@ -204,7 +204,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MVVM\ViewModel\Admin\ControlBarViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\ControlBarViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\CustomerViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\MainViewModel.cs" />
     <Compile Include="MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml.cs">

@@ -13,9 +13,9 @@
         </Grid.ColumnDefinitions>
         <Button Grid.Column="0"
                 Style="{DynamicResource ButtonMinimizeStyle}"/>
-
-
+        
         <Button Grid.Column="1"
+                Command="{Binding CloseWindowCommand}"
                 Style="{DynamicResource MyButtonCloseStyle}"/>
     </Grid>
 </UserControl>

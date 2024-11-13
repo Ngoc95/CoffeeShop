@@ -1,4 +1,6 @@
-﻿using System;
+﻿using QuanLiCoffeeShop.MVVM.ViewModel;
+using QuanLiCoffeeShop.MVVM.ViewModel.Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,7 @@ namespace QuanLiCoffeeShop.MVVM.View.ControlBarX
         public ControlBarUserControl()
         {
             InitializeComponent();
+            this.DataContext = new ControlBarViewModel();
         }
     }
 }
