@@ -28,10 +28,6 @@
                 <ResourceDictionary Source="Theme/Styles/TextBoxStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <!--<DataTemplate DataType="{x:Type viewModelAdmin:CustomerViewModel}">
-                <viewAdminCus:CustomerWindow/>
-            </DataTemplate>-->
-            
         </ResourceDictionary>
     </Application.Resources>
 </Application>
