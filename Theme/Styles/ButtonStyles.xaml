@@ -1,0 +1,306 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ImageBrush x:Key="CloseIconSource" ImageSource="../../Images/ControlBarImg/close.png"></ImageBrush>
+    <ImageBrush x:Key="CloseIconMouseOverSource" ImageSource="../../Images/ControlBarImg/close_mouseover.png"></ImageBrush>
+    <ImageBrush x:Key="MinusIconSource" ImageSource="../../Images/ControlBarImg/minimize.png"></ImageBrush>
+    <ImageBrush x:Key="MinusIconMouseOverSource" ImageSource="../../Images/ControlBarImg/minimize_mouseover.png"></ImageBrush>
+    
+    <Style x:Key="ButtonStyleEditTBCard" TargetType="Button">
+        <Setter Property="Margin" Value="18, 0, 10, 0"/>
+        <Setter Property="Width" Value="41"/>
+        <Setter Property="Height" Value="41"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="3" Opacity="0.5"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Background="#F0997D" CornerRadius="15" Padding="10">
+                    <Image Source="/images/Table/Designicon.png"/>
+                </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="ButtonStyleDeleteTBCard" TargetType="Button">
+        <Setter Property="Margin" Value="18, 0, 10, 0"/>
+        <Setter Property="Width" Value="41"/>
+        <Setter Property="Height" Value="41"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="3" Opacity="0.5"/>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Background="#A55731" CornerRadius="15" Padding="10">
+                        <Image Source="/Images/Table/binIcon.png"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="#FFC3A1"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="TextBlock.FontSize" Value="14"/>
+        <Setter Property="TextBlock.FontWeight" Value="Medium"/>
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" 
+                            Height="65" 
+                            Width="{TemplateBinding Width}"
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Center"
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="30"
+                            Padding="{TemplateBinding Padding}"
+                            Margin="{TemplateBinding Margin}">
+                            <!--Phai biding BorderBrush va BoderThickness de dung duoc trigger-->
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                  Content="{TemplateBinding Content}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="#603127"/>
+            </Trigger>
+
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="BorderBrush" Value="#603127"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style x:Key="MyButtonCloseStyle" TargetType="Button">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border x:Name="BorderImg" 
+                            Background="{StaticResource CloseIconSource}"
+                            Height="{TemplateBinding Height}" 
+                            Width="{TemplateBinding Width}"/>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="BorderImg" Property="Background" Value="{StaticResource CloseIconMouseOverSource}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseCaptured" Value="True">
+                            <Setter TargetName="BorderImg" Property="Width" Value="35"/>
+                            <Setter TargetName="BorderImg" Property="Height" Value="35"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ButtonMinimizeStyle" TargetType="Button">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border x:Name="BorderImg" 
+                            Background="{StaticResource MinusIconSource}"
+                            Height="{TemplateBinding Height}" 
+                            Width="{TemplateBinding Width}"/>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="BorderImg" Property="Background" Value="{StaticResource MinusIconMouseOverSource}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseCaptured" Value="True">
+                            <Setter TargetName="BorderImg" Property="Width" Value="35"/>
+                            <Setter TargetName="BorderImg" Property="Height" Value="35"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="ButtonCancel_WD" TargetType="Button">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="131"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border x:Name="ButtonBorder"
+                            Height="{TemplateBinding Height}"
+                            Width="{TemplateBinding Width}"
+                            BorderThickness="1"
+                            BorderBrush="#603127"
+                            CornerRadius="15">
+                        <Border.Background>
+                            <SolidColorBrush x:Name="SolidColor" Color="#f6e8d0" Opacity="100"></SolidColorBrush>
+                        </Border.Background>
+                        <TextBlock FontSize="16"
+                                   Text="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center">
+                        </TextBlock>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder" Property="BorderThickness" Value="2"/>
+                        </Trigger>
+
+                        <EventTrigger RoutedEvent="Button.PreviewMouseDown">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="SolidColor" 
+                                                      Storyboard.TargetProperty="Opacity" 
+                                                      From="1" To="0.5" Duration="0:0:0.1" />
+                                    <DoubleAnimation Storyboard.TargetName="ButtonBorder"
+                                                      Storyboard.TargetProperty="Opacity" 
+                                                      To="0.5" Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Button.PreviewMouseUp">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="SolidColor" 
+                                                      Storyboard.TargetProperty="Opacity" 
+                                                      From="0.5" To="1" Duration="0:0:0.1" />
+                                    <DoubleAnimation Storyboard.TargetName="ButtonBorder"
+                                                     Storyboard.TargetProperty="Opacity" 
+                                                     To="1" Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ButtonAdd_WD" TargetType="Button">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="131"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border 
+                        x:Name="ButtonBorder"
+                        Height="{TemplateBinding Height}"
+                        Width="{TemplateBinding Width}"
+                        BorderThickness="1"
+                        BorderBrush="#603127"
+                        CornerRadius="15">
+                        <Border.Background>
+                            <SolidColorBrush x:Name="SolidColor" Color="#ffc3a1" Opacity="100"></SolidColorBrush>
+                        </Border.Background>
+                        <TextBlock FontSize="16"
+                               Text="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center">
+                        </TextBlock>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder" Property="BorderThickness" Value="2"/>
+                        </Trigger>
+
+                        <EventTrigger RoutedEvent="Button.PreviewMouseDown">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="SolidColor" 
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 From="1" To="0.5" Duration="0:0:0.1" />
+                                    <DoubleAnimation Storyboard.TargetName="ButtonBorder"
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 To="0.5" Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Button.PreviewMouseUp">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="SolidColor" 
+                                                     Storyboard.TargetProperty="Opacity" 
+                                                     From="0.5" To="1" Duration="0:0:0.1" />
+                                    <DoubleAnimation Storyboard.TargetName="ButtonBorder"
+                                                    Storyboard.TargetProperty="Opacity" 
+                                                    To="1" Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--button MenuWindow-->
+    <Style x:Key="ButtonEditMenu" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Image Source="../../Images/Table/DesignIcon.png" ></Image>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Height" Value="43"/>
+                <Setter Property="Width" Value="43"/>
+            </Trigger>
+
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
+        
+    </Style>
+
+
+    <Style x:Key="ButtonDeleteMenu" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Image Source="../../Images/MenuAndError/binIconMenuWD.png" ></Image>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Height" Value="43"/>
+                <Setter Property="Width" Value="43"/>
+            </Trigger>
+
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

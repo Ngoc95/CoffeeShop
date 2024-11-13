@@ -5,8 +5,12 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModelAdmin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
              xmlns:viewAdminCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
+<<<<<<< HEAD
+             StartupUri="/MVVM/View/Admin/MenuManagement/MenuUserControl.xaml">
+=======
              xmlns:viewAdminEmp="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement"
              StartupUri="/MVVM/View/ThongKe/ThongKeTable.xaml">
+>>>>>>> f22f6d39624a9648ea18ae12217fc16626107fac
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -27,8 +31,15 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.Lime.xaml" />
 
+                <ResourceDictionary Source="Theme/Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/RectangleStyles.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/ComboBoxStyle.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/TextBlockStyles.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/TextBoxStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+<<<<<<< HEAD
+=======
             <DataTemplate DataType="{x:Type viewModelAdmin:CustomerViewModel}">
                 <viewAdminCus:CustomerWindow/>
             </DataTemplate>
@@ -36,6 +47,7 @@
             <DataTemplate DataType="{x:Type viewModelAdmin:EmployeeViewModel}">
                 <viewAdminEmp:EmployeeWindow/>
             </DataTemplate>
+>>>>>>> f22f6d39624a9648ea18ae12217fc16626107fac
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -109,15 +109,51 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\Admin\ErrorManagement\AddErrorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\ErrorManagement\EditErrorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\ErrorManagement\ErrorUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Admin\MainAdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+<<<<<<< HEAD
+    <Page Include="MVVM\View\Admin\MenuManagement\AddProductWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\MenuManagement\EditProductWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\MenuManagement\MenuUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\TableManagement\AddTableWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\TableManagement\TableUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\ControlBarX\ControlBarUserControl.xaml">
+=======
     <Page Include="MVVM\View\Login\ForgotPasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Login\LoginWindow.xaml">
+>>>>>>> f22f6d39624a9648ea18ae12217fc16626107fac
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,7 +161,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+<<<<<<< HEAD
+    <Page Include="MVVM\View\ProductCard\ProductCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\Table2Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\Table3Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\Table4Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\Table6Card.xaml">
+=======
     <Page Include="MVVM\View\ThongKe\ThongKeTable.xaml">
+>>>>>>> f22f6d39624a9648ea18ae12217fc16626107fac
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,12 +221,33 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Theme\Styles\ButtonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\Styles\ComboBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\Styles\RectangleStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\Styles\TextBlockStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\Styles\TextBoxStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Theme\TextBoxTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVVM\ViewModel\ControlBarViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\CustomerViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\EmployeeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\MainViewModel.cs" />
@@ -189,20 +266,66 @@
     <Compile Include="MVVM\View\Admin\EmployeeManagement\EmployeeWindow.xaml.cs">
       <DependentUpon>EmployeeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\Admin\ErrorManagement\AddErrorWindow.xaml.cs">
+      <DependentUpon>AddErrorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\ErrorManagement\EditErrorWindow.xaml.cs">
+      <DependentUpon>EditErrorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\ErrorManagement\ErrorUserControl.xaml.cs">
+      <DependentUpon>ErrorUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+    <Compile Include="MVVM\View\Admin\MenuManagement\AddProductWindow.xaml.cs">
+      <DependentUpon>AddProductWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\MenuManagement\EditProductWindow.xaml.cs">
+      <DependentUpon>EditProductWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\MenuManagement\MenuUserControl.xaml.cs">
+      <DependentUpon>MenuUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\TableManagement\AddTableWindow.xaml.cs">
+      <DependentUpon>AddTableWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\TableManagement\TableUserControl.xaml.cs">
+      <DependentUpon>TableUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\ControlBarX\ControlBarUserControl.xaml.cs">
+      <DependentUpon>ControlBarUserControl.xaml</DependentUpon>
+=======
     <Compile Include="MVVM\View\Login\ForgotPasswordWindow.xaml.cs">
       <DependentUpon>ForgotPasswordWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
+>>>>>>> f22f6d39624a9648ea18ae12217fc16626107fac
     </Compile>
     <Compile Include="MVVM\View\Message\DeleteMessage.xaml.cs">
       <DependentUpon>DeleteMessage.xaml</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+    <Compile Include="MVVM\View\ProductCard\ProductCard.xaml.cs">
+      <DependentUpon>ProductCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\Table2Card.xaml.cs">
+      <DependentUpon>Table2Card.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\Table3Card.xaml.cs">
+      <DependentUpon>Table3Card.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\Table4Card.xaml.cs">
+      <DependentUpon>Table4Card.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\Table6Card.xaml.cs">
+      <DependentUpon>Table6Card.xaml</DependentUpon>
+=======
     <Compile Include="MVVM\View\ThongKe\ThongKeTable.xaml.cs">
       <DependentUpon>ThongKeTable.xaml</DependentUpon>
+>>>>>>> f22f6d39624a9648ea18ae12217fc16626107fac
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -260,7 +383,36 @@
     <Resource Include="Images\Message\infoMessage.png" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Resource Include="Images\Table\Ban2.png" />
+    <Resource Include="Images\Table\Ban3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Table\Ban4.png" />
+    <Resource Include="Images\Table\Ban6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Table\DesignIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Table\binIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ControlBarImg\minimize.png" />
+    <Resource Include="Images\ControlBarImg\minimize_mouseover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ControlBarImg\close.png" />
+    <Resource Include="Images\ControlBarImg\close_mouseover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MenuAndError\UploadImg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MenuAndError\binIconMenuWD.png" />
+=======
     <Resource Include="Images\Login\login.png" />
+>>>>>>> f22f6d39624a9648ea18ae12217fc16626107fac
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets')" />
