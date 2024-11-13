@@ -1,4 +1,4 @@
-﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement.AddEmployeeWindow"
+﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement.EditEmployeeWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement"
         mc:Ignorable="d"
-        Title="AddEmployeeWindow" Height="900" Width="800"
+        Title="EditEmployeeWindow"  Height="900" Width="800"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         WindowStartupLocation="CenterScreen" Background="Transparent"
         FontFamily="Fonts/Roboto-Light.ttf #Roboto">
@@ -20,7 +20,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Label Content="Thêm nhân viên" FontSize="30" Foreground="Black"
+            <Label Content="Thông tin nhân viên" FontSize="30" Foreground="Black"
                    FontWeight="Medium" Margin="0,7,0,0"
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
@@ -41,7 +41,7 @@
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                                 <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="0,7,0,0" Background="White">
-                                    <TextBox x:Name="tbName" Height="50" Width="285"
+                                    <TextBox x:Name="tbName" Height="50" Width="305"
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10"
                                          TextChanged="tb_TextChanged" BorderBrush="White"/>
@@ -52,7 +52,7 @@
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                                 <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="0,7,0,0" Background="White">
-                                    <TextBox x:Name="tbSDT" Height="50" Width="285"
+                                    <TextBox x:Name="tbSDT" Height="50" Width="305"
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10" BorderBrush="White"
                                          TextChanged="tb_TextChanged" 
@@ -67,7 +67,7 @@
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                                 <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="0,7,0,0" Background="White">
-                                    <TextBox x:Name="tbCCCD" Height="50" Width="285"
+                                    <TextBox x:Name="tbCCCD" Height="50" Width="305"
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10"
                                          TextChanged="tb_TextChanged" BorderBrush="White"
@@ -89,7 +89,7 @@
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                                 <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="0,7,0,0" Background="White">
-                                    <TextBox x:Name="tbEmail" Height="50" Width="285"
+                                    <TextBox x:Name="tbEmail" Height="50" Width="305"
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10"
                                          TextChanged="tb_TextChanged" BorderBrush="White"/>
@@ -113,7 +113,7 @@
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                                 <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="0,7,0,0" Background="White">
-                                    <TextBox x:Name="tbSalary" Height="50" Width="285"
+                                    <TextBox x:Name="tbSalary" Height="50" Width="305"
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10"
                                          TextChanged="tb_TextChanged" BorderBrush="White"/>
@@ -175,7 +175,7 @@
                                FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                         <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="20,3,0,0" Background="White">
-                            <TextBox x:Name="tbUsername" Height="50" Width="285"
+                            <TextBox x:Name="tbUsername" Height="50" Width="305"
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10"
                                          TextChanged="tb_TextChanged" BorderBrush="White"/>
@@ -187,7 +187,7 @@
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                         <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="73,0,0,0" Background="White">
-                            <TextBox x:Name="tbPassword" Height="50" Width="285"
+                            <TextBox x:Name="tbPassword" Height="50" Width="305"
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10"
                                          TextChanged="tb_TextChanged" BorderBrush="White"/>
@@ -203,15 +203,15 @@
                          Background="#F6E8D0" FontSize="22" Width="150" Height="55"
                          Click="passAddEmp_Button_Click"/>
 
-                <Button  x:Name="btnAddEmp"
-                         materialDesign:ButtonAssist.CornerRadius="15.36"  HorizontalAlignment="Right"
-                         Content="Thêm" Foreground="Black" FontWeight="DemiBold"
-                         Background="#F0997D" Margin="425,0,0,0" IsEnabled="False"
-                         FontSize="22" Width="150" Height="55">
-                </Button>
+                <Button  x:Name="btnEditEmp"
+                         materialDesign:ButtonAssist.CornerRadius="15.36"
+                         Content="Lưu thay đổi" Foreground="Black" FontWeight="DemiBold"
+                         Background="#F0997D" Margin="420,0,0,0" IsEnabled="False"
+                         FontSize="22" Width="159" Height="56"/>
 
             </StackPanel>
 
         </Grid>
     </Border>
 </Window>
+

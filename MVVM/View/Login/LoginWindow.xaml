@@ -1,0 +1,120 @@
+﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Login.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Login"
+        mc:Ignorable="d"
+        Title="LoginWindow" Height="477.6" Width="800"
+        WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen" Background="Transparent"
+        FontFamily="Fonts/Roboto-Light.ttf #Roboto">
+    <Grid>
+        <Image Source="/Images/Login/login.png"/>
+        <StackPanel Orientation="Vertical" Margin="100,60,420,100">
+            <StackPanel Orientation="Vertical">
+                <Label Margin="0,10,0,0" Content="Tên đăng nhập" 
+                       FontSize="22" Foreground="#401409" FontWeight="DemiBold"/>
+                <Border CornerRadius="10" Height="45" Width="270" BorderBrush="#401409" BorderThickness="1"
+                        HorizontalAlignment="Left" Margin="3,7,0,0" Background="Transparent">
+                    <TextBox x:Name="tbUsername" Height="45" Width="250" Foreground="#401409"
+                             HorizontalAlignment="Left" Background="Transparent" 
+                             FontSize="22" Margin="10,0,0,0" BorderBrush="Transparent"
+                             TextChanged="tbUsername_TextChanged"/>
+                </Border>
+
+                <Label Margin="0,10,0,0" Content="Mật khẩu" 
+                       FontSize="22" Foreground="#401409" FontWeight="DemiBold"/>
+                <Border CornerRadius="10" Height="45" Width="270" BorderBrush="#401409" BorderThickness="1"
+                        HorizontalAlignment="Left" Margin="3,7,0,0" Background="Transparent">
+                    <PasswordBox x:Name="pbPassword" Height="45" Width="250" Foreground="#401409"
+                             HorizontalAlignment="Left" Background="Transparent" 
+                             FontSize="22" Margin="10,0,0,0" BorderBrush="Transparent"
+                             PasswordChanged="pbPassword_PasswordChanged"/>
+                </Border>
+
+                <Label Margin="0,0,5,0" FontSize="20" 
+                       HorizontalAlignment="Right">
+                    <TextBlock x:Name="tbForgotPass" 
+                               TextDecorations="Underline" Text="Quên mật khẩu"
+                               MouseDown="forgetPassword_MouseDown" Foreground="#401409">
+                    </TextBlock>
+                </Label>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <Button x:Name="btnLogin"
+                            Width="123" Margin="0,0,45,30" Content="Đăng nhập"
+                            Height="50" BorderBrush="Transparent" FontSize="20" 
+                            IsEnabled="False">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="bd" 
+                                                Width="{TemplateBinding Width}"
+                                                Height="{TemplateBinding Height}"
+                                                HorizontalAlignment="Left" CornerRadius="30"
+                                                Background="#A55731"
+                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                BorderThickness="0">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="bd" Property="Background" Value="#91441F"/>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="bd" Property="Background" Value="#91441F"/>
+                                                </Trigger>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter TargetName="bd" Property="Background" Value="#C18D74"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button x:Name="btnExit" Click="btnExit_Click"
+                            Width="123" Margin="-11,0,30,30" Content="Thoát"
+                            Height="50" BorderBrush="Transparent" FontSize="20" >
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="bd" 
+                                                Width="{TemplateBinding Width}"
+                                                Height="{TemplateBinding Height}"
+                                                HorizontalAlignment="Left" CornerRadius="30"
+                                                Background="#401409"
+                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                BorderThickness="0">
+                                                <ContentPresenter x:Name="contentPresenter"
+                                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="bd" Property="Background" Value="black"/>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="bd" Property="Background" Value="black"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

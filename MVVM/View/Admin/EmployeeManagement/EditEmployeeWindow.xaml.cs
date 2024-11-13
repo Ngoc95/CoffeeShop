@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,43 +12,40 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Text.RegularExpressions;
-using static MaterialDesignThemes.Wpf.Theme;
 
 namespace QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement
 {
-    public partial class AddEmployeeWindow : Window
+    public partial class EditEmployeeWindow : Window
     {
-        public AddEmployeeWindow()
+        public EditEmployeeWindow()
         {
             InitializeComponent();
-            
         }
         private void tb_TextChanged(object sender, TextChangedEventArgs e)
         {
-            btnAddEmp.IsEnabled = CheckIfAllFieldsAreFilled();
+            btnEditEmp.IsEnabled = CheckIfAllFieldsAreFilled();
         }
         private void dp_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            btnAddEmp.IsEnabled = CheckIfAllFieldsAreFilled();
+            btnEditEmp.IsEnabled = CheckIfAllFieldsAreFilled();
         }
 
         private void cbRole_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            btnAddEmp.IsEnabled = CheckIfAllFieldsAreFilled();
+            btnEditEmp.IsEnabled = CheckIfAllFieldsAreFilled();
         }
         private bool CheckIfAllFieldsAreFilled()
         {
             return !string.IsNullOrWhiteSpace(tbName.Text)
-                    && !string.IsNullOrWhiteSpace(tbSDT.Text)
-                    && !string.IsNullOrWhiteSpace(tbEmail.Text)
-                    && !string.IsNullOrWhiteSpace(tbCCCD.Text)
-                    && !string.IsNullOrWhiteSpace(tbSalary.Text)
-                    && !string.IsNullOrWhiteSpace(tbUsername.Text)
-                    && !string.IsNullOrWhiteSpace(tbPassword.Text)
-                    && dpBDay.SelectedDate.HasValue     
-                    && dpStartDate.SelectedDate.HasValue
-                    && cbRole.SelectedItem != null;
+                    || !string.IsNullOrWhiteSpace(tbSDT.Text)
+                    || !string.IsNullOrWhiteSpace(tbEmail.Text)
+                    || !string.IsNullOrWhiteSpace(tbCCCD.Text)
+                    || !string.IsNullOrWhiteSpace(tbSalary.Text)
+                    || !string.IsNullOrWhiteSpace(tbUsername.Text)
+                    || !string.IsNullOrWhiteSpace(tbPassword.Text)
+                    || dpBDay.SelectedDate.HasValue
+                    || dpStartDate.SelectedDate.HasValue
+                    || cbRole.SelectedItem != null;
         }
 
         private void moveAddEmpWin_MouseDown(object sender, MouseButtonEventArgs e)
@@ -76,6 +74,5 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement
         {
             return Regex.IsMatch(text, @"^[0-9]+$");
         }
-
     }
 }

@@ -9,7 +9,10 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 {
     class MainViewModel : ObservableObject
     {
+        public RelayCommand CustomerViewCommand { get; set; }
+        public RelayCommand EmployeeViewCommand { get; set; }
         public CustomerViewModel CustomerVM {  get; set; }
+        public EmployeeViewModel EmployeeVM { get; set; }
 
         private object _currentView;
 
@@ -26,8 +29,20 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
         public MainViewModel()
         {
-            CustomerVM = new CustomerViewModel();
-           CurrentView = CustomerVM;
+           CustomerVM = new CustomerViewModel();
+           EmployeeVM = new EmployeeViewModel();
+
+           CurrentView = EmployeeVM;
+
+            CustomerViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = CustomerVM;
+            });
+
+            EmployeeViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = EmployeeVM;
+            });
         }
     }
 }

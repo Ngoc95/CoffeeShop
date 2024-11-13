@@ -21,7 +21,7 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement
             InitializeComponent();
         }
 
-        private void moveCusWin_MouseDown(object sender, MouseButtonEventArgs e)
+        private void moveAddCusWin_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
