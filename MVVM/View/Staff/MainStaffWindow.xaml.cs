@@ -12,11 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace QuanLiCoffeeShop.MVVM.View.Admin
+namespace QuanLiCoffeeShop.MVVM.View.Staff
 {
-    public partial class MainAdminWindow : Window
+    public partial class MainStaffWindow : Window
     {
-        public MainAdminWindow()
+        public MainStaffWindow()
         {
             InitializeComponent();
         }

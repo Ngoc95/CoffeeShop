@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 {
-    class CustomerViewModel
+    class ErrorViewModel
     {
     }
 }

@@ -1,22 +1,18 @@
-﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Admin.MainAdminWindow"
+﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Staff.MainStaffWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
-        xmlns:viewModelAdmin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
-        mc:Ignorable="d" 
-        Title="MainAdminWindow" Height="800" Width="1200"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff"
+        xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
+        mc:Ignorable="d"
+        Title="MainStaffWindow" Height="800" Width="1200"
         WindowStyle="None" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Background="Transparent" AllowsTransparency="True"
         MouseDown="Window_MouseDown">
 
-    <Window.DataContext>
-        <viewModelAdmin:MainViewModel/>
-    </Window.DataContext>
-    <Border Background="White"
-            CornerRadius="20">
+    <Border Background="White">
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -30,7 +26,7 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.RowSpan="2" Background="#FFC3A1"/>
-            <TextBlock Margin="0,0,0,0"
+            <TextBlock Margin="0,0,0,10"
                    Text="Coffee Shop"
                    Foreground="black"
                    FontSize="40"
@@ -90,17 +86,6 @@
                              Height="65"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding EmployeeViewCommand}"
-                             Content=" Nhân viên">
-                    <RadioButton.Tag>
-                        <BitmapImage UriSource="/Images/Menu/empMenu.png" />
-                    </RadioButton.Tag>
-                </RadioButton>
-
-                <RadioButton Margin="5,0,0,10"
-                             Height="65"
-                             FontSize="30"
-                             Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding HomeViewCommand}"
                              Content="Ca làm việc">
                     <RadioButton.Tag>
@@ -119,18 +104,8 @@
                     </RadioButton.Tag>
                 </RadioButton>
 
-                <RadioButton Margin="5,0,0,10"
-                             Height="65"
-                             FontSize="30"
-                             Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding HomeViewCommand}"
-                             Content="Thống kê">
-                    <RadioButton.Tag>
-                        <BitmapImage UriSource="/Images/Menu/thongkeMenu.png" />
-                    </RadioButton.Tag>
-                </RadioButton>
 
-                <Button Margin="10,25,0,0" BorderBrush="Transparent"
+                <Button Margin="10,180,0,0" BorderBrush="Transparent"
                         Height="57" 
                         FontWeight="DemiBold">
                     <Button.Style>
@@ -166,6 +141,46 @@
                 </Button>
 
             </StackPanel>
+            
+            <Button Grid.Column="1" Grid.Row="0"
+                        Margin="40,0,0,15" BorderBrush="Transparent"
+                        Height="57" 
+                        FontWeight="DemiBold">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Foreground" Value="#49454F"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border HorizontalAlignment="Left" 
+                                                Background="{TemplateBinding Background}" 
+                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                BorderThickness="0">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Images/ControlbarImg/user.png"/>
+                    <TextBlock Text="Nguyễn Văn A" FontSize="30" Margin="10,5,0,0"/>
+                </StackPanel>
+            </Button>
+            <Grid Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,20,30,0" Width="auto" VerticalAlignment="Top">
+                <uc:ControlBarUserControl></uc:ControlBarUserControl>
+            </Grid>
+
 
             <ContentControl Grid.Column="1" Grid.RowSpan="2"
                             Content="{Binding CurrentView}"/>
