@@ -15,18 +15,35 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
     {
         #region commands
         public ICommand CloseWindowCommand { get; set; }
+        public ICommand MinimizeWindowCommand { get; set; }
         #endregion
-         
+
         public ControlBarViewModel()
         {
-            CloseWindowCommand = new RelayCommand(parameter =>
+            CloseWindowCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
-                if (parameter is Window window)
-                {
-                    window.Close();
-                }
+                FrameworkElement parent = GetParent(p);
+                Window w = parent as Window;
+                if (w != null)
+                    w.Close();
+            });
+            MinimizeWindowCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            {
+                FrameworkElement parent = GetParent(p);
+                Window w = parent as Window;
+                if (w != null)
+                    w.WindowState = WindowState.Minimized;
             });
         }
 
+        FrameworkElement GetParent(UserControl p)
+        {
+            FrameworkElement parent = p;
+            while (parent.Parent != null)
+            {
+                parent = parent.Parent as FrameworkElement;
+            }
+            return parent;
+        }
     }
 }

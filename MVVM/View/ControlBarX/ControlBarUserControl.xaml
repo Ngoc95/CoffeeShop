@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" Name="controlbar"
              d:DesignHeight="40" d:DesignWidth="80">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -12,10 +12,13 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Button Grid.Column="0"
-                Style="{DynamicResource ButtonMinimizeStyle}"/>
-        
+                Style="{DynamicResource ButtonMinimizeStyle}"
+                Command="{Binding MinimizeWindowCommand}"
+                CommandParameter="{Binding ElementName=controlbar}"/>
+
         <Button Grid.Column="1"
                 Command="{Binding CloseWindowCommand}"
+                CommandParameter="{Binding ElementName=controlbar}"
                 Style="{DynamicResource MyButtonCloseStyle}"/>
     </Grid>
 </UserControl>

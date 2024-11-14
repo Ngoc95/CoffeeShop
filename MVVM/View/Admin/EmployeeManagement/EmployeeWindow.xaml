@@ -5,16 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="930"
+             d:DesignHeight="740" d:DesignWidth="930"
              FontFamily="Fonts/Roboto-Light.ttf #Roboto">
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="160"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="411"/>
             <RowDefinition Height="129"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Margin="0,40,0,0" Orientation="Horizontal">
+        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
             <ComboBox Style="{StaticResource filterCombobox_style}" Margin="40,0,0,10" Height="66" Background="#FDB2B2"
                       FontSize="22" Foreground="Black" VerticalAlignment="Center" Width="198" Text="Lọc nhân viên">
                     <ComboBoxItem Content="Quản lý"/>
