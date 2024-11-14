@@ -6,15 +6,15 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="930">
+             d:DesignHeight="740" d:DesignWidth="930">
     <Grid Background="White">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="88"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
+        <StackPanel Orientation="Horizontal">
             <Grid Width="350" Height="74" Margin="15,0,0,0">
                 <TextBox Style="{StaticResource searchTextbox_style}"/>
                 <Button x:Name="searchBtn"
@@ -151,7 +151,7 @@
                         </DataGrid>
                     </Border>
                 </Border>
-                
+
                 <TextBlock Margin="3,20,0,0" Height="27" Width="182" Text="Lịch sử giao dịch"
                        FontSize="22" FontFamily="Fonts/Roboto-Light.ttf #Roboto"
                        FontWeight="DemiBold" Foreground="Black" HorizontalAlignment="Left"/>
@@ -257,9 +257,9 @@
                                    FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontWeight="Medium"/>
                             <TextBox Margin="-20,7,0,0" Height="50" Width="270" 
                                      Style="{StaticResource textBox_style}">
-                                
+
                             </TextBox>
-                            
+
                             <Label Margin="0,30,0,0" Content="Giới tính" FontSize="22" Foreground="Black"
                                    FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontWeight="Medium"/>
                             <ToggleButton Style="{StaticResource genderToggleButton_style}"
@@ -289,7 +289,7 @@
                         </StackPanel>
                     </Grid>
                 </StackPanel>
-                
+
             </Grid>
         </Grid>
     </Grid>
