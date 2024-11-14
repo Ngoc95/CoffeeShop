@@ -6,8 +6,10 @@
              xmlns:viewModelAdmin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
              xmlns:viewAdminCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
              xmlns:viewAdminEmp="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement"
-
-             StartupUri="/MVVM/View/Admin/MenuManagement/MenuUserControl.xaml">
+             xmlns:viewAdminErr="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.ErrorManagement"
+             xmlns:viewAdminMenu="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement"
+             xmlns:viewAdminTable="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagament"
+             StartupUri="/MVVM/View/Staff/MainStaffWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -39,9 +41,22 @@
                 <viewAdminCus:CustomerWindow/>
             </DataTemplate>
 
-                <DataTemplate DataType="{x:Type viewModelAdmin:EmployeeViewModel}">
-                    <viewAdminEmp:EmployeeWindow/>
-                </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModelAdmin:EmployeeViewModel}">
+                <viewAdminEmp:EmployeeWindow/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelAdmin:ErrorViewModel}">
+                <viewAdminErr:ErrorUserControl/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelAdmin:MenuViewModel}">
+                <viewAdminMenu:MenuUserControl/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelAdmin:TableViewModel}">
+                <viewAdminTable:TableUserControl/>
+            </DataTemplate>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

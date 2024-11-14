@@ -1,11 +1,12 @@
-﻿using QuanLiCoffeeShop.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QuanLiCoffeeShop.Core;
+using QuanLiCoffeeShop.MVVM.ViewModel.Admin;
 
-namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
+namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 {
     class MainViewModel : ObservableObject
     {
@@ -14,8 +15,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public RelayCommand ErrorViewCommand { get; set; }
         public RelayCommand MenuViewCommand { get; set; }
         public RelayCommand TableViewCommand { get; set; }
-        public CustomerViewModel CustomerVM {  get; set; }
-        public EmployeeViewModel EmployeeVM { get; set; }
+        public CustomerViewModel CustomerVM { get; set; }
         public ErrorViewModel ErrorVM { get; set; }
         public MenuViewModel MenuVM { get; set; }
         public TableViewModel TableVM { get; set; }
@@ -25,9 +25,9 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public object CurrentView
         {
             get { return _currentView; }
-            set 
-            { 
-                _currentView = value; 
+            set
+            {
+                _currentView = value;
                 OnPropertyChanged();
             }
 
@@ -35,23 +35,17 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
         public MainViewModel()
         {
-           CustomerVM = new CustomerViewModel();
-           EmployeeVM = new EmployeeViewModel();
-           ErrorVM = new ErrorViewModel();
-           MenuVM = new MenuViewModel();
-           TableVM = new TableViewModel();
+            CustomerVM = new CustomerViewModel();
+            ErrorVM = new ErrorViewModel();
+            MenuVM = new MenuViewModel();
+            TableVM = new TableViewModel();
 
-           CurrentView = EmployeeVM;
 
             CustomerViewCommand = new RelayCommand(o =>
             {
                 CurrentView = CustomerVM;
             });
 
-            EmployeeViewCommand = new RelayCommand(o =>
-            {
-                CurrentView = EmployeeVM;
-            });
 
             ErrorViewCommand = new RelayCommand(o =>
             {
