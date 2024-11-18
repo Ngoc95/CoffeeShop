@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu"
              xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ProductCard"
              mc:Ignorable="d" 
@@ -36,7 +37,181 @@
             </Menu>
 
         </Grid>
-        
-        
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="9*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1" Margin="0,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="2.8*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" BorderBrush="#603127" BorderThickness="1">
+                    <Grid Grid.Row="0" Background="#ffc3a1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="15,15,0,10">
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="Tên khách hàng: "></TextBlock>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="vãng lai"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="15,15,0,10">
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="Mã khách hàng: "></TextBlock>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="binding"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <Button 
+                                Style="{DynamicResource ButtonStaffStyle}"
+                                Content="Chọn khách hàng"
+                                Background="Transparent"
+                                Margin="10,10,5,0"
+                                Width="160"
+                                HorizontalAlignment="Right"></Button>
+                            <Button 
+                                Style="{DynamicResource ButtonStaffStyle}"
+                                Content="Thêm khách hàng"
+                                Margin="10,10,5,0"
+                                Width="160"
+                                Background="#d3756b"
+                                HorizontalAlignment="Right"></Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="1" BorderBrush="#603127" BorderThickness="1">
+                    <Grid Grid.Row="2" Background="#ffc3a1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <StackPanel Orientation="Horizontal" Margin="15,15,0,10">
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="Tên món: "></TextBlock>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="binding"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="15,15,0,10">
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="Số lượng: "></TextBlock>
+                                <materialDesign:NumericUpDown 
+                                    Foreground="Black"
+                                    Background="Transparent"
+                                    FontSize="18"
+                                    Height="auto"
+                                    Width="auto"/>
+                            </StackPanel>
+
+                        </StackPanel>
+                        <Button Grid.Column="1"
+                                Style="{DynamicResource ButtonStaffStyle}"
+                                Content="Thêm vào hóa đơn"
+                                VerticalAlignment="Bottom"
+                                Margin="10,10,5,5"
+                                Width="160"
+                                Background="#d3756b"
+                                HorizontalAlignment="Right"></Button>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="2" BorderBrush="#603127" BorderThickness="1">
+                    <Grid Grid.Row="2" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="80"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Margin="10,0" VerticalAlignment="Top" Text="Thông tin hóa đơn" Style="{DynamicResource Header5Style}"></TextBlock>
+                                <Border 
+                                    Grid.Row="1"
+                                    Margin="5"
+                                    Height="70"
+                                    VerticalAlignment="Top"
+                                    BorderBrush="Gray"
+                                    BorderThickness="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0">
+                                            <StackPanel Orientation="Horizontal" Margin="5,5,5,0">
+                                                <TextBlock Style="{DynamicResource Header6Style}" Text="Ngày lập: "></TextBlock>
+                                                <TextBlock Style="{DynamicResource Header6Style}" Text="Binding"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="5,10,5,0">
+                                                <TextBlock Style="{DynamicResource Header6Style}" Text="Mã nhân viên: "></TextBlock>
+                                                <TextBlock Style="{DynamicResource Header6Style}" Text="Binding"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="5,5,0,5" >
+                                            <TextBlock Style="{DynamicResource Header6Style}" Text="Mã hóa đơn: "></TextBlock>
+                                            <TextBlock Style="{DynamicResource Header6Style}" Text="Binding"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                        <DataGrid Grid.Row="1">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Mặc hàng"></DataGridTextColumn>
+                                <DataGridTextColumn Header="SL"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Giá"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Thành tiền"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button Grid.Row="2" 
+                            Style="{DynamicResource ButtonStaffStyle}"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Left"
+                            Width="200"
+                            Margin="5"
+                            Background="#ffc3a1"
+                            Content="Chọn chỗ ngồi"></Button>
+                        <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="Tổng tiền: " Style="{DynamicResource Header6Style}"></TextBlock>
+                            <TextBlock Text="binding" Style="{DynamicResource Header6Style}"></TextBlock>
+                        </StackPanel>
+                        <Button Grid.Row="2" 
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Right"
+                                Margin="5"
+                                Style="{DynamicResource ButtonStaffStyle}"
+                                Width="200"
+                                Background="#d3756b"
+                                Content="Xóa hóa đơn hiện tại"
+                                >  </Button>
+                    </Grid>
+                </Border>
+            </Grid>
+            <Button 
+                Grid.Row="2"
+                Style="{DynamicResource ButtonStaffStyle}"
+                HorizontalAlignment="Left"
+                Background="#ffc3a1"
+                Width="230"
+                Content="Lưu và tạo hóa đơn mới">
+            </Button>
+            <Button 
+                Grid.Row="2"
+                Style="{DynamicResource ButtonStaffStyle}"
+                HorizontalAlignment="Right"
+                Margin="15,10"
+                Width="200"
+                Background="#d3756b"
+                Content="Lưu và in hóa đơn"
+                ></Button>
+        </Grid>
+
+
     </Grid>
 </UserControl>
