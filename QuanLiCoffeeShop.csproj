@@ -87,6 +87,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\GenderConverter.cs" />
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />
     <Page Include="MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml">
@@ -162,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\ProductCard\ProductCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\CustomerManagement\CustomerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -251,6 +257,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\CustomerDTO.cs" />
     <Compile Include="MVVM\ViewModel\Admin\ErrorViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\MenuViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\TableViewModel.cs" />
@@ -258,6 +265,7 @@
     <Compile Include="MVVM\ViewModel\Admin\CustomerViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\EmployeeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\MainViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Staff\CustomerViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\MainViewModel.cs" />
     <Compile Include="MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml.cs">
       <DependentUpon>AddCustomerWindow.xaml</DependentUpon>
@@ -315,6 +323,9 @@
     </Compile>
     <Compile Include="MVVM\View\ProductCard\ProductCard.xaml.cs">
       <DependentUpon>ProductCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\CustomerManagement\CustomerUserControl.xaml.cs">
+      <DependentUpon>CustomerUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Staff\MainStaffWindow.xaml.cs">
       <DependentUpon>MainStaffWindow.xaml</DependentUpon>

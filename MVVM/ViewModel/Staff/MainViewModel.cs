@@ -40,6 +40,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             ErrorVM = new ErrorViewModel();
             MenuVM = new MenuViewModel();
             TableVM = new TableViewModel();
+            CurrentView = CustomerVM;
 
             CustomerViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = CustomerVM; });
             ErrorViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = ErrorVM; });

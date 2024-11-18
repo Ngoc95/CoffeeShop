@@ -46,7 +46,8 @@
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True" 
                              Command="{Binding HomeViewCommand}"
-                             Content="Trang chủ">
+                             Content="Trang chủ"
+                             Cursor="Hand">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/homeMenu.png" />
                     </RadioButton.Tag>
@@ -57,7 +58,8 @@
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding MenuViewCommand}"
-                             Content="   Menu">
+                             Content="   Menu"
+                             Cursor="Hand">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/coffeeMenu.png" />
                     </RadioButton.Tag>
@@ -68,7 +70,8 @@
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding TableViewCommand}"
-                             Content="    Bàn">
+                             Content="    Bàn"
+                             Cursor="Hand">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/tableMenu.png"/>
                     </RadioButton.Tag>
@@ -79,7 +82,8 @@
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding CustomerViewCommand}"
-                             Content="Khách hàng">
+                             Content="Khách hàng"
+                             Cursor="Hand">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/cusMenu.png" />
                     </RadioButton.Tag>
@@ -90,7 +94,8 @@
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding EmployeeViewCommand}"
-                             Content=" Nhân viên">
+                             Content=" Nhân viên"
+                             Cursor="Hand">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/empMenu.png" />
                     </RadioButton.Tag>
@@ -101,7 +106,8 @@
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding HomeViewCommand}"
-                             Content="Ca làm việc">
+                             Content="Ca làm việc"
+                             Cursor="Hand">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/shiftMenu.png" />
                     </RadioButton.Tag>
@@ -112,7 +118,8 @@
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding ErrorViewCommand}"
-                             Content="    Sự cố">
+                             Content="    Sự cố"
+                             Cursor="Hand">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/errorMenu.png" />
                     </RadioButton.Tag>
@@ -123,14 +130,15 @@
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding HomeViewCommand}"
-                             Content="Thống kê">
+                             Content="Thống kê"
+                             Cursor="Hand">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/thongkeMenu.png" />
                     </RadioButton.Tag>
                 </RadioButton>
 
                 <Button Margin="10,25,0,0" BorderBrush="Transparent"
-                        Height="57" 
+                        Height="57" Cursor="Hand"
                         FontWeight="DemiBold">
                     <Button.Style>
                         <Style TargetType="Button">

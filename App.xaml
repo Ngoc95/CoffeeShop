@@ -9,7 +9,10 @@
              xmlns:viewAdminErr="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.ErrorManagement"
              xmlns:viewAdminMenu="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement"
              xmlns:viewAdminTable="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagament"
-             StartupUri="/MVVM/View/Admin/MainAdminWindow.xaml">
+             xmlns:converter="clr-namespace:QuanLiCoffeeShop.Converters"
+             xmlns:viewModelStaff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
+             xmlns:viewStaffCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement"
+             StartupUri="/MVVM/View/Staff/MainStaffWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -37,6 +40,11 @@
                 <ResourceDictionary Source="Theme/Styles/TextBoxStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+            <!--Converter-->
+            <converter:GenderConverter x:Key="GenderConverter" />
+            <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+
+            <!--Change view (Admin)-->
             <DataTemplate DataType="{x:Type viewModelAdmin:CustomerViewModel}">
                 <viewAdminCus:CustomerWindow/>
             </DataTemplate>
@@ -55,6 +63,11 @@
 
             <DataTemplate DataType="{x:Type viewModelAdmin:TableViewModel}">
                 <viewAdminTable:TableUserControl/>
+            </DataTemplate>
+            
+            <!--Change view (Staff)-->
+            <DataTemplate DataType="{x:Type viewModelStaff:CustomerViewModel}">
+                <viewStaffCus:CustomerUserControl/>
             </DataTemplate>
             
         </ResourceDictionary>
