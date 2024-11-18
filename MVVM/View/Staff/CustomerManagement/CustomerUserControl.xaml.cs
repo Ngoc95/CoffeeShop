@@ -1,5 +1,4 @@
-﻿using QuanLiCoffeeShop.MVVM.ViewModel.Staff;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiCoffeeShop.MVVM.View.Staff
+namespace QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement
 {
-    public partial class MainStaffWindow : Window
+    /// <summary>
+    /// Interaction logic for CustomerUserControl.xaml
+    /// </summary>
+    public partial class CustomerUserControl : UserControl
     {
-        public MainStaffWindow()
+        public CustomerUserControl()
         {
             InitializeComponent();
-        }
-
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                this.DragMove();
-            }
         }
     }
 }

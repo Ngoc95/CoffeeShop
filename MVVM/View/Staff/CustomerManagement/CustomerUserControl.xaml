@@ -1,16 +1,16 @@
-﻿<UserControl x:Class="QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement.CustomerWindow"
+﻿<UserControl x:Class="QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement.CustomerUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
+             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement"
              mc:Ignorable="d" FontFamily="Fonts/Roboto-Light.ttf #Roboto"
-             d:DesignHeight="740" d:DesignWidth="930">
+             d:DesignHeight="692" d:DesignWidth="930">
     <Grid Background="White">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="88"/>
+            <RowDefinition Height="75"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -29,16 +29,13 @@
                     <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE721;"/>
                 </Button>
             </Grid>
-            <Button Style="{StaticResource btn_style}" BorderThickness="0" Cursor="Hand"
-                    Content="Xóa khách hàng" Foreground="Black" FontWeight="DemiBold"
-                    FontSize="22" Width="210" Height="65" Background="#F0997D"
-                    Margin="35,0,0,0" Click="deleteCus_Button_Click"/>
-            <Button Style="{StaticResource btn_style}" BorderThickness="0" Cursor="Hand"
+
+            <Button Style="{StaticResource btn_style}" BorderThickness="0"
                     Content="Thêm khách hàng" Foreground="Black" FontWeight="DemiBold"
                     FontSize="22" Width="210" Height="65" Background="#F0997D"
-                    Margin="50,0,0,0" Click="addCus_Button_Click"/>
+                    Margin="30,0,0,0" Cursor="Hand"/>
         </StackPanel>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="610"/>
                 <ColumnDefinition/>
@@ -64,7 +61,7 @@
                             IsReadOnly="True"
                             SelectionMode="Single"
                             SelectionUnit="FullRow"
-                            ItemsSource="{Binding StaffObservation, Mode=TwoWay}"
+                            ItemsSource="{Binding CustomerList, Mode=TwoWay}"
                             SelectedItem="{Binding SelectedItem}">
                             <DataGrid.CellStyle>
                                 <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -78,7 +75,7 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
-                                                FontSize="22"
+                                                FontSize="15"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Text="{Binding ID}" />
@@ -86,23 +83,23 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="auto" Header="Tên khách hàng" SortMemberPath="DisplayName">
+                                <DataGridTemplateColumn Width="auto" Header="Tên khách hàng" SortMemberPath="Name">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
-                                                FontSize="22"  
+                                                FontSize="15" 
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
-                                                Text="{Binding DisplayName}" />
+                                                Text="{Binding Name}" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="auto" Header="Giới tính" SortMemberPath="Gender">
+                                <DataGridTemplateColumn Width="auto" Header="Giới tính" SortMemberPath="Gender" >
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
-                                                FontSize="22"
+                                                FontSize="15"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Text="{Binding Gender}" />
@@ -114,7 +111,7 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
-                                                FontSize="22"       
+                                                FontSize="15"       
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Text="{Binding Phone}" />
@@ -126,7 +123,7 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
-                                                FontSize="22"
+                                                FontSize="15"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Text="{Binding Email}" />
@@ -134,14 +131,14 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="auto" Header="Tích điểm" SortMemberPath="Point">
+                                <DataGridTemplateColumn Width="auto" Header="Tích điểm" SortMemberPath="Points">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
-                                                FontSize="22"     
+                                                FontSize="15"     
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
-                                                Text="{Binding Point, StringFormat={}{0:N0} VNĐ}" />
+                                                Text="{Binding Points, StringFormat={}{0:N0} VNĐ}" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -154,7 +151,7 @@
                            FontSize="22" FontWeight="DemiBold" 
                            Foreground="Black" HorizontalAlignment="Left"/>
 
-                <Border Margin="0,8" Width="590" Height="230" Background="#FFC3A1" CornerRadius="10">
+                <Border Margin="0,8" Width="590" Height="210" Background="#FFC3A1" CornerRadius="10">
                     <Border
                         Margin="18"
                         Background="White"
@@ -187,7 +184,7 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
-                                                FontSize="22"
+                                                FontSize="15"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Text="{Binding ID}" />
@@ -199,7 +196,7 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
-                                                FontSize="22"
+                                                FontSize="15"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Text="{Binding CUS_ID}" />
@@ -211,7 +208,7 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <DatePicker
-                                                FontSize="22"     
+                                                FontSize="15"     
                                                 IsHitTestVisible="False"
                                                 IsTodayHighlighted="True"
                                                 SelectedDate="{Binding CREATE_AT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -224,7 +221,7 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
-                                                FontSize="22"     
+                                                FontSize="15"     
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
                                                 Text="{Binding Cost, StringFormat={}{0:N0} VNĐ}" />
@@ -232,14 +229,14 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="auto" Header="Điểm sử dụng" SortMemberPath="Point">
+                                <DataGridTemplateColumn Width="auto" Header="Điểm sử dụng" SortMemberPath="Points">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
-                                                FontSize="22"     
+                                                FontSize="15"     
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
-                                                Text="{Binding Point, StringFormat={}{0:N0} VNĐ}" />
+                                                Text="{Binding Points, StringFormat={}{0:N0} VNĐ}" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -251,23 +248,25 @@
                 </Border>
             </StackPanel>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Margin="0,-30,0,0"
+                  Visibility="{Binding SelectedItem, Converter={StaticResource NullToVisibilityConverter}}">
                 <StackPanel Orientation="Horizontal">
-                    <Border HorizontalAlignment="Left" Margin="10,-20,0,5" CornerRadius="10"
+                    <Border HorizontalAlignment="Left" Margin="10,0,0,5" CornerRadius="10"
                             Width="1" Height="630" Background="#603127"/>
-                    <Grid Margin="10,0,0,0" Width="300" Panel.ZIndex="1">
+                    <Grid Margin="10,0,0,0" Width="300">
                         <StackPanel Orientation="Vertical">
                             <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                                 <Label Content="Mã khách hàng:" FontSize="22" Foreground="Black" FontWeight="Medium"/>
-                                <Label Content="KH001" Width="100" 
+                                <Label Content="{Binding EditCustomer.ID}" Width="100" 
                                        FontSize="22" Foreground="Black"
-                                       FontWeight="Medium"/>
+                                       FontWeight="Medium" />
                             </StackPanel>
                             <Label Margin="0,10,0,0" Content="Tên khách hàng" 
                                    FontSize="22" Foreground="Black"
                                    FontWeight="Medium"/>
                             <TextBox Margin="-20,7,0,0" Height="50" Width="270" 
-                                     Style="{StaticResource textBox_style}">
+                                     Style="{StaticResource textBox_style}"
+                                     Text="{Binding EditCustomer.Name}">
 
                             </TextBox>
 
@@ -275,35 +274,41 @@
                                    FontSize="22" Foreground="Black"
                                    FontWeight="Medium"/>
                             <ToggleButton Style="{StaticResource genderToggleButton_style}"
-                                          IsChecked="{Binding SelectedPersonIsMale, Mode=TwoWay}"
-                                          Margin="-20,7,0,0" FontSize="22" Height="50" Width="270"/>
+                                          IsChecked="{Binding EditCustomer.Gender,Mode=TwoWay, Converter={StaticResource GenderConverter}}"
+                                          Margin="-20,7,0,0" FontSize="22" Height="50" Width="270">
+                            </ToggleButton>
 
-                            <Label Margin="0,15,0,0" Content="Email"
-                                   FontSize="22" Foreground="Black"
-                                   FontWeight="Medium"/>
-                            <TextBox Margin="-20,7,0,0" Height="50" Width="270" 
-                                     Style="{StaticResource textBox_style}">
-
-                            </TextBox>
 
                             <Label Margin="0,15,0,0" Content="Số điện thoại" 
                                    FontSize="22" Foreground="Black"
                                    FontWeight="Medium"/>
                             <TextBox Margin="-20,7,0,0" Height="50" Width="270" 
-                                     Style="{StaticResource textBox_style}">
+                                     Style="{StaticResource textBox_style}"
+                                     Text="{Binding EditCustomer.Phone}">
 
                             </TextBox>
 
+                            <Label Margin="0,15,0,0" Content="Email"
+                                   FontSize="22" Foreground="Black"
+                                   FontWeight="Medium"/>
+                            <TextBox Margin="-20,7,0,0" Height="50" Width="270" 
+                                     Style="{StaticResource textBox_style}"
+                                     Text="{Binding EditCustomer.Email}">
+
+                            </TextBox>
+                            
                             <Label Margin="0,15,0,0" Content="Tích điểm" 
                                    FontSize="22" Foreground="Black"
                                    FontWeight="Medium"/>
                             <TextBox Margin="-20,7,0,0" Height="50" Width="270" 
-                                     Style="{StaticResource textBox_style}">
+                                     Style="{StaticResource textBox_style}"
+                                     Text="{Binding EditCustomer.Points}">
 
                             </TextBox>
 
                             <Button Margin="0,15,20,0"  materialDesign:ButtonAssist.CornerRadius="15.36"
                                     BorderBrush="Black" BorderThickness="1"
+                                    Command="{Binding EditCustomerCM}"
                                     Content="Lưu thay đổi" Foreground="Black" 
                                     Background="#F0997D" FontWeight="DemiBold"
                                     FontSize="22" Width="230" Height="55">
