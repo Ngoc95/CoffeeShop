@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiCoffeeShop.MVVM.View.ThongKe
+namespace QuanLiCoffeeShop.MVVM.View.Admin.ThongKeManagement
 {
     /// <summary>
     /// Interaction logic for ThongKeTable.xaml
@@ -26,13 +26,16 @@ namespace QuanLiCoffeeShop.MVVM.View.ThongKe
             LoadDataNgay();
             LoadDataThang();
         }
+        private bool isThongKeClicked = false;
+        private bool isBieuDoClicked = false;
+        private bool isSoLuongChecked = false;
 
         private void ThongKeDay_Button_Click(object sender, RoutedEventArgs e)
         {
             btnThongKeNgay.Background = new SolidColorBrush(Color.FromArgb(255, 240, 153, 125));
             btnThongKeThang.Background = new SolidColorBrush(Colors.White);
-            OverlayGridDSTheoNgay.Visibility = Visibility.Visible;
-            OverlayGridDSTheoThang.Visibility = Visibility.Collapsed;
+            isThongKeClicked = true;
+            CheckAndShowOverlayChart();
         }
 
         private void ThongKeThang_Button_Click(object sender, RoutedEventArgs e)
@@ -41,9 +44,11 @@ namespace QuanLiCoffeeShop.MVVM.View.ThongKe
             btnThongKeNgay.Background = new SolidColorBrush(Colors.White);
             OverlayGridDSTheoNgay.Visibility = Visibility.Collapsed;
             OverlayGridDSTheoThang.Visibility = Visibility.Visible;
+            isThongKeClicked = true;
+            CheckAndShowOverlayChart();
         }
 
-        private void btn_Click(object sender, RoutedEventArgs e)
+        private void btnDanhSach_Click(object sender, RoutedEventArgs e)
         {
             OverlayGridDSTheoNgay.Visibility = Visibility.Visible;
         }
@@ -114,7 +119,40 @@ namespace QuanLiCoffeeShop.MVVM.View.ThongKe
 
         private void btnBieuDo_Click(object sender, RoutedEventArgs e)
         {
+            isBieuDoClicked = true;
+            CheckAndShowOverlayChart();
+        }
 
+        private void RabtnSoLuong_Checked(object sender, RoutedEventArgs e)
+        {
+            isSoLuongChecked = true;
+            CheckAndShowOverlayChart();
+        }
+        private void CheckAndShowOverlayChart()
+        {
+            // Kiểm tra 3 điều kiện cùng lúc
+            if (isThongKeClicked && isBieuDoClicked && isSoLuongChecked)
+            {
+                OverlayChartSoLuongNgay.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void RabtnDoanhThu_Checked(object sender, RoutedEventArgs e)
+        {
+            isSoLuongChecked = true;
+            CheckAndShowOverlayChart();
+        }
+
+        private void RabtnUaThich_Checked(object sender, RoutedEventArgs e)
+        {
+            isSoLuongChecked = true;
+            CheckAndShowOverlayChart();
+        }
+
+        private void RabtnLuong_Checked(object sender, RoutedEventArgs e)
+        {
+            isSoLuongChecked = true;
+            CheckAndShowOverlayChart();
         }
     }
 }

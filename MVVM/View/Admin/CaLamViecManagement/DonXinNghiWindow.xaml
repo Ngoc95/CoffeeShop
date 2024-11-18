@@ -1,0 +1,28 @@
+﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement.DonXinNghiWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement"
+        mc:Ignorable="d"
+        Title="Đơn xin phép" Height="450" Width="800">
+    <Grid>
+        <StackPanel Margin="20">
+            <TextBlock Text="Tên nhân viên:" FontSize="24"/>
+            <TextBox x:Name="txtHoTen" IsReadOnly="True" FontSize="24" Margin="0,5,0,10"/>
+
+            <TextBlock Text="Loại đơn:" FontSize="24"/>
+            <TextBox x:Name="txtLoaiDon" IsReadOnly="True" FontSize="24" Margin="0,5,0,10"/>
+
+            <TextBlock Text="Lý do:" FontSize="24"/>
+            <TextBox x:Name="txtLyDo" FontSize="24" Margin="0,5,0,10" Height="80" TextWrapping="Wrap"/>
+
+        </StackPanel>
+        <Button x:Name="btnTuChoi" Style="{StaticResource btn_style}" BorderThickness="0"
+           Content="Từ chối" Foreground="#603127" Margin="0,336,45,48" HorizontalAlignment="Right"
+           FontSize="22" Width="170" Height="50" Background="#FF0055" Click="btnTuChoi_Click"/>
+        <Button x:Name="btnXoa" Style="{StaticResource btn_style}" BorderThickness="0"
+          Content="Chấp nhận" Foreground="#603127"  Margin="66,336,0,48" HorizontalAlignment="Left"
+          FontSize="22" Width="170" Height="50" Background="#FFC3A1" Click="btnChapNhan_Click"/>
+    </Grid>
+</Window>
