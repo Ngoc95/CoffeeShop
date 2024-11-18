@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu.StaffMenuOrderUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu"
+             xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ProductCard"
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="692" d:DesignWidth="930">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBox 
+                Grid.Row="0"
+                Style="{DynamicResource SearchTextBoxStyleStaff}">
+            </TextBox>
+
+            <Menu
+                Grid.Row="1">
+                <MenuItem Header="Tất cả" />
+                <MenuItem Header="Caffee" />
+                <MenuItem Header="Trà sữa"/>
+                <MenuItem Header="Trà"/>
+                <MenuItem Header="Freeze"/>
+                <MenuItem Header="Khác"/>
+            </Menu>
+
+        </Grid>
+        
+        
+    </Grid>
+</UserControl>

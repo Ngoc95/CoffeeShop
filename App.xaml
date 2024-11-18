@@ -7,7 +7,7 @@
              xmlns:viewAdminCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
              xmlns:viewAdminEmp="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement"
 
-             StartupUri="/MVVM/View/Admin/MenuManagement/MenuUserControl.xaml">
+             StartupUri="/MVVM/View/Staff/StaffOrderMenu/StaffMenuOrderUserControl.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -33,6 +33,7 @@
                 <ResourceDictionary Source="Theme/Styles/ComboBoxStyle.xaml"/>
                 <ResourceDictionary Source="Theme/Styles/TextBlockStyles.xaml"/>
                 <ResourceDictionary Source="Theme/Styles/TextBoxStyles.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/MenuStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModelAdmin:CustomerViewModel}">

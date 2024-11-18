@@ -146,9 +146,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\ControlBarX\ControlBarUserControl.xaml">
-		<SubType>Designer</SubType>
-		<Generator>MSBuild:Compile</Generator>
-	</Page>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Login\ForgotPasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -165,6 +165,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\Staff\StaffOrderMenu\StaffMenuOrderUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\StaffTable2Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\StaffTable3Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\StaffTable4Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\StaffTable6Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\TableCard\Table2Card.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -177,10 +197,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-	<Page Include="MVVM\View\TableCard\Table6Card.xaml">
-		<SubType>Designer</SubType>
-		<Generator>MSBuild:Compile</Generator>
-	</Page>
+    <Page Include="MVVM\View\TableCard\Table6Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\ThongKe\ThongKeTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -226,6 +246,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Theme\Styles\ComboBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\Styles\MenuStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -308,6 +332,21 @@
     <Compile Include="MVVM\View\ProductCard\ProductCard.xaml.cs">
       <DependentUpon>ProductCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\Staff\StaffOrderMenu\StaffMenuOrderUserControl.xaml.cs">
+      <DependentUpon>StaffMenuOrderUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\StaffTable2Card.xaml.cs">
+      <DependentUpon>StaffTable2Card.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\StaffTable3Card.xaml.cs">
+      <DependentUpon>StaffTable3Card.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\StaffTable4Card.xaml.cs">
+      <DependentUpon>StaffTable4Card.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\StaffTable6Card.xaml.cs">
+      <DependentUpon>StaffTable6Card.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\TableCard\Table2Card.xaml.cs">
       <DependentUpon>Table2Card.xaml</DependentUpon>
     </Compile>
@@ -352,7 +391,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MVVM\Model\" />
-    <Folder Include="MVVM\View\Staff\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Fonts\LICENSE.txt" />

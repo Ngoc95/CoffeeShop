@@ -127,17 +127,7 @@
 
                 IsChecked="False"                   
                 Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" Checked="Table6_Checked"/>
-            <RadioButton
-                HorizontalAlignment="Stretch"
-                Command="{Binding ProductFilter}"
-                x:Name="Topping"
-                CommandParameter="{Binding ElementName=Topping}"
-                Cursor="Hand"
-                FontSize="25"
-                Margin="15, 0"
-                Content="Topping"
-                IsChecked="False"                   
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+
             <RadioButton
                 HorizontalAlignment="Stretch"
                 Command="{Binding ProductFilter}"
