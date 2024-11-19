@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="RectangleTableStyle" TargetType="{x:Type Rectangle}">
-        <Setter Property="Stretch" Value="Fill"/>
         <Setter Property="RadiusX" Value="20"/>
         <Setter Property="RadiusY" Value="20"/>
     </Style>

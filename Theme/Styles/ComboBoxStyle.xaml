@@ -34,7 +34,7 @@
                         <Border 
                             x:Name="ComboBoxBorder"
                             Background="#ffc3a1" 
-                            CornerRadius="30" 
+                            CornerRadius="10" 
                             Height="{TemplateBinding Height}">
                             <TextBlock 
                                 IsEnabled="True"

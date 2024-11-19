@@ -98,7 +98,7 @@
     </Style>
 
     <Style x:Key="SearchTextBoxStyleStaff" TargetType="TextBox">
-        <Setter Property="Height" Value="55"/>
+        <Setter Property="Height" Value="65"/>
         <Setter Property="Width" Value="445"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -110,11 +110,12 @@
                         x:Name="Border"
                         Background="#ffc3a1"
                         BorderThickness="0"
-                        CornerRadius="5">
+                        CornerRadius="10">
                         <Grid>
                             <TextBlock
                                 x:Name="Mask"
                                 Text="Tìm kiếm"
+                                VerticalAlignment="Center"
                                 Foreground="#ffc3a1"
                                 Margin="10"
                                 Opacity="0.8"

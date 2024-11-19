@@ -70,7 +70,7 @@
                         <StackPanel Grid.Column="1">
                             <Button 
                                 Style="{DynamicResource ButtonStaffStyle}"
-                                Content="Chọn khách hàng"
+                                Content="Tìm khách hàng"
                                 Background="Transparent"
                                 Margin="10,10,5,0"
                                 Width="160"
@@ -111,7 +111,7 @@
                                 Style="{DynamicResource ButtonStaffStyle}"
                                 Content="Thêm vào hóa đơn"
                                 VerticalAlignment="Bottom"
-                                Margin="10,10,5,5"
+                                Margin="10,10,5,10"
                                 Width="160"
                                 Background="#d3756b"
                                 HorizontalAlignment="Right"></Button>

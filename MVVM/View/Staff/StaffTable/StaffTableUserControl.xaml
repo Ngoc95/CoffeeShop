@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="QuanLiCoffeeShop.MVVM.View.Staff.StaffTable.StaffTableUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffTable"
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="692" d:DesignWidth="930">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Menu Grid.Row="0" FocusVisualStyle="{DynamicResource MenuStyle1}">
+                <MenuItem Header="Ban 2"/>
+                <MenuItem Header="Ban 3"/>
+                <MenuItem Header="Ban 4"/>
+                <MenuItem Header="Ban 6"/>
+                <MenuItem Header="Khac"/>
+            </Menu>
+            <!--toi chiu-->
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="9*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="1" BorderBrush="#603127" BorderThickness="1" Background="#ffc3a1" Margin="0,0,10,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock 
+                        Grid.Row="0" 
+                        Style="{DynamicResource Header5Style}" Text="Lịch đặt bàn" Margin="10"></TextBlock>
+                    <DataGrid Grid.Row="1" Margin="10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Mã đặt bàn"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Mã bàn"></DataGridTextColumn>
+                            <!--<DataGridTextColumn Header="Mã KH"></DataGridTextColumn>-->
+                            <DataGridTextColumn Header="Ngày đặt"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Giờ đặt"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+               
+               
+            </Border>
+
+            <Button 
+                Grid.Row="2"
+                Style="{DynamicResource ButtonStaffStyle}" 
+                Margin="0,0,10,0" 
+                Content="Thêm lịch đặt bàn"
+                Background="#ffc3a1"></Button>
+        </Grid>
+        
+        <!--con thieu nhan ban-->
+    </Grid>
+</UserControl>
