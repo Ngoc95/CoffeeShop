@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffTable"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
         xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
         xmlns:tbuc="clr-namespace:QuanLiCoffeeShop.MVVM.View.TableCard"
         mc:Ignorable="d"
@@ -11,6 +13,7 @@
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         Title="AddReservationWindow" Height="860" Width="810">
+
     <Border 
         Background="White" 
         BorderBrush="#603127"
@@ -19,7 +22,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
-                <RowDefinition/>
+                <RowDefinition Height="0.6*"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBlock 
@@ -32,8 +35,115 @@
                 HorizontalAlignment="Right" 
                 Margin="15"></uc:ControlBarUserControl>
             <StackPanel Grid.Row="1" Orientation="Horizontal" CanVerticallyScroll="True" CanHorizontallyScroll="True">
-                <tbuc:Table2Card Width="auto"></tbuc:Table2Card>
             </StackPanel>
+            <Separator Grid.Row="2" VerticalAlignment="Top"></Separator>
+            <Grid Grid.Row="2">
+                <Border 
+                    Margin="10"
+                    Background="#ffc3a1"
+                    CornerRadius="20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.5*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Text="Thông tin khách hàng: " Style="{DynamicResource Header4Style}" Margin="15,5"></TextBlock>
+                            <StackPanel Margin="20,5" Orientation="Horizontal">
+                                <TextBlock Grid.Column="0" Text="Mã khách hàng: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                <TextBlock Grid.Column="0" Text="{Binding}" Style="{DynamicResource Header6Style}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Margin="20,5" Orientation="Horizontal">
+                                <TextBlock Grid.Column="0" Text="Tên khách hàng: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                <TextBlock Grid.Column="0" Text="{Binding}" Style="{DynamicResource Header6Style}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Margin="20,5" Orientation="Horizontal">
+                                <TextBlock Grid.Column="0" Text="Điện thoại: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                <TextBlock Grid.Column="0" Text="{Binding}" Style="{DynamicResource Header6Style}"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                        <Button 
+                            Margin="15"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Right"
+                            Width="200"
+                            Content="Tìm khách hàng"
+                            Style="{DynamicResource ButtonCancel_WD}"></Button>
+                        <Separator Grid.Row="1" VerticalAlignment="Top" BorderBrush="Black" ></Separator>
+                                    
+                        <Grid Grid.Row="1">
+                            <StackPanel>
+                                <TextBlock Text="Thông tin đặt bàn: " Style="{DynamicResource Header4Style}" Margin="15,5" VerticalAlignment="Top"></TextBlock>
+                                <Grid Margin="15,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <StackPanel Margin="5" Orientation="Horizontal">
+                                            <TextBlock Grid.Column="0" Text="Mã đặt chỗ: " Width="140" Style="{DynamicResource Header6Style}"></TextBlock>
+                                            <TextBlock Grid.Column="0" Text="{Binding}" Style="{DynamicResource Header6Style}"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Margin="5" Orientation="Horizontal">
+                                            <TextBlock Grid.Column="0" Text="Mã bàn: " Width="140" Style="{DynamicResource Header6Style}"></TextBlock>
+                                            <TextBox Height="25" Width="100"/>
+                                        </StackPanel>   
+                                        <StackPanel Margin="5" Orientation="Horizontal">
+                                            <TextBlock Grid.Column="0" Text="Số lượng người: " Width="140" Style="{DynamicResource Header6Style}"></TextBlock>
+                                            <TextBox Height="25" Width="100"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <StackPanel Margin="5" Orientation="Horizontal">
+                                            <TextBlock Width="120" Grid.Column="0" Text="Ngày đặt bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                            <DatePicker
+                                                DisplayDateStart="{x:Static sys:DateTime.Today}"
+                                                xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                                                Width="100"
+                                                materialDesign:TextFieldAssist.HasClearButton="True"
+                                                CalendarStyle="{StaticResource MaterialDesignCalendarPortraitForeground}"></DatePicker>
+                                        </StackPanel>
+                                        <StackPanel Margin="5" Orientation="Horizontal">
+                                            <TextBlock Width="120" Grid.Column="0" Text="Giờ đặt bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                            <materialDesign:TimePicker
+                                                x:Name="PresetTimePicker"
+                                                Width="100"
+                                                Is24Hours="True"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="5" Orientation="Horizontal">
+                                            <TextBlock Grid.Column="0" Text="Thời điểm đặt bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                            <TextBlock Text="{Binding }" Style="{DynamicResource Header6Style}"></TextBlock>
+                                         </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+
+                                <TextBlock 
+                                    Margin="20,0" 
+                                    Text="Yêu cầu của khách: " 
+                                    Style="{DynamicResource Header6Style}">
+                                </TextBlock>
+                                <TextBox 
+                                    Margin="20,0"
+                                    Height="80"
+                                    Style="{DynamicResource TextBoxDescribeStyle}"></TextBox>
+                            </StackPanel>
+                            <Button
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Left"
+                                Margin="20,10"
+                                Content="Bỏ qua"
+                                Style="{DynamicResource ButtonCancel_WD}"/>   
+                            <Button
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Right"
+                                Margin="20,10"
+                                Content="Thêm "
+                                Style="{DynamicResource ButtonAdd_WD}"/>
+                        </Grid>
+
+                    </Grid>
+                </Border>
+            </Grid>
         </Grid>
     </Border>
 </Window>
