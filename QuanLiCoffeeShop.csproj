@@ -395,7 +395,6 @@
     <Compile Include="MVVM\View\Staff\MainStaffWindow.xaml.cs">
       <DependentUpon>MainStaffWindow.xaml</DependentUpon>
     </Compile>
-    </Compile>
     <Compile Include="MVVM\View\TableCard\Table2Card.xaml.cs">
       <DependentUpon>Table2Card.xaml</DependentUpon>
     </Compile>
@@ -495,7 +494,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Table\Ban2.png" />
-  </ItemGroup>
     <Resource Include="Images\ControlBarImg\user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
