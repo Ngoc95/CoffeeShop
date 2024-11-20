@@ -1,12 +1,11 @@
-﻿<UserControl x:Class="QuanLiCoffeeShop.MVVM.View.TableCard.Table4Card"
+﻿<UserControl x:Class="QuanLiCoffeeShop.MVVM.View.TableCard.StaffTable6Card"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.TableCard"
              mc:Ignorable="d" 
-             d:DesignHeight="236" d:DesignWidth="154"
+             d:DesignHeight="236" d:DesignWidth="150"
              HorizontalAlignment="Left"
              VerticalAlignment="Top">
     <Border 
@@ -20,7 +19,7 @@
                 <RowDefinition Height="49"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Background="White" Height="30" VerticalAlignment="Bottom"></Grid>
-            <Image Source="../../../Images/Table/Ban4.png" Stretch="Fill"></Image>
+            <Image Source="../../../Images/Table/Ban6.png" Stretch="Fill"></Image>
 
 
             <Grid Grid.Row="1" Background="#FFC3A1" Margin="0, 0, 0, -20">
@@ -28,23 +27,14 @@
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
                 <TextBlock VerticalAlignment="Center" FontSize="16" Text="{Binding}"></TextBlock>
                 <TextBlock TextAlignment="Center" FontSize="14" Text="{Binding }"></TextBlock>
-                <TextBlock TextAlignment="Center" FontSize="14" Foreground="#49454F" Text="Bàn 4 người"></TextBlock>
+                <TextBlock TextAlignment="Center" FontSize="14" Foreground="#49454F" Text="Bàn 6 người"></TextBlock>
             </StackPanel>
 
             <Rectangle Grid.Row="2" Fill="#FFC3A1" RadiusX="20" RadiusY="20"/>
 
 
             <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-
-                <Button Grid.Column="0"
-                    Style="{DynamicResource ButtonStyleEditTBCard}"/>
-
-                <Button   Grid.Column="1"
-                    Style="{DynamicResource ButtonStyleDeleteTBCard}"/>
+                <Button Style="{DynamicResource ButtonStyleStaffTable}"/>
             </Grid>
 
 

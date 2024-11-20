@@ -6,7 +6,7 @@
         <Setter Property="Text" Value=""/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate>
+                <ControlTemplate TargetType="TextBox">
                     <Border
                         x:Name="BorderTBox"
                         Background="#ffc3a1"
@@ -39,7 +39,7 @@
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate>
+                <ControlTemplate TargetType="TextBox">
                     <Border 
                         x:Name="BorderTBox"
                         BorderBrush="#603127" 
@@ -95,6 +95,61 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="SearchTextBoxStyleStaff" TargetType="TextBox">
+        <Setter Property="Height" Value="65"/>
+        <Setter Property="Width" Value="445"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border
+                        x:Name="Border"
+                        Background="#ffc3a1"
+                        BorderThickness="0"
+                        CornerRadius="10">
+                        <Grid>
+                            <TextBlock
+                                x:Name="Mask"
+                                Text="Tìm kiếm"
+                                VerticalAlignment="Center"
+                                Foreground="#ffc3a1"
+                                Margin="10"
+                                Opacity="0.8"
+                                Visibility="Visible"></TextBlock>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="10,10,50,10"/>
+                            <TextBlock 
+                                x:Name="Icon"
+                                FontFamily="Segoe MDL2 Assets" 
+                                Text="&#xE721;"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="10"></TextBlock>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#603127" />
+                            <Setter TargetName="Border" Property="BorderThickness" Value="1" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#603127" />
+                            <Setter TargetName="Border" Property="BorderThickness" Value="1" />
+                        </Trigger>
+                        <Trigger Property="Text" Value="">
+                            <Setter TargetName="Mask" Property="Foreground" Value="gray"/>
+                        </Trigger>
+                        <Trigger Property="Text" Value="{x:Null}">
+                            <Setter TargetName="Mask"  Property="Foreground" Value="gray"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Padding" Value="5"/>
     </Style>
     
 </ResourceDictionary>

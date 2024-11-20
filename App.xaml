@@ -34,10 +34,11 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.Lime.xaml" />
 
                 <ResourceDictionary Source="Theme/Styles/ButtonStyles.xaml"/>
-                <ResourceDictionary Source="Theme/Styles/RectangleStyles.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/Rectangle_ClockStyles.xaml"/>
                 <ResourceDictionary Source="Theme/Styles/ComboBoxStyle.xaml"/>
                 <ResourceDictionary Source="Theme/Styles/TextBlockStyles.xaml"/>
                 <ResourceDictionary Source="Theme/Styles/TextBoxStyles.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/MenuStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <!--Converter-->

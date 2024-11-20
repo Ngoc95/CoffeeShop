@@ -14,7 +14,7 @@
         <Rectangle Fill="#ffc3a1" Stretch="Fill" RadiusX="10" RadiusY="10"></Rectangle>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="270"/>
+                    <RowDefinition Height="3.58*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">

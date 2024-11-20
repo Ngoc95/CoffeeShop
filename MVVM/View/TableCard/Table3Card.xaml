@@ -20,11 +20,8 @@
                 <RowDefinition Height="49"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Background="White" Height="30" VerticalAlignment="Bottom"></Grid>
-            <Rectangle Grid.Row="0" Style="{DynamicResource RectangleTableStyle}">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="/Images/Table/Ban3.png" Stretch="UniformToFill"></ImageBrush>
-                </Rectangle.Fill>
-            </Rectangle>
+            <Image Source="../../../Images/Table/Ban3.png" Stretch="Fill"></Image>
+
 
             <Grid Grid.Row="1" Background="#FFC3A1" Margin="0, 0, 0, -20">
             </Grid>
