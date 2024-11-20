@@ -12,7 +12,7 @@
         WindowStyle="None"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
-        Title="AddReservationWindow" Height="860" Width="810">
+        Title="AddReservationWindow" Height="930" Width="810">
 
     <Border 
         Background="White" 
@@ -23,6 +23,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
                 <RowDefinition Height="0.6*"/>
+                <!--danh sach cac ban co the dat, xut theo datagrid-->
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBlock 
@@ -62,15 +63,24 @@
                                 <TextBlock Grid.Column="0" Text="{Binding}" Style="{DynamicResource Header6Style}"></TextBlock>
                             </StackPanel>
                         </StackPanel>
-                        <Button 
-                            Margin="15"
-                            VerticalAlignment="Bottom"
-                            HorizontalAlignment="Right"
-                            Width="200"
-                            Content="Tìm khách hàng"
-                            Style="{DynamicResource ButtonCancel_WD}"></Button>
-                        <Separator Grid.Row="1" VerticalAlignment="Top" BorderBrush="Black" ></Separator>
+                        <StackPanel Margin="15" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="auto">
+                            <Button 
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Right"
+                                Width="200"
+                                Content="Thêm khách hàng"
+                                Style="{DynamicResource ButtonAdd_WD}"></Button>
+                            <Button 
+                                Margin="5"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Right"
+                                Width="200"
+                                Content="Tìm khách hàng"
+                                Style="{DynamicResource ButtonCancel_WD}"></Button>
+                        </StackPanel>
                                     
+                        <Separator Grid.Row="1" VerticalAlignment="Top" BorderBrush="Black" ></Separator>
                         <Grid Grid.Row="1">
                             <StackPanel>
                                 <TextBlock Text="Thông tin đặt bàn: " Style="{DynamicResource Header4Style}" Margin="15,5" VerticalAlignment="Top"></TextBlock>
@@ -81,7 +91,7 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0">
                                         <StackPanel Margin="5" Orientation="Horizontal">
-                                            <TextBlock Grid.Column="0" Text="Mã đặt chỗ: " Width="140" Style="{DynamicResource Header6Style}"></TextBlock>
+                                            <TextBlock Grid.Column="0" Text="Mã đặt bàn: " Width="140" Style="{DynamicResource Header6Style}"></TextBlock>
                                             <TextBlock Grid.Column="0" Text="{Binding}" Style="{DynamicResource Header6Style}"></TextBlock>
                                         </StackPanel>
                                         <StackPanel Margin="5" Orientation="Horizontal">
@@ -97,6 +107,7 @@
                                         <StackPanel Margin="5" Orientation="Horizontal">
                                             <TextBlock Width="120" Grid.Column="0" Text="Ngày đặt bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
                                             <DatePicker
+                                                BorderBrush="AntiqueWhite"
                                                 DisplayDateStart="{x:Static sys:DateTime.Today}"
                                                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
                                                 Width="100"
@@ -118,12 +129,12 @@
                                 </Grid>
 
                                 <TextBlock 
-                                    Margin="20,0" 
+                                    Margin="20,5" 
                                     Text="Yêu cầu của khách: " 
                                     Style="{DynamicResource Header6Style}">
                                 </TextBlock>
                                 <TextBox 
-                                    Margin="20,0"
+                                    Margin="20,5"
                                     Height="80"
                                     Style="{DynamicResource TextBoxDescribeStyle}"></TextBox>
                             </StackPanel>

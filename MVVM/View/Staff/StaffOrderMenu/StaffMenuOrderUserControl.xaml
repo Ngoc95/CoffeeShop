@@ -58,13 +58,17 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
-                            <StackPanel Orientation="Horizontal" Margin="15,15,0,10">
+                            <StackPanel Orientation="Horizontal" Margin="15,15,0,5">
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="Tên khách hàng: "></TextBlock>
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="vãng lai"/>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="15,15,0,10">
+                            <StackPanel Orientation="Horizontal" Margin="15,5,0,5">
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="Mã khách hàng: "></TextBlock>
-                                <TextBlock Style="{DynamicResource Header5Style}" Text="binding"></TextBlock>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="15,5,0,5">
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="Điểm tích lũy: "></TextBlock>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding}"></TextBlock>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Grid.Column="1">
@@ -104,6 +108,7 @@
                                     FontSize="18"
                                     Height="auto"
                                     Width="auto"/>
+                                    <!--Value="{x:Null}"-->
                             </StackPanel>
 
                         </StackPanel>
@@ -176,10 +181,10 @@
                             Width="200"
                             Margin="5"
                             Background="#ffc3a1"
-                            Content="Chọn chỗ ngồi"></Button>
+                            Content="Dùng điểm "></Button>
                         <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                             <TextBlock Text="Tổng tiền: " Style="{DynamicResource Header6Style}"></TextBlock>
-                            <TextBlock Text="binding" Style="{DynamicResource Header6Style}"></TextBlock>
+                            <TextBlock Text="{Binding}" Style="{DynamicResource Header6Style}"></TextBlock>
                         </StackPanel>
                         <Button Grid.Row="2" 
                                 VerticalAlignment="Bottom"
