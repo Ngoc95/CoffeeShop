@@ -10,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiCoffeeShop.MVVM.View.Admin
+namespace QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement
 {
-    public partial class MainAdminWindow : Window
+    /// <summary>
+    /// Interaction logic for CustomerUserControl.xaml
+    /// </summary>
+    public partial class CustomerUserControl : UserControl
     {
-        public MainAdminWindow()
+        public CustomerUserControl()
         {
             InitializeComponent();
-        }
-
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                this.DragMove();
-            }
         }
     }
 }

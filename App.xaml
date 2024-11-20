@@ -6,8 +6,13 @@
              xmlns:viewModelAdmin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
              xmlns:viewAdminCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
              xmlns:viewAdminEmp="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement"
-
-             StartupUri="/MVVM/View/Staff/StaffTable/AddReservationWindow.xaml">
+             xmlns:viewAdminErr="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.ErrorManagement"
+             xmlns:viewAdminMenu="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement"
+             xmlns:viewAdminTable="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagament"
+             xmlns:converter="clr-namespace:QuanLiCoffeeShop.Converters"
+             xmlns:viewModelStaff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
+             xmlns:viewStaffCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement"
+             StartupUri="/MVVM/View/Staff/MainStaffWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -36,13 +41,36 @@
                 <ResourceDictionary Source="Theme/Styles/MenuStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+            <!--Converter-->
+            <converter:GenderConverter x:Key="GenderConverter" />
+            <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+
+            <!--Change view (Admin)-->
             <DataTemplate DataType="{x:Type viewModelAdmin:CustomerViewModel}">
                 <viewAdminCus:CustomerWindow/>
             </DataTemplate>
 
-                <DataTemplate DataType="{x:Type viewModelAdmin:EmployeeViewModel}">
-                    <viewAdminEmp:EmployeeWindow/>
-                </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModelAdmin:EmployeeViewModel}">
+                <viewAdminEmp:EmployeeWindow/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelAdmin:ErrorViewModel}">
+                <viewAdminErr:ErrorUserControl/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelAdmin:MenuViewModel}">
+                <viewAdminMenu:MenuUserControl/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelAdmin:TableViewModel}">
+                <viewAdminTable:TableUserControl/>
+            </DataTemplate>
+            
+            <!--Change view (Staff)-->
+            <DataTemplate DataType="{x:Type viewModelStaff:CustomerViewModel}">
+                <viewStaffCus:CustomerUserControl/>
+            </DataTemplate>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

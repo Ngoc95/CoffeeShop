@@ -1,22 +1,23 @@
-﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Admin.MainAdminWindow"
+﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Staff.MainStaffWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
-        xmlns:viewModelAdmin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff"
+        xmlns:viewModelStaff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
         xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
-        mc:Ignorable="d" 
-        Title="MainAdminWindow" Height="800" Width="1200"
+        mc:Ignorable="d"
+        Title="MainStaffWindow" Height="800" Width="1200"
         WindowStyle="None" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Background="Transparent" AllowsTransparency="True"
         MouseDown="Window_MouseDown">
-
     <Window.DataContext>
-        <viewModelAdmin:MainViewModel/>
+        <viewModelStaff:MainViewModel/>
     </Window.DataContext>
+
     <Border Background="White">
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="270"/>
@@ -24,22 +25,22 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="108"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
             <Grid Grid.RowSpan="2" Background="#FFC3A1"/>
-            <TextBlock  Margin="0,30,0,0" Grid.RowSpan="2"
+            <TextBlock
                    Text="Coffee Shop"
                    Foreground="black"
                    FontSize="40"
                    FontWeight="Bold"
                    Background="Transparent"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
+                   VerticalAlignment="Center"
                    FontFamily="Fonts/Roboto-Light.ttf #Roboto" RenderTransformOrigin="0.28,0.584" Height="48" Width="230" />
 
-            <StackPanel Grid.Row="1" Margin="0,40,0,0">
+            <StackPanel Grid.Row="1" Margin="0,0,0,0">
                 <RadioButton Margin="5,0,0,10"
                              Height="65"
                              FontSize="30"
@@ -54,90 +55,62 @@
                 </RadioButton>
 
                 <RadioButton Margin="5,0,0,10"
-                             Height="65"
+                             Height="65" Cursor="Hand"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding MenuViewCommand}"
-                             Content="   Menu"
-                             Cursor="Hand">
+                             Content="   Menu">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/coffeeMenu.png" />
                     </RadioButton.Tag>
                 </RadioButton>
 
                 <RadioButton Margin="5,0,0,10"
-                             Height="65"
+                             Height="65" Cursor="Hand"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding TableViewCommand}"
-                             Content="    Bàn"
-                             Cursor="Hand">
+                             Content="    Bàn">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/tableMenu.png"/>
                     </RadioButton.Tag>
                 </RadioButton>
 
                 <RadioButton Margin="5,0,0,10"
-                             Height="65"
+                             Height="65" Cursor="Hand"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding CustomerViewCommand}"
-                             Content="Khách hàng"
-                             Cursor="Hand">
+                             Content="Khách hàng">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/cusMenu.png" />
                     </RadioButton.Tag>
                 </RadioButton>
 
                 <RadioButton Margin="5,0,0,10"
-                             Height="65"
-                             FontSize="30"
-                             Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding EmployeeViewCommand}"
-                             Content=" Nhân viên"
-                             Cursor="Hand">
-                    <RadioButton.Tag>
-                        <BitmapImage UriSource="/Images/Menu/empMenu.png" />
-                    </RadioButton.Tag>
-                </RadioButton>
-
-                <RadioButton Margin="5,0,0,10"
-                             Height="65"
+                             Height="65" Cursor="Hand"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding HomeViewCommand}"
-                             Content="Ca làm việc"
-                             Cursor="Hand">
+                             Content="Ca làm việc">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/shiftMenu.png" />
                     </RadioButton.Tag>
                 </RadioButton>
 
                 <RadioButton Margin="5,0,0,10"
-                             Height="65"
+                             Height="65" Cursor="Hand"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding ErrorViewCommand}"
-                             Content="    Sự cố"
-                             Cursor="Hand">
+                             Content="    Sự cố">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/errorMenu.png" />
                     </RadioButton.Tag>
                 </RadioButton>
 
-                <RadioButton Margin="5,0,0,10"
-                             Height="65"
-                             FontSize="30"
-                             Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding HomeViewCommand}"
-                             Content="Thống kê"
-                             Cursor="Hand">
-                    <RadioButton.Tag>
-                        <BitmapImage UriSource="/Images/Menu/thongkeMenu.png" />
-                    </RadioButton.Tag>
-                </RadioButton>
 
-                <Button Margin="10,25,0,0" BorderBrush="Transparent"
+                <Button Margin="10,170,0,0" BorderBrush="Transparent"
                         Height="57" Cursor="Hand"
                         FontWeight="DemiBold">
                     <Button.Style>
@@ -166,7 +139,7 @@
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" >
                         <Image Source="/Images/Menu/logout.png"/>
                         <TextBlock Text="Đăng xuất" FontSize="35" Margin="5,4,0,0"/>
                     </StackPanel>
@@ -174,12 +147,46 @@
 
             </StackPanel>
 
-            <Grid HorizontalAlignment="Right" Margin="0,20,30,0" Width="80" VerticalAlignment="Top" Grid.Column="1" Height="40" Grid.RowSpan="2">
+            <Button Grid.Column="1" Grid.Row="0" Cursor="Hand"
+                        Margin="40,16,0,30" BorderBrush="Transparent" 
+                        FontWeight="DemiBold">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Foreground" Value="#49454F"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border HorizontalAlignment="Left" 
+                                                Background="{TemplateBinding Background}" 
+                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                BorderThickness="0">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Images/ControlbarImg/user.png" Height="50"/>
+                    <TextBlock Text="Nguyễn Văn A" FontSize="30" Margin="10,5,0,0"/>
+                </StackPanel>
+            </Button>
+            <Grid HorizontalAlignment="Left" Margin="820,0,0,0" Width="80" VerticalAlignment="Center" Grid.Column="1" Height="40">
                 <uc:ControlBarUserControl></uc:ControlBarUserControl>
             </Grid>
 
-            <ContentControl Grid.Column="1" Grid.Row="1"
-                            Content="{Binding CurrentView}"/>
+            <ContentControl Grid.Column="1" Grid.Row="1" Margin="0,-20,0,0"
+                            Content="{Binding CurrentView}" Grid.RowSpan="2"/>
         </Grid>
     </Border>
 

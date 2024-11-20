@@ -5,13 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.ErrorManagement"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="930"
+             d:DesignHeight="740" d:DesignWidth="930"
              FontFamily="Fonts/Roboto-Light.ttf #Roboto"
              FontSize="16"
              Background="White">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="110"></RowDefinition>
+            <RowDefinition Height="90"></RowDefinition>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -36,7 +36,7 @@
                 <ComboBoxItem Content="Chưa khắc phục"></ComboBoxItem>
             </ComboBox>
 
-            <Grid Grid.Column="2" Margin="0,0,15,0">
+            <Grid Grid.Column="2" Margin="0,0,40,0">
                 <Button 
                     Width="240" Height="76"   
                     HorizontalAlignment="Right"
@@ -50,7 +50,7 @@
         <Border 
             Grid.Row="1" 
             Background="#ffc3a1" 
-            Margin="15,30"
+            Margin="15,30,30,20"
             CornerRadius="20">
             <DataGrid Margin="20">
                 <DataGrid.Columns>

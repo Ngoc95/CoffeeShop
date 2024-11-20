@@ -7,13 +7,13 @@
 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="930"
+             d:DesignHeight="740" d:DesignWidth="930"
              FontFamily="Fonts/Roboto-Light.ttf #Roboto"
              FontSize="16"
              Background="White">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="110"></RowDefinition>
+            <RowDefinition Height="90"></RowDefinition>
             <RowDefinition Height="80"/>
             <RowDefinition Height="20"/>
             <RowDefinition/>
