@@ -185,10 +185,43 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+
     <Page Include="MVVM\View\Staff\CustomerManagement\AddCustomerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+
+    <Page Include="MVVM\View\Staff\StaffOrderMenu\SearchCustomerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\StaffOrderMenu\StaffMenuOrderUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\StaffTable\AddReservationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\StaffTable\StaffTableUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\StaffTable2Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\StaffTable3Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\StaffTable4Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\TableCard\StaffTable6Card.xaml">
+    </Page>
+
     <Page Include="MVVM\View\Staff\CustomerManagement\CustomerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -269,7 +302,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Theme\Styles\RectangleStyles.xaml">
+    <Page Include="Theme\Styles\MenuStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\Styles\Rectangle_ClockStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -414,8 +451,33 @@
     <Compile Include="MVVM\View\ProductCard\ProductCard.xaml.cs">
       <DependentUpon>ProductCard.xaml</DependentUpon>
     </Compile>
+
     <Compile Include="MVVM\View\Staff\CustomerManagement\AddCustomerWindow.xaml.cs">
       <DependentUpon>AddCustomerWindow.xaml</DependentUpon>
+
+    <Compile Include="MVVM\View\Staff\StaffOrderMenu\SearchCustomerWindow.xaml.cs">
+      <DependentUpon>SearchCustomerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\StaffOrderMenu\StaffMenuOrderUserControl.xaml.cs">
+      <DependentUpon>StaffMenuOrderUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\StaffTable\AddReservationWindow.xaml.cs">
+      <DependentUpon>AddReservationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\StaffTable\StaffTableUserControl.xaml.cs">
+      <DependentUpon>StaffTableUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\StaffTable2Card.xaml.cs">
+      <DependentUpon>StaffTable2Card.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\StaffTable3Card.xaml.cs">
+      <DependentUpon>StaffTable3Card.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\StaffTable4Card.xaml.cs">
+      <DependentUpon>StaffTable4Card.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\TableCard\StaffTable6Card.xaml.cs">
+      <DependentUpon>StaffTable6Card.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Staff\CustomerManagement\CustomerUserControl.xaml.cs">
       <DependentUpon>CustomerUserControl.xaml</DependentUpon>
@@ -517,7 +579,6 @@
     <Resource Include="Images\Message\infoMessage.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Table\Ban2.png" />
     <Resource Include="Images\Table\Ban3.png" />
   </ItemGroup>
   <ItemGroup>
@@ -546,6 +607,7 @@
     <Resource Include="Images\Login\login.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Table\Ban2.png" />
     <Resource Include="Images\ControlBarImg\user.png" />
   </ItemGroup>
   <ItemGroup>
