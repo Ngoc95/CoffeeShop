@@ -454,7 +454,7 @@
 
     <Compile Include="MVVM\View\Staff\CustomerManagement\AddCustomerWindow.xaml.cs">
       <DependentUpon>AddCustomerWindow.xaml</DependentUpon>
-
+	</Compile>
     <Compile Include="MVVM\View\Staff\StaffOrderMenu\SearchCustomerWindow.xaml.cs">
       <DependentUpon>SearchCustomerWindow.xaml</DependentUpon>
     </Compile>
