@@ -12,6 +12,7 @@
              xmlns:converter="clr-namespace:QuanLiCoffeeShop.Converters"
              xmlns:viewModelStaff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
              xmlns:viewStaffCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement"
+             xmlns:viewStaffErr="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement"
              StartupUri="/MVVM/View/Staff/MainStaffWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -70,7 +71,14 @@
             <DataTemplate DataType="{x:Type viewModelStaff:CustomerViewModel}">
                 <viewStaffCus:CustomerUserControl/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModelStaff:ErrorViewModel}">
+                <viewStaffErr:ErrorUserControl/>
+            </DataTemplate>
+
+            <viewModelAdmin:CustomerViewModel x:Key="CustomerAdminVM"/>
             
+            <viewModelStaff:CustomerViewModel x:Key="CustomerStaffVM"/>
+            <viewModelStaff:ErrorViewModel x:Key="ErrorStaffVM"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

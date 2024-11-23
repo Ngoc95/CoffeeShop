@@ -19,7 +19,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="Black" />
-                            <Setter TargetName="borderBtn" Property="Background" Value="#F0997D"/>                        
+                            <Setter TargetName="borderBtn" Property="Background" Value="#F0997D"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="White" />

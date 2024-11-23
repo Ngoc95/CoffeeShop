@@ -1,5 +1,4 @@
-﻿using QuanLiCoffeeShop.MVVM.ViewModel.Staff;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,18 +11,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement
 {
-    public partial class CustomerUserControl : UserControl
+    public partial class AddCustomerWindow : Window
     {
-        public CustomerUserControl()
+        public AddCustomerWindow()
         {
             InitializeComponent();
         }
+        private void moveAddCusWin_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
+        }
 
+        private void pass_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
         private void tbSDT_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextNumeric(e.Text);
@@ -32,6 +41,5 @@ namespace QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement
         {
             return Regex.IsMatch(text, @"^[0-9]+$");
         }
-
     }
 }
