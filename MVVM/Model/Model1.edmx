@@ -1,0 +1,702 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CoffeeShopDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="_TABLE">
+          <Key>
+            <PropertyRef Name="TB_ID" />
+          </Key>
+          <Property Name="TB_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GT_ID" Type="int" />
+          <Property Name="TB_STATUS" Type="nvarchar" MaxLength="100" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="BILL">
+          <Key>
+            <PropertyRef Name="BILL_ID" />
+          </Key>
+          <Property Name="BILL_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CUS_ID" Type="int" />
+          <Property Name="EMP_ID" Type="int" />
+          <Property Name="TOTAL_COST" Type="money" />
+          <Property Name="CREATE_AT" Type="smalldatetime" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="BILL_INFO">
+          <Key>
+            <PropertyRef Name="BILL_ID" />
+            <PropertyRef Name="PRO_ID" />
+          </Key>
+          <Property Name="BILL_ID" Type="int" Nullable="false" />
+          <Property Name="PRO_ID" Type="int" Nullable="false" />
+          <Property Name="QUANTITY" Type="int" />
+          <Property Name="PRICE_ITEM" Type="money" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="CUSTOMER">
+          <Key>
+            <PropertyRef Name="CUS_ID" />
+          </Key>
+          <Property Name="CUS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CUS_NAME" Type="nvarchar(max)" />
+          <Property Name="CUS_GENDER" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="CUS_PHONE" Type="varchar" MaxLength="20" />
+          <Property Name="CUS_EMAIL" Type="nvarchar(max)" />
+          <Property Name="CUS_POINT" Type="money" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="EMP_ID" />
+          </Key>
+          <Property Name="EMP_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMP_NAME" Type="nvarchar(max)" />
+          <Property Name="EMP_PHONE" Type="varchar" MaxLength="20" />
+          <Property Name="EMP_CCCD" Type="varchar" MaxLength="12" />
+          <Property Name="EMP_STARTDATE" Type="smalldatetime" />
+          <Property Name="EMP_BIRTHDAY" Type="smalldatetime" />
+          <Property Name="EMP_USERNAME" Type="varchar(max)" />
+          <Property Name="EMP_PASSWORD" Type="varchar(max)" />
+          <Property Name="EMP_EMAIL" Type="varchar(max)" />
+          <Property Name="EMP_GENDER" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="EMP_STATUS" Type="nvarchar" MaxLength="100" />
+          <Property Name="EMP_SALARY" Type="money" />
+          <Property Name="EMP_ROLE" Type="nvarchar" MaxLength="100" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE_SHIFT">
+          <Key>
+            <PropertyRef Name="EMP_ID" />
+            <PropertyRef Name="SHIFT_ID" />
+          </Key>
+          <Property Name="EMP_ID" Type="int" Nullable="false" />
+          <Property Name="SHIFT_ID" Type="int" Nullable="false" />
+          <Property Name="WORK_DATE" Type="date" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="ERROR">
+          <Key>
+            <PropertyRef Name="ER_ID" />
+          </Key>
+          <Property Name="ER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ER_NAME" Type="nvarchar(max)" />
+          <Property Name="ER_STATUS" Type="nvarchar" MaxLength="100" />
+          <Property Name="ER_DESCRIPTION" Type="nvarchar(max)" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="GENRE_PRODUCT">
+          <Key>
+            <PropertyRef Name="GP_ID" />
+          </Key>
+          <Property Name="GP_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GP_NAME" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GENRE_TABLE">
+          <Key>
+            <PropertyRef Name="GT_ID" />
+          </Key>
+          <Property Name="GT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GT_NAME" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUCT">
+          <Key>
+            <PropertyRef Name="PRO_ID" />
+          </Key>
+          <Property Name="PRO_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PRO_NAME" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="GP_ID" Type="int" />
+          <Property Name="PRO_IMG" Type="varchar(max)" />
+          <Property Name="PRO_DESCRIPTION" Type="nvarchar(max)" />
+          <Property Name="PRO_PRICE" Type="money" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="WORK_SHIFT">
+          <Key>
+            <PropertyRef Name="SHIFT_ID" />
+          </Key>
+          <Property Name="SHIFT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SHIFT_NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="START_TIME" Type="smalldatetime" />
+          <Property Name="END_TIME" Type="smalldatetime" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <Association Name="fk_BILL_CUS">
+          <End Role="CUSTOMER" Type="Self.CUSTOMER" Multiplicity="0..1" />
+          <End Role="BILL" Type="Self.BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CUSTOMER">
+              <PropertyRef Name="CUS_ID" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="CUS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_BILL_EMP">
+          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1" />
+          <End Role="BILL" Type="Self.BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_BillInfo_BILL">
+          <End Role="BILL" Type="Self.BILL" Multiplicity="1" />
+          <End Role="BILL_INFO" Type="Self.BILL_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BILL">
+              <PropertyRef Name="BILL_ID" />
+            </Principal>
+            <Dependent Role="BILL_INFO">
+              <PropertyRef Name="BILL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_BillInfo_PRO">
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+          <End Role="BILL_INFO" Type="Self.BILL_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="PRO_ID" />
+            </Principal>
+            <Dependent Role="BILL_INFO">
+              <PropertyRef Name="PRO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EMPSHIFT_EMP">
+          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="1" />
+          <End Role="EMPLOYEE_SHIFT" Type="Self.EMPLOYEE_SHIFT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="EMPLOYEE_SHIFT">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EMPSHIFT_SHIFT">
+          <End Role="WORK_SHIFT" Type="Self.WORK_SHIFT" Multiplicity="1" />
+          <End Role="EMPLOYEE_SHIFT" Type="Self.EMPLOYEE_SHIFT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WORK_SHIFT">
+              <PropertyRef Name="SHIFT_ID" />
+            </Principal>
+            <Dependent Role="EMPLOYEE_SHIFT">
+              <PropertyRef Name="SHIFT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PRO_GENRE">
+          <End Role="GENRE_PRODUCT" Type="Self.GENRE_PRODUCT" Multiplicity="0..1" />
+          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENRE_PRODUCT">
+              <PropertyRef Name="GP_ID" />
+            </Principal>
+            <Dependent Role="PRODUCT">
+              <PropertyRef Name="GP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TABLE_GENRE">
+          <End Role="GENRE_TABLE" Type="Self.GENRE_TABLE" Multiplicity="0..1" />
+          <End Role="_TABLE" Type="Self._TABLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENRE_TABLE">
+              <PropertyRef Name="GT_ID" />
+            </Principal>
+            <Dependent Role="_TABLE">
+              <PropertyRef Name="GT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CoffeeShopDBModelStoreContainer">
+          <EntitySet Name="_TABLE" EntityType="Self._TABLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BILL" EntityType="Self.BILL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BILL_INFO" EntityType="Self.BILL_INFO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMPLOYEE_SHIFT" EntityType="Self.EMPLOYEE_SHIFT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ERROR" EntityType="Self.ERROR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GENRE_PRODUCT" EntityType="Self.GENRE_PRODUCT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GENRE_TABLE" EntityType="Self.GENRE_TABLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WORK_SHIFT" EntityType="Self.WORK_SHIFT" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_BILL_CUS" Association="Self.fk_BILL_CUS">
+            <End Role="CUSTOMER" EntitySet="CUSTOMER" />
+            <End Role="BILL" EntitySet="BILL" />
+          </AssociationSet>
+          <AssociationSet Name="fk_BILL_EMP" Association="Self.fk_BILL_EMP">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+            <End Role="BILL" EntitySet="BILL" />
+          </AssociationSet>
+          <AssociationSet Name="fk_BillInfo_BILL" Association="Self.fk_BillInfo_BILL">
+            <End Role="BILL" EntitySet="BILL" />
+            <End Role="BILL_INFO" EntitySet="BILL_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="fk_BillInfo_PRO" Association="Self.fk_BillInfo_PRO">
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+            <End Role="BILL_INFO" EntitySet="BILL_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EMPSHIFT_EMP" Association="Self.fk_EMPSHIFT_EMP">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+            <End Role="EMPLOYEE_SHIFT" EntitySet="EMPLOYEE_SHIFT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EMPSHIFT_SHIFT" Association="Self.fk_EMPSHIFT_SHIFT">
+            <End Role="WORK_SHIFT" EntitySet="WORK_SHIFT" />
+            <End Role="EMPLOYEE_SHIFT" EntitySet="EMPLOYEE_SHIFT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PRO_GENRE" Association="Self.fk_PRO_GENRE">
+            <End Role="GENRE_PRODUCT" EntitySet="GENRE_PRODUCT" />
+            <End Role="PRODUCT" EntitySet="PRODUCT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TABLE_GENRE" Association="Self.fk_TABLE_GENRE">
+            <End Role="GENRE_TABLE" EntitySet="GENRE_TABLE" />
+            <End Role="_TABLE" EntitySet="_TABLE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CoffeeShopDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CoffeeShopDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C_TABLE" EntityType="CoffeeShopDBModel.C_TABLE" />
+          <EntitySet Name="BILLs" EntityType="CoffeeShopDBModel.BILL" />
+          <EntitySet Name="BILL_INFO" EntityType="CoffeeShopDBModel.BILL_INFO" />
+          <EntitySet Name="CUSTOMERs" EntityType="CoffeeShopDBModel.CUSTOMER" />
+          <EntitySet Name="EMPLOYEEs" EntityType="CoffeeShopDBModel.EMPLOYEE" />
+          <EntitySet Name="EMPLOYEE_SHIFT" EntityType="CoffeeShopDBModel.EMPLOYEE_SHIFT" />
+          <EntitySet Name="ERRORs" EntityType="CoffeeShopDBModel.ERROR" />
+          <EntitySet Name="GENRE_PRODUCT" EntityType="CoffeeShopDBModel.GENRE_PRODUCT" />
+          <EntitySet Name="GENRE_TABLE" EntityType="CoffeeShopDBModel.GENRE_TABLE" />
+          <EntitySet Name="PRODUCTs" EntityType="CoffeeShopDBModel.PRODUCT" />
+          <EntitySet Name="WORK_SHIFT" EntityType="CoffeeShopDBModel.WORK_SHIFT" />
+          <AssociationSet Name="fk_TABLE_GENRE" Association="CoffeeShopDBModel.fk_TABLE_GENRE">
+            <End Role="GENRE_TABLE" EntitySet="GENRE_TABLE" />
+            <End Role="C_TABLE" EntitySet="C_TABLE" />
+          </AssociationSet>
+          <AssociationSet Name="fk_BILL_CUS" Association="CoffeeShopDBModel.fk_BILL_CUS">
+            <End Role="CUSTOMER" EntitySet="CUSTOMERs" />
+            <End Role="BILL" EntitySet="BILLs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_BILL_EMP" Association="CoffeeShopDBModel.fk_BILL_EMP">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
+            <End Role="BILL" EntitySet="BILLs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_BillInfo_BILL" Association="CoffeeShopDBModel.fk_BillInfo_BILL">
+            <End Role="BILL" EntitySet="BILLs" />
+            <End Role="BILL_INFO" EntitySet="BILL_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="fk_BillInfo_PRO" Association="CoffeeShopDBModel.fk_BillInfo_PRO">
+            <End Role="PRODUCT" EntitySet="PRODUCTs" />
+            <End Role="BILL_INFO" EntitySet="BILL_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EMPSHIFT_EMP" Association="CoffeeShopDBModel.fk_EMPSHIFT_EMP">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
+            <End Role="EMPLOYEE_SHIFT" EntitySet="EMPLOYEE_SHIFT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EMPSHIFT_SHIFT" Association="CoffeeShopDBModel.fk_EMPSHIFT_SHIFT">
+            <End Role="WORK_SHIFT" EntitySet="WORK_SHIFT" />
+            <End Role="EMPLOYEE_SHIFT" EntitySet="EMPLOYEE_SHIFT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PRO_GENRE" Association="CoffeeShopDBModel.fk_PRO_GENRE">
+            <End Role="GENRE_PRODUCT" EntitySet="GENRE_PRODUCT" />
+            <End Role="PRODUCT" EntitySet="PRODUCTs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="C_TABLE">
+          <Key>
+            <PropertyRef Name="TB_ID" />
+          </Key>
+          <Property Name="TB_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GT_ID" Type="Int32" />
+          <Property Name="TB_STATUS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="GENRE_TABLE" Relationship="CoffeeShopDBModel.fk_TABLE_GENRE" FromRole="C_TABLE" ToRole="GENRE_TABLE" />
+        </EntityType>
+        <EntityType Name="BILL">
+          <Key>
+            <PropertyRef Name="BILL_ID" />
+          </Key>
+          <Property Name="BILL_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CUS_ID" Type="Int32" />
+          <Property Name="EMP_ID" Type="Int32" />
+          <Property Name="TOTAL_COST" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CREATE_AT" Type="DateTime" Precision="0" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="CUSTOMER" Relationship="CoffeeShopDBModel.fk_BILL_CUS" FromRole="BILL" ToRole="CUSTOMER" />
+          <NavigationProperty Name="EMPLOYEE" Relationship="CoffeeShopDBModel.fk_BILL_EMP" FromRole="BILL" ToRole="EMPLOYEE" />
+          <NavigationProperty Name="BILL_INFO" Relationship="CoffeeShopDBModel.fk_BillInfo_BILL" FromRole="BILL" ToRole="BILL_INFO" />
+        </EntityType>
+        <EntityType Name="BILL_INFO">
+          <Key>
+            <PropertyRef Name="BILL_ID" />
+            <PropertyRef Name="PRO_ID" />
+          </Key>
+          <Property Name="BILL_ID" Type="Int32" Nullable="false" />
+          <Property Name="PRO_ID" Type="Int32" Nullable="false" />
+          <Property Name="QUANTITY" Type="Int32" />
+          <Property Name="PRICE_ITEM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="BILL" Relationship="CoffeeShopDBModel.fk_BillInfo_BILL" FromRole="BILL_INFO" ToRole="BILL" />
+          <NavigationProperty Name="PRODUCT" Relationship="CoffeeShopDBModel.fk_BillInfo_PRO" FromRole="BILL_INFO" ToRole="PRODUCT" />
+        </EntityType>
+        <EntityType Name="CUSTOMER">
+          <Key>
+            <PropertyRef Name="CUS_ID" />
+          </Key>
+          <Property Name="CUS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CUS_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CUS_GENDER" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="CUS_PHONE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CUS_EMAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CUS_POINT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="BILLs" Relationship="CoffeeShopDBModel.fk_BILL_CUS" FromRole="CUSTOMER" ToRole="BILL" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="EMP_ID" />
+          </Key>
+          <Property Name="EMP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMP_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_PHONE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EMP_CCCD" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="EMP_STARTDATE" Type="DateTime" Precision="0" />
+          <Property Name="EMP_BIRTHDAY" Type="DateTime" Precision="0" />
+          <Property Name="EMP_USERNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EMP_PASSWORD" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EMP_EMAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EMP_GENDER" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_STATUS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_SALARY" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="EMP_ROLE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="BILLs" Relationship="CoffeeShopDBModel.fk_BILL_EMP" FromRole="EMPLOYEE" ToRole="BILL" />
+          <NavigationProperty Name="EMPLOYEE_SHIFT" Relationship="CoffeeShopDBModel.fk_EMPSHIFT_EMP" FromRole="EMPLOYEE" ToRole="EMPLOYEE_SHIFT" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE_SHIFT">
+          <Key>
+            <PropertyRef Name="EMP_ID" />
+            <PropertyRef Name="SHIFT_ID" />
+          </Key>
+          <Property Name="EMP_ID" Type="Int32" Nullable="false" />
+          <Property Name="SHIFT_ID" Type="Int32" Nullable="false" />
+          <Property Name="WORK_DATE" Type="DateTime" Precision="0" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="EMPLOYEE" Relationship="CoffeeShopDBModel.fk_EMPSHIFT_EMP" FromRole="EMPLOYEE_SHIFT" ToRole="EMPLOYEE" />
+          <NavigationProperty Name="WORK_SHIFT" Relationship="CoffeeShopDBModel.fk_EMPSHIFT_SHIFT" FromRole="EMPLOYEE_SHIFT" ToRole="WORK_SHIFT" />
+        </EntityType>
+        <EntityType Name="ERROR">
+          <Key>
+            <PropertyRef Name="ER_ID" />
+          </Key>
+          <Property Name="ER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ER_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ER_STATUS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ER_DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="GENRE_PRODUCT">
+          <Key>
+            <PropertyRef Name="GP_ID" />
+          </Key>
+          <Property Name="GP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GP_NAME" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PRODUCTs" Relationship="CoffeeShopDBModel.fk_PRO_GENRE" FromRole="GENRE_PRODUCT" ToRole="PRODUCT" />
+        </EntityType>
+        <EntityType Name="GENRE_TABLE">
+          <Key>
+            <PropertyRef Name="GT_ID" />
+          </Key>
+          <Property Name="GT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GT_NAME" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C_TABLE" Relationship="CoffeeShopDBModel.fk_TABLE_GENRE" FromRole="GENRE_TABLE" ToRole="C_TABLE" />
+        </EntityType>
+        <EntityType Name="PRODUCT">
+          <Key>
+            <PropertyRef Name="PRO_ID" />
+          </Key>
+          <Property Name="PRO_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PRO_NAME" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GP_ID" Type="Int32" />
+          <Property Name="PRO_IMG" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PRO_DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PRO_PRICE" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="BILL_INFO" Relationship="CoffeeShopDBModel.fk_BillInfo_PRO" FromRole="PRODUCT" ToRole="BILL_INFO" />
+          <NavigationProperty Name="GENRE_PRODUCT" Relationship="CoffeeShopDBModel.fk_PRO_GENRE" FromRole="PRODUCT" ToRole="GENRE_PRODUCT" />
+        </EntityType>
+        <EntityType Name="WORK_SHIFT">
+          <Key>
+            <PropertyRef Name="SHIFT_ID" />
+          </Key>
+          <Property Name="SHIFT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SHIFT_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="START_TIME" Type="DateTime" Precision="0" />
+          <Property Name="END_TIME" Type="DateTime" Precision="0" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="EMPLOYEE_SHIFT" Relationship="CoffeeShopDBModel.fk_EMPSHIFT_SHIFT" FromRole="WORK_SHIFT" ToRole="EMPLOYEE_SHIFT" />
+        </EntityType>
+        <Association Name="fk_TABLE_GENRE">
+          <End Type="CoffeeShopDBModel.GENRE_TABLE" Role="GENRE_TABLE" Multiplicity="0..1" />
+          <End Type="CoffeeShopDBModel.C_TABLE" Role="C_TABLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENRE_TABLE">
+              <PropertyRef Name="GT_ID" />
+            </Principal>
+            <Dependent Role="C_TABLE">
+              <PropertyRef Name="GT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_BILL_CUS">
+          <End Type="CoffeeShopDBModel.CUSTOMER" Role="CUSTOMER" Multiplicity="0..1" />
+          <End Type="CoffeeShopDBModel.BILL" Role="BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CUSTOMER">
+              <PropertyRef Name="CUS_ID" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="CUS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_BILL_EMP">
+          <End Type="CoffeeShopDBModel.EMPLOYEE" Role="EMPLOYEE" Multiplicity="0..1" />
+          <End Type="CoffeeShopDBModel.BILL" Role="BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_BillInfo_BILL">
+          <End Type="CoffeeShopDBModel.BILL" Role="BILL" Multiplicity="1" />
+          <End Type="CoffeeShopDBModel.BILL_INFO" Role="BILL_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BILL">
+              <PropertyRef Name="BILL_ID" />
+            </Principal>
+            <Dependent Role="BILL_INFO">
+              <PropertyRef Name="BILL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_BillInfo_PRO">
+          <End Type="CoffeeShopDBModel.PRODUCT" Role="PRODUCT" Multiplicity="1" />
+          <End Type="CoffeeShopDBModel.BILL_INFO" Role="BILL_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCT">
+              <PropertyRef Name="PRO_ID" />
+            </Principal>
+            <Dependent Role="BILL_INFO">
+              <PropertyRef Name="PRO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EMPSHIFT_EMP">
+          <End Type="CoffeeShopDBModel.EMPLOYEE" Role="EMPLOYEE" Multiplicity="1" />
+          <End Type="CoffeeShopDBModel.EMPLOYEE_SHIFT" Role="EMPLOYEE_SHIFT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="EMPLOYEE_SHIFT">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EMPSHIFT_SHIFT">
+          <End Type="CoffeeShopDBModel.WORK_SHIFT" Role="WORK_SHIFT" Multiplicity="1" />
+          <End Type="CoffeeShopDBModel.EMPLOYEE_SHIFT" Role="EMPLOYEE_SHIFT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WORK_SHIFT">
+              <PropertyRef Name="SHIFT_ID" />
+            </Principal>
+            <Dependent Role="EMPLOYEE_SHIFT">
+              <PropertyRef Name="SHIFT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PRO_GENRE">
+          <End Type="CoffeeShopDBModel.GENRE_PRODUCT" Role="GENRE_PRODUCT" Multiplicity="0..1" />
+          <End Type="CoffeeShopDBModel.PRODUCT" Role="PRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GENRE_PRODUCT">
+              <PropertyRef Name="GP_ID" />
+            </Principal>
+            <Dependent Role="PRODUCT">
+              <PropertyRef Name="GP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CoffeeShopDBModelStoreContainer" CdmEntityContainer="CoffeeShopDBEntities">
+          <EntitySetMapping Name="C_TABLE">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.C_TABLE">
+              <MappingFragment StoreEntitySet="_TABLE">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="TB_STATUS" ColumnName="TB_STATUS" />
+                <ScalarProperty Name="GT_ID" ColumnName="GT_ID" />
+                <ScalarProperty Name="TB_ID" ColumnName="TB_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BILLs">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.BILL">
+              <MappingFragment StoreEntitySet="BILL">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="CREATE_AT" ColumnName="CREATE_AT" />
+                <ScalarProperty Name="TOTAL_COST" ColumnName="TOTAL_COST" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="CUS_ID" ColumnName="CUS_ID" />
+                <ScalarProperty Name="BILL_ID" ColumnName="BILL_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BILL_INFO">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.BILL_INFO">
+              <MappingFragment StoreEntitySet="BILL_INFO">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="PRICE_ITEM" ColumnName="PRICE_ITEM" />
+                <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+                <ScalarProperty Name="PRO_ID" ColumnName="PRO_ID" />
+                <ScalarProperty Name="BILL_ID" ColumnName="BILL_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CUSTOMERs">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.CUSTOMER">
+              <MappingFragment StoreEntitySet="CUSTOMER">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="CUS_POINT" ColumnName="CUS_POINT" />
+                <ScalarProperty Name="CUS_EMAIL" ColumnName="CUS_EMAIL" />
+                <ScalarProperty Name="CUS_PHONE" ColumnName="CUS_PHONE" />
+                <ScalarProperty Name="CUS_GENDER" ColumnName="CUS_GENDER" />
+                <ScalarProperty Name="CUS_NAME" ColumnName="CUS_NAME" />
+                <ScalarProperty Name="CUS_ID" ColumnName="CUS_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLOYEEs">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.EMPLOYEE">
+              <MappingFragment StoreEntitySet="EMPLOYEE">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="EMP_ROLE" ColumnName="EMP_ROLE" />
+                <ScalarProperty Name="EMP_SALARY" ColumnName="EMP_SALARY" />
+                <ScalarProperty Name="EMP_STATUS" ColumnName="EMP_STATUS" />
+                <ScalarProperty Name="EMP_GENDER" ColumnName="EMP_GENDER" />
+                <ScalarProperty Name="EMP_EMAIL" ColumnName="EMP_EMAIL" />
+                <ScalarProperty Name="EMP_PASSWORD" ColumnName="EMP_PASSWORD" />
+                <ScalarProperty Name="EMP_USERNAME" ColumnName="EMP_USERNAME" />
+                <ScalarProperty Name="EMP_BIRTHDAY" ColumnName="EMP_BIRTHDAY" />
+                <ScalarProperty Name="EMP_STARTDATE" ColumnName="EMP_STARTDATE" />
+                <ScalarProperty Name="EMP_CCCD" ColumnName="EMP_CCCD" />
+                <ScalarProperty Name="EMP_PHONE" ColumnName="EMP_PHONE" />
+                <ScalarProperty Name="EMP_NAME" ColumnName="EMP_NAME" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLOYEE_SHIFT">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.EMPLOYEE_SHIFT">
+              <MappingFragment StoreEntitySet="EMPLOYEE_SHIFT">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="WORK_DATE" ColumnName="WORK_DATE" />
+                <ScalarProperty Name="SHIFT_ID" ColumnName="SHIFT_ID" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ERRORs">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.ERROR">
+              <MappingFragment StoreEntitySet="ERROR">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="ER_DESCRIPTION" ColumnName="ER_DESCRIPTION" />
+                <ScalarProperty Name="ER_STATUS" ColumnName="ER_STATUS" />
+                <ScalarProperty Name="ER_NAME" ColumnName="ER_NAME" />
+                <ScalarProperty Name="ER_ID" ColumnName="ER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GENRE_PRODUCT">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.GENRE_PRODUCT">
+              <MappingFragment StoreEntitySet="GENRE_PRODUCT">
+                <ScalarProperty Name="GP_NAME" ColumnName="GP_NAME" />
+                <ScalarProperty Name="GP_ID" ColumnName="GP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GENRE_TABLE">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.GENRE_TABLE">
+              <MappingFragment StoreEntitySet="GENRE_TABLE">
+                <ScalarProperty Name="GT_NAME" ColumnName="GT_NAME" />
+                <ScalarProperty Name="GT_ID" ColumnName="GT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTs">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.PRODUCT">
+              <MappingFragment StoreEntitySet="PRODUCT">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="PRO_PRICE" ColumnName="PRO_PRICE" />
+                <ScalarProperty Name="PRO_DESCRIPTION" ColumnName="PRO_DESCRIPTION" />
+                <ScalarProperty Name="PRO_IMG" ColumnName="PRO_IMG" />
+                <ScalarProperty Name="GP_ID" ColumnName="GP_ID" />
+                <ScalarProperty Name="PRO_NAME" ColumnName="PRO_NAME" />
+                <ScalarProperty Name="PRO_ID" ColumnName="PRO_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WORK_SHIFT">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.WORK_SHIFT">
+              <MappingFragment StoreEntitySet="WORK_SHIFT">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="END_TIME" ColumnName="END_TIME" />
+                <ScalarProperty Name="START_TIME" ColumnName="START_TIME" />
+                <ScalarProperty Name="SHIFT_NAME" ColumnName="SHIFT_NAME" />
+                <ScalarProperty Name="SHIFT_ID" ColumnName="SHIFT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

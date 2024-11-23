@@ -13,11 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement
+namespace QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement
 {
-    public partial class CustomerWindow : UserControl
+    /// <summary>
+    /// Interaction logic for ErrorUserControl.xaml
+    /// </summary>
+    public partial class ErrorUserControl : UserControl
     {
-        public CustomerWindow()
+        public ErrorUserControl()
         {
             InitializeComponent();
         }

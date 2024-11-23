@@ -1,0 +1,119 @@
+﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement.AddErrorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement" 
+        xmlns:staff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff" d:DataContext="{d:DesignInstance Type=staff:ErrorViewModel}"
+        mc:Ignorable="d" x:Name="AddErrPage"
+        WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
+        Background="Transparent"
+        WindowState="Normal" FontFamily="Fonts/Roboto-Light.ttf #Roboto"
+        WindowStartupLocation="CenterScreen"
+        Title="AddErrorWindow" Height="503" Width="667"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        DataContext="{StaticResource ErrorStaffVM}">
+    <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="318"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <TextBlock 
+                    FontWeight="DemiBold"
+                    Margin="20"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource Header1Style}"
+                    Text="Báo cáo sự cố"></TextBlock>
+                <Grid 
+                    Margin="25,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right">
+                    <uc:ControlBarUserControl></uc:ControlBarUserControl>
+                </Grid>
+            </Grid>
+
+            <Border 
+                Grid.Row="1"
+                Margin="15, 0"
+                Background="#ffc3a1"
+                CornerRadius="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="90"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="30,5"
+                            HorizontalAlignment="Left"
+                            Style="{DynamicResource Header2Style}"
+                            Text="Tên sự cố">
+                        </TextBlock>
+                        <TextBox
+                            Grid.Column="1"
+                            Margin="0,0,30,0"
+                            HorizontalAlignment="Stretch"
+                            Style="{DynamicResource InputTextBoxStyle}"
+                            Text="{Binding Name}">
+                        </TextBox>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock VerticalAlignment="Top"
+                            Grid.Column="0"
+                            Margin="30,10"
+                            HorizontalAlignment="Left"
+                            Style="{DynamicResource Header2Style}"
+                            Text="Ghi chú">
+                        </TextBlock>
+                        <TextBox
+                            Height="auto"
+                            VerticalAlignment="Stretch"
+                            Grid.Column="1"
+                            Margin="0,5,30,10"
+                            HorizontalAlignment="Stretch"
+                            Style="{DynamicResource InputTextBoxStyle}"
+                            Text="{Binding Description}">
+                        </TextBox>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Button x:Name="passErrWd"
+                Grid.Row="2"
+                Margin="20"
+                FontSize="22"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                Style="{DynamicResource ButtonCancel_WD}"
+                Content="Bỏ qua"
+                Click="passErrWd_Click">
+            </Button>
+
+
+            <Button 
+                Grid.Row="2"
+                Margin="20"
+                FontSize="22"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Command="{Binding AddErrorListCM}" CommandParameter="{Binding ElementName=AddErrPage}"
+                Style="{DynamicResource ButtonAdd_WD}"
+                Content="Cập nhật">
+            </Button>
+        </Grid>
+    </Border>
+</Window>
