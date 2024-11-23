@@ -83,11 +83,12 @@
 
             <Grid Grid.Column="2" Margin="0,0,20,0">
                 <Button 
-                    Width="230" Height="76"
-                    HorizontalAlignment="Right"
-                    Style="{DynamicResource ButtonStyle1}" 
+                    Width="230" Height="65" Margin="0,0,0,5"
+                    HorizontalAlignment="Right" FontWeight="Normal"
+                    materialDesign:ButtonAssist.CornerRadius="15"
+                    BorderThickness="0" Foreground="Black" FontSize="22"
                     Command="{Binding AddErrorWdCM}"
-                    Content="Báo cáo sự cố"
+                    Content="Báo cáo sự cố" Background="#ffc3a1" 
                     VerticalAlignment="Bottom">
                 </Button>
             </Grid>
