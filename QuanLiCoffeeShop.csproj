@@ -101,6 +101,22 @@
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />
+    <Page Include="MVVM\View\Admin\CaLamViecManagement\CaLamViecTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\CaLamViecManagement\DieuChinhCaLamViecWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\CaLamViecManagement\DieuChinhNgayLamViecWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\CaLamViecManagement\DonXinNghiWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,6 +173,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\Admin\ThongKeManagement\ThongKeTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\ControlBarX\ControlBarUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -185,12 +205,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-
     <Page Include="MVVM\View\Staff\CustomerManagement\AddCustomerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-
+    <Page Include="MVVM\View\Staff\StaffCaLamViec\CaLamViecTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\StaffCaLamViec\XinNghiPhepOrDoiCaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Staff\StaffOrderMenu\SearchCustomerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -221,7 +247,6 @@
     </Page>
     <Page Include="MVVM\View\TableCard\StaffTable6Card.xaml">
     </Page>
-
     <Page Include="MVVM\View\Staff\CustomerManagement\CustomerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -254,7 +279,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\ThongKe\ThongKeTable.xaml">
+    <Page Include="Theme\ButtonCaTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -387,6 +412,18 @@
     <Compile Include="MVVM\ViewModel\Staff\CustomerViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\ErrorViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\MainViewModel.cs" />
+    <Compile Include="MVVM\View\Admin\CaLamViecManagement\CaLamViecTable.xaml.cs">
+      <DependentUpon>CaLamViecTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\CaLamViecManagement\DieuChinhCaLamViecWindow.xaml.cs">
+      <DependentUpon>DieuChinhCaLamViecWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\CaLamViecManagement\DieuChinhNgayLamViecWindow.xaml.cs">
+      <DependentUpon>DieuChinhNgayLamViecWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\CaLamViecManagement\DonXinNghiWindow.xaml.cs">
+      <DependentUpon>DonXinNghiWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml.cs">
       <DependentUpon>AddCustomerWindow.xaml</DependentUpon>
     </Compile>
@@ -429,6 +466,9 @@
     <Compile Include="MVVM\View\Admin\TableManagement\TableUserControl.xaml.cs">
       <DependentUpon>TableUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\Admin\ThongKeManagement\ThongKeTable.xaml.cs">
+      <DependentUpon>ThongKeTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\ControlBarX\ControlBarUserControl.xaml.cs">
       <DependentUpon>ControlBarUserControl.xaml</DependentUpon>
     </Compile>
@@ -451,10 +491,15 @@
     <Compile Include="MVVM\View\ProductCard\ProductCard.xaml.cs">
       <DependentUpon>ProductCard.xaml</DependentUpon>
     </Compile>
-
     <Compile Include="MVVM\View\Staff\CustomerManagement\AddCustomerWindow.xaml.cs">
       <DependentUpon>AddCustomerWindow.xaml</DependentUpon>
-	</Compile>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\StaffCaLamViec\CaLamViecTable.xaml.cs">
+      <DependentUpon>CaLamViecTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\StaffCaLamViec\XinNghiPhepOrDoiCaWindow.xaml.cs">
+      <DependentUpon>XinNghiPhepOrDoiCaWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Staff\StaffOrderMenu\SearchCustomerWindow.xaml.cs">
       <DependentUpon>SearchCustomerWindow.xaml</DependentUpon>
     </Compile>
@@ -502,9 +547,6 @@
     </Compile>
     <Compile Include="MVVM\View\TableCard\Table6Card.xaml.cs">
       <DependentUpon>Table6Card.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MVVM\View\ThongKe\ThongKeTable.xaml.cs">
-      <DependentUpon>ThongKeTable.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
