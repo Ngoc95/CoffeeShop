@@ -90,10 +90,10 @@
                 <Border Margin="0,-20,0,0">
                     <GroupBox Header="Số liệu thống kê" Width="700" Background="White" Style="{StaticResource groupBox_style}" Height="74">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                            <RadioButton x:Name="RabtnSoLuong" Content="Số lượt khách" Margin="10,0" FontSize="14" Checked="RabtnSoLuong_Checked" />
-                            <RadioButton x:Name="RabtnDoanhThu" Content="Doanh thu" Margin="10,0" FontSize="14" Checked="RabtnDoanhThu_Checked"/>
-                            <RadioButton x:Name="RabtnUaThich" Content="Ưa thích nhất" Margin="10,0" FontSize="14" Checked="RabtnUaThich_Checked"/>
-                            <RadioButton x:Name="RabtnLuong" Content="Lương nhân viên" Margin="10,0" FontSize="14" Checked="RabtnLuong_Checked" />
+                            <RadioButton x:Name="RabtnSoLuong" Content="Số lượt khách" Margin="10,0" FontSize="14" />
+                            <RadioButton x:Name="RabtnDoanhThu" Content="Doanh thu" Margin="10,0" FontSize="14" />
+                            <RadioButton x:Name="RabtnUaThich" Content="Ưa thích nhất" Margin="10,0" FontSize="14"/>
+                            <RadioButton x:Name="RabtnLuong" Content="Lương nhân viên" Margin="10,0" FontSize="14"/>
                         </StackPanel>
                     </GroupBox>
                 </Border>
