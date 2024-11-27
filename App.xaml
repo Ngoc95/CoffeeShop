@@ -27,6 +27,7 @@
                 <ResourceDictionary Source="Theme/DatePickerTheme.xaml"/>
                 <ResourceDictionary Source="Theme/ButtonThongKeTheme.xaml"/>
                 <ResourceDictionary Source="Theme/GroupBoxTheme.xaml"/>
+                <ResourceDictionary Source="Theme/ButtonCaTheme.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />

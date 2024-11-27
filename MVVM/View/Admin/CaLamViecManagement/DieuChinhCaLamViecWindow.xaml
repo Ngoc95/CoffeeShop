@@ -1,0 +1,177 @@
+﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement.DieuChinhCaLamViecWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement"
+        mc:Ignorable="d"
+        Title="DieuChinhCaLamViecWindow" Height="600" Width="800"
+        WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen" Background="Transparent"
+        FontFamily="Fonts/Roboto-Light.ttf #Roboto">
+    <Border Background="White" CornerRadius="30"  BorderBrush="#603127" BorderThickness="1"
+            MouseDown="moveChangeCaWin_MouseDown" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="450"/>
+                <RowDefinition Height="190"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="Điểu chỉnh ca làm việc" FontSize="30" Foreground="#603127"
+                  FontWeight="Medium" Margin="0,7,0,0"
+                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Border Grid.Row="1" CornerRadius="10" 
+                    Width="730" 
+                    Margin="34,0,34,0" Background="#FFC3A1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="350"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="10,0,30,30">
+                        <Button x:Name="btnCaSang" Style="{StaticResource btnCa_style}" BorderThickness="1" BorderBrush="Black"
+                                Content="Ca Sáng" Foreground="#603127" FontWeight="DemiBold"
+                                FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="20" Width="179" Height="46"
+                                Background="White" Margin="35,0,0,0" Click="CaSang_Button_Click"/>
+                        <Button x:Name="btnCaChieu" Style="{StaticResource btnCa_style}" BorderThickness="1" BorderBrush="Black"
+                                Content="Ca Chiều" Foreground="#603127" FontWeight="DemiBold"
+                                 FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="20" Width="179" Height="46"
+                                 Background="#FFC3A1" Margin="0,0,0,0" Click="CaChieu_Button_Click"/>
+                        <Button x:Name="btnCaToi" Style="{StaticResource btnCa_style}" BorderThickness="1" BorderBrush="Black"
+                                 Content="Ca Tối" Foreground="#603127" FontWeight="DemiBold"
+                                 FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="20" Width="179" Height="46"
+                                Background="#FFC3A1" Margin="0,0,0,0" Click="CaToi_Button_Click"/>
+                    </StackPanel>
+                    <Grid x:Name="OverlayGridCaSang" Grid.Row="1" Background="#FFC3A1" Visibility="Collapsed" >
+                        <StackPanel Margin="20">
+                            <!-- Mã ca -->
+                            <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
+                                <Label Content="Mã ca:" Width="100" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBox Name="txtMaCaSang" Width="50" Height="30" FontSize="20" IsReadOnly="True" Text="CS"/>
+                            </StackPanel>
+
+                            <!-- Thời gian bắt đầu -->
+                            <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
+                                <Label Content="Thời gian bắt đầu:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBox Name="txtGioBatDauCaSang" Width="70" Height="40" FontSize="18" Text="06" HorizontalContentAlignment="Center"
+                                          Background="White" Style="{StaticResource textBox_style}"/>
+                                <Label Content=":" FontSize="18" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                <TextBox Name="txtPhutBatDauCaSang" Width="70" Height="40" FontSize="18" Text="00" HorizontalContentAlignment="Center"
+                                          Background="White" Style="{StaticResource textBox_style}"/>
+                            </StackPanel>
+
+                            <!-- Thời gian kết thúc -->
+                            <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
+                                <Label Content="Thời gian kết thúc:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBox Name="txtGioKetThucCaSang" Width="70" Height="40" FontSize="18" Text="12" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"/>
+                                <Label Content=":" FontSize="18" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                <TextBox Name="txtPhutKetThucCaSang" Width="70" Height="40" FontSize="18" Text="00" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"/>
+                            </StackPanel>
+
+                            <!-- Tiền lương 1 ca -->
+                            <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
+                                <Label Content="Tiền lương 1 ca:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBox Name="txtTienLuongCaSang" Width="160" Height="40" FontSize="18" Text="180.000" HorizontalContentAlignment="Right"
+                                          Background="White" Style="{StaticResource textBox_style}" TextChanged="txtTienLuong_TextChanged" 
+                                           PreviewTextInput="txtTienLuong_PreviewTextInput"/>
+
+                            </StackPanel>
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid x:Name="OverlayGridCaChieu" Grid.Row="1" Background="#FFC3A1" Visibility="Collapsed" >
+                        <StackPanel Margin="20">
+                            <!-- Mã ca -->
+                            <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
+                                <Label Content="Mã ca:" Width="100" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBox Name="txtMaCaChieu" Width="50" Height="30" FontSize="20" IsReadOnly="True" Text="CC"/>
+                            </StackPanel>
+
+                            <!-- Thời gian bắt đầu -->
+                            <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
+                                <Label Content="Thời gian bắt đầu:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBox Name="txtGioBatDauCaChieu" Width="70" Height="40" FontSize="18" Text="06" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"/>
+                                <Label Content=":" FontSize="18" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                <TextBox Name="txtPhutBatDauCaChieu" Width="70" Height="40" FontSize="18" Text="00" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"/>
+                            </StackPanel>
+
+                            <!-- Thời gian kết thúc -->
+                            <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
+                                <Label Content="Thời gian kết thúc:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBox Name="txtGioKetThucCaChieu" Width="70" Height="40" FontSize="18" Text="12" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"/>
+                                <Label Content=":" FontSize="18" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                <TextBox Name="txtPhutKetThucCaChieu" Width="70" Height="40" FontSize="18" Text="00" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"/>
+                            </StackPanel>
+
+                            <!-- Tiền lương 1 ca -->
+                            <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
+                                <Label Content="Tiền lương 1 ca:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBox Name="txtTienLuongCaChieu" Width="160" Height="40" FontSize="18" Text="180.000" HorizontalContentAlignment="Right"
+                                         Background="White" Style="{StaticResource textBox_style}" TextChanged="txtTienLuong_TextChanged" 
+                                         PreviewTextInput="txtTienLuong_PreviewTextInput"/>
+
+                            </StackPanel>
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid x:Name="OverlayGridCaToi" Grid.Row="1" Background="#FFC3A1" Visibility="Collapsed" >
+                        <StackPanel Margin="20">
+                            <!-- Mã ca -->
+                            <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
+                                <Label Content="Mã ca:" Width="100" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBox Name="txtMaCaToi" Width="50" Height="30" FontSize="20" IsReadOnly="True" Text="CT"/>
+                            </StackPanel>
+
+                            <!-- Thời gian bắt đầu -->
+                            <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
+                                <Label Content="Thời gian bắt đầu:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBox Name="txtGioBatDauCaToi" Width="70" Height="40" FontSize="18" Text="06" HorizontalContentAlignment="Center"
+                      Background="White" Style="{StaticResource textBox_style}"/>
+                                <Label Content=":" FontSize="18" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                <TextBox Name="txtPhutBatDauCaToi" Width="70" Height="40" FontSize="18" Text="00" HorizontalContentAlignment="Center"
+                      Background="White" Style="{StaticResource textBox_style}"/>
+                            </StackPanel>
+
+                            <!-- Thời gian kết thúc -->
+                            <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
+                                <Label Content="Thời gian kết thúc:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBox Name="txtGioKetThucCaToi" Width="70" Height="40" FontSize="18" Text="12" HorizontalContentAlignment="Center"
+                      Background="White" Style="{StaticResource textBox_style}"/>
+                                <Label Content=":" FontSize="18" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                <TextBox Name="txtPhutKetThucCaToi" Width="70" Height="40" FontSize="18" Text="00" HorizontalContentAlignment="Center"
+                      Background="White" Style="{StaticResource textBox_style}"/>
+                            </StackPanel>
+
+                            <!-- Tiền lương 1 ca -->
+                            <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
+                                <Label Content="Tiền lương 1 ca:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBox Name="txtTienLuongCaToi" Width="160" Height="40" FontSize="18" Text="180.000" HorizontalContentAlignment="Right"
+                      Background="White" Style="{StaticResource textBox_style}" TextChanged="txtTienLuong_TextChanged" 
+                      PreviewTextInput="txtTienLuong_PreviewTextInput"/>
+
+                            </StackPanel>
+                        </StackPanel>
+
+                    </Grid>
+                </Grid>
+            </Border>
+            <Button x:Name="btnLuu" Grid.Row="2" Style="{StaticResource btn_style}" BorderThickness="0" Margin="0,0,50,100"
+                    Content="Lưu chỉnh sửa" Foreground="#603127" HorizontalAlignment="Right"
+                    FontSize="22" Width="170" Height="50" Background="#F0997D"/>
+            <Button x:Name="btnBoQua" Grid.Row="2" Style="{StaticResource btn_style}" BorderThickness="0" Margin="0,0,594,100"
+                    Content="Bỏ qua" Foreground="#603127" HorizontalAlignment="Right"
+                    FontSize="22" Width="170" Height="50" Background="#F6E8D0" Click="BoQua_Button_Click"/>
+        </Grid>
+    </Border>
+</Window>
