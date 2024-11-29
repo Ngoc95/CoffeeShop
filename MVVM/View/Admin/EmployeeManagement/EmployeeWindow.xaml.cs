@@ -33,5 +33,10 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement
             var showDetailEmpView = new EditEmployeeWindow();
             showDetailEmpView.ShowDialog();
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SearchEmp.Text = null;
+        }
     }
 }

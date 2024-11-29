@@ -1,0 +1,268 @@
+﻿using QuanLiCoffeeShop.DTOs;
+using QuanLiCoffeeShop.MVVM.View.Message;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.Entity;
+using System.Linq;
+using System.Runtime.Remoting.Contexts;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Shell;
+
+namespace QuanLiCoffeeShop.MVVM.Model.Services
+{
+    public class EmployeeService
+    {
+        public EmployeeService() { }
+        private static EmployeeService _ins;
+
+        public static EmployeeService Ins
+        {
+            get
+            {
+                if (_ins == null)
+                {
+                    _ins = new EmployeeService();
+                }
+                return _ins;
+            }
+            private set { _ins = value; }
+        }
+
+        public async Task<List<EmployeeDTO>> GetAllEmp()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var empList = (from s in context.EMPLOYEEs
+                                   where s.IS_DELETED == false
+                                   select new EmployeeDTO
+                                   {
+                                       EMP_ID = s.EMP_ID,
+                                       EMP_NAME = s.EMP_NAME,
+                                       EMP_GENDER = s.EMP_GENDER,
+                                       EMP_CCCD = s.EMP_CCCD,
+                                       EMP_EMAIL = s.EMP_EMAIL,
+                                       EMP_PHONE = s.EMP_PHONE,
+                                       EMP_BIRTHDAY = s.EMP_BIRTHDAY,
+                                       EMP_USERNAME = s.EMP_USERNAME,
+                                       EMP_PASSWORD = s.EMP_PASSWORD,
+                                       EMP_ROLE = s.EMP_ROLE,
+                                       EMP_SALARY = s.EMP_SALARY,
+                                       EMP_STARTDATE = s.EMP_STARTDATE,
+                                       EMP_STATUS = s.EMP_STATUS,
+                                       EMPLOYEE_SHIFT = s.EMPLOYEE_SHIFT,
+                                       IS_DELETED = s.IS_DELETED,
+                                   }).ToListAsync();
+                    return await empList;
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return null;
+            }
+
+        }
+
+        public async Task<(bool, string)> AddNewEmp(EMPLOYEE newEmp)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    if (string.IsNullOrEmpty(newEmp.EMP_CCCD) || string.IsNullOrEmpty(newEmp.EMP_EMAIL) || string.IsNullOrEmpty(newEmp.EMP_NAME) ||
+                        string.IsNullOrEmpty(newEmp.EMP_PHONE) || string.IsNullOrEmpty(newEmp.EMP_ROLE) || 
+                        string.IsNullOrEmpty(newEmp.EMP_USERNAME) || string.IsNullOrEmpty(newEmp.EMP_GENDER))
+                        return (false, "Bạn nhập thiếu thông tin");
+
+                    bool IsCccdExist = await context.EMPLOYEEs.AnyAsync(p => p.EMP_CCCD == newEmp.EMP_CCCD);
+                    bool IsEmailExist = await context.EMPLOYEEs.AnyAsync(p => p.EMP_EMAIL == newEmp.EMP_EMAIL);
+                    bool IsPhoneExist = await context.EMPLOYEEs.AnyAsync(p => p.EMP_PHONE == newEmp.EMP_PHONE);
+                    bool IsExistUsername = await context.EMPLOYEEs.AnyAsync(p => p.EMP_USERNAME == newEmp.EMP_USERNAME);
+
+                    var emp = await context.EMPLOYEEs.Where(p => p.EMP_CCCD == newEmp.EMP_CCCD || p.EMP_EMAIL == newEmp.EMP_EMAIL || p.EMP_PHONE == newEmp.EMP_PHONE || p.EMP_USERNAME == newEmp.EMP_USERNAME).FirstOrDefaultAsync();
+                    if (emp != null)
+                    {
+                        if (emp.IS_DELETED == true)
+                        {
+                            emp.EMP_NAME = newEmp.EMP_NAME;
+                            emp.EMP_GENDER = newEmp.EMP_GENDER;
+                            emp.EMP_CCCD = newEmp.EMP_CCCD;
+                            emp.EMP_EMAIL = newEmp.EMP_EMAIL;
+                            emp.EMP_PHONE = newEmp.EMP_PHONE;
+                            emp.EMP_BIRTHDAY = newEmp.EMP_BIRTHDAY;
+                            emp.EMP_USERNAME = newEmp.EMP_USERNAME;
+                            emp.EMP_PASSWORD = newEmp.EMP_PASSWORD;
+                            emp.EMP_ROLE = newEmp.EMP_ROLE;
+                            emp.EMP_SALARY = newEmp.EMP_SALARY;
+                            emp.EMP_STARTDATE = newEmp.EMP_STARTDATE;
+                            emp.EMP_STATUS = newEmp.EMP_STATUS;
+                            emp.IS_DELETED = false;
+                            await context.SaveChangesAsync();
+                            return (true, "Khôi phục tài khoản thành công");
+
+                        }
+                        else
+                        {
+                            if (IsCccdExist)
+                            {
+                                return (false, "Đã tồn tại CCCD này");
+                            }
+                            if (IsEmailExist)
+                            {
+                                return (false, "Đã tồn tại email này");
+                            }
+                            if (IsPhoneExist)
+                            {
+                                return (false, "Đã tồn tại số điện thoại này");
+                            }
+                            if (IsExistUsername)
+                            {
+                                return (false, "Tài khoản đã tồn tại");
+                            }
+                        }
+                    }
+                    context.EMPLOYEEs.Add(newEmp);
+                    await context.SaveChangesAsync();
+                    return (true, "Thêm nhân viên thành công");
+                }
+            }
+            catch
+            {
+                return (false, "Xảy ra lỗi");
+            }
+        }
+
+        public async Task<(bool, string)> EditEmpList(EMPLOYEE newEmp, int ID)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    bool IsExistUsername = await context.EMPLOYEEs.AnyAsync(p => p.EMP_ID != newEmp.EMP_ID && p.EMP_USERNAME == newEmp.EMP_USERNAME && p.IS_DELETED == false);
+                    if (IsExistUsername)
+                    {
+                        return (false, "Tài khoản đã tồn tại");
+                    }
+                    var emp = await context.EMPLOYEEs.Where(p => p.EMP_ID == ID).FirstOrDefaultAsync();
+                    if (emp == null) return (false, "Không tìm thấy ID");
+                    emp.EMP_NAME = newEmp.EMP_NAME;
+                    emp.EMP_GENDER = newEmp.EMP_GENDER;
+                    emp.EMP_CCCD = newEmp.EMP_CCCD;
+                    emp.EMP_EMAIL = newEmp.EMP_EMAIL;
+                    emp.EMP_PHONE = newEmp.EMP_PHONE;
+                    emp.EMP_BIRTHDAY = newEmp.EMP_BIRTHDAY;
+                    emp.EMP_USERNAME = newEmp.EMP_USERNAME;
+                    emp.EMP_PASSWORD = newEmp.EMP_PASSWORD;
+                    emp.EMP_ROLE = newEmp.EMP_ROLE;
+                    emp.EMP_SALARY = newEmp.EMP_SALARY;
+                    emp.EMP_STARTDATE = newEmp.EMP_STARTDATE;
+                    emp.EMP_STATUS = newEmp.EMP_STATUS;
+                    await context.SaveChangesAsync();
+                    return (true, "Chỉnh sửa thành công");
+                }
+            }
+            catch
+            {
+                return (false, "Xảy ra lỗi khi chỉnh sửa nhân viên");
+            }
+        }
+        public async Task<(bool, string)> DeleteEmployee(int ID)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var emp = await context.EMPLOYEEs.Where(p => p.EMP_ID == ID).FirstOrDefaultAsync();
+                    if (emp.IS_DELETED == true) return (false, "Đã xóa nhân viên này rồi");
+                    emp.IS_DELETED = true;
+                    await context.SaveChangesAsync();
+                    return (true, "Xóa thành công");
+                }
+            }
+            catch
+            {
+                return (false, "Xảy ra lỗi khi xóa nhân viên");
+            }
+
+        }
+        public int GetEmployeeTotalShifts(int empId)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var employee = context.EMPLOYEEs
+                                       .Include(e => e.EMPLOYEE_SHIFT) // Bao gồm ca làm việc của nhân viên
+                                       .FirstOrDefault(e => e.EMP_ID == empId);
+
+                    if (employee == null)
+                    {
+                        throw new Exception("Employee not found");
+                    }
+
+                    // Lọc ra các ca làm việc chưa bị xóa
+                    var validShifts = employee.EMPLOYEE_SHIFT.Where(e => !(e.IS_DELETED ?? false)).ToList();
+
+                    return validShifts.Count; // Đếm số ca làm việc hợp lệ
+                }
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        // tìm theo email
+        //public async Task<(EMPLOYEE, bool, string)> findEmpbyEmail(string email)
+        //{
+        //    try
+        //    {
+        //        using (var context = new CoffeeShopDBEntities())
+        //        {
+        //            var emp = await context.EMPLOYEEs.Where(p => p.EMP_EMAIL == email).FirstOrDefaultAsync();
+        //            if (emp == null)
+        //            {
+        //                return (null, false, "Không tìm thấy nhân viên này");
+        //            }
+        //            else
+        //            {
+        //                return (emp, true, "Tìm thấy nhân viên");
+        //            }
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        return (null, false, "Xảy ra lỗi");
+        //    }
+        //}
+        //// tìm theo sđt
+        //public async Task<(EMPLOYEE, bool, string)> findEmpbyPhone(string phone)
+        //{
+        //    try
+        //    {
+        //        using (var context = new CoffeeShopDBEntities())
+        //        {
+        //            var emp = await context.EMPLOYEEs.Where(p => p.EMP_PHONE == phone).FirstOrDefaultAsync();
+        //            if (emp == null)
+        //            {
+        //                return (null, false, "Không tìm thấy nhân viên này");
+        //            }
+        //            else
+        //            {
+        //                return (emp, true, "Tìm thấy nhân viên");
+        //            }
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        return (null, false, "Xảy ra lỗi");
+        //    }
+
+        //}
+
+    }
+}

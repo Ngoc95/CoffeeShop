@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
-using static MaterialDesignThemes.Wpf.Theme;
+using QuanLiCoffeeShop.MVVM.ViewModel.Admin;
 
 namespace QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement
 {
@@ -21,33 +21,19 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement
         public AddEmployeeWindow()
         {
             InitializeComponent();
-            
-        }
-        private void tb_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            btnAddEmp.IsEnabled = CheckIfAllFieldsAreFilled();
-        }
-        private void dp_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            btnAddEmp.IsEnabled = CheckIfAllFieldsAreFilled();
-        }
 
-        private void cbRole_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            btnAddEmp.IsEnabled = CheckIfAllFieldsAreFilled();
         }
-        private bool CheckIfAllFieldsAreFilled()
+        private void pbPassword_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            return !string.IsNullOrWhiteSpace(tbName.Text)
-                    && !string.IsNullOrWhiteSpace(tbSDT.Text)
-                    && !string.IsNullOrWhiteSpace(tbEmail.Text)
-                    && !string.IsNullOrWhiteSpace(tbCCCD.Text)
-                    && !string.IsNullOrWhiteSpace(tbSalary.Text)
-                    && !string.IsNullOrWhiteSpace(tbUsername.Text)
-                    && !string.IsNullOrWhiteSpace(tbPassword.Text)
-                    && dpBDay.SelectedDate.HasValue     
-                    && dpStartDate.SelectedDate.HasValue
-                    && cbRole.SelectedItem != null;
+            var passwordBox = sender as PasswordBox;
+            if (passwordBox != null)
+            {
+                var viewModel = this.DataContext as EmployeeViewModel;
+                if (viewModel != null)
+                {
+                    viewModel.Password = passwordBox.Password;
+                }
+            }
         }
 
         private void moveAddEmpWin_MouseDown(object sender, MouseButtonEventArgs e)
@@ -76,6 +62,5 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement
         {
             return Regex.IsMatch(text, @"^[0-9]+$");
         }
-
     }
 }

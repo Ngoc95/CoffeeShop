@@ -16,7 +16,7 @@ namespace QuanLiCoffeeShop.MVVM.Model
     {
         public int EMP_ID { get; set; }
         public int SHIFT_ID { get; set; }
-        public Nullable<System.DateTime> WORK_DATE { get; set; }
+        public byte WORK_DAY { get; set; }
         public Nullable<bool> IS_DELETED { get; set; }
     
         public virtual EMPLOYEE EMPLOYEE { get; set; }

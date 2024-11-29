@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Shell;
 
 namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 {
@@ -117,13 +118,20 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             });
             SearchErrorCM = new RelayCommand<TextBox>((p) => { return true; }, async (p) =>
             {
-                if (p == null || string.IsNullOrWhiteSpace(p.Text))
-                {
-                    ErrorList = new ObservableCollection<ErrorDTO>(await ErrorService.Ins.GetAllError());
-                    return;
-                }
                 string searchText = p.Text?.ToLower() ?? string.Empty;
                 string filterStatus = SelectedStatus?.ToLower() ?? string.Empty;
+                if (p == null || string.IsNullOrWhiteSpace(p.Text))
+                {
+                    if (string.IsNullOrWhiteSpace(filterStatus))
+                        ErrorList = new ObservableCollection<ErrorDTO>(await ErrorService.Ins.GetAllError());
+                    else
+                    {
+                        ErrorList = new ObservableCollection<ErrorDTO>((await ErrorService.Ins.GetAllError()).FindAll(x =>
+                                                   (string.IsNullOrEmpty(filterStatus) ||
+                                                   (x.ER_STATUS?.ToLower().Contains(filterStatus) ?? false))));
+                    }
+                    return;
+                }
 
                 // Tìm kiếm dựa trên ID, tên và filter của combobox
                 ErrorList = new ObservableCollection<ErrorDTO>(
@@ -138,6 +146,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                     ));
 
             });
+
             FilterErrorCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
                 if (string.IsNullOrWhiteSpace(SelectedStatus))
@@ -152,8 +161,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                     (await ErrorService.Ins.GetAllError()).FindAll(x =>
                         (x.ER_STATUS?.ToLower().Contains(searchText) ?? false)
                     ));
-            
             });
+
             AddErrorWdCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 AddErrorWindow wd = new AddErrorWindow();
