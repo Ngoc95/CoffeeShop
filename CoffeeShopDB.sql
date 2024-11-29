@@ -69,7 +69,7 @@ create table EMPLOYEE
 	constraint chk_EMP check(EMP_GENDER in (N'Nam',N'Nữ') and EMP_STATUS in (N'Đang làm',N'Xin nghỉ') and EMP_ROLE in(N'Quản lý',N'Pha chế',N'Thu ngân',N'Phục vụ')),
 )
 CREATE TABLE WORK_SHIFT (
-    SHIFT_ID  int identity(1,1),
+    SHIFT_ID  int,
     SHIFT_NAME nvarchar(100),
     START_TIME smalldatetime,
     END_TIME smalldatetime,
@@ -81,11 +81,12 @@ CREATE TABLE WORK_SHIFT (
 CREATE TABLE EMPLOYEE_SHIFT (
     EMP_ID int,
     SHIFT_ID int,
-    WORK_DATE date,
+    WORK_DAY tinyint,
 	IS_DELETED bit default 0,
-	constraint pk_EMP_SHIFT primary key (EMP_ID, SHIFT_ID),
+	constraint pk_EMP_SHIFT primary key (EMP_ID, SHIFT_ID, WORK_DAY),
     constraint fk_EMPSHIFT_EMP foreign key (EMP_ID) references EMPLOYEE(EMP_ID),
-    constraint fk_EMPSHIFT_SHIFT foreign key (SHIFT_ID) references WORK_SHIFT(SHIFT_ID)
+    constraint fk_EMPSHIFT_SHIFT foreign key (SHIFT_ID) references WORK_SHIFT(SHIFT_ID),
+	constraint chk_WORK_DAY check (WORK_DAY BETWEEN 1 AND 7)
 );
 
 --create table INGREDIENT
@@ -163,4 +164,20 @@ create table ERROR
 
 INSERT INTO EMPLOYEE (EMP_NAME, EMP_PHONE, EMP_CCCD, EMP_BIRTHDAY, EMP_USERNAME, EMP_PASSWORD, EMP_EMAIL, EMP_GENDER, EMP_SALARY, EMP_ROLE)
 VALUES 
-(N'Ngọc Nguyên', '0912345678', '012345678901', '2005-01-01', 'admin', '123', 'ngocnguyen@example.com', N'Nữ', 15000000, N'Quản lý')
+(N'Ngọc Nguyên', '0912345678',	'012345678901', '2005-01-01', 'admin', '123', 'ngocnguyen@example.com', N'Nữ', 15000000, N'Quản lý')
+
+-- Insert sample data for WORK_SHIFT
+INSERT INTO WORK_SHIFT (SHIFT_ID, SHIFT_NAME, START_TIME, END_TIME)
+VALUES 
+    (1, N'Ca sáng', '06:00:00', '14:00:00'),
+    (2, N'Ca chiều', '14:00:00', '17:30:00'),
+    (3, N'Ca tối', '17:30:00', '22:00:00');
+INSERT INTO EMPLOYEE_SHIFT (EMP_ID, SHIFT_ID, WORK_DAY)
+VALUES 
+    (1, 1, 1), -- Thứ Hai
+    (1, 1, 2), -- Thứ Ba
+    (1, 1, 3), -- Thứ Tư
+    (1, 1, 4), -- Thứ Năm
+    (1, 1, 5), -- Thứ Sáu
+    (1, 1, 6), -- Thứ Bảy
+    (1, 1, 7); -- Chủ nhật

@@ -25,39 +25,23 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="270" />
+                <ColumnDefinition Width="auto" MinWidth="381"/>
+                <ColumnDefinition Width="259" />
                 <ColumnDefinition Width="280"/>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0" Width="350" Height="74" VerticalAlignment="Bottom">
+            <Grid Grid.Row="0" Height="74" VerticalAlignment="Top" Margin="4,16,3,0">
                 <StackPanel Orientation="Horizontal">
-                    <StackPanel.Resources>
-                        <ControlTemplate x:Key="TextSearchErr" TargetType="TextBox">
-                            <Border CornerRadius="30" 
-                                    Background="#FFC3A1"
-                                    Width="330" Height="65" Margin="17,4,-11,4" >
-                                <TextBox
-                                    x:Name="searchBox"
-                                    Width="230"
-                                    Height="40"
-                                    VerticalContentAlignment="Center" Margin="-5,0,25,0"
-                                    materialDesign:HintAssist.Hint="Tìm kiếm sự cố"
-                                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                    BorderThickness="0"
-                                    FontSize="22">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="TextChanged">
-                                            <i:InvokeCommandAction Command="{Binding SearchErrorCM}" CommandParameter="{Binding ElementName=searchBox}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </TextBox>
-                            </Border>
-                        </ControlTemplate>
-                    </StackPanel.Resources>
-
-                    <Grid Width="340" Height="74" Margin="0,0,0,0">
-                        <TextBox Template="{StaticResource TextSearchErr}"/>
+                    <Grid Width="350" Height="74" Margin="20,0,0,0">
+                        <TextBox x:Name="searchErr" 
+                                Style="{StaticResource searchTextbox_style}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchErrorCM}" 
+                                   CommandParameter="{Binding ElementName=searchErr}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
                         <Button 
                                 Width="65" Height="50"
                                 HorizontalAlignment="Right"
@@ -74,9 +58,9 @@
                 </StackPanel>
             </Grid>
 
-            <ComboBox Style="{StaticResource filterCombobox_style}" Margin="30,0,0,5" 
+            <ComboBox Style="{StaticResource filterCombobox_style}" Margin="25,20,26,0" 
                       Height="66" Background="#FDB2B2" Grid.Column="1" 
-                      FontSize="22" Foreground="Black" VerticalAlignment="Bottom"  Text="Lọc theo trạng thái"
+                      FontSize="22" Foreground="Black" VerticalAlignment="Top"  Text="Lọc trạng thái"
                       ItemsSource="{Binding StatusList}"
                       SelectedItem="{Binding SelectedStatus, Mode=TwoWay}">
             </ComboBox>
@@ -108,7 +92,7 @@
                             Background="White"
                             CornerRadius="10">
                     <DataGrid
-                                x:Name="dataGridKH"
+                                x:Name="dataGridER"
                                 Margin="15"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
@@ -131,7 +115,7 @@
                         </DataGrid.CellStyle>
 
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Width="auto" Header="ID" SortMemberPath="ID">
+                            <DataGridTemplateColumn Width="auto" Header="ID" SortMemberPath="ER_ID">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -143,7 +127,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Tên sự cố" SortMemberPath="Name">
+                            <DataGridTemplateColumn Width="auto" Header="Tên sự cố" SortMemberPath="ER_NAME">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -155,7 +139,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Tình trạng" SortMemberPath="Status">
+                            <DataGridTemplateColumn Width="auto" Header="Tình trạng" SortMemberPath="ER_STATUS">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -167,7 +151,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Ghi chú" SortMemberPath="Description">
+                            <DataGridTemplateColumn Width="auto" Header="Ghi chú" SortMemberPath="ER_DESCRIPTION">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock

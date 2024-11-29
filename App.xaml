@@ -13,7 +13,7 @@
              xmlns:viewModelStaff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
              xmlns:viewStaffCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement"
              xmlns:viewStaffErr="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement"
-             StartupUri="/MVVM/View/Staff/MainStaffWindow.xaml">
+             StartupUri="/MVVM/View/Admin/MainAdminWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -77,7 +77,8 @@
             </DataTemplate>
 
             <viewModelAdmin:CustomerViewModel x:Key="CustomerAdminVM"/>
-            
+            <viewModelAdmin:EmployeeViewModel x:Key="EmployeeAdminVM"/>
+
             <viewModelStaff:CustomerViewModel x:Key="CustomerStaffVM"/>
             <viewModelStaff:ErrorViewModel x:Key="ErrorStaffVM"/>
         </ResourceDictionary>

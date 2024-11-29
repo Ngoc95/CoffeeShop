@@ -71,10 +71,11 @@
           <Key>
             <PropertyRef Name="EMP_ID" />
             <PropertyRef Name="SHIFT_ID" />
+            <PropertyRef Name="WORK_DAY" />
           </Key>
           <Property Name="EMP_ID" Type="int" Nullable="false" />
           <Property Name="SHIFT_ID" Type="int" Nullable="false" />
-          <Property Name="WORK_DATE" Type="date" />
+          <Property Name="WORK_DAY" Type="tinyint" Nullable="false" />
           <Property Name="IS_DELETED" Type="bit" />
         </EntityType>
         <EntityType Name="ERROR">
@@ -117,7 +118,7 @@
           <Key>
             <PropertyRef Name="SHIFT_ID" />
           </Key>
-          <Property Name="SHIFT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SHIFT_ID" Type="int" Nullable="false" />
           <Property Name="SHIFT_NAME" Type="nvarchar" MaxLength="100" />
           <Property Name="START_TIME" Type="smalldatetime" />
           <Property Name="END_TIME" Type="smalldatetime" />
@@ -388,10 +389,11 @@
           <Key>
             <PropertyRef Name="EMP_ID" />
             <PropertyRef Name="SHIFT_ID" />
+            <PropertyRef Name="WORK_DAY" />
           </Key>
           <Property Name="EMP_ID" Type="Int32" Nullable="false" />
           <Property Name="SHIFT_ID" Type="Int32" Nullable="false" />
-          <Property Name="WORK_DATE" Type="DateTime" Precision="0" />
+          <Property Name="WORK_DAY" Type="Byte" Nullable="false" />
           <Property Name="IS_DELETED" Type="Boolean" />
           <NavigationProperty Name="EMPLOYEE" Relationship="CoffeeShopDBModel.fk_EMPSHIFT_EMP" FromRole="EMPLOYEE_SHIFT" ToRole="EMPLOYEE" />
           <NavigationProperty Name="WORK_SHIFT" Relationship="CoffeeShopDBModel.fk_EMPSHIFT_SHIFT" FromRole="EMPLOYEE_SHIFT" ToRole="WORK_SHIFT" />
@@ -440,7 +442,7 @@
           <Key>
             <PropertyRef Name="SHIFT_ID" />
           </Key>
-          <Property Name="SHIFT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SHIFT_ID" Type="Int32" Nullable="false" />
           <Property Name="SHIFT_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="START_TIME" Type="DateTime" Precision="0" />
           <Property Name="END_TIME" Type="DateTime" Precision="0" />
@@ -619,7 +621,7 @@
             <EntityTypeMapping TypeName="CoffeeShopDBModel.EMPLOYEE_SHIFT">
               <MappingFragment StoreEntitySet="EMPLOYEE_SHIFT">
                 <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
-                <ScalarProperty Name="WORK_DATE" ColumnName="WORK_DATE" />
+                <ScalarProperty Name="WORK_DAY" ColumnName="WORK_DAY" />
                 <ScalarProperty Name="SHIFT_ID" ColumnName="SHIFT_ID" />
                 <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
               </MappingFragment>

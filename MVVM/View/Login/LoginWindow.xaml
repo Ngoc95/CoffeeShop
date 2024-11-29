@@ -9,7 +9,8 @@
         Title="LoginWindow" Height="477.6" Width="800"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         WindowStartupLocation="CenterScreen" Background="Transparent"
-        FontFamily="Fonts/Roboto-Light.ttf #Roboto">
+        FontFamily="Fonts/Roboto-Light.ttf #Roboto"
+        MouseDown="Window_MouseDown">
     <Grid>
         <Image Source="/Images/Login/login.png"/>
         <StackPanel Orientation="Vertical" Margin="100,60,420,100">
@@ -30,19 +31,21 @@
                         HorizontalAlignment="Left" Margin="3,7,0,0" Background="Transparent">
                     <PasswordBox x:Name="pbPassword" Height="45" Width="250" Foreground="#401409"
                              HorizontalAlignment="Left" Background="Transparent" 
-                             FontSize="22" Margin="10,0,0,0" BorderBrush="Transparent"
-                             PasswordChanged="pbPassword_PasswordChanged"/>
+                             FontSize="22" Margin="10,-3,0,0" BorderBrush="Transparent"
+                             Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
+                             PasswordChanged="pbPassword_PasswordChanged"
+                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"/>
                 </Border>
 
                 <Label Margin="0,0,5,0" FontSize="20" 
                        HorizontalAlignment="Right">
-                    <TextBlock x:Name="tbForgotPass" 
+                    <TextBlock x:Name="tbForgotPass" Cursor="Hand"
                                TextDecorations="Underline" Text="Quên mật khẩu"
                                MouseDown="forgetPassword_MouseDown" Foreground="#401409">
                     </TextBlock>
                 </Label>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <Button x:Name="btnLogin"
+                    <Button x:Name="btnLogin" Cursor="Hand"
                             Width="123" Margin="0,0,45,30" Content="Đăng nhập"
                             Height="50" BorderBrush="Transparent" FontSize="20" 
                             IsEnabled="False">
@@ -79,7 +82,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <Button x:Name="btnExit" Click="btnExit_Click"
+                    <Button x:Name="btnExit" Click="btnExit_Click" Cursor="Hand"
                             Width="123" Margin="-11,0,30,30" Content="Thoát"
                             Height="50" BorderBrush="Transparent" FontSize="20" >
                         <Button.Style>

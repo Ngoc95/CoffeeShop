@@ -65,13 +65,13 @@
                 </Button>
             </Grid>
 
-            <Button Style="{StaticResource btn_style}" BorderThickness="0" Cursor="Hand"
-                    Content="Xóa khách hàng" Foreground="Black" FontWeight="DemiBold"
-                    FontSize="22" Width="210" Height="65" Background="#F0997D"
+            <Button Style="{StaticResource btn_style}" BorderThickness="0" 
+                    Content="Xóa khách hàng" Foreground="Black" Cursor="Hand"
+                    FontSize="22" Width="210" Height="65" Background="#FFC3A1"
                     Margin="35,0,0,0" Command="{Binding DeleteCusListCM}" />
             <Button Style="{StaticResource btn_style}" BorderThickness="0" 
-                    Content="Thêm khách hàng" Foreground="Black" FontWeight="DemiBold"
-                    FontSize="22" Width="210" Height="65" Background="#F0997D"
+                    Content="Thêm khách hàng" Foreground="Black" 
+                    FontSize="22" Width="210" Height="65" Background="#FFC3A1"
                     Margin="50,0,0,0" Cursor="Hand"
                     Command="{Binding AddCusWdCM}"/>
         </StackPanel>

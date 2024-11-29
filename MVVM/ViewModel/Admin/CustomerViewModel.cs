@@ -220,6 +220,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             });
             DeleteCusListCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                if(SelectedItem == null)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn chưa chọn khách hàng để xóa");
+                    return;
+                }
                 DeleteMessage wd = new DeleteMessage();
                 wd.ShowDialog();
                 if (wd.DialogResult == true)

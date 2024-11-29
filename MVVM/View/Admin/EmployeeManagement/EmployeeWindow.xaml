@@ -3,10 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement" 
+             xmlns:admin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin" 
+             d:DataContext="{d:DesignInstance Type=admin:EmployeeViewModel}"
              mc:Ignorable="d" 
+             x:Name="empUC"
              d:DesignHeight="740" d:DesignWidth="930"
-             FontFamily="Fonts/Roboto-Light.ttf #Roboto">
+             FontFamily="Fonts/Roboto-Light.ttf #Roboto"
+             DataContext="{StaticResource EmployeeAdminVM}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" 
+                                   CommandParameter="{Binding ElementName=empUC}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -14,22 +26,29 @@
             <RowDefinition Height="129"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+
         <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
             <ComboBox Style="{StaticResource filterCombobox_style}" Margin="40,0,0,10" Height="66" Background="#FDB2B2"
-                      FontSize="22" Foreground="Black" VerticalAlignment="Center" Width="198" Text="Lọc nhân viên">
-                    <ComboBoxItem Content="Quản lý"/>
-                    <ComboBoxItem Content="Pha chế"/>
-                    <ComboBoxItem Content="Phục vụ"/>
-                    <ComboBoxItem Content="Thu ngân"/>
+                      FontSize="22" Foreground="Black" VerticalAlignment="Center" Width="198" Text="Lọc nhân viên"
+                      ItemsSource="{Binding RoleList}"
+                      SelectedItem="{Binding SelectedRole, Mode=TwoWay}"
+                      SelectionChanged="ComboBox_SelectionChanged">
             </ComboBox>
-            
+
             <Button Style="{StaticResource btn_style}" BorderThickness="0" Margin="60,0,0,7"
                     Content="Thêm nhân viên" Foreground="Black"
                     FontSize="22" Width="210" Height="64" Background="#FFC3A1"
-                    Click="addEmp_Button_Click"/>
-
-            <Grid Width="350" Height="74" Margin="30,0,0,10">
-                <TextBox Style="{StaticResource searchTextbox_style}"/>
+                    Command="{Binding AddEmpWdCM}"/>
+            <Grid Width="350" Height="74" Margin="28,0,0,10">
+                <TextBox x:Name="SearchEmp" 
+                        Style="{StaticResource searchTextbox_style}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SearchEmpCM}" 
+                                   CommandParameter="{Binding ElementName=SearchEmp}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
                 <Button x:Name="searchBtn"
                         Width="65" Height="50"
                         HorizontalAlignment="Right"
@@ -50,7 +69,7 @@
                 Background="White"
                 CornerRadius="10">
                 <DataGrid
-                    x:Name="dataGrid"
+                    x:Name="dataGridNV"
                     Margin="15"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
@@ -63,7 +82,7 @@
                     IsReadOnly="True"
                     SelectionMode="Single"
                     SelectionUnit="FullRow"
-                    ItemsSource="{Binding StaffObservation, Mode=TwoWay}"
+                    ItemsSource="{Binding EmpList, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedItem}">
                     <DataGrid.CellStyle>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -73,99 +92,114 @@
                     </DataGrid.CellStyle>
 
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn Width="auto" Header="ID" SortMemberPath="ID">
+                        <DataGridTemplateColumn Width="auto" Header="ID" SortMemberPath="EMP_ID">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
-                                        FontSize="22"
+                                        FontSize="15"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Text="{Binding ID}" />
+                                        Text="{Binding EMP_ID, StringFormat = 'NV{0:D3}'}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Width="auto" Header="Họ tên" SortMemberPath="DisplayName">
+                        <DataGridTemplateColumn Width="auto" Header="Họ tên" SortMemberPath="EMP_NAME">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
-                                        FontSize="22"  
+                                        FontSize="15" 
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Text="{Binding DisplayName}" />
+                                        Text="{Binding EMP_NAME}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Width="auto" Header="SĐT" SortMemberPath="PhoneNumber">
+                        <DataGridTemplateColumn Width="auto" Header="Ngày sinh" SortMemberPath="EMP_BIRTHDAY">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock
-                                        FontSize="22"       
+                                    <DatePicker
+                                        FontSize="15"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Text="{Binding PhoneNumber}" />
+                                        IsHitTestVisible="False"
+                                        IsTodayHighlighted="True"
+                                        Language="vi-VN"
+                                        SelectedDate="{Binding EMP_BIRTHDAY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Text="{Binding EMP_BIRTHDAY, StringFormat=dd/MM/yyyy, Mode=OneWay}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Width="auto" Header="Email" SortMemberPath="Email">
+                        <DataGridTemplateColumn Width="auto" Header="SĐT" SortMemberPath="EMP_PHONE">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
-                                        FontSize="22"
+                                        FontSize="15"      
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Text="{Binding Email}" />
+                                        Text="{Binding EMP_PHONE}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-
-                        <DataGridTemplateColumn Width="auto" Header="Chức vụ" SortMemberPath="Role">
+                        <DataGridTemplateColumn Width="auto" Header="Email" SortMemberPath="EMP_EMAIL">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
-                                        FontSize="22"                
+                                        FontSize="15"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Text="{Binding Role}" />
+                                        Text="{Binding EMP_EMAIL}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Width="auto" Header="Tổng ca làm trong tuần" SortMemberPath="WorkTime">
+                        <DataGridTemplateColumn Width="auto" Header="Chức vụ" SortMemberPath="EMP_ROLE">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
-                                        FontSize="22"
+                                        FontSize="15"                
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Text="{Binding WorkTime}" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        
-                        <DataGridTemplateColumn Width="auto" Header="Lương tuần" SortMemberPath="Wage">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock
-                                        FontSize="22"     
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Text="{Binding Wage, StringFormat={}{0:N0} VNĐ}" />
+                                        Text="{Binding EMP_ROLE}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Width="auto" Header="Trạng thái" SortMemberPath="Status">
+                        <DataGridTemplateColumn Width="auto" Header="Tổng ca làm trong tuần" SortMemberPath="EMP_TotalShifts">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
-                                        FontSize="22"
+                                        FontSize="15"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Text="{Binding Status}" />
+                                        Text="{Binding EMP_TotalShifts}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="auto" Header="Lương tuần" SortMemberPath="EMP_SALARY">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        FontSize="15"    
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding EMP_SALARY, StringFormat={}{0:N0} VNĐ}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Width="auto" Header="Trạng thái" SortMemberPath="EMP_STATUS">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        FontSize="15"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding EMP_STATUS}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -173,38 +207,57 @@
                 </DataGrid>
             </Border>
         </Border>
-        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="1" Orientation="Horizontal" Margin="0,390,40,0" Grid.RowSpan="2">
-            <Label Margin="0,0,0,0" Content="Nhân viên:" FontSize="22" 
-                           Foreground="Black" VerticalAlignment="Center"
-                           FontWeight="Medium"/>
-            <Label Margin="0,0,0,0" Content="3" VerticalAlignment="Center"
-                           FontSize="22" 
-                           Foreground="Black"
-                           FontWeight="Medium"/>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="0" Orientation="Horizontal" Margin="50,0,0,-10" Grid.RowSpan="2">
+            <TextBlock
+                Width="auto"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Foreground="Black"
+                FontSize="20"
+                FontWeight="Medium">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="Số lượng: {0}">
+                        <Binding Path="Count" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="45,0,45,0">
             <Border Width="840" Height="1" Background="#603127" Margin="0,20,0,0" />
-            <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
-                <Label Content="Mã nhân viên truy xuất:" FontSize="22" Foreground="Black"
-                       FontWeight="Medium" VerticalAlignment="Center"/>
-                <Label Content="PC001" Width="100" FontSize="22" Foreground="Black"
-                       FontWeight="Medium" VerticalAlignment="Center"/>
-                <Button x:Name="btnShowDetail"
+
+                <Grid Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" 
+                            Visibility="{Binding SelectedItem, Converter={StaticResource NullToVisibilityConverter}}">
+                    <Label Content="Mã nhân viên truy xuất:" FontSize="22" Foreground="Black"
+                           FontWeight="Medium" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding EditEmp.EMP_ID, StringFormat = 'NV{0:D3}'}" Width="100"
+                                   FontSize="22" Foreground="Black" FontWeight="Medium"
+                                   VerticalAlignment="Center"/>
+                </StackPanel>
+                    
+                <Button Grid.Column="1" x:Name="btnShowDetail"
                     Style="{StaticResource btn_style}" BorderThickness="0"
                     Content="Thông tin chi tiết" Foreground="Black"
                     FontSize="22" Width="210" Height="55" Background="#FFC3A1"
-                    Margin="40,0,0,0" Click="btnShowDetail_Click"/>
-                <Button Style="{StaticResource btn_style}" BorderThickness="0"
+                    Margin="0,0,0,0" Command="{Binding EditEmpWdCM}"/>
+                <Button Grid.Column="2" Style="{StaticResource btn_style}" BorderThickness="0"
                     Content="Xóa nhân viên" Foreground="Black"
                     FontSize="22" Width="210" Height="55" Background="#FDB2B2"
-                    Margin="35,0,0,0"/>
-            </StackPanel>
+                    Margin="35,0,0,0" Command="{Binding DeleteEmpListCM}"/>
+                </Grid>
+
             <Border Width="840" Height="1" Background="#603127" Margin="0,20,0,0" />
         </StackPanel>
 
         <Button Grid.Row="3" Style="{StaticResource btn_style}" BorderThickness="0" Margin="0,0,45,30"
                 Content="Xuất excel" Foreground="#603127" HorizontalAlignment="Right"
-                FontSize="22" Width="180" Height="60" Background="#F0997D"/>
-
+                FontSize="22" Width="180" Height="60" Background="#F0997D"
+                Command="{Binding ExportExcelCM}"/>
     </Grid>
 </UserControl>
