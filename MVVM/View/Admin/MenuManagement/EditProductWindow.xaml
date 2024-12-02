@@ -2,14 +2,17 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+               
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement"
         xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
         mc:Ignorable="d"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Title="EditProductWindow" Height="703" Width="668"
+        Title="EditProduct" Height="703" Width="668"
         Background="Transparent">
+
     <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White">
         <Grid>
             <Grid.RowDefinitions>
@@ -41,17 +44,24 @@
                         <StackPanel Margin="0,0,0,15" Orientation="Horizontal">
                             <TextBlock Text="Mã sản phẩm: "
                                        Style="{DynamicResource Header3Style}"/>
-                            <TextBlock Text="{Binding}"
+                            <TextBlock Text="{Binding PRO_ID}"
                                         Style="{DynamicResource Header3Style}"/>
                         </StackPanel>
                         <TextBlock Text="Tên sản phẩm"
                                    Style="{DynamicResource Header3Style}"/>
 
-                        <TextBox Margin="15,0,30,15" Width="auto" Style="{DynamicResource TextBoxStyle1}" IsEnabled="True"></TextBox>
+                        <TextBox 
+                            x:Name="NameOfPro"
+                            Text="{Binding PRO_NAME}"
+                            Margin="15,0,30,15" 
+                            Width="auto" 
+                            Style="{DynamicResource TextBoxStyle1}" 
+                            IsEnabled="True"></TextBox>
 
                         <TextBlock Text="Loại sản phẩm"
                                    Style="{DynamicResource Header3Style}"/>
                         <ComboBox 
+                            SelectedValue="{Binding GENRE_NAME}"
                             Style="{DynamicResource ComboBoxStyleMenu}"
                             Margin="15,0,30,15"
                             Width="auto">
@@ -66,7 +76,12 @@
 
                         <TextBlock Text="Giá bán" Style="{DynamicResource Header3Style}"/>
                         <Grid>
-                            <TextBox Margin="15,0,30,15" Width="auto" Style="{DynamicResource TextBoxStyle1}" IsEnabled="True"/>
+                            <TextBox 
+                                Text="{Binding PRO_PRICE}"
+                                Margin="15,0,30,15" 
+                                Width="auto" 
+                                Style="{DynamicResource TextBoxStyle1}" 
+                                IsEnabled="True"/>
                             <TextBlock Text="đ" 
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Right"
@@ -85,7 +100,7 @@
                         <Grid Height="258"
                             Margin="15,5,20,14">
                             <Image
-                                Source="{Binding}"
+                                Source="{Binding PRO_IMG}"
                                 Stretch="Fill" Grid.ColumnSpan="2"></Image>
                         </Grid>
                     </StackPanel>
@@ -95,8 +110,8 @@
             <StackPanel Grid.Row="2" Margin="5,5,0,0">
                 <TextBlock Text="Mô tả" Style="{DynamicResource Header3Style}"/>
                 <TextBox
+                    Text="{Binding PRO_DESCRIPTION}"
                     Margin="15,0,20,0"
-                    Text="{x:Null}"
                     Style="{DynamicResource TextBoxDescribeStyle}"></TextBox>
             </StackPanel>
 

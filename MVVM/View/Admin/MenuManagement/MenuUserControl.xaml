@@ -3,14 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement"
-
+             DataContext="{StaticResource MenuViewModel}"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
+             xmlns:cb="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
+             xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ProductCard" xmlns:i1="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="740" d:DesignWidth="930"
              FontFamily="Fonts/Roboto-Light.ttf #Roboto"
              FontSize="16"
              Background="White">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="90"></RowDefinition>
@@ -27,8 +35,10 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Row="0" Width="350" Height="74" Margin="15,0,0,0" VerticalAlignment="Bottom">
-                <TextBox Style="{StaticResource searchTextbox_style}"/>
+                <TextBox 
+                    Style="{StaticResource searchTextbox_style}"/>
                 <Button x:Name="searchBtn"
+                    Command="{Binding SearchMenuCommand}"
                     Width="65" Height="50"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
@@ -44,6 +54,7 @@
 
 
             <Button 
+                Command="{Binding AddProCommand}"
                 Width="250" Height="76"
                 HorizontalAlignment="Right"
                 Style="{DynamicResource ButtonStyle1}" 
@@ -56,7 +67,7 @@
             <Grid Grid.Column="2" Margin="0,0,15,0">
                 
             <Button 
-                
+                Command="{Binding PrintMenuCommand}"
                 Width="250" Height="76"
                 HorizontalAlignment="Right"
                 Style="{DynamicResource ButtonStyle1}" 
@@ -141,6 +152,26 @@
                 Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
         </StackPanel>
         <Separator Grid.Row="2" Margin="20, 0, 20, 0" ></Separator>
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+            <ItemsControl
+                ItemsSource="{Binding ProductList}"
+                Width="auto" Height="auto"> 
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <uc:ProductCard 
+                            DataContext="{Binding}"
+                            Width="216" Height="312.3"
+                            Margin="5"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
 
     </Grid>
 </UserControl>

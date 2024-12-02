@@ -18,7 +18,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <Image  Margin="10" Source="../../../Images/MenuAndError/UploadImg.jpg"
+                    <Image  Margin="10" Source="{Binding PRO_IMG}"
                             Stretch="Fill"></Image>
                 </Grid>
                 <Grid Grid.Row="1">
@@ -27,18 +27,36 @@
                         <ColumnDefinition Width="45"/>
                         <ColumnDefinition Width="50"/>
                     </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock 
+                            Margin="10,0,0,5"
+                            Style="{DynamicResource Header6Style}" 
+                            Text="{Binding PRO_NAME}"
+                            ></TextBlock>
+                        <TextBlock
+                            Margin="10,0,10,5"
+                            Style="{DynamicResource Header4Style}"
+                            Text="{Binding PRO_PRICE, StringFormat={}{0:C0}}" Language="vi-VN"></TextBlock>
+                    </StackPanel>
+                    
                     <StackPanel Orientation="Vertical" Grid.Column="0" VerticalAlignment="Center">
                         <TextBlock Text="" Style="{DynamicResource Header3Style}" ></TextBlock>
                         <TextBlock Text="" Style="{DynamicResource Header4Style}" > </TextBlock>
                     </StackPanel>
 
-                    <Button Grid.Column="1"
-                            Style="{DynamicResource ButtonEditMenu}">
+                    <Button 
+                        Grid.Column="1"
+                        DataContext="{StaticResource MenuViewModel}"
+                        Command="{Binding EditProductCommand}"   
+                        Style="{DynamicResource ButtonEditMenu}">
                         
                     </Button>
-                    <Button Grid.Column="2" Margin="0,0,5,0"
-                            Style="{DynamicResource ButtonDeleteMenu}">
-
+                    <Button 
+                        Grid.Column="2" 
+                        DataContext="{StaticResource MenuViewModel}"
+                        Command="{Binding DeleteProductCommand}"
+                        Margin="0,0,5,0"
+                        Style="{DynamicResource ButtonDeleteMenu}">
                     </Button>
                 </Grid>
             </Grid>    
