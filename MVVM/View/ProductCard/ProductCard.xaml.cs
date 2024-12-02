@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiCoffeeShop.MVVM.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,13 @@ namespace QuanLiCoffeeShop.MVVM.View.ProductCard
     /// </summary>
     public partial class ProductCard : UserControl
     {
+        //public static readonly DependencyProperty ProductProperty = DependencyProperty.Register("Product", typeof(Product), typeof(ProductCard), new PropertyMetadata(null));
+
+        //public Product Product
+        //{
+        //    get { return (Product)GetValue(ProductProperty); }
+        //    set { SetValue(ProductProperty, value); }
+        //}
         public ProductCard()
         {
             InitializeComponent();

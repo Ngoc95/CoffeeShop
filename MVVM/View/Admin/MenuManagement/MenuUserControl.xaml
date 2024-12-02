@@ -137,7 +137,7 @@
                 Content="Freeze"
 
                 IsChecked="False"                   
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" Checked="Table6_Checked"/>
+                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" />
 
             <RadioButton
                 HorizontalAlignment="Stretch"
@@ -152,10 +152,12 @@
                 Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
         </StackPanel>
         <Separator Grid.Row="2" Margin="20, 0, 20, 0" ></Separator>
-        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+        <!--<ScrollViewer 
+            Grid.Row="3" 
+            VerticalScrollBarVisibility="Auto">
             <ItemsControl
                 ItemsSource="{Binding ProductList}"
-                Width="auto" Height="auto"> 
+                Width="auto" Height="auto">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"/>
@@ -170,6 +172,29 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+        </ScrollViewer>-->
+        <ScrollViewer 
+            Grid.Row="3" 
+            VerticalScrollBarVisibility="Auto">
+            <ListView 
+                Padding="0"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"        
+                ItemsSource="{Binding ProductList}"
+                Width="auto" Height="auto">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <uc:ProductCard 
+                            DataContext="{Binding}"
+                            Width="212" Height="303.6"
+                            Margin="0"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </ScrollViewer>
 
 

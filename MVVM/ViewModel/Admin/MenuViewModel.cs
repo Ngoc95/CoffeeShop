@@ -29,12 +29,15 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
         public ObservableCollection<ProductCard> List;
 
+        #region Command
         public ICommand FirstLoadCM { get; set; }
         public ICommand AddProCommand { get; set; }
         public ICommand PrintMenuCommand {  get; set; }
         public ICommand SearchMenuCommand { get; set; }
         public ICommand DeleteProductCommand {  get; set; }
         public ICommand EditProductCommand { get; set; }
+
+        #endregion
         public MenuViewModel()
         {
             FirstLoadCM = new RelayCommand<Page>((p) => { return true; }, async (p) =>
@@ -55,6 +58,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             EditProductCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 EditProductWindow wd = new EditProductWindow();
+                
                 wd.ShowDialog();
             });
 

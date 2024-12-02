@@ -25,9 +25,14 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement
             InitializeComponent();
         }
 
-        private void Table6_Checked(object sender, RoutedEventArgs e)
-        {
+        //private void Table6_Checked(object sender, RoutedEventArgs e)
+        //{
 
-        }
+        //}
+
+        //private void ItemsControl_Selected(object sender, RoutedEventArgs e)
+        //{
+            
+        //}
     }
 }

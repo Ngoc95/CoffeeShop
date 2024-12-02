@@ -499,6 +499,7 @@
     <Compile Include="MVVM\View\Message\Success.xaml.cs">
       <DependentUpon>Success.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\ProductCard\Product.cs" />
     <Compile Include="MVVM\View\ProductCard\ProductCard.xaml.cs">
       <DependentUpon>ProductCard.xaml</DependentUpon>
     </Compile>

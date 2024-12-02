@@ -47,7 +47,8 @@
                     <Button 
                         Grid.Column="1"
                         DataContext="{StaticResource MenuViewModel}"
-                        Command="{Binding EditProductCommand}"   
+                        Command="{Binding EditProductCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext}"
                         Style="{DynamicResource ButtonEditMenu}">
                         
                     </Button>
