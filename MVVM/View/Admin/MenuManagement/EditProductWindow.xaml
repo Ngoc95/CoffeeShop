@@ -6,14 +6,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement"
         xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
+        xmlns:admin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin" 
         mc:Ignorable="d"
+        x:Name="EditPrdWD"
+        d:DataContext="{d:DesignInstance Type=admin:MenuViewModel}"
+        DataContext="{StaticResource MenuViewModel}"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="EditProduct" Height="703" Width="668"
         Background="Transparent">
 
-    <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White">
+    <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White" MouseDown="moveAddCusWin_MouseDown">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
@@ -44,15 +47,15 @@
                         <StackPanel Margin="0,0,0,15" Orientation="Horizontal">
                             <TextBlock Text="Mã sản phẩm: "
                                        Style="{DynamicResource Header3Style}"/>
-                            <TextBlock Text="{Binding PRO_ID}"
+                            <TextBlock Text="{Binding SelectedItem.PRO_ID, StringFormat='000'}"
                                         Style="{DynamicResource Header3Style}"/>
                         </StackPanel>
                         <TextBlock Text="Tên sản phẩm"
                                    Style="{DynamicResource Header3Style}"/>
 
                         <TextBox 
-                            x:Name="NameOfPro"
-                            Text="{Binding PRO_NAME}"
+                            x:Name="Prd_Name_tb"
+                            Text="{Binding SelectedItem.PRO_NAME}"
                             Margin="15,0,30,15" 
                             Width="auto" 
                             Style="{DynamicResource TextBoxStyle1}" 
@@ -61,23 +64,18 @@
                         <TextBlock Text="Loại sản phẩm"
                                    Style="{DynamicResource Header3Style}"/>
                         <ComboBox 
-                            SelectedValue="{Binding GENRE_NAME}"
+                            x:Name="Genre_Product_cbb"
+                            SelectedItem="{Binding SelectedItemGenreName, Mode=TwoWay}"
                             Style="{DynamicResource ComboBoxStyleMenu}"
                             Margin="15,0,30,15"
                             Width="auto">
-                            <ComboBoxItem Content="Coffee"></ComboBoxItem>
-                            <ComboBoxItem Content="Trà sữa"/>
-                            <ComboBoxItem Content="Freeze"/>
-                            <ComboBoxItem Content="Trà sữa"/>
-                            <ComboBoxItem Content="Trà"/>
-                            <ComboBoxItem Content="Topping"/>
-                            <ComboBoxItem Content="Khác"/>
                         </ComboBox>
 
                         <TextBlock Text="Giá bán" Style="{DynamicResource Header3Style}"/>
                         <Grid>
                             <TextBox 
-                                Text="{Binding PRO_PRICE, StringFormat={}{0:C0}}" Language="vi-VN"
+                                x:Name="Prd_Price_tb"
+                                Text="{Binding SelectedItem.PRO_PRICE, StringFormat={}{0:C0}}" Language="vi-VN"
                                 Margin="15,0,30,15" 
                                 Width="auto" 
                                 Style="{DynamicResource TextBoxStyle1}" 
@@ -87,15 +85,17 @@
                 </Grid>
 
                 <Grid Grid.Column="1">
-                    <Rectangle Fill="#ffc3a1" Margin="15,25,20,14" RadiusX="20" RadiusY="20"></Rectangle>
                     <StackPanel>
                         <TextBlock Text="Thêm ảnh" 
                                    Style="{DynamicResource Header3Style}"
                                    Margin="15,0,0,0"/>
-                        <Grid Height="258"
+                        <Grid 
+                            Height="258"
+                            Background="#ffc3a1"
                             Margin="15,5,20,14">
                             <Image
-                                Source="{Binding PRO_IMG}"
+                                x:Name="img"
+                                Source="{Binding SelectedItem.PRO_IMG}"
                                 Stretch="Fill" Grid.ColumnSpan="2"></Image>
                         </Grid>
                     </StackPanel>
@@ -105,19 +105,22 @@
             <StackPanel Grid.Row="2" Margin="5,5,0,0">
                 <TextBlock Text="Mô tả" Style="{DynamicResource Header3Style}"/>
                 <TextBox
-                    Text="{Binding PRO_DESCRIPTION}"
+                    Text="{Binding SelectedItem.PRO_DESCRIPTION}"
                     Margin="15,0,20,0"
                     Style="{DynamicResource TextBoxDescribeStyle}"></TextBox>
             </StackPanel>
 
             <Grid Grid.Row="3">
                 <Button 
+                    Click="Button_Click"
                     HorizontalAlignment="Left"
                     Margin="20,0,0,0"
                     Content="Bỏ qua"
                     Style="{DynamicResource ButtonCancel_WD}">
                 </Button>
                 <Button 
+                    Command="{Binding BtnEditProductDataComand}"
+                    CommandParameter="{Binding ElementName=EditPrdWD}"
                     HorizontalAlignment="Right"
                     Margin="0,0,20,0"
                     Content="Áp dụng"

@@ -54,14 +54,15 @@
                         <ComboBox 
                             Style="{DynamicResource ComboBoxStyleMenu}"
                             Margin="15,0,30,15"
-                            Width="auto">
-                            <ComboBoxItem Content="Coffee"></ComboBoxItem>
+                            Width="auto"
+                            DataContext="{Binding GenreProductList}">
+                            <!--<ComboBoxItem Content="Coffee"></ComboBoxItem>
                             <ComboBoxItem Content="Trà sữa"/>
                             <ComboBoxItem Content="Freeze"/>
                             <ComboBoxItem Content="Trà sữa"/>
                             <ComboBoxItem Content="Trà"/>
                             <ComboBoxItem Content="Topping"/>
-                            <ComboBoxItem Content="Khác"/>
+                            <ComboBoxItem Content="Khác"/>-->
                         </ComboBox>
 
                         <TextBlock Text="Giá bán" Style="{DynamicResource Header3Style}"/>

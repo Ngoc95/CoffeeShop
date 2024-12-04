@@ -22,7 +22,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="90"></RowDefinition>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="20"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -78,7 +78,7 @@
             </Grid>
 
         </Grid>
-        <StackPanel 
+        <!--<StackPanel 
             Grid.Row="1"
             Margin="0" 
             Orientation="Horizontal"
@@ -150,7 +150,41 @@
                 Content="khác"
                 IsChecked="False"                   
                 Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
-        </StackPanel>
+        </StackPanel>-->
+        
+
+        <ScrollViewer 
+            Grid.Row="1" 
+            Margin="10"
+            VerticalScrollBarVisibility="Auto">
+            <ItemsControl
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                ItemsSource="{Binding GenreProductList}"
+                Width="auto" Height="auto">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton
+                            HorizontalAlignment="Stretch"
+                            x:Name="Other"
+                            Cursor="Hand"
+                            FontSize="25"
+                            Margin="15, 0"
+                            Content="{Binding GP_NAME}"
+                            IsChecked="False"
+                            GroupName="ProductTypeGroup"
+                            Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <!--phan nay viet them vao cai thien de tai them xoa sua loai sp-->
+
         <Separator Grid.Row="2" Margin="20, 0, 20, 0" ></Separator>
         <!--<ScrollViewer 
             Grid.Row="3" 
@@ -176,25 +210,25 @@
         <ScrollViewer 
             Grid.Row="3" 
             VerticalScrollBarVisibility="Auto">
-            <ListView 
+            <ItemsControl
                 Padding="0"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"        
                 ItemsSource="{Binding ProductList}"
                 Width="auto" Height="auto">
-                <ListView.ItemsPanel>
+                <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <uc:ProductCard 
                             DataContext="{Binding}"
-                            Width="212" Height="303.6"
-                            Margin="0"/>
+                            Width="216" Height="312.3"
+                            Margin="5"/>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </ScrollViewer>
 
 

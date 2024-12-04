@@ -9,12 +9,16 @@ namespace QuanLiCoffeeShop.DTOs
 {
     internal class GenreProductDTO
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
 
         public int GP_ID { get; set; }
         public string GP_NAME { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PRODUCT> PRODUCTs { get; set; }
+        public GenreProductDTO(int id, string name)
+        {
+            GP_ID = id;
+            GP_NAME = name;
+        }
+
+        public GenreProductDTO(){}
     }
 }

@@ -3,5 +3,4 @@
                     xmlns:AdminViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
                     xmlns:ProCardViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.ProductCardVM">
     <AdminViewModel:MenuViewModel x:Key="MenuViewModel"/>
-    <ProCardViewModel:ProCardViewModel x:Key="ProCardViewModel"/>
 </ResourceDictionary>

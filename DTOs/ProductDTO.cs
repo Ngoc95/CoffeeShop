@@ -17,9 +17,9 @@ namespace QuanLiCoffeeShop.DTOs
         public Nullable<decimal> PRO_PRICE { get; set; }
         public Nullable<bool> IS_DELETED { get; set; }
 
-        public GenreProductDTO GenreProduct {  get; set; }
-        public string GENRE_NAME {  get; set; }    
-        public int GENRE_ID {  get; set; }     
+        //public GenreProductDTO GenreProduct {  get; set; }
+        //public string GENRE_NAME {  get; set; }    
+        //public int GENRE_ID {  get; set; }     
 
     }
 }

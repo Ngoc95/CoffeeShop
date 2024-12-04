@@ -26,15 +26,23 @@
                 Style="{DynamicResource SearchTextBoxStyleStaff}">
             </TextBox>
 
-            <Menu
+            <ListView
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Background="Transparent"  
                 Grid.Row="1">
-                <MenuItem Header="Tất cả" />
-                <MenuItem Header="Caffee" />
-                <MenuItem Header="Trà sữa"/>
-                <MenuItem Header="Trà"/>
-                <MenuItem Header="Freeze"/>
-                <MenuItem Header="Khác"/>
-            </Menu>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListViewItem Content="Tất cả" />
+                <ListViewItem Content="Caffee" />
+                <ListViewItem Content="Trà sữa"/>
+                <ListViewItem Content="Trà"/>
+                <ListViewItem Content="Freeze"/>
+                <ListViewItem Content="Khác"/>
+            </ListView>
 
         </Grid>
 

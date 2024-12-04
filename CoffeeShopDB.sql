@@ -6,8 +6,9 @@ create table GENRE_PRODUCT
 (
 	GP_ID int identity(1,1),
 	GP_NAME nvarchar(max) not null,
-	constraint pk_GP primary key(GP_ID),
+	constraint pk_GP_ver1 primary key(GP_ID),
 )
+
 create table PRODUCT
 (	
 	PRO_ID  int identity(1,1),
@@ -17,8 +18,8 @@ create table PRODUCT
 	PRO_DESCRIPTION nvarchar(max),
 	PRO_PRICE money default 0,
 	IS_DELETED bit default 0,
-	constraint pk_PRO primary key(PRO_ID),
-	constraint fk_PRO_GENRE foreign key(GP_ID) references GENRE_PRODUCT(GP_ID),
+	constraint pk_PRO_v1 primary key(PRO_ID),
+	constraint fk_PRO_GENRE_v1 foreign key(GP_ID) references GENRE_PRODUCT(GP_ID),
 )
 create table GENRE_TABLE 
 (
@@ -164,3 +165,11 @@ create table ERROR
 INSERT INTO EMPLOYEE (EMP_NAME, EMP_PHONE, EMP_CCCD, EMP_BIRTHDAY, EMP_USERNAME, EMP_PASSWORD, EMP_EMAIL, EMP_GENDER, EMP_SALARY, EMP_ROLE)
 VALUES 
 (N'Ngọc Nguyên', '0912345678', '012345678901', '2005-01-01', 'admin', '123', 'ngocnguyen@example.com', N'Nữ', 15000000, N'Quản lý')
+
+delete from PRODUCT where PRO_NAME = N'Bơ'
+select* from GENRE_PRODUCT
+INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Coffee')
+INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Trà sữa')
+INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Trà')
+INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Sinh tố')
+

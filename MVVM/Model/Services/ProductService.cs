@@ -41,10 +41,9 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                                            PRO_ID = c.PRO_ID,
                                            PRO_NAME = c.PRO_NAME,
                                            PRO_PRICE = c.PRO_PRICE,
-                                           GENRE_ID = (int)c.GP_ID,
-                                           GENRE_NAME = c.GENRE_PRODUCT.GP_NAME,
+                                           GP_ID = c.GP_ID,
                                            PRO_DESCRIPTION = c.PRO_DESCRIPTION,
-                                           PRO_IMG = c.PRO_IMG == null ? "../../../Images/MenuAndError/UploadImg.jpg" : c.PRO_IMG,
+                                           PRO_IMG = c.PRO_IMG == null ? "pack://application:,,,/Images/MenuAndError/UploadImg.jpg" : c.PRO_IMG,
                                            IS_DELETED = c.IS_DELETED,
                                        }).ToListAsync();
                     return await productList;
@@ -54,6 +53,30 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             {
                 MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
                 return null;
+            }
+        }
+
+        public async Task<(bool, string)> EditPrdList(ProductDTO newPrd, int ID)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var Prd = await context.PRODUCTs.Where(p => p.PRO_ID == ID).FirstOrDefaultAsync();
+                    if (Prd == null) return (false, "Không tìm thấy ID");
+                    Prd.PRO_NAME = newPrd.PRO_NAME;
+                    Prd.PRO_PRICE = newPrd.PRO_PRICE;
+                    Prd.GP_ID = newPrd.GP_ID;
+                    Prd.PRO_IMG = newPrd.PRO_IMG;
+                    Prd.PRO_DESCRIPTION = newPrd.PRO_DESCRIPTION;
+                    Prd.IS_DELETED = newPrd.IS_DELETED;
+                    await context.SaveChangesAsync();
+                    return (true, "Chỉnh sửa thành công");
+                }
+            }
+            catch
+            {
+                return (false, "Xảy ra lỗi khi chỉnh sửa sản phẩm");
             }
         }
     }
