@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             DataContext="{StaticResource TableViewModel}"
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagament"
              mc:Ignorable="d" 
              d:DesignHeight="740" d:DesignWidth="930"
@@ -11,10 +13,25 @@
              FontFamily="Fonts/Roboto-Light.ttf #Roboto"
              Background="White">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <local:MyTemplateSelector x:Key="MySelector"
+                                  Table2Template="{StaticResource Table2}"
+                                  Table3Template="{StaticResource Table3}"
+                                  Table4Template="{StaticResource Table4}"
+                                  Table6Template="{StaticResource Table6}" />
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="78"></RowDefinition>
-            <RowDefinition Height="77"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -26,20 +43,22 @@
             <ComboBox 
                     Grid.Column="0"
                     Margin="52,0,15,0"
-                    Tag="Vị trí"
+                    Tag="Trạng thái"
+                FontSize="22"
                     Style="{DynamicResource ComboBoxStyle1}" 
-                    ItemContainerStyle="{DynamicResource ComboBoxItemContainerStyle1}" 
-                    materialDesign:HintAssist.Hint="Vị trí"
+                    materialDesign:HintAssist.Hint=""
                     VerticalAlignment="Bottom">
                 <!--command cho combobox xaml-->
 
                 <ComboBoxItem
-                        Width="100"
-                        Content="Tầng 1">
-                </ComboBoxItem>
+                        Width="200"
+                        Content="Còn trống"/>
                 <ComboBoxItem 
-                        Width="100"  
-                        Content="Tầng 2"></ComboBoxItem>
+                        Width="200"  
+                        Content="Đã đặt"/>
+                <ComboBoxItem 
+                        Width="200"  
+                        Content="Đang sửa chữa"/>
             </ComboBox>
 
             <Button 
@@ -52,7 +71,7 @@
 
             </Button>
         </Grid>
-        <StackPanel 
+        <!--<StackPanel 
             Grid.Row="1" 
             Orientation="Horizontal"
             VerticalAlignment="Center" Height="40">
@@ -109,7 +128,56 @@
                 Content="Bàn 6"
                 IsChecked="False"                   
                 Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
-        </StackPanel>
-
+        </StackPanel>-->
+        <ScrollViewer 
+            Grid.Row="1" 
+            Margin="10"
+            VerticalScrollBarVisibility="Auto">
+            <ItemsControl
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            ItemsSource="{Binding GenreTableList}"
+            Width="auto" Height="auto">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton
+                    HorizontalAlignment="Stretch"
+                    Cursor="Hand"
+                    FontSize="25"
+                    Margin="15, 0"
+                    Command="{Binding DataContext.FilterCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                    CommandParameter="{Binding GT_ID}"
+                    Content="{Binding GT_NAME}"
+                    IsChecked="False"
+                    GroupName="ProductTypeGroup"
+                    Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        
+        <Separator Grid.Row="2" Margin="20, 0, 20, 0" ></Separator>
+        
+        <ScrollViewer 
+            Grid.Row="3" 
+            VerticalScrollBarVisibility="Auto">
+            <ItemsControl
+                Padding="0"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"        
+                Width="auto" Height="auto"
+                ItemsSource="{Binding TableList}" 
+                ItemTemplateSelector="{StaticResource MySelector}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>

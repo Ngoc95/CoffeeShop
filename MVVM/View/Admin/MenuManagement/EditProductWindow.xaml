@@ -16,7 +16,8 @@
         Title="EditProduct" Height="703" Width="668"
         Background="Transparent">
 
-    <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White" MouseDown="moveAddCusWin_MouseDown">
+    <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White"
+            MouseDown="moveAddCusWin_MouseDown">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
@@ -75,7 +76,7 @@
                         <Grid>
                             <TextBox 
                                 x:Name="Prd_Price_tb"
-                                Text="{Binding SelectedItem.PRO_PRICE, StringFormat={}{0:C0}}" Language="vi-VN"
+                                Text="{Binding SelectedItem.PRO_PRICE, Mode=TwoWay, StringFormat={}{0:C0}}" Language="vi-VN"
                                 Margin="15,0,30,15" 
                                 Width="auto" 
                                 Style="{DynamicResource TextBoxStyle1}" 
@@ -83,24 +84,38 @@
                         </Grid>
                     </StackPanel>
                 </Grid>
-
                 <Grid Grid.Column="1">
                     <StackPanel>
-                        <TextBlock Text="Thêm ảnh" 
+                        <StackPanel 
+                            Orientation="Horizontal" 
+                            Height="30">
+
+                            <TextBlock Text="Hình ảnh" 
                                    Style="{DynamicResource Header3Style}"
                                    Margin="15,0,0,0"/>
-                        <Grid 
-                            Height="258"
-                            Background="#ffc3a1"
-                            Margin="15,5,20,14">
+                            <Button 
+                                Command="{Binding BtnImageCommand}"
+                                CommandParameter="{Binding ElementName=ProductImg}"
+                                Width="60" 
+                                Height="25" 
+                                Style="{DynamicResource ButtonUploadStyle}">
+                            </Button>
+                        </StackPanel>
+                        <Border
+                            Height="250" Width="250"
+                            Background="#ffc3a1" CornerRadius="20" Margin="10">
+
                             <Image
-                                x:Name="img"
-                                Source="{Binding SelectedItem.PRO_IMG}"
+                                x:Name="ProductImg"
+                                Margin="0"
+                                Source="{Binding SelectedItem.PRO_IMG, Mode=TwoWay}"
                                 Stretch="Fill" Grid.ColumnSpan="2"></Image>
-                        </Grid>
+                        </Border>
                     </StackPanel>
                 </Grid>
             </Grid>
+
+            
 
             <StackPanel Grid.Row="2" Margin="5,5,0,0">
                 <TextBlock Text="Mô tả" Style="{DynamicResource Header3Style}"/>
@@ -112,6 +127,7 @@
 
             <Grid Grid.Row="3">
                 <Button 
+                    Command="{Binding CloseWDnotChangeCommand}"
                     Click="Button_Click"
                     HorizontalAlignment="Left"
                     Margin="20,0,0,0"

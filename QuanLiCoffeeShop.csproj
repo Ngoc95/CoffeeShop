@@ -359,7 +359,9 @@
     <Compile Include="DTOs\CustomerDTO.cs" />
     <Compile Include="DTOs\ErrorDTO.cs" />
     <Compile Include="DTOs\GenreProductDTO.cs" />
+    <Compile Include="DTOs\GenreTableDTO.cs" />
     <Compile Include="DTOs\ProductDTO.cs" />
+    <Compile Include="DTOs\TableDTO.cs" />
     <Compile Include="MVVM\Model\BILL.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -408,7 +410,9 @@
     <Compile Include="MVVM\Model\Services\CustomerService.cs" />
     <Compile Include="MVVM\Model\Services\ErrorService.cs" />
     <Compile Include="MVVM\Model\Services\GenreProService.cs" />
+    <Compile Include="MVVM\Model\Services\GenreTableService.cs" />
     <Compile Include="MVVM\Model\Services\ProductService.cs" />
+    <Compile Include="MVVM\Model\Services\TableService.cs" />
     <Compile Include="MVVM\Model\WORK_SHIFT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -599,6 +603,7 @@
   <ItemGroup>
     <Resource Include="Images\Message\success.png" />
     <Resource Include="Images\Message\error.png" />
+    <Resource Include="Images\Table\upload_icon.png" />
     <Content Include="MVVM\Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

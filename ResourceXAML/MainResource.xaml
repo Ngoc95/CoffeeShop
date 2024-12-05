@@ -1,6 +1,27 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:AdminViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
-                    xmlns:ProCardViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.ProductCardVM">
+                    xmlns:ProCardViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.ProductCardVM"
+                    xmlns:TableCard="clr-namespace:QuanLiCoffeeShop.MVVM.View.TableCard">
     <AdminViewModel:MenuViewModel x:Key="MenuViewModel"/>
+    <AdminViewModel:TableViewModel x:Key="TableViewModel"/>
+    
+    <!--TableCardforAdmin-->
+    <DataTemplate x:Key="Table2">
+        <TableCard:Table2Card/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Table3">
+        <TableCard:Table3Card/>
+    </DataTemplate>
+    
+    <DataTemplate x:Key="Table4">
+        <TableCard:Table4Card/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Table6">
+        <TableCard:Table6Card/>
+    </DataTemplate>
+    
+    
 </ResourceDictionary>

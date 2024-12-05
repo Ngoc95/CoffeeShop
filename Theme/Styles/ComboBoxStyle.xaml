@@ -23,6 +23,7 @@
     <Style x:Key="ComboBoxStyle1" TargetType="{x:Type ComboBox}">
         <Setter Property="Background" Value="#FFC3A1"/>
         <Setter Property="Height" Value="65"/>
+        <Setter Property="FontSize" Value="22"/>
         <Setter Property="Width" Value="360"/>
         <Setter Property="Padding" Value="15"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -64,14 +65,15 @@
                               IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
                               HorizontalAlignment="Right"
                               VerticalAlignment="Center"></ToggleButton>
+
                         <Popup 
                             x:Name="Popup"
                             IsOpen="{TemplateBinding IsDropDownOpen}"
                             AllowsTransparency="True"
                             Focusable="False"
                             Placement="right"
-                            Width="110"
-                            HorizontalOffset="-110"
+                            Width="auto"
+                            HorizontalOffset="-200"
                             VerticalOffset="50"
                             PopupAnimation="Slide">
                             <Border 

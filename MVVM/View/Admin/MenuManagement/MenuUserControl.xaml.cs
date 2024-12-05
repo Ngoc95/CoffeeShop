@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiCoffeeShop.MVVM.ViewModel.Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,14 +26,16 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement
             InitializeComponent();
         }
 
-        //private void Table6_Checked(object sender, RoutedEventArgs e)
-        //{
-
-        //}
-
-        //private void ItemsControl_Selected(object sender, RoutedEventArgs e)
-        //{
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Vi TextBox ko the dug command tren xaml
+            var viewModel = DataContext as MenuViewModel;
             
-        //}
+            if (viewModel?.FilterCommand.CanExecute(null) == true)
+            {
+                viewModel.FilterCommand.Execute(((TextBox)sender).Text);
+            }
+        }
+
     }
 }

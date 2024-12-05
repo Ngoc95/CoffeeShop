@@ -43,7 +43,7 @@
                 <StackPanel Orientation="Vertical" Height="316" Width="310">
                     <TextBlock Style="{DynamicResource Header2Style}" Text="Mã bàn: "></TextBlock>
                     <StackPanel Height="auto">
-                        <TextBlock Style="{DynamicResource Header2Style}" Text="Vị trí: "></TextBlock>
+                        <TextBlock Style="{DynamicResource Header2Style}" Text="Trạng thái: "></TextBlock>
                         <ComboBox
                             Width="240"
                             Margin="5"

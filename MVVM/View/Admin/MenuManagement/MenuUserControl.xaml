@@ -9,7 +9,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              xmlns:cb="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
-             xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ProductCard" xmlns:i1="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ProductCard"
              d:DesignHeight="740" d:DesignWidth="930"
              FontFamily="Fonts/Roboto-Light.ttf #Roboto"
              FontSize="16"
@@ -36,9 +36,11 @@
 
             <Grid Grid.Row="0" Width="350" Height="74" Margin="15,0,0,0" VerticalAlignment="Bottom">
                 <TextBox 
+                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                    TextChanged="TextBox_TextChanged"
                     Style="{StaticResource searchTextbox_style}"/>
-                <Button x:Name="searchBtn"
-                    Command="{Binding SearchMenuCommand}"
+                <Button 
+                    x:Name="searchBtn"
                     Width="65" Height="50"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
@@ -54,7 +56,7 @@
 
 
             <Button 
-                Command="{Binding AddProCommand}"
+                Command="{Binding OpenAddProWDCommand}"
                 Width="250" Height="76"
                 HorizontalAlignment="Right"
                 Style="{DynamicResource ButtonStyle1}" 
@@ -78,79 +80,6 @@
             </Grid>
 
         </Grid>
-        <!--<StackPanel 
-            Grid.Row="1"
-            Margin="0" 
-            Orientation="Horizontal"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Center">
-            <RadioButton                    
-                Command="{Binding AllProduct}"
-                HorizontalAlignment="Stretch"
-                Cursor="Hand"
-                Margin="30, 0, 15, 0"
-                Content="Tất cả"
-                FontSize="25"
-                IsChecked="True"                   
-                Style="{DynamicResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" />
-            <RadioButton
-                Command="{Binding ProductFilter}"
-                HorizontalAlignment="Stretch"
-                x:Name="Coffee"
-                CommandParameter="{Binding ElementName=Coffee}"
-                Cursor="Hand"
-                Margin="15, 0"
-                FontSize="25"
-                Content="Coffee"
-                IsChecked="False"
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" />
-            <RadioButton
-                HorizontalAlignment="Stretch"
-                Command="{Binding ProductFilter}"
-                x:Name="MIlkTea"
-                CommandParameter="{Binding ElementName=MilkTea}"
-                Cursor="Hand"
-                Margin="15, 0"
-                FontSize="25"
-                Content="Trà sữa"
-                IsChecked="False"                   
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
-            <RadioButton
-                HorizontalAlignment="Stretch"
-                Command="{Binding ProductFilter}"
-                x:Name="Tea"
-                CommandParameter="{Binding ElementName=Tea}"
-                Cursor="Hand"
-                Margin="15, 0"
-                FontSize="25"
-                Content="Trà"
-                IsChecked="False"                   
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
-            <RadioButton
-                HorizontalAlignment="Stretch"
-                Command="{Binding ProductFilter}"
-                x:Name="Freeze"
-                CommandParameter="{Binding ElementName=Freeze}"
-                Cursor="Hand"
-                FontSize="25"
-                Margin="15, 0"
-                Content="Freeze"
-
-                IsChecked="False"                   
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" />
-
-            <RadioButton
-                HorizontalAlignment="Stretch"
-                Command="{Binding ProductFilter}"
-                x:Name="Other"
-                CommandParameter="{Binding ElementName=Other}"
-                Cursor="Hand"
-                FontSize="25"
-                Margin="15, 0"
-                Content="khác"
-                IsChecked="False"                   
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
-        </StackPanel>-->
         
 
         <ScrollViewer 
@@ -171,10 +100,11 @@
                     <DataTemplate>
                         <RadioButton
                             HorizontalAlignment="Stretch"
-                            x:Name="Other"
                             Cursor="Hand"
                             FontSize="25"
                             Margin="15, 0"
+                            Command="{Binding DataContext.FilterCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                            CommandParameter="{Binding GP_ID}"
                             Content="{Binding GP_NAME}"
                             IsChecked="False"
                             GroupName="ProductTypeGroup"
@@ -186,27 +116,7 @@
         <!--phan nay viet them vao cai thien de tai them xoa sua loai sp-->
 
         <Separator Grid.Row="2" Margin="20, 0, 20, 0" ></Separator>
-        <!--<ScrollViewer 
-            Grid.Row="3" 
-            VerticalScrollBarVisibility="Auto">
-            <ItemsControl
-                ItemsSource="{Binding ProductList}"
-                Width="auto" Height="auto">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <uc:ProductCard 
-                            DataContext="{Binding}"
-                            Width="216" Height="312.3"
-                            Margin="5"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>-->
+        
         <ScrollViewer 
             Grid.Row="3" 
             VerticalScrollBarVisibility="Auto">
