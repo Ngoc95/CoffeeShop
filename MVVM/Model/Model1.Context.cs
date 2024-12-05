@@ -35,6 +35,7 @@ namespace QuanLiCoffeeShop.MVVM.Model
         public virtual DbSet<GENRE_PRODUCT> GENRE_PRODUCT { get; set; }
         public virtual DbSet<GENRE_TABLE> GENRE_TABLE { get; set; }
         public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
+        public virtual DbSet<RESERVATION> RESERVATIONs { get; set; }
         public virtual DbSet<WORK_SHIFT> WORK_SHIFT { get; set; }
     }
 }

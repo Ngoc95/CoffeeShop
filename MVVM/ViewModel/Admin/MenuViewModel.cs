@@ -250,13 +250,13 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             });
 
 
-            PrintMenuCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            PrintMenuCommand = new RelayCommand<Window>((p) => { return true; },(p) =>
             {
 
             });
         }
 
-        public static implicit operator MenuViewModel(StaffMenuOrderViewModel v)
+        public static implicit operator MenuViewModel(MenuOrderViewModel v)
         {
             throw new NotImplementedException();
         }

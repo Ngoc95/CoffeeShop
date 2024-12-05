@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:in="http://schemas.microsoft.com/expression/2010/interactivity"
              DataContext="{StaticResource TableViewModel}"
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagament"
              mc:Ignorable="d" 
@@ -26,30 +27,41 @@
                                   Table4Template="{StaticResource Table4}"
                                   Table6Template="{StaticResource Table6}" />
     </UserControl.Resources>
-    
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="67*"/>
+            <ColumnDefinition Width="243*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="78"></RowDefinition>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
             <ComboBox 
-                    Grid.Column="0"
-                    Margin="20,0,15,0"
-                    Tag="Trạng thái"
+                Grid.Column="0"
+                Margin="20,0,15,0"
+                Tag="Lọc theo trạng thái"
                 FontSize="22"
-                    Style="{DynamicResource ComboBoxStyle1}" 
-                    materialDesign:HintAssist.Hint=""
-                    VerticalAlignment="Bottom">
-                <!--command cho combobox xaml-->
-
+                SelectedValue="{Binding CbbSelectedValue, Mode=TwoWay}"
+                Style="{DynamicResource ComboBoxStyle1}" 
+                materialDesign:HintAssist.Hint=""
+                VerticalAlignment="Bottom">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding FilterCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ComboBoxItem
+                        Width="200"
+                        Content="Tất cả"/>
                 <ComboBoxItem
                         Width="200"
                         Content="Còn trống"/>
@@ -71,11 +83,11 @@
 
             </Button>
         </Grid>
-       
+
         <ScrollViewer 
             Grid.Row="1" 
-            Margin="10"
-            VerticalScrollBarVisibility="Auto">
+            Margin="10,10,10,10"
+            VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
             <ItemsControl
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
@@ -103,12 +115,12 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        
-        <Separator Grid.Row="2" Margin="20, 0, 20, 0" ></Separator>
-        
+
+        <Separator Grid.Row="2" Margin="20,0,20,0" Grid.ColumnSpan="2" ></Separator>
+
         <ScrollViewer 
             Grid.Row="3" 
-            VerticalScrollBarVisibility="Auto">
+            VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
             <ItemsControl
                 Padding="0"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"        

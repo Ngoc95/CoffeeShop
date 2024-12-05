@@ -2,10 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:AdminViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
                     xmlns:ProCardViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.ProductCardVM"
+                    xmlns:StaffViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
+                    xmlns:StaffMenuOrderView="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu"
+                    xmlns:StaffTableResView="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffTable"
                     xmlns:TableCard="clr-namespace:QuanLiCoffeeShop.MVVM.View.TableCard">
     <AdminViewModel:MenuViewModel x:Key="MenuViewModel"/>
     <AdminViewModel:TableViewModel x:Key="TableViewModel"/>
-    
+    <StaffViewModel:MenuOrderViewModel x:Key="MenuOrderViewModel"/>
+    <StaffViewModel:StaffTableResViewModel x:Key="StaffTableResViewModel"/>
     <!--TableCardforAdmin-->
     <DataTemplate x:Key="Table2">
         <TableCard:Table2Card Width="150" Height="236" Margin="10"/>
@@ -22,6 +26,13 @@
     <DataTemplate x:Key="Table6">
         <TableCard:Table6Card Width="150" Height="236" Margin="10"/>
     </DataTemplate>
-    
-    
+
+    <DataTemplate DataType="{x:Type StaffViewModel:MenuOrderViewModel}">
+        <StaffMenuOrderView:StaffMenuOrderUserControl/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type StaffViewModel:StaffTableResViewModel}">
+        <StaffTableResView:StaffTableUserControl/>
+    </DataTemplate>
+
 </ResourceDictionary>

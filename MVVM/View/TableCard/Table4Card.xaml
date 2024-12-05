@@ -28,7 +28,7 @@
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
                 <TextBlock TextAlignment="Center" FontSize="20" Margin="0, 5, 0, 0" Text="{Binding TB_ID, StringFormat='000'}"></TextBlock>
                 <TextBlock TextAlignment="Center" FontSize="18" Margin="0,5, 0, 0" Text="{Binding TB_STATUS}"></TextBlock>
-                <TextBlock TextAlignment="Center" FontSize="14" Foreground="#49454F" Text="Bàn 4 người"></TextBlock>
+                <TextBlock TextAlignment="Center" FontSize="18" Foreground="#49454F" Text="Bàn 4 người"></TextBlock>
             </StackPanel>
 
             <Rectangle Grid.Row="2" Fill="#FFC3A1" RadiusX="20" RadiusY="20"/>

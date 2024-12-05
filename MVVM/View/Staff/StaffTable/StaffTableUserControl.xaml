@@ -31,12 +31,16 @@
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="90"/>
                 <RowDefinition Height="9*"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="1" BorderBrush="#603127" BorderThickness="1" Background="#ffc3a1" Margin="0,0,10,0">
+            <Border 
+                Grid.Row="0" 
+                BorderBrush="#603127" 
+                BorderThickness="1"
+                Background="#ffc3a1"
+                Margin="0,0,20,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60"/>
@@ -45,7 +49,7 @@
                     <TextBlock 
                         Grid.Row="0" 
                         Style="{DynamicResource Header5Style}" Text="Lịch đặt bàn" Margin="10"></TextBlock>
-                    <DataGrid Grid.Row="1" Margin="10">
+                    <DataGrid Grid.Row="1" Margin="20">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Mã đặt bàn"></DataGridTextColumn>
                             <DataGridTextColumn Header="Mã bàn"></DataGridTextColumn>
@@ -55,14 +59,12 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
-               
-               
             </Border>
 
             <Button 
-                Grid.Row="2"
+                Grid.Row="1"
                 Style="{DynamicResource ButtonStaffStyle}" 
-                Margin="0,0,10,0" 
+                Margin="0,0,20,0" 
                 Content="Thêm lịch đặt bàn"
                 Background="#ffc3a1"></Button>
         </Grid>

@@ -49,6 +49,7 @@
                         </Border>
                         <TextBlock 
                             x:Name="TextBlock"
+                            Margin="11,0,25,0"
                             Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Left"

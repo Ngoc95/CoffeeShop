@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 {
-    class StaffMenuOrderViewModel : ObservableObject
+    class MenuOrderViewModel : ObservableObject
     {
-        StaffMenuOrderViewModel() { }
     }
 }
