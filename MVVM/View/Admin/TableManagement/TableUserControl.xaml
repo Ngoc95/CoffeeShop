@@ -42,7 +42,7 @@
 
             <ComboBox 
                     Grid.Column="0"
-                    Margin="52,0,15,0"
+                    Margin="20,0,15,0"
                     Tag="Trạng thái"
                 FontSize="22"
                     Style="{DynamicResource ComboBoxStyle1}" 
@@ -55,7 +55,7 @@
                         Content="Còn trống"/>
                 <ComboBoxItem 
                         Width="200"  
-                        Content="Đã đặt"/>
+                        Content="Đang bận"/>
                 <ComboBoxItem 
                         Width="200"  
                         Content="Đang sửa chữa"/>
@@ -71,64 +71,7 @@
 
             </Button>
         </Grid>
-        <!--<StackPanel 
-            Grid.Row="1" 
-            Orientation="Horizontal"
-            VerticalAlignment="Center" Height="40">
-            <RadioButton                    
-                Command="{Binding AllTable}"
-                HorizontalAlignment="Stretch"
-                Cursor="Hand"
-                Margin="40, 0"
-                Content="Tất cả"
-                FontSize="25"
-                IsChecked="True"                   
-                Style="{DynamicResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" />
-            <RadioButton
-                Command="{Binding TableFilter}"
-                HorizontalAlignment="Stretch"
-                x:Name="Table2"
-                CommandParameter="{Binding ElementName=Table2}"
-                Cursor="Hand"
-                Margin="40, 0"
-                FontSize="25"
-                Content="Bàn 2"
-                IsChecked="False"
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" />
-            <RadioButton
-                HorizontalAlignment="Stretch"
-                Command="{Binding TableFilter}"
-                x:Name="Table3"
-                CommandParameter="{Binding ElementName=Table3}"
-                Cursor="Hand"
-                Margin="40, 0"
-                FontSize="25"
-                Content="Bàn 3"
-                IsChecked="False"                   
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
-            <RadioButton
-                HorizontalAlignment="Stretch"
-                Command="{Binding TableFilter}"
-                x:Name="Table4"
-                CommandParameter="{Binding ElementName=Table4}"
-                Cursor="Hand"
-                Margin="40, 0"
-                FontSize="25"
-                Content="Bàn 4"
-                IsChecked="False"                   
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
-            <RadioButton
-                HorizontalAlignment="Stretch"
-                Command="{Binding ProductFilter}"
-                x:Name="Table6"
-                CommandParameter="{Binding ElementName=Table6}"
-                Cursor="Hand"
-                FontSize="25"
-                Margin="40, 0"
-                Content="Bàn 6"
-                IsChecked="False"                   
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
-        </StackPanel>-->
+       
         <ScrollViewer 
             Grid.Row="1" 
             Margin="10"

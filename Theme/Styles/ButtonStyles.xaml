@@ -7,7 +7,7 @@
     <ImageBrush x:Key="MinusIconMouseOverSource" ImageSource="../../Images/ControlBarImg/minimize_mouseover.png"></ImageBrush>
     
     <Style x:Key="ButtonStyleEditTBCard" TargetType="Button">
-        <Setter Property="Margin" Value="18, 0, 10, 0"/>
+        <Setter Property="Margin" Value="10, 0, 10, 0"/>
         <Setter Property="Width" Value="41"/>
         <Setter Property="Height" Value="41"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
@@ -27,14 +27,14 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseCaptured" Value="True">
-                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderThickness" Value="5"/>
                 <Setter Property="BorderBrush" Value="Black"/>
             </Trigger>
         </Style.Triggers>
     </Style>
     
     <Style x:Key="ButtonStyleDeleteTBCard" TargetType="Button">
-        <Setter Property="Margin" Value="18, 0, 10, 0"/>
+        <Setter Property="Margin" Value="10, 0, 10, 0"/>
         <Setter Property="Width" Value="41"/>
         <Setter Property="Height" Value="41"/>
         <Setter Property="VerticalAlignment" Value="Top"/>

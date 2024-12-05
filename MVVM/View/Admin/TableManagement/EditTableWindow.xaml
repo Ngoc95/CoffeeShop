@@ -1,10 +1,9 @@
-﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Admin.TableManagament.AddTableWindow"
+﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Admin.TableManagement.EditTableWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagament"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagement"
         xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
         mc:Ignorable="d"
         Title="AddTableWindow" Height="464" Width="350"
@@ -31,7 +30,7 @@
                 <Grid Grid.Column="1" Height="40" Width="80" 
                       VerticalAlignment="Center" 
                       HorizontalAlignment="Right" 
-                      Margin="0,0,15,0"> 
+                      Margin="0,0,15,0">
                     <uc:ControlBarUserControl Tag="{Binding Title, ElementName=mainWindow}"></uc:ControlBarUserControl>
                 </Grid>
             </Grid>
@@ -41,6 +40,7 @@
                            Fill="#ffc3a1"
                            RadiusX="20" RadiusY="20"></Rectangle>
                 <StackPanel Orientation="Vertical" Height="316" Width="310">
+                    <TextBlock Style="{DynamicResource Header2Style}" Text="Mã bàn: "></TextBlock>
                     <StackPanel Height="auto">
                         <TextBlock Style="{DynamicResource Header2Style}" Text="Trạng thái: "></TextBlock>
                         <ComboBox
@@ -85,7 +85,7 @@
                         Style="{DynamicResource ButtonCancel_WD}">
                 </Button>
                 <Button Grid.Column="1" 
-                        Content="Thêm"
+                        Content="Lưu thay đổi"
                         Style="{DynamicResource ButtonAdd_WD}"></Button>
             </Grid>
         </Grid>

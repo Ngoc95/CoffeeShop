@@ -28,6 +28,7 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement
         public AddProductWindow(List<string> genre_Prd, string Genre)
         {
             InitializeComponent();
+            if (_GenreProductLists.Count > 0) return;
             _GenreProductLists = genre_Prd;
             Genre_Product_cbb.ItemsSource = _GenreProductLists;
         }

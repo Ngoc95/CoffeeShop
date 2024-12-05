@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ecf1ad92990e422bacb2807e1727f62f" Name="Diagram1" ZoomLevel="116">
+      <Diagram DiagramId="ecf1ad92990e422bacb2807e1727f62f" Name="Diagram1" ZoomLevel="88">
         <EntityTypeShape EntityType="CoffeeShopDBModel.C_TABLE" Width="1.5" PointX="8" PointY="6.875" />
         <EntityTypeShape EntityType="CoffeeShopDBModel.BILL" Width="1.5" PointX="6" PointY="2.625" />
         <EntityTypeShape EntityType="CoffeeShopDBModel.BILL_INFO" Width="1.5" PointX="8.25" PointY="2.75" />

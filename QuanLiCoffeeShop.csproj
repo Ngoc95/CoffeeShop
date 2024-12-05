@@ -172,6 +172,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\Admin\TableManagement\EditTableWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Admin\TableManagement\TableUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -480,6 +484,9 @@
     <Compile Include="MVVM\View\Admin\TableManagement\AddTableWindow.xaml.cs">
       <DependentUpon>AddTableWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\Admin\TableManagement\EditTableWindow.xaml.cs">
+      <DependentUpon>EditTableWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Admin\TableManagement\TableUserControl.xaml.cs">
       <DependentUpon>TableUserControl.xaml</DependentUpon>
     </Compile>
@@ -604,6 +611,16 @@
     <Resource Include="Images\Message\success.png" />
     <Resource Include="Images\Message\error.png" />
     <Resource Include="Images\Table\upload_icon.png" />
+    <Resource Include="DemoDataPrdImg\trachanh.jpg" />
+    <Resource Include="DemoDataPrdImg\tradao.jpg" />
+    <Resource Include="DemoDataPrdImg\suatuoitc.jpg" />
+    <Resource Include="DemoDataPrdImg\sinhtoxoai.jpg" />
+    <Resource Include="DemoDataPrdImg\sinhtoDau.jpg" />
+    <Resource Include="DemoDataPrdImg\sinhtoduahau.png" />
+    <Resource Include="DemoDataPrdImg\coffee.jpg" />
+    <Resource Include="DemoDataPrdImg\bacxiu.png" />
+    <Resource Include="DemoDataPrdImg\coffeemuoi.jpg" />
+    <Resource Include="DemoDataPrdImg\trasuapudding.jpg" />
     <Content Include="MVVM\Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

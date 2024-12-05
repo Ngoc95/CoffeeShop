@@ -31,7 +31,7 @@
                     <StackPanel>
                         <TextBlock 
                             Margin="10,0,0,5"
-                            Style="{DynamicResource Header6Style}" 
+                            FontSize="14"
                             Text="{Binding PRO_NAME}"
                             ></TextBlock>
                         <TextBlock

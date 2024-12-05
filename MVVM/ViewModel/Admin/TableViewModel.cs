@@ -1,12 +1,14 @@
 ﻿using QuanLiCoffeeShop.Core;
 using QuanLiCoffeeShop.DTOs;
 using QuanLiCoffeeShop.MVVM.Model.Services;
+using QuanLiCoffeeShop.MVVM.View.Admin.TableManagament;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -40,6 +42,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
         #region Command
         public ICommand FirstLoadCM { get; set; }
+        public ICommand OpenEditTableWDCommand { get; set; }
 
         #endregion
 
@@ -60,7 +63,12 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     TableList = _TableList;
                 }
             });
-        }
+            OpenEditTableWDCommand = new RelayCommand<Page>((p) => { return true; }, async (p) =>
+            {
+                Window wd = new AddTableWindow();
+                wd.ShowDialog();
+            });
+            }
     }
 
     //public class MyDataTemplateSelector : DataTemplateSelector

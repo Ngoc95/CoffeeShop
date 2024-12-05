@@ -21,6 +21,7 @@ create table PRODUCT
 	constraint pk_PRO_v1 primary key(PRO_ID),
 	constraint fk_PRO_GENRE_v1 foreign key(GP_ID) references GENRE_PRODUCT(GP_ID),
 )
+
 create table GENRE_TABLE 
 (
 	GT_ID  int identity(1,1),
@@ -29,14 +30,15 @@ create table GENRE_TABLE
 )
 create table _TABLE
 (	
-	TB_ID  int identity(1,1),
+	TB_ID int identity(1,1),
 	GT_ID int,
 	TB_STATUS nvarchar(100) default N'Còn trống',
 	IS_DELETED bit default 0,
 	constraint pk_TB primary key(TB_ID),
 	constraint fk_TABLE_GENRE foreign key(GT_ID) references GENRE_TABLE(GT_ID),
-	constraint chk_TABLE_STATUS check (TB_STATUS in(N'Còn trống', N'Đã đặt', N'Đang sửa chữa')),
+	constraint chk_TABLE_STATUS check (TB_STATUS in(N'Còn trống', N'Đang bận', N'Đang sửa chữa')),
 )
+
 create table CUSTOMER
 (
 	CUS_ID  int identity(1,1),
@@ -48,6 +50,25 @@ create table CUSTOMER
 	IS_DELETED bit default 0,
 	constraint pk_CUS primary key(CUS_ID),
 	constraint chk_CUS check(CUS_GENDER in (N'Nam',N'Nữ')),
+)
+
+create table RESERVATION
+(
+	RES_ID int identity(1,1),
+	CUS_ID int not null,
+	TABLE_ID int not null, 
+	RES_DATE smalldatetime not null, 
+	RES_TIME smalldatetime not null, 
+	NUM_OF_PEOPLE int not null, 
+	RES_STATUS nvarchar(100) default N'Khách chưa nhận bàn', 
+	SPECIAL_REQUEST nvarchar(max),  
+	CREATE_AT smalldatetime default getdate(), 
+	IS_DELETED bit default 0, 
+	constraint pk_RES primary key(RES_ID),
+	constraint fk_CUS foreign key(CUS_ID) references CUSTOMER(CUS_ID),
+	constraint fk_TABLE foreign key(TABLE_ID) references _TABLE(TB_ID),
+
+	constraint chk_RES check(RES_STATUS in ( N'Khách chưa nhận bàn',  N'Khách đã nhận bàn'))
 )
 
 create table EMPLOYEE
@@ -176,4 +197,22 @@ INSERT INTO GENRE_TABLE (GT_NAME) Values (N'Bàn 3')
 INSERT INTO GENRE_TABLE (GT_NAME) Values (N'Bàn 4')
 INSERT INTO GENRE_TABLE (GT_NAME) Values (N'Bàn 6')
 
+INSERT INTO _TABLE (GT_ID) VALUES (1)
+INSERT INTO _TABLE (GT_ID) VALUES (1)
+INSERT INTO _TABLE (GT_ID) VALUES (2)
+INSERT INTO _TABLE (GT_ID) VALUES (2)
+INSERT INTO _TABLE (GT_ID) VALUES (3)
+INSERT INTO _TABLE (GT_ID) VALUES (3)
+INSERT INTO _TABLE (GT_ID) VALUES (3)
+INSERT INTO _TABLE (GT_ID) VALUES (4)
 
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà đào', 3, 'pack://application:,,,/DemoDataPrdImg/tradao.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà sữa pudding', 2, 'pack://application:,,,/DemoDataPrdImg/trasuapudding.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Coffee muối', 1, 'pack://application:,,,/DemoDataPrdImg/coffeemuoi.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Bạc xỉu', 1, 'pack://application:,,,/DemoDataPrdImg/bacxiu.png', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà chanh', 3, 'pack://application:,,,/DemoDataPrdImg/tradao.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố xoài', 4, 'pack://application:,,,/DemoDataPrdImg/sinhtoxoai.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố dâu', 4, 'pack://application:,,,/DemoDataPrdImg/sinhtoDau.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sữa tươi trân châu đen', 2, 'pack://application:,,,/DemoDataPrdImg/suatuoitc.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố dưa hấu', 4, 'pack://application:,,,/DemoDataPrdImg/tradao.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Coffee', 1, 'pack://application:,,,/DemoDataPrdImg/tradao.jpg', 15000)
