@@ -16,6 +16,9 @@ using QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement;
 using Microsoft.Win32;
 using OfficeOpenXml;
 using System.IO;
+using GalaSoft.MvvmLight.Messaging;
+using static QuanLiCoffeeShop.MVVM.ViewModel.Admin.WorkshiftViewModel;
+using GalaSoft.MvvmLight.Helpers;
 
 namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 {
@@ -174,7 +177,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                         EMP_SALARY = _selectedItem.EMP_SALARY,
                         EMP_STARTDATE = _selectedItem.EMP_STARTDATE,
                         EMP_STATUS = _selectedItem.EMP_STATUS,
-                        EMP_USERNAME = _selectedItem.EMP_USERNAME
+                        EMP_USERNAME = _selectedItem.EMP_USERNAME,
+                        EMP_TotalShifts = _selectedItem.EMP_TotalShifts
                     };
                 }
                 OnPropertyChanged(nameof(SelectedItem));
@@ -182,12 +186,24 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         }
         public ObservableCollection<string> RoleList { get; set; } = new ObservableCollection<string>
         {
+            "Tất cả",
             "Quản lý",
             "Phục vụ",
             "Pha chế",
             "Thu ngân",
-            "Tất cả"
         };
+
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _selectedRole;
         public string SelectedRole
         {
@@ -196,9 +212,13 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             {
                 _selectedRole = value;
                 OnPropertyChanged();
+
+                SearchText = null;
+
                 CommandManager.InvalidateRequerySuggested();
                 if (FilterRoleCM.CanExecute(null))
                     FilterRoleCM.Execute(null);
+
             }
         }
 
@@ -228,16 +248,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             Bday = DateTime.Now;
             FirstLoadCM = new RelayCommand<UserControl>((p) => { return true; }, async (p) =>
             {
-                var employees = await Task.Run(() => EmployeeService.Ins.GetAllEmp());
-                //cập nhật tổng số ca làm việc của mỗi nhân viên
-                foreach (var employee in employees)
-                {
-                    employee.EMP_TotalShifts = await Task.Run(() => EmployeeService.Ins.GetEmployeeTotalShifts(employee.EMP_ID));
-                }
-
-                EmpList = new ObservableCollection<EmployeeDTO>(employees);
-                if (EmpList != null)
-                    empList = new List<EmployeeDTO>(EmpList);
+                await LoadEmpListAsync();
             });
 
             SearchEmpCM = new RelayCommand<TextBox>((p) => { return true; }, async (p) =>
@@ -271,6 +282,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn đang nhập thiếu hoặc sai thông tin");
                     return;
                 }
+                int empID = SelectedItem.EMP_ID;
                 EMPLOYEE newEmp = new EMPLOYEE
                 {
                     EMP_ID = SelectedItem.EMP_ID,
@@ -292,7 +304,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 (bool success, string messageEdit) = await EmployeeService.Ins.EditEmpList(newEmp, SelectedItem.EMP_ID);
                 if (success)
                 {
-                    EmpList = new ObservableCollection<EmployeeDTO>(await EmployeeService.Ins.GetAllEmp());
+                    await LoadEmpListAsync();
+                    Messenger.Default.Send(new EmployeeUpdatedMessage(empID, newEmp.EMP_NAME)); //thông báo để update bên view ca làm việc
                     MessageBoxCustom.Show(MessageBoxCustom.Success, messageEdit);
                 }
                 else
@@ -328,8 +341,9 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 (bool IsAdded, string messageAdd) = await EmployeeService.Ins.AddNewEmp(newEmp);
                 if (IsAdded)
                 {
+                    Messenger.Default.Send(new EmployeeUpdatedMessage(newEmp.EMP_ID, newEmp.EMP_NAME));
                     p.Close();
-                    EmpList = new ObservableCollection<EmployeeDTO>(await EmployeeService.Ins.GetAllEmp());
+                    await LoadEmpListAsync();
                     resetData();
                     MessageBoxCustom.Show(MessageBoxCustom.Success, messageAdd);
                 }
@@ -337,6 +351,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, messageAdd);
                 }
+
             });
             DeleteEmpListCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
@@ -352,9 +367,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     (bool sucess, string messageDelete) = await EmployeeService.Ins.DeleteEmployee(SelectedItem.EMP_ID);
                     if (sucess)
                     {
+                        Messenger.Default.Send(new EmployeeUpdatedMessage(SelectedItem.EMP_ID, SelectedItem.EMP_NAME)); //thông báo để update bên view ca làm việc
                         EmpList.Remove(SelectedItem);
                         SelectedItem = null;
                         EditEmp = null;
+                        OnPropertyChanged(nameof(Count));
                         MessageBoxCustom.Show(MessageBoxCustom.Success, messageDelete);
                     }
                     else
@@ -372,7 +389,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         private async Task ApplyFilterAndSearch(string searchText, string filterRole)
         {
             var allEmployees = await EmployeeService.Ins.GetAllEmp();
-
+            //cập nhật tổng ca làm của mỗi nv
+            foreach (var employee in allEmployees)
+            {
+                employee.EMP_TotalShifts = await Task.Run(() => EmployeeService.Ins.GetEmployeeTotalShifts(employee.EMP_ID));
+            }
             filterRole = filterRole?.ToLower() ?? string.Empty;
             searchText = searchText?.ToLower() ?? string.Empty;
 
@@ -406,10 +427,10 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     string filePath = saveFileDialog.FileName;
                     using (var package = new ExcelPackage())
                     {
-                        var worksheet = package.Workbook.Worksheets.Add("Phones");
+                        var worksheet = package.Workbook.Worksheets.Add("Nhân viên");
 
                         // Thêm tiêu đề chính
-                        worksheet.Cells["A1:N2"].Merge = true; // Merge từ A1 đến N2
+                        worksheet.Cells["A1:K2"].Merge = true; // Merge từ A1 đến K2
                         worksheet.Cells["A1"].Value = "Danh sách nhân viên";
                         worksheet.Cells["A1"].Style.Font.Size = 16; // Tăng cỡ chữ
                         worksheet.Cells["A1"].Style.Font.Bold = true; // In đậm
@@ -462,14 +483,26 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     MessageBoxCustom.Show(MessageBoxCustom.Success, "Xuất file excel thành công");
                 }
             }
-            catch (Exception e)
+            catch 
             {
                 MessageBoxCustom.Show(MessageBoxCustom.Error, "Xuất file excel thất bại");
             }
 
             return Task.CompletedTask;
         }
+        private async Task LoadEmpListAsync()
+        {
+            var employees = await Task.Run(() => EmployeeService.Ins.GetAllEmp());
+            //cập nhật tổng số ca làm việc của mỗi nhân viên
+            foreach (var employee in employees)
+            {
+                employee.EMP_TotalShifts = await Task.Run(() => EmployeeService.Ins.GetEmployeeTotalShifts(employee.EMP_ID));
+            }
 
+            EmpList = new ObservableCollection<EmployeeDTO>(employees);
+            if (EmpList != null)
+                empList = new List<EmployeeDTO>(EmpList);
+        }
         #region methods
         void resetData()
         {

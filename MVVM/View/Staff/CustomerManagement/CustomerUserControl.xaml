@@ -338,7 +338,7 @@
                                    FontWeight="Medium"/>
                             <TextBox Margin="-20,7,0,0" Height="50" Width="270" 
                                      Style="{StaticResource textBox_style}"
-                                     Text="{Binding EditCustomer.Point}"
+                                     Text="{Binding EditCustomer.Point, Converter={StaticResource PriceConverter}}"
                                      IsReadOnly="True" Background="#E0DEDE">
 
                             </TextBox>

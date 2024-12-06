@@ -3,15 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement"
-        mc:Ignorable="d"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement" xmlns:admin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin" d:DataContext="{d:DesignInstance Type=admin:WorkshiftViewModel}"
+        mc:Ignorable="d" x:Name="editShiftPage"
         Title="DieuChinhCaLamViecWindow" Height="600" Width="800"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         WindowStartupLocation="CenterScreen" Background="Transparent"
-        FontFamily="Fonts/Roboto-Light.ttf #Roboto">
+        FontFamily="Fonts/Roboto-Light.ttf #Roboto"
+        DataContext="{StaticResource WorkshiftAdminVM}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadShiftCM}" 
+                                   CommandParameter="{Binding ElementName=editShiftPage}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Border Background="White" CornerRadius="30"  BorderBrush="#603127" BorderThickness="1"
             MouseDown="moveChangeCaWin_MouseDown" >
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
@@ -19,7 +29,10 @@
                 <RowDefinition Height="190"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Content="Điểu chỉnh ca làm việc" FontSize="30" Foreground="#603127"
+            <Grid HorizontalAlignment="Right" Margin="0,10,30,0" Width="80" VerticalAlignment="Top" Grid.Column="1" Height="40" Grid.RowSpan="2">
+                <uc:ControlBarUserControl></uc:ControlBarUserControl>
+            </Grid>
+            <Label Content="Điều chỉnh ca làm việc" FontSize="30" Foreground="#603127"
                   FontWeight="Medium" Margin="0,7,0,0"
                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Border Grid.Row="1" CornerRadius="10" 
@@ -35,7 +48,7 @@
                         <Button x:Name="btnCaSang" Style="{StaticResource btnCa_style}" BorderThickness="1" BorderBrush="Black"
                                 Content="Ca Sáng" Foreground="#603127" FontWeight="DemiBold"
                                 FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="20" Width="179" Height="46"
-                                Background="White" Margin="35,0,0,0" Click="CaSang_Button_Click"/>
+                                Background="White" Margin="60,0,0,0" Click="CaSang_Button_Click"/>
                         <Button x:Name="btnCaChieu" Style="{StaticResource btnCa_style}" BorderThickness="1" BorderBrush="Black"
                                 Content="Ca Chiều" Foreground="#603127" FontWeight="DemiBold"
                                  FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="20" Width="179" Height="46"
@@ -45,39 +58,46 @@
                                  FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="20" Width="179" Height="46"
                                 Background="#FFC3A1" Margin="0,0,0,0" Click="CaToi_Button_Click"/>
                     </StackPanel>
-                    <Grid x:Name="OverlayGridCaSang" Grid.Row="1" Background="#FFC3A1" Visibility="Collapsed" >
+                    <Grid x:Name="OverlayGridCaSang" Grid.Row="1" Background="#FFC3A1" Visibility="Visible" >
                         <StackPanel Margin="20">
-                            <!-- Mã ca -->
+                            <!-- Tên ca -->
                             <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
-                                <Label Content="Mã ca:" Width="100" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
-                                <TextBox Name="txtMaCaSang" Width="50" Height="30" FontSize="20" IsReadOnly="True" Text="CS"/>
+                                <Label Content="Tên ca:" Width="100" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBlock Text="Ca sáng" Width="auto" FontWeight="DemiBold"
+                                           FontSize="25" 
+                                           VerticalAlignment="Center"/>
                             </StackPanel>
 
                             <!-- Thời gian bắt đầu -->
                             <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
                                 <Label Content="Thời gian bắt đầu:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
-                                <TextBox Name="txtGioBatDauCaSang" Width="70" Height="40" FontSize="18" Text="06" HorizontalContentAlignment="Center"
-                                          Background="White" Style="{StaticResource textBox_style}"/>
+                                <TextBox Name="txtGioBatDauCaSang" Width="70" Height="40" FontSize="18" HorizontalContentAlignment="Center"
+                                          Background="White" Style="{StaticResource textBox_style}"
+                                         Text="{Binding StartHourCS, StringFormat={}{0:D2}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label Content=":" FontSize="18" VerticalAlignment="Center" Margin="5,0,5,0"/>
-                                <TextBox Name="txtPhutBatDauCaSang" Width="70" Height="40" FontSize="18" Text="00" HorizontalContentAlignment="Center"
-                                          Background="White" Style="{StaticResource textBox_style}"/>
+                                <TextBox Name="txtPhutBatDauCaSang" Width="70" Height="40" FontSize="18" HorizontalContentAlignment="Center"
+                                          Background="White" Style="{StaticResource textBox_style}"
+                                         Text="{Binding StartMinuteCS, StringFormat={}{0:D2}, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
 
                             <!-- Thời gian kết thúc -->
                             <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
                                 <Label Content="Thời gian kết thúc:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
-                                <TextBox Name="txtGioKetThucCaSang" Width="70" Height="40" FontSize="18" Text="12" HorizontalContentAlignment="Center"
-                                         Background="White" Style="{StaticResource textBox_style}"/>
+                                <TextBox Name="txtGioKetThucCaSang" Width="70" Height="40" FontSize="18" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"
+                                         Text="{Binding EndHourCS, StringFormat={}{0:D2}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label Content=":" FontSize="18" VerticalAlignment="Center" Margin="5,0,5,0"/>
-                                <TextBox Name="txtPhutKetThucCaSang" Width="70" Height="40" FontSize="18" Text="00" HorizontalContentAlignment="Center"
-                                         Background="White" Style="{StaticResource textBox_style}"/>
+                                <TextBox Name="txtPhutKetThucCaSang" Width="70" Height="40" FontSize="18" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"
+                                         Text="{Binding EndMinuteCS, StringFormat={}{0:D2}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             </StackPanel>
 
                             <!-- Tiền lương 1 ca -->
                             <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
                                 <Label Content="Tiền lương 1 ca:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
-                                <TextBox Name="txtTienLuongCaSang" Width="160" Height="40" FontSize="18" Text="180.000" HorizontalContentAlignment="Right"
-                                          Background="White" Style="{StaticResource textBox_style}" TextChanged="txtTienLuong_TextChanged" 
+                                <TextBox Name="txtTienLuongCaSang" Width="160" Height="40" FontSize="18" HorizontalContentAlignment="Right"
+                                          Background="White" Style="{StaticResource textBox_style}" 
+                                         Text="{Binding WageCS, StringFormat=N0}"
                                            PreviewTextInput="txtTienLuong_PreviewTextInput"/>
 
                             </StackPanel>
@@ -87,37 +107,44 @@
 
                     <Grid x:Name="OverlayGridCaChieu" Grid.Row="1" Background="#FFC3A1" Visibility="Collapsed" >
                         <StackPanel Margin="20">
-                            <!-- Mã ca -->
+                            <!-- Tên ca -->
                             <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
-                                <Label Content="Mã ca:" Width="100" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
-                                <TextBox Name="txtMaCaChieu" Width="50" Height="30" FontSize="20" IsReadOnly="True" Text="CC"/>
+                                <Label Content="Tên ca:" Width="100" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBlock Text="Ca chiều" Width="auto" FontWeight="DemiBold"
+                                           FontSize="25" 
+                                           VerticalAlignment="Center"/>                            
                             </StackPanel>
 
                             <!-- Thời gian bắt đầu -->
                             <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
                                 <Label Content="Thời gian bắt đầu:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
-                                <TextBox Name="txtGioBatDauCaChieu" Width="70" Height="40" FontSize="18" Text="06" HorizontalContentAlignment="Center"
-                                         Background="White" Style="{StaticResource textBox_style}"/>
+                                <TextBox Name="txtGioBatDauCaChieu" Width="70" Height="40" FontSize="18" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"
+                                         Text="{Binding StartHourCC, StringFormat={}{0:D2}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label Content=":" FontSize="18" VerticalAlignment="Center" Margin="5,0,5,0"/>
-                                <TextBox Name="txtPhutBatDauCaChieu" Width="70" Height="40" FontSize="18" Text="00" HorizontalContentAlignment="Center"
-                                         Background="White" Style="{StaticResource textBox_style}"/>
+                                <TextBox Name="txtPhutBatDauCaChieu" Width="70" Height="40" FontSize="18" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"
+                                         Text="{Binding StartMinuteCC, StringFormat={}{0:D2}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             </StackPanel>
 
                             <!-- Thời gian kết thúc -->
                             <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
                                 <Label Content="Thời gian kết thúc:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
-                                <TextBox Name="txtGioKetThucCaChieu" Width="70" Height="40" FontSize="18" Text="12" HorizontalContentAlignment="Center"
-                                         Background="White" Style="{StaticResource textBox_style}"/>
+                                <TextBox Name="txtGioKetThucCaChieu" Width="70" Height="40" FontSize="18" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"
+                                         Text="{Binding EndHourCC, StringFormat={}{0:D2}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label Content=":" FontSize="18" VerticalAlignment="Center" Margin="5,0,5,0"/>
-                                <TextBox Name="txtPhutKetThucCaChieu" Width="70" Height="40" FontSize="18" Text="00" HorizontalContentAlignment="Center"
-                                         Background="White" Style="{StaticResource textBox_style}"/>
+                                <TextBox Name="txtPhutKetThucCaChieu" Width="70" Height="40" FontSize="18" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"
+                                         Text="{Binding EndMinuteCC, StringFormat={}{0:D2}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             </StackPanel>
 
                             <!-- Tiền lương 1 ca -->
                             <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
                                 <Label Content="Tiền lương 1 ca:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
-                                <TextBox Name="txtTienLuongCaChieu" Width="160" Height="40" FontSize="18" Text="180.000" HorizontalContentAlignment="Right"
-                                         Background="White" Style="{StaticResource textBox_style}" TextChanged="txtTienLuong_TextChanged" 
+                                <TextBox Name="txtTienLuongCaChieu" Width="160" Height="40" FontSize="18"  HorizontalContentAlignment="Right"
+                                         Background="White" Style="{StaticResource textBox_style}"
+                                         Text="{Binding WageCC, StringFormat=N0}"
                                          PreviewTextInput="txtTienLuong_PreviewTextInput"/>
 
                             </StackPanel>
@@ -127,38 +154,45 @@
 
                     <Grid x:Name="OverlayGridCaToi" Grid.Row="1" Background="#FFC3A1" Visibility="Collapsed" >
                         <StackPanel Margin="20">
-                            <!-- Mã ca -->
+                            <!-- Tên ca -->
                             <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
-                                <Label Content="Mã ca:" Width="100" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
-                                <TextBox Name="txtMaCaToi" Width="50" Height="30" FontSize="20" IsReadOnly="True" Text="CT"/>
+                                <Label Content="Tên ca:" Width="100" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <TextBlock Text="Ca tối" Width="auto" FontWeight="DemiBold"
+                                           FontSize="25" 
+                                           VerticalAlignment="Center"/>                            
                             </StackPanel>
 
                             <!-- Thời gian bắt đầu -->
                             <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
                                 <Label Content="Thời gian bắt đầu:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
-                                <TextBox Name="txtGioBatDauCaToi" Width="70" Height="40" FontSize="18" Text="06" HorizontalContentAlignment="Center"
-                      Background="White" Style="{StaticResource textBox_style}"/>
+                                <TextBox Name="txtGioBatDauCaToi" Width="70" Height="40" FontSize="18" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"
+                                         Text="{Binding StartHourCT, StringFormat={}{0:D2}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label Content=":" FontSize="18" VerticalAlignment="Center" Margin="5,0,5,0"/>
-                                <TextBox Name="txtPhutBatDauCaToi" Width="70" Height="40" FontSize="18" Text="00" HorizontalContentAlignment="Center"
-                      Background="White" Style="{StaticResource textBox_style}"/>
+                                <TextBox Name="txtPhutBatDauCaToi" Width="70" Height="40" FontSize="18" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"
+                                         Text="{Binding StartMinuteCT, StringFormat={}{0:D2}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             </StackPanel>
 
                             <!-- Thời gian kết thúc -->
                             <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
                                 <Label Content="Thời gian kết thúc:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
-                                <TextBox Name="txtGioKetThucCaToi" Width="70" Height="40" FontSize="18" Text="12" HorizontalContentAlignment="Center"
-                      Background="White" Style="{StaticResource textBox_style}"/>
+                                <TextBox Name="txtGioKetThucCaToi" Width="70" Height="40" FontSize="18"  HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"
+                                         Text="{Binding EndHourCT, StringFormat={}{0:D2}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                 <Label Content=":" FontSize="18" VerticalAlignment="Center" Margin="5,0,5,0"/>
-                                <TextBox Name="txtPhutKetThucCaToi" Width="70" Height="40" FontSize="18" Text="00" HorizontalContentAlignment="Center"
-                      Background="White" Style="{StaticResource textBox_style}"/>
+                                <TextBox Name="txtPhutKetThucCaToi" Width="70" Height="40" FontSize="18" HorizontalContentAlignment="Center"
+                                         Background="White" Style="{StaticResource textBox_style}"
+                                         Text="{Binding EndMinuteCT, StringFormat={}{0:D2}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             </StackPanel>
 
                             <!-- Tiền lương 1 ca -->
                             <StackPanel Orientation="Horizontal" Margin="100,10,0,10">
                                 <Label Content="Tiền lương 1 ca:" Width="230" FontSize="25" VerticalAlignment="Center" FontWeight="Bold"/>
-                                <TextBox Name="txtTienLuongCaToi" Width="160" Height="40" FontSize="18" Text="180.000" HorizontalContentAlignment="Right"
-                      Background="White" Style="{StaticResource textBox_style}" TextChanged="txtTienLuong_TextChanged" 
-                      PreviewTextInput="txtTienLuong_PreviewTextInput"/>
+                                <TextBox Name="txtTienLuongCaToi" Width="160" Height="40" FontSize="18"  HorizontalContentAlignment="Right"
+                                         Background="White" Style="{StaticResource textBox_style}" 
+                                         Text="{Binding WageCT, StringFormat=N0}"
+                                        PreviewTextInput="txtTienLuong_PreviewTextInput"/>
 
                             </StackPanel>
                         </StackPanel>
@@ -166,12 +200,19 @@
                     </Grid>
                 </Grid>
             </Border>
-            <Button x:Name="btnLuu" Grid.Row="2" Style="{StaticResource btn_style}" BorderThickness="0" Margin="0,0,50,100"
-                    Content="Lưu chỉnh sửa" Foreground="#603127" HorizontalAlignment="Right"
-                    FontSize="22" Width="170" Height="50" Background="#F0997D"/>
-            <Button x:Name="btnBoQua" Grid.Row="2" Style="{StaticResource btn_style}" BorderThickness="0" Margin="0,0,594,100"
-                    Content="Bỏ qua" Foreground="#603127" HorizontalAlignment="Right"
-                    FontSize="22" Width="170" Height="50" Background="#F6E8D0" Click="BoQua_Button_Click"/>
+            <Button x:Name="btnBoQua" Grid.Row="2" Margin="0,0,594,100"
+                    materialDesign:ButtonAssist.CornerRadius="15.36" BorderBrush="Black" BorderThickness="1"
+                    Content="Bỏ qua" Foreground="Black" FontWeight="DemiBold"
+                    FontFamily="Fonts/Roboto-Light.ttf #Roboto" Background="#F6E8D0"
+                    FontSize="22" Width="150" Height="55" Click="BoQua_Button_Click">
+            </Button>
+            <Button x:Name="btnLuu" Grid.Row="2" Margin="0,0,30,100" HorizontalAlignment="Right"
+                    materialDesign:ButtonAssist.CornerRadius="15.36"  BorderBrush="Black" BorderThickness="1"
+                         Content="Lưu" Foreground="Black" FontWeight="DemiBold"
+                         FontFamily="Fonts/Roboto-Light.ttf #Roboto" Background="#F0997D"
+                         FontSize="22" Width="150" Height="55"
+                         Command="{Binding SaveShiftChangesCM}">
+            </Button>
         </Grid>
     </Border>
 </Window>

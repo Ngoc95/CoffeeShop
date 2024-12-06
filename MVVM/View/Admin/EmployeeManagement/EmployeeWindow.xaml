@@ -28,20 +28,26 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-            <ComboBox Style="{StaticResource filterCombobox_style}" Margin="40,0,0,10" Height="66" Background="#FDB2B2"
+            <ComboBox x:Name="cbFilter"
+                      Style="{StaticResource filterCombobox_style}" Margin="40,0,0,10" Height="66" Background="#FDB2B2"
                       FontSize="22" Foreground="Black" VerticalAlignment="Center" Width="198" Text="Lọc nhân viên"
                       ItemsSource="{Binding RoleList}"
-                      SelectedItem="{Binding SelectedRole, Mode=TwoWay}"
-                      SelectionChanged="ComboBox_SelectionChanged">
+                      SelectedItem="{Binding SelectedRole, Mode=TwoWay}">
             </ComboBox>
 
-            <Button Style="{StaticResource btn_style}" BorderThickness="0" Margin="60,0,0,7"
-                    Content="Thêm nhân viên" Foreground="Black"
-                    FontSize="22" Width="210" Height="64" Background="#FFC3A1"
-                    Command="{Binding AddEmpWdCM}"/>
-            <Grid Width="350" Height="74" Margin="28,0,0,10">
+            <Button Width="80" 
+                    Height="80" 
+                    BorderThickness="0" 
+                    Margin="190,0,0,7"
+                    Command="{Binding AddEmpWdCM}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/Addbtn.png" />
+                </Button.Background>
+            </Button>
+            <Grid Width="350" Height="74" Margin="20,0,0,10">
                 <TextBox x:Name="SearchEmp" 
-                        Style="{StaticResource searchTextbox_style}">
+                        Style="{StaticResource searchTextbox_style}"
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction Command="{Binding SearchEmpCM}" 

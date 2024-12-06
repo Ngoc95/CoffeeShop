@@ -75,7 +75,7 @@
           </Key>
           <Property Name="EMP_ID" Type="int" Nullable="false" />
           <Property Name="SHIFT_ID" Type="int" Nullable="false" />
-          <Property Name="WORK_DAY" Type="tinyint" Nullable="false" />
+          <Property Name="WORK_DAY" Type="int" Nullable="false" />
           <Property Name="IS_DELETED" Type="bit" />
         </EntityType>
         <EntityType Name="ERROR">
@@ -114,6 +114,21 @@
           <Property Name="PRO_PRICE" Type="money" />
           <Property Name="IS_DELETED" Type="bit" />
         </EntityType>
+        <EntityType Name="REQUEST">
+          <Key>
+            <PropertyRef Name="REQ_ID" />
+          </Key>
+          <Property Name="REQ_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMP_ID" Type="int" />
+          <Property Name="REQ_TYPE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="REQ_DATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="REQ_STATUS" Type="nvarchar" MaxLength="50" />
+          <Property Name="EMP_COMMENT" Type="nvarchar(max)" />
+          <Property Name="APPROVER_COMMENT" Type="nvarchar(max)" />
+          <Property Name="APPROVED_BY" Type="int" />
+          <Property Name="APPROVED_DATE" Type="smalldatetime" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
         <EntityType Name="WORK_SHIFT">
           <Key>
             <PropertyRef Name="SHIFT_ID" />
@@ -122,6 +137,7 @@
           <Property Name="SHIFT_NAME" Type="nvarchar" MaxLength="100" />
           <Property Name="START_TIME" Type="smalldatetime" />
           <Property Name="END_TIME" Type="smalldatetime" />
+          <Property Name="WAGE" Type="money" />
           <Property Name="IS_DELETED" Type="bit" />
         </EntityType>
         <Association Name="fk_BILL_CUS">
@@ -208,6 +224,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_REQ_EMP">
+          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1" />
+          <End Role="REQUEST" Type="Self.REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="REQUEST">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_TABLE_GENRE">
           <End Role="GENRE_TABLE" Type="Self.GENRE_TABLE" Multiplicity="0..1" />
           <End Role="_TABLE" Type="Self._TABLE" Multiplicity="*" />
@@ -231,6 +259,7 @@
           <EntitySet Name="GENRE_PRODUCT" EntityType="Self.GENRE_PRODUCT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GENRE_TABLE" EntityType="Self.GENRE_TABLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REQUEST" EntityType="Self.REQUEST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WORK_SHIFT" EntityType="Self.WORK_SHIFT" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="fk_BILL_CUS" Association="Self.fk_BILL_CUS">
             <End Role="CUSTOMER" EntitySet="CUSTOMER" />
@@ -260,6 +289,10 @@
             <End Role="GENRE_PRODUCT" EntitySet="GENRE_PRODUCT" />
             <End Role="PRODUCT" EntitySet="PRODUCT" />
           </AssociationSet>
+          <AssociationSet Name="fk_REQ_EMP" Association="Self.fk_REQ_EMP">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+            <End Role="REQUEST" EntitySet="REQUEST" />
+          </AssociationSet>
           <AssociationSet Name="fk_TABLE_GENRE" Association="Self.fk_TABLE_GENRE">
             <End Role="GENRE_TABLE" EntitySet="GENRE_TABLE" />
             <End Role="_TABLE" EntitySet="_TABLE" />
@@ -280,6 +313,7 @@
           <EntitySet Name="GENRE_PRODUCT" EntityType="CoffeeShopDBModel.GENRE_PRODUCT" />
           <EntitySet Name="GENRE_TABLE" EntityType="CoffeeShopDBModel.GENRE_TABLE" />
           <EntitySet Name="PRODUCTs" EntityType="CoffeeShopDBModel.PRODUCT" />
+          <EntitySet Name="REQUESTs" EntityType="CoffeeShopDBModel.REQUEST" />
           <EntitySet Name="WORK_SHIFT" EntityType="CoffeeShopDBModel.WORK_SHIFT" />
           <AssociationSet Name="fk_TABLE_GENRE" Association="CoffeeShopDBModel.fk_TABLE_GENRE">
             <End Role="GENRE_TABLE" EntitySet="GENRE_TABLE" />
@@ -304,6 +338,10 @@
           <AssociationSet Name="fk_EMPSHIFT_EMP" Association="CoffeeShopDBModel.fk_EMPSHIFT_EMP">
             <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
             <End Role="EMPLOYEE_SHIFT" EntitySet="EMPLOYEE_SHIFT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_REQ_EMP" Association="CoffeeShopDBModel.fk_REQ_EMP">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
+            <End Role="REQUEST" EntitySet="REQUESTs" />
           </AssociationSet>
           <AssociationSet Name="fk_EMPSHIFT_SHIFT" Association="CoffeeShopDBModel.fk_EMPSHIFT_SHIFT">
             <End Role="WORK_SHIFT" EntitySet="WORK_SHIFT" />
@@ -384,6 +422,7 @@
           <Property Name="IS_DELETED" Type="Boolean" />
           <NavigationProperty Name="BILLs" Relationship="CoffeeShopDBModel.fk_BILL_EMP" FromRole="EMPLOYEE" ToRole="BILL" />
           <NavigationProperty Name="EMPLOYEE_SHIFT" Relationship="CoffeeShopDBModel.fk_EMPSHIFT_EMP" FromRole="EMPLOYEE" ToRole="EMPLOYEE_SHIFT" />
+          <NavigationProperty Name="REQUESTs" Relationship="CoffeeShopDBModel.fk_REQ_EMP" FromRole="EMPLOYEE" ToRole="REQUEST" />
         </EntityType>
         <EntityType Name="EMPLOYEE_SHIFT">
           <Key>
@@ -393,7 +432,7 @@
           </Key>
           <Property Name="EMP_ID" Type="Int32" Nullable="false" />
           <Property Name="SHIFT_ID" Type="Int32" Nullable="false" />
-          <Property Name="WORK_DAY" Type="Byte" Nullable="false" />
+          <Property Name="WORK_DAY" Type="Int32" Nullable="false" />
           <Property Name="IS_DELETED" Type="Boolean" />
           <NavigationProperty Name="EMPLOYEE" Relationship="CoffeeShopDBModel.fk_EMPSHIFT_EMP" FromRole="EMPLOYEE_SHIFT" ToRole="EMPLOYEE" />
           <NavigationProperty Name="WORK_SHIFT" Relationship="CoffeeShopDBModel.fk_EMPSHIFT_SHIFT" FromRole="EMPLOYEE_SHIFT" ToRole="WORK_SHIFT" />
@@ -438,6 +477,22 @@
           <NavigationProperty Name="BILL_INFO" Relationship="CoffeeShopDBModel.fk_BillInfo_PRO" FromRole="PRODUCT" ToRole="BILL_INFO" />
           <NavigationProperty Name="GENRE_PRODUCT" Relationship="CoffeeShopDBModel.fk_PRO_GENRE" FromRole="PRODUCT" ToRole="GENRE_PRODUCT" />
         </EntityType>
+        <EntityType Name="REQUEST">
+          <Key>
+            <PropertyRef Name="REQ_ID" />
+          </Key>
+          <Property Name="REQ_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMP_ID" Type="Int32" />
+          <Property Name="REQ_TYPE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="REQ_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="REQ_STATUS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_COMMENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="APPROVER_COMMENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="APPROVED_BY" Type="Int32" />
+          <Property Name="APPROVED_DATE" Type="DateTime" Precision="0" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="EMPLOYEE" Relationship="CoffeeShopDBModel.fk_REQ_EMP" FromRole="REQUEST" ToRole="EMPLOYEE" />
+        </EntityType>
         <EntityType Name="WORK_SHIFT">
           <Key>
             <PropertyRef Name="SHIFT_ID" />
@@ -446,6 +501,7 @@
           <Property Name="SHIFT_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="START_TIME" Type="DateTime" Precision="0" />
           <Property Name="END_TIME" Type="DateTime" Precision="0" />
+          <Property Name="WAGE" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="IS_DELETED" Type="Boolean" />
           <NavigationProperty Name="EMPLOYEE_SHIFT" Relationship="CoffeeShopDBModel.fk_EMPSHIFT_SHIFT" FromRole="WORK_SHIFT" ToRole="EMPLOYEE_SHIFT" />
         </EntityType>
@@ -517,6 +573,18 @@
               <PropertyRef Name="EMP_ID" />
             </Principal>
             <Dependent Role="EMPLOYEE_SHIFT">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_REQ_EMP">
+          <End Type="CoffeeShopDBModel.EMPLOYEE" Role="EMPLOYEE" Multiplicity="0..1" />
+          <End Type="CoffeeShopDBModel.REQUEST" Role="REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="REQUEST">
               <PropertyRef Name="EMP_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -667,10 +735,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="REQUESTs">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.REQUEST">
+              <MappingFragment StoreEntitySet="REQUEST">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="APPROVED_DATE" ColumnName="APPROVED_DATE" />
+                <ScalarProperty Name="APPROVED_BY" ColumnName="APPROVED_BY" />
+                <ScalarProperty Name="APPROVER_COMMENT" ColumnName="APPROVER_COMMENT" />
+                <ScalarProperty Name="EMP_COMMENT" ColumnName="EMP_COMMENT" />
+                <ScalarProperty Name="REQ_STATUS" ColumnName="REQ_STATUS" />
+                <ScalarProperty Name="REQ_DATE" ColumnName="REQ_DATE" />
+                <ScalarProperty Name="REQ_TYPE" ColumnName="REQ_TYPE" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="REQ_ID" ColumnName="REQ_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="WORK_SHIFT">
             <EntityTypeMapping TypeName="CoffeeShopDBModel.WORK_SHIFT">
               <MappingFragment StoreEntitySet="WORK_SHIFT">
                 <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="WAGE" ColumnName="WAGE" />
                 <ScalarProperty Name="END_TIME" ColumnName="END_TIME" />
                 <ScalarProperty Name="START_TIME" ColumnName="START_TIME" />
                 <ScalarProperty Name="SHIFT_NAME" ColumnName="SHIFT_NAME" />
