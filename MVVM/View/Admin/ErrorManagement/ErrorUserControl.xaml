@@ -3,12 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.ErrorManagement"
-             mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.ErrorManagement" 
+             xmlns:admin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin" 
+             d:DataContext="{d:DesignInstance Type=admin:ErrorViewModel}"
+             mc:Ignorable="d" x:Name="errorUC"
              d:DesignHeight="740" d:DesignWidth="930"
              FontFamily="Fonts/Roboto-Light.ttf #Roboto"
              FontSize="16"
-             Background="White">
+             Background="White"
+             DataContext="{StaticResource ErrorAdminVM}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" 
+                                   CommandParameter="{Binding ElementName=errorUC}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="90"></RowDefinition>
@@ -16,51 +27,297 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="295" />
+                <ColumnDefinition Width="auto" MinWidth="381"/>
+                <ColumnDefinition Width="259" />
                 <ColumnDefinition Width="280"/>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0" Width="350" Height="74" Margin="15,0,0,0" VerticalAlignment="Bottom">
-                <TextBox Width="330" Height="63" Style="{StaticResource SearchTextBoxStyleStaff}"/>
+            <Grid Grid.Row="0" Height="74" VerticalAlignment="Top" Margin="4,16,3,0">
+                <StackPanel Orientation="Horizontal">
+                    <Grid Width="350" Height="74" Margin="20,0,0,0">
+                        <TextBox x:Name="searchErr" 
+                                Style="{StaticResource searchTextbox_style}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchErrorCM}" 
+                                   CommandParameter="{Binding ElementName=searchErr}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                        <Button 
+                                Width="65" Height="50"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Margin="0,0,0,0"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                FontSize="30"
+                                Foreground="#49454F">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE721;"/>
+                        </Button>
+                    </Grid>
+
+                </StackPanel>
             </Grid>
 
-            <ComboBox 
-                Grid.Column="1"
-                Margin="5,0,0,5"
-                VerticalAlignment="Bottom"
-                Width="285"
-                Tag="Lọc theo trạng thái"
-                Style="{DynamicResource ComboBoxStyle1}">
-                <ComboBoxItem Content="Đã khắc phục"></ComboBoxItem>
-                <ComboBoxItem Content="Chưa khắc phục"></ComboBoxItem>
+            <ComboBox Style="{StaticResource filterCombobox_style}" Margin="25,20,26,0" 
+                      Height="66" Background="#FDB2B2" Grid.Column="1" 
+                      FontSize="22" Foreground="Black" VerticalAlignment="Top"  Text="Lọc trạng thái"
+                      ItemsSource="{Binding StatusList}"
+                      SelectedItem="{Binding SelectedStatus, Mode=TwoWay}">
             </ComboBox>
 
-            <Grid Grid.Column="2" Margin="0,0,40,0">
+            <Grid Grid.Column="2" Margin="0,0,20,0">
                 <Button 
-                    Width="240" Height="76"   
-                    HorizontalAlignment="Right"
-                    Style="{DynamicResource ButtonStyle1}" 
-                    Content="Báo cáo sự cố"
+                    Width="230" Height="65" Margin="0,0,0,5"
+                    HorizontalAlignment="Right" FontWeight="Normal"
+                    materialDesign:ButtonAssist.CornerRadius="15"
+                    BorderThickness="0" Foreground="Black" FontSize="22"
+                    Command="{Binding AddErrorWdCM}"
+                    Content="Báo cáo sự cố" Background="#ffc3a1" 
                     VerticalAlignment="Bottom">
                 </Button>
             </Grid>
         </Grid>
 
-        <Border 
-            Grid.Row="1" 
-            Background="#ffc3a1" 
-            Margin="15,30,30,20"
-            CornerRadius="20">
-            <DataGrid Margin="20">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Width="73"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Tên sự cố" Width="294"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Tình trạng" Width="141"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Ghi chú" Width="auto"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Border>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="620"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border  
+                Background="#ffc3a1" 
+                Margin="15,20,5,20"
+                CornerRadius="20">
+                <Border
+                            Margin="18"
+                            Background="White"
+                            CornerRadius="10">
+                    <DataGrid
+                                x:Name="dataGridER"
+                                Margin="15"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                AutoGenerateColumns="False"
+                                Background="White"
+                                CanUserReorderColumns="False"
+                                CanUserResizeColumns="False"
+                                CanUserSortColumns="True"
+                                ColumnWidth="SizeToCells"
+                                IsReadOnly="True"
+                                SelectionMode="Single"
+                                SelectionUnit="FullRow"
+                                ItemsSource="{Binding ErrorList, UpdateSourceTrigger=PropertyChanged}" 
+                                SelectedItem="{Binding SelectedItem}">
+                        <DataGrid.CellStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="auto" Header="ID" SortMemberPath="ER_ID">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                                    FontSize="15"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding ER_ID, StringFormat = 'ER{0:D3}'}"  />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto" Header="Tên sự cố" SortMemberPath="ER_NAME">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                                    FontSize="15" 
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding ER_NAME}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto" Header="Tình trạng" SortMemberPath="ER_STATUS">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                                    FontSize="15"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding ER_STATUS}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto" Header="Ghi chú" SortMemberPath="ER_DESCRIPTION">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                                    FontSize="15"     
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding ER_DESCRIPTION}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+            </Border>
+
+            <Grid Grid.Column="1" Margin="0,0,0,0"
+                  Visibility="{Binding SelectedItem, Converter={StaticResource NullToVisibilityConverter}}">
+                <StackPanel Orientation="Horizontal">
+                    <Border Margin="10,0,0,20" CornerRadius="10"
+                            VerticalAlignment="Bottom"
+                            Width="1" Height="602" Background="#603127"/>
+                    <Grid Margin="10,20,0,0" Width="300">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
+                                <Label Content="Mã sự cố:" FontSize="22" Foreground="Black" FontWeight="Medium"/>
+                                <TextBlock Text="{Binding EditError.ER_ID, StringFormat = 'ER{0:D3}'}" Width="100"
+                                           FontSize="22" Foreground="Black" FontWeight="Medium"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <Label Margin="0,10,0,0" Content="Tên sự cố" 
+                                   FontSize="22" Foreground="Black"
+                                   FontWeight="Medium"/>
+                            <TextBox Margin="-20,7,0,0" Height="50" Width="270" 
+                                     Style="{StaticResource textBox_style}"
+                                     Text="{Binding EditError.ER_NAME}">
+
+                            </TextBox>
+
+                            <Label Margin="0,15,0,0" Content="Tình trạng" 
+                                   FontSize="22" Foreground="Black"
+                                   FontWeight="Medium"/>
+                            <ComboBox x:Name="cbStatus"
+                                      FocusVisualStyle="{x:Null}" 
+                                      Margin="-20,7,0,0" 
+                                      Height="50" 
+                                      Background="White" 
+                                      FontSize="22" 
+                                      VerticalAlignment="Center" 
+                                      Width="270" 
+                                      Text="{Binding EditError.ER_STATUS}" 
+                                      IsEditable="False">
+                                <ComboBox.Style>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ComboBox">
+                                                    <Grid>
+                                                        <Border x:Name="Border"
+                                                                Background="{TemplateBinding Background}"
+                                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                                BorderThickness="1"
+                                                                CornerRadius="10">
+                                                            <DockPanel>
+                                                                <!-- ContentPresenter để hiển thị item được chọn -->
+                                                                <ContentPresenter HorizontalAlignment="Left"
+                                                                                  VerticalAlignment="Center"
+                                                                                  Margin="10"
+                                                                                  Content="{TemplateBinding SelectionBoxItem}" />
+                                                                <!-- ToggleButton -->
+                                                                <ToggleButton x:Name="PART_ToggleButton"
+                                                                              DockPanel.Dock="Right" HorizontalAlignment="Right"
+                                                                              Background="Transparent"
+                                                                              BorderThickness="0"
+                                                                              Margin="5"
+                                                                              Content="🔄"
+                                                                              Click="PART_ToggleButton_Click" />
+                                                            </DockPanel>
+                                                        </Border>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ComboBox.Style>
+                                <ComboBoxItem Content="Chưa khắc phục" />
+                                <ComboBoxItem Content="Đã khắc phục" />
+                            </ComboBox>
+
+
+                            <Label Margin="0,15,0,0" Content="Ghi chú"
+                                   FontSize="22" Foreground="Black"
+                                   FontWeight="Medium"/>
+                            <TextBox
+                                Width="270"
+                                Height="247"
+                                Margin="5,7,0,0"
+                                Padding="12"
+                                HorizontalAlignment="Left"
+                                VerticalContentAlignment="Top"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                BorderBrush="#B9B9B9" 
+                                BorderThickness="1"
+                                FontSize="22"
+                                MaxLines="20"
+                                MinLines="1"
+                                Text="{Binding EditError.ER_DESCRIPTION}" 
+                                TextWrapping="Wrap">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="TextBox">
+                                                    <Border
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                                        CornerRadius="10">
+                                                        <ScrollViewer x:Name="PART_ContentHost"
+                                                                      HorizontalScrollBarVisibility="Hidden"
+                                                                      VerticalScrollBarVisibility="Hidden" />
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="BorderBrush" Value="#B9B9B9" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderBrush" Value="#B9B9B9" />
+                                            </Trigger>
+                                            <Trigger Property="IsFocused" Value="True">
+                                                <Setter Property="BorderBrush" Value="#B9B9B9" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+
+                            <Grid Height="90" >
+                                <Button Margin="0,0,20,0"  materialDesign:ButtonAssist.CornerRadius="15.36"
+                                        BorderBrush="Black" BorderThickness="1"
+                                        Command="{Binding EditErrorCM}"
+                                        CommandParameter="{Binding ElementName=errorUC}"
+                                        Content="Lưu" Foreground="Black" 
+                                        Background="#F0997D" FontWeight="DemiBold"
+                                        FontSize="22" Width="111" Height="50"
+                                        HorizontalAlignment="Right">
+                                </Button>
+
+                                <Button Margin="1,0,20,0"  materialDesign:ButtonAssist.CornerRadius="15.36"
+                                        BorderBrush="Black" BorderThickness="1"
+                                        Command="{Binding DeleteErrorCM}"
+                                        Content="Xóa" Foreground="Black" 
+                                        Background="#FFC3A1" FontWeight="DemiBold"
+                                        FontSize="22" Width="111" Height="50"
+                                        HorizontalAlignment="Left">
+                                </Button>
+
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
 
     </Grid>
 </UserControl>

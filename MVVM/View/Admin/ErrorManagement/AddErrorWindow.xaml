@@ -4,13 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.ErrorManagement"
-        xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
-        mc:Ignorable="d"
-        WindowStyle="None"
+        xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX" 
+        xmlns:admin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
+        d:DataContext="{d:DesignInstance Type=admin:ErrorViewModel}"
+        mc:Ignorable="d" x:Name="AddErrPage"
+        WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         Background="Transparent"
-        WindowState="Normal"
+        WindowState="Normal" FontFamily="Fonts/Roboto-Light.ttf #Roboto"
         WindowStartupLocation="CenterScreen"
-        Title="AddErrorWindow" Height="503" Width="667">
+        Title="AddErrorWindow" Height="503" Width="667"
+        MouseLeftButtonDown="AddErrPage_MouseLeftButtonDown"
+        DataContext="{StaticResource ErrorAdminVM}">
     <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White">
         <Grid>
             <Grid.RowDefinitions>
@@ -20,7 +24,8 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <TextBlock 
-                    Margin="15"
+                    FontWeight="DemiBold"
+                    Margin="20"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Style="{DynamicResource Header1Style}"
@@ -40,22 +45,10 @@
                 CornerRadius="20">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="70"/>
-                        <RowDefinition Height="70"/>
-                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="90"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <TextBlock
-                            Grid.Column="0"
-                            Margin="30,5"
-                            HorizontalAlignment="Left"
-                            Style="{DynamicResource Header2Style}"
-                            Text="Mã sự cố">
-                        </TextBlock>
-                        
-                    </Grid>
-                    <Grid Grid.Row="1" VerticalAlignment="Center">
+                    <Grid Grid.Row="0" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="160"/>
                             <ColumnDefinition Width="*"/>
@@ -71,29 +64,9 @@
                             Grid.Column="1"
                             Margin="0,0,30,0"
                             HorizontalAlignment="Stretch"
-                            Style="{DynamicResource InputTextBoxStyle}">
+                            Style="{DynamicResource InputTextBoxStyle}"
+                            Text="{Binding Name}">
                         </TextBox>
-                    </Grid>
-                    <Grid Grid.Row="2" VerticalAlignment="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="160"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Column="0"
-                            Margin="30,5"
-                            HorizontalAlignment="Left"
-                            Style="{DynamicResource Header2Style}"
-                            Text="Tình trạng">
-                        </TextBlock>
-                        <ComboBox
-                            Grid.Column="1"
-                            Margin="0,0,30,0"
-                            HorizontalAlignment="Stretch"
-                            Style="{DynamicResource AddComboBoxStyle}">
-                            <ComboBoxItem Content="Đã khắc phục"/>
-                            <ComboBoxItem Content="Chưa khắc phục"/>
-                        </ComboBox>
                     </Grid>
                     <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>
@@ -113,31 +86,35 @@
                             Grid.Column="1"
                             Margin="0,5,30,10"
                             HorizontalAlignment="Stretch"
-                            Style="{DynamicResource InputTextBoxStyle}">
+                            Style="{DynamicResource InputTextBoxStyle}"
+                            Text="{Binding Description}">
                         </TextBox>
                     </Grid>
                 </Grid>
             </Border>
 
-            <Button 
+            <Button x:Name="passErrWd"
                 Grid.Row="2"
                 Margin="20"
+                FontSize="22"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Left"
                 Style="{DynamicResource ButtonCancel_WD}"
-                Content="Bỏ qua">
+                Content="Bỏ qua"
+                Click="passErrWd_Click">
             </Button>
 
 
             <Button 
                 Grid.Row="2"
                 Margin="20"
+                FontSize="22"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"
+                Command="{Binding AddErrorListCM}" CommandParameter="{Binding ElementName=AddErrPage}"
                 Style="{DynamicResource ButtonAdd_WD}"
                 Content="Cập nhật">
             </Button>
         </Grid>
     </Border>
 </Window>
-

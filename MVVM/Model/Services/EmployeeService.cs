@@ -215,6 +215,71 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 return 0;
             }
         }
+        public async Task<EmployeeDTO> GetEmployeeById(int empId)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var emp = await context.EMPLOYEEs
+                        .Where(s => s.IS_DELETED == false && s.EMP_ID == empId)
+                        .FirstOrDefaultAsync(); 
+
+                    if (emp == null)
+                    {
+                        return null;  
+                    }
+
+                    // Nếu tìm thấy, chuyển đổi sang EmployeeDTO
+                    return new EmployeeDTO
+                    {
+                        EMP_ID = emp.EMP_ID,
+                        EMP_NAME = emp.EMP_NAME,
+                        EMP_GENDER = emp.EMP_GENDER,
+                        EMP_CCCD = emp.EMP_CCCD,
+                        EMP_EMAIL = emp.EMP_EMAIL,
+                        EMP_PHONE = emp.EMP_PHONE,
+                        EMP_BIRTHDAY = emp.EMP_BIRTHDAY,
+                        EMP_USERNAME = emp.EMP_USERNAME,
+                        EMP_PASSWORD = emp.EMP_PASSWORD,
+                        EMP_ROLE = emp.EMP_ROLE,
+                        EMP_SALARY = emp.EMP_SALARY,
+                        EMP_STARTDATE = emp.EMP_STARTDATE,
+                        EMP_STATUS = emp.EMP_STATUS,
+                        EMPLOYEE_SHIFT = emp.EMPLOYEE_SHIFT,
+                        IS_DELETED = emp.IS_DELETED,
+                    };
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public void UpdateEmployeeSalaries()
+        {
+            using (var context = new CoffeeShopDBEntities())
+            {
+                var employees = context.EMPLOYEEs
+                    .Where(e => e.IS_DELETED == false)
+                    .ToList();
+
+                foreach (var employee in employees)
+                {
+                    var totalSalary = context.EMPLOYEE_SHIFT
+                        .Where(es => es.EMP_ID == employee.EMP_ID
+                                     && es.IS_DELETED == false
+                                     && es.WORK_SHIFT.IS_DELETED == false)
+                        .Select(es => es.WORK_SHIFT.WAGE)
+                        .Sum(wage => wage ?? 0);
+
+                    employee.EMP_SALARY = totalSalary;
+                }
+
+                context.SaveChanges();
+            }
+        }
+
 
         // tìm theo email
         //public async Task<(EMPLOYEE, bool, string)> findEmpbyEmail(string email)

@@ -240,7 +240,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                         MessageBoxCustom.Show(MessageBoxCustom.Error, messageDelete);
                     }    
                 }
-
             });
         }
         #region methods

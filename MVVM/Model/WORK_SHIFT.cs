@@ -24,6 +24,7 @@ namespace QuanLiCoffeeShop.MVVM.Model
         public string SHIFT_NAME { get; set; }
         public Nullable<System.DateTime> START_TIME { get; set; }
         public Nullable<System.DateTime> END_TIME { get; set; }
+        public Nullable<decimal> WAGE { get; set; }
         public Nullable<bool> IS_DELETED { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

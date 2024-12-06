@@ -24,5 +24,17 @@ namespace QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement
         {
             InitializeComponent();
         }
+
+        private void PART_ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbStatus.Items.Count >= 2)
+            {
+                // Lấy index của item hiện tại
+                int currentIndex = cbStatus.SelectedIndex;
+
+                // Chuyển đổi index
+                cbStatus.SelectedIndex = currentIndex == 0 ? 1 : 0;
+            }
+        }
     }
 }

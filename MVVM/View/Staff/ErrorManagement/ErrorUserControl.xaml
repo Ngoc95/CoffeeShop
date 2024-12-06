@@ -186,27 +186,65 @@
                                    FontWeight="Medium"/>
                             <TextBox Margin="-20,7,0,0" Height="50" Width="270" 
                                      Style="{StaticResource textBox_style}"
-                                     Text="{Binding EditError.ER_NAME}"
-                                     IsReadOnly="True">
+                                     Text="{Binding EditError.ER_NAME}">
 
                             </TextBox>
 
                             <Label Margin="0,15,0,0" Content="Tình trạng" 
                                    FontSize="22" Foreground="Black"
                                    FontWeight="Medium"/>
-                            <TextBox Margin="-20,7,0,0" Height="50" Width="270" 
-                                     Style="{StaticResource textBox_style}"
-                                     Text="{Binding EditError.ER_STATUS}"
-                                     IsReadOnly="True">
-
-                            </TextBox>
-
+                            <ComboBox x:Name="cbStatus"
+                                      FocusVisualStyle="{x:Null}" 
+                                      Margin="-20,7,0,0" 
+                                      Height="50" 
+                                      Background="White" 
+                                      FontSize="22" 
+                                      VerticalAlignment="Center" 
+                                      Width="270" 
+                                      Text="{Binding EditError.ER_STATUS}" 
+                                      IsEditable="False">
+                                <ComboBox.Style>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ComboBox">
+                                                    <Grid>
+                                                        <Border x:Name="Border"
+                                                                Background="{TemplateBinding Background}"
+                                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                                BorderThickness="1"
+                                                                CornerRadius="10">
+                                                            <DockPanel>
+                                                                <!-- ContentPresenter để hiển thị item được chọn -->
+                                                                <ContentPresenter HorizontalAlignment="Left"
+                                                                                  VerticalAlignment="Center"
+                                                                                  Margin="10"
+                                                                                  Content="{TemplateBinding SelectionBoxItem}" />
+                                                                <!-- ToggleButton -->
+                                                                <ToggleButton x:Name="PART_ToggleButton"
+                                                                              DockPanel.Dock="Right" HorizontalAlignment="Right"
+                                                                              Background="Transparent"
+                                                                              BorderThickness="0"
+                                                                              Margin="5"
+                                                                              Content="🔄"
+                                                                              Click="PART_ToggleButton_Click" />
+                                                             </DockPanel>
+                                                        </Border>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ComboBox.Style>
+                                <ComboBoxItem Content="Chưa khắc phục" />
+                                <ComboBoxItem Content="Đã khắc phục" />
+                            </ComboBox>
                             <Label Margin="0,15,0,0" Content="Ghi chú"
                                    FontSize="22" Foreground="Black"
                                    FontWeight="Medium"/>
                             <TextBox
                                 Width="270"
-                                Height="271"
+                                Height="203"
                                 Margin="5,7,0,0"
                                 Padding="12"
                                 HorizontalAlignment="Left"
@@ -217,7 +255,6 @@
                                 FontSize="22"
                                 MaxLines="20"
                                 MinLines="1"
-                                IsReadOnly="True"
                                 Text="{Binding EditError.ER_DESCRIPTION}" 
                                 TextWrapping="Wrap">
                                 <TextBox.Style>
@@ -249,6 +286,15 @@
                                     </Style>
                                 </TextBox.Style>
                             </TextBox>
+
+                            <Button Margin="0,15,20,0"  materialDesign:ButtonAssist.CornerRadius="15.36"
+                                    BorderBrush="Black" BorderThickness="1"
+                                    Command="{Binding EditErrorCM}"
+                                    CommandParameter="{Binding ElementName=errorUC}"
+                                    Content="Lưu thay đổi" Foreground="Black" 
+                                    Background="#F0997D" FontWeight="DemiBold"
+                                    FontSize="22" Width="230" Height="55">
+                            </Button>
 
                         </StackPanel>
                     </Grid>

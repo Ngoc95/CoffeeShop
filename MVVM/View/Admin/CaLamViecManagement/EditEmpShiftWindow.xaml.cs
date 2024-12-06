@@ -12,19 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace QuanLiCoffeeShop.MVVM.View.Admin.ErrorManagement
+namespace QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement
 {
     /// <summary>
-    /// Interaction logic for AddErrorWindow.xaml
+    /// Interaction logic for EditShiftWindow.xaml
     /// </summary>
-    public partial class AddErrorWindow : Window
+    public partial class EditShiftWindow : Window
     {
-        public AddErrorWindow()
+        public EditShiftWindow()
         {
             InitializeComponent();
         }
-
-        private void AddErrPage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
@@ -32,9 +31,9 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.ErrorManagement
             }
         }
 
-        private void passErrWd_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Close();
         }
     }
 }

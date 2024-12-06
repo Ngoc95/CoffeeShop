@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiCoffeeShop.MVVM.ViewModel.Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,8 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement
 
         private void CaToi_Button_Click(object sender, RoutedEventArgs e)
         {
+            var viewModel = (WorkshiftViewModel)this.DataContext;
+            viewModel?.LoadShiftCM.Execute(null);
             btnCaToi.Background = new SolidColorBrush(Colors.White);
             btnCaSang.Background = new SolidColorBrush(Color.FromRgb(255, 195, 161));
             btnCaChieu.Background = new SolidColorBrush(Color.FromRgb(255, 195, 161));
@@ -45,6 +48,8 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement
 
         private void CaChieu_Button_Click(object sender, RoutedEventArgs e)
         {
+            var viewModel = (WorkshiftViewModel)this.DataContext;
+            viewModel?.LoadShiftCM.Execute(null);
             btnCaChieu.Background = new SolidColorBrush(Colors.White);
             btnCaSang.Background = new SolidColorBrush(Color.FromRgb(255, 195, 161));
             btnCaToi.Background = new SolidColorBrush(Color.FromRgb(255, 195, 161));
@@ -55,6 +60,8 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement
 
         private void CaSang_Button_Click(object sender, RoutedEventArgs e)
         {
+            var viewModel = (WorkshiftViewModel)this.DataContext;
+            viewModel?.LoadShiftCM.Execute(null);
             btnCaSang.Background = new SolidColorBrush(Colors.White);
             btnCaChieu.Background = new SolidColorBrush(Color.FromRgb(255, 195, 161));
             btnCaToi.Background = new SolidColorBrush(Color.FromRgb(255, 195, 161));
