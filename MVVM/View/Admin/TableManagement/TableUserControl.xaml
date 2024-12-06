@@ -30,8 +30,9 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="67*"/>
-            <ColumnDefinition Width="243*"/>
+            <ColumnDefinition Width="201*"/>
+            <ColumnDefinition Width="310*"/>
+            <ColumnDefinition Width="419*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="78"></RowDefinition>
@@ -39,7 +40,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="0" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
@@ -50,9 +51,8 @@
                 Margin="20,0,15,0"
                 Tag="Lọc theo trạng thái"
                 FontSize="22"
-                SelectedValue="{Binding CbbSelectedValue, Mode=TwoWay}"
+                SelectedIndex="{Binding CbbSelectedIndex, Mode=TwoWay}"
                 Style="{DynamicResource ComboBoxStyle1}" 
-                materialDesign:HintAssist.Hint=""
                 VerticalAlignment="Bottom">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
@@ -76,18 +76,18 @@
             <Button 
                 Width="210" 
                 HorizontalAlignment="Left"
+                Command="{Binding OpenAddWDCommand}"
                 Style="{DynamicResource ButtonStyle1}" 
                 Grid.Column="1"
                 Content="Thêm bàn"
                 VerticalAlignment="Bottom">
-
             </Button>
         </Grid>
 
         <ScrollViewer 
             Grid.Row="1" 
             Margin="10,10,10,10"
-            VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+            VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3">
             <ItemsControl
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
@@ -116,11 +116,11 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <Separator Grid.Row="2" Margin="20,0,20,0" Grid.ColumnSpan="2" ></Separator>
+        <Separator Grid.Row="2" Margin="20,0,20,0" Grid.ColumnSpan="3" ></Separator>
 
         <ScrollViewer 
             Grid.Row="3" 
-            VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+            VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3">
             <ItemsControl
                 Padding="0"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"        

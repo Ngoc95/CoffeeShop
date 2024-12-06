@@ -256,6 +256,98 @@
     </Style>
 
 
+    <Style x:Key="ComboBoxSimpleStyle" TargetType="{x:Type ComboBox}">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="Width" Value="240"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Foreground" Value="#603127"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <Border 
+                            x:Name="ComboBoxBorder"
+                            Background="{TemplateBinding Background}" 
+                            CornerRadius="5"
+                            BorderThickness="1"
+                            BorderBrush="#603127"
+                            Height="{TemplateBinding Height}">
+                            <TextBlock 
+                                IsEnabled="True"
+                                Margin="11,0,25,0"
+                                IsHitTestVisible="False"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                FontSize="22"
+                                Text="{TemplateBinding SelectionBoxItem}">
+                            </TextBlock>
+                        </Border>
+                        <TextBlock 
+                            x:Name="TextBlock"
+                            Margin="11,0,25,0"
+                            Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Left"
+                            FontSize="22"
+                            Visibility="Hidden"
+                            Opacity="0.5"
+                            Padding="15">
+                        </TextBlock>
+                        <ToggleButton x:Name="ToggleButton"
+                              Template="{DynamicResource MyToggleButtonTemplate}"
+                              ClickMode="Press"
+                              Focusable="False"
+                              Grid.Column="2"
+                              IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Center"></ToggleButton>
+                        <Popup 
+                            x:Name="Popup"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            Placement="right"
+                            Width="auto"
+                            HorizontalOffset="-100"
+                            VerticalOffset="50"
+                            PopupAnimation="Slide">
+                            <Border 
+                                x:Name="PopupBorder"
+                                Background="White"
+                                BorderBrush="#603721"
+                                BorderThickness="1">
+                                    <ScrollViewer Margin="4">
+                                        <StackPanel IsItemsHost="True" />
+                                    </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="ToggleButton" Property="IsPressed" Value="True">
+                            <Setter TargetName="ComboBoxBorder" Property="BorderBrush" Value="#603127"/>
+                            <Setter TargetName="ComboBoxBorder" Property="BorderThickness" Value="1"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ComboBoxBorder" Property="BorderBrush" Value="#603127"/>
+                            <Setter TargetName="ComboBoxBorder" Property="BorderThickness" Value="1"/>
+                        </Trigger>
+                        <Trigger Property="SelectedIndex" Value="-1">
+                            <Setter TargetName="TextBlock" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
 
 
     <ControlTemplate x:Key="MyToggleButtonTemplate" TargetType="{x:Type ToggleButton}">

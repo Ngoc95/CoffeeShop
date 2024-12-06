@@ -61,6 +61,7 @@
                         <ComboBox 
                             x:Name="Genre_Product_cbb"
                             SelectedItem="{Binding SelectedItemGenreName, Mode=TwoWay}"
+                            ItemsSource="{Binding GenPrdNameList}"
                             Style="{DynamicResource ComboBoxStyleMenu}"
                             Margin="15,0,30,15"
                             Width="auto">

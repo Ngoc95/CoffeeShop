@@ -12,19 +12,19 @@
     <StaffViewModel:StaffTableResViewModel x:Key="StaffTableResViewModel"/>
     <!--TableCardforAdmin-->
     <DataTemplate x:Key="Table2">
-        <TableCard:Table2Card Width="150" Height="236" Margin="10"/>
+        <TableCard:Table2Card Width="157" Height="240" Margin="10"/>
     </DataTemplate>
 
     <DataTemplate x:Key="Table3">
-        <TableCard:Table3Card Width="150" Height="236" Margin="10"/>
+        <TableCard:Table3Card Width="157" Height="240" Margin="10"/>
     </DataTemplate>
 
     <DataTemplate x:Key="Table4">
-        <TableCard:Table4Card Width="150" Height="236" Margin="10"/>
+        <TableCard:Table4Card Width="157" Height="240" Margin="10"/>
     </DataTemplate>
 
     <DataTemplate x:Key="Table6">
-        <TableCard:Table6Card Width="150" Height="236" Margin="10"/>
+        <TableCard:Table6Card Width="157" Height="240" Margin="10"/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type StaffViewModel:MenuOrderViewModel}">

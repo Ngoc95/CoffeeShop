@@ -4,14 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagament"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
         mc:Ignorable="d"
+        DataContext="{StaticResource TableViewModel}"
+        x:Name="AddTableWD"
         Title="AddTableWindow" Height="464" Width="350"
         Background="Transparent"
         WindowStyle="none" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-    <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White">
+    <Border 
+        BorderBrush="#603127" 
+        BorderThickness="2" 
+        CornerRadius="15" 
+        Background="White"
+        MouseDown="moveAddCusWin_MouseDown">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
@@ -44,31 +51,21 @@
                     <StackPanel Height="auto">
                         <TextBlock Style="{DynamicResource Header2Style}" Text="Trạng thái: "></TextBlock>
                         <ComboBox
-                            Width="240"
-                            Margin="5"
-                            Background="White"
-                            IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                            ItemsSource="{Binding ShortStringList}"
                             Foreground="#603127"
-                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                            <ComboBoxItem Content="Tầng 1"></ComboBoxItem>
-                            <ComboBoxItem Content="Tầng 2"></ComboBoxItem>
+                            IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
+                            ItemsSource="{Binding TableStatusList}"
+                            SelectedItem="{Binding SelectedTable.TB_STATUS}"
+                            Style="{StaticResource ComboBoxSimpleStyle}">
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Height="auto">
                         <TextBlock Style="{DynamicResource Header2Style}" Text="Loại bàn: "></TextBlock>
                         <ComboBox
-                            Width="240"
-                            Margin="5"
-                            Background="White"
+                            x:Name="GenreTableCbb"
+                            SelectedItem="{Binding SelectedTableGenreName, Mode=TwoWay}"
+                            ItemsSource="{Binding GenreTableNameList}"
                             IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                            ItemsSource="{Binding ShortStringList}"
-                            Foreground="#603127"
-                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                            <ComboBoxItem Content="Bàn 2"></ComboBoxItem>
-                            <ComboBoxItem Content="Bàn 3"></ComboBoxItem>
-                            <ComboBoxItem Content="Bàn 4"></ComboBoxItem>
-                            <ComboBoxItem Content="Bàn 6"></ComboBoxItem>
+                            Style="{StaticResource ComboBoxSimpleStyle}">
                         </ComboBox>
                     </StackPanel>
                 </StackPanel>
@@ -82,10 +79,14 @@
 
                 <Button Grid.Column="0" 
                         Content="Bỏ qua"
+                        Command="{Binding btnCloseTableCommand}"
+                        CommandParameter="{Binding ElementName=AddTableWD}"
                         Style="{DynamicResource ButtonCancel_WD}">
                 </Button>
                 <Button Grid.Column="1" 
                         Content="Thêm"
+                        Command="{Binding btnAddTableCommand}"
+                        CommandParameter="{Binding ElementName=AddTableWD}"
                         Style="{DynamicResource ButtonAdd_WD}"></Button>
             </Grid>
         </Grid>

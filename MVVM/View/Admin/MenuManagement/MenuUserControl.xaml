@@ -134,7 +134,7 @@
                     <DataTemplate>
                         <uc:ProductCard 
                             DataContext="{Binding}"
-                            Width="216" Height="312.3"
+                            Width="216" Height="319.5"
                             Margin="5"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

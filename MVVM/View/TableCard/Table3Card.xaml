@@ -6,6 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.TableCard"
              mc:Ignorable="d" 
+             x:Name="TableCard3"
              d:DesignHeight="236" d:DesignWidth="154"
              HorizontalAlignment="Left"
              VerticalAlignment="Top">
@@ -40,11 +41,19 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0"
+                <Button 
+                    Grid.Column="0"
+                    DataContext="{StaticResource TableViewModel}"
+                    Command="{Binding OpenEditTableWDCommand}"
+                    CommandParameter="{Binding ElementName=TableCard3}"
                     Style="{DynamicResource ButtonStyleEditTBCard}"/>
 
 
-                <Button   Grid.Column="1"
+                <Button   
+                    Grid.Column="1"
+                    DataContext="{StaticResource TableViewModel}"
+                    Command="{Binding OpenDeleteTableWDCommand}"
+                    CommandParameter="{Binding ElementName=TableCard3}"
                     Style="{DynamicResource ButtonStyleDeleteTBCard}"/>
 
             </Grid>

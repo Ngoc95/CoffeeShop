@@ -24,9 +24,13 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.TableManagament
             InitializeComponent();
         }
 
-        private void OutlinedComboBox_ColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
-        {
 
+        private void moveAddCusWin_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
         }
     }
 }

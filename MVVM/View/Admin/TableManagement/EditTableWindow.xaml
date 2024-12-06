@@ -5,12 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagement"
         xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
+        DataContext="{StaticResource TableViewModel}"
         mc:Ignorable="d"
+        x:Name="EditTableWD"
         Title="AddTableWindow" Height="464" Width="350"
         Background="Transparent"
         WindowStyle="none" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-    <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White">
+    <Border 
+        BorderBrush="#603127" 
+        BorderThickness="2" 
+        CornerRadius="15" 
+        Background="White"
+        MouseDown="moveAddCusWin_MouseDown">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
@@ -25,7 +32,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource Header1Style}"
-                           Text="Thêm bàn">
+                           Text="Chỉnh sửa bàn">
                 </TextBlock>
                 <Grid Grid.Column="1" Height="40" Width="80" 
                       VerticalAlignment="Center" 
@@ -40,35 +47,28 @@
                            Fill="#ffc3a1"
                            RadiusX="20" RadiusY="20"></Rectangle>
                 <StackPanel Orientation="Vertical" Height="316" Width="310">
-                    <TextBlock Style="{DynamicResource Header2Style}" Text="Mã bàn: "></TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{DynamicResource Header2Style}" Text="Mã bàn: "></TextBlock>
+                        <TextBlock Style="{DynamicResource Header2Style}" Text="{Binding SelectedTable.TB_ID, StringFormat='000'}"/>
+                    </StackPanel>
                     <StackPanel Height="auto">
                         <TextBlock Style="{DynamicResource Header2Style}" Text="Trạng thái: "></TextBlock>
                         <ComboBox
-                            Width="240"
-                            Margin="5"
-                            Background="White"
-                            IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                            ItemsSource="{Binding ShortStringList}"
                             Foreground="#603127"
-                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                            <ComboBoxItem Content="Tầng 1"></ComboBoxItem>
-                            <ComboBoxItem Content="Tầng 2"></ComboBoxItem>
+                            IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
+                            ItemsSource="{Binding TableStatusList}"
+                            SelectedItem="{Binding SelectedTable.TB_STATUS}"
+                            Style="{StaticResource ComboBoxSimpleStyle}">
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Height="auto">
                         <TextBlock Style="{DynamicResource Header2Style}" Text="Loại bàn: "></TextBlock>
                         <ComboBox
-                            Width="240"
-                            Margin="5"
-                            Background="White"
+                            x:Name="GenreTableCbb"
+                            SelectedItem="{Binding SelectedTableGenreName, Mode=TwoWay}"
+                            ItemsSource="{Binding GenreTableNameList}"
                             IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                            ItemsSource="{Binding ShortStringList}"
-                            Foreground="#603127"
-                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                            <ComboBoxItem Content="Bàn 2"></ComboBoxItem>
-                            <ComboBoxItem Content="Bàn 3"></ComboBoxItem>
-                            <ComboBoxItem Content="Bàn 4"></ComboBoxItem>
-                            <ComboBoxItem Content="Bàn 6"></ComboBoxItem>
+                            Style="{StaticResource ComboBoxSimpleStyle}">
                         </ComboBox>
                     </StackPanel>
                 </StackPanel>
@@ -82,10 +82,14 @@
 
                 <Button Grid.Column="0" 
                         Content="Bỏ qua"
+                        Command="{Binding btnCloseTableCommand}"
+                        CommandParameter="{Binding ElementName=EditTableWD}"
                         Style="{DynamicResource ButtonCancel_WD}">
                 </Button>
                 <Button Grid.Column="1" 
                         Content="Lưu thay đổi"
+                        Command="{Binding btnEditTableCommand}"
+                        CommandParameter="{Binding ElementName=EditTableWD}"
                         Style="{DynamicResource ButtonAdd_WD}"></Button>
             </Grid>
         </Grid>

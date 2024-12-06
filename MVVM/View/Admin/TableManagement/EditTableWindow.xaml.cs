@@ -1,5 +1,7 @@
-﻿using System;
+﻿using QuanLiCoffeeShop.DTOs;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +21,21 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.TableManagement
     /// </summary>
     public partial class EditTableWindow : Window
     {
+        private List<string> _GenreTableLists;
+
         public EditTableWindow()
         {
             InitializeComponent();
+            
         }
+        private void moveAddCusWin_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
+        }
+
+
     }
 }

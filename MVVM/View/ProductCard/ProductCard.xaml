@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.ProductCard"
              mc:Ignorable="d" 
              x:Name="ProCard"
-             d:DesignHeight="347" d:DesignWidth="240">
+             d:DesignHeight="355" d:DesignWidth="240">
     <Border BorderBrush="#D9D9D9" 
             BorderThickness="0.8" 
             CornerRadius="10">
@@ -15,51 +15,57 @@
         <Rectangle Fill="#ffc3a1" Stretch="Fill" RadiusX="10" RadiusY="10"></Rectangle>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3.58*"/>
+                    <RowDefinition Height="246.714"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Image  Margin="10" Source="{Binding PRO_IMG}"
+                            Width="auto" Height="auto"
                             Stretch="Fill"></Image>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="45"/>
-                        <ColumnDefinition Width="50"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.6*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
                         <TextBlock 
                             Margin="10,0,0,5"
-                            FontSize="14"
+                            FontSize="20"
                             Text="{Binding PRO_NAME}"
                             ></TextBlock>
+                    </StackPanel>
+                        
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="45"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        
                         <TextBlock
-                            Margin="10,0,10,5"
+                            Grid.Column="0"
+                            Margin="10,0,0,5"
                             Style="{DynamicResource Header4Style}"
                             Text="{Binding PRO_PRICE, StringFormat={}{0:C0}}" Language="vi-VN"></TextBlock>
-                    </StackPanel>
-                    
-                    <StackPanel Orientation="Vertical" Grid.Column="0" VerticalAlignment="Center">
-                        <TextBlock Text="" Style="{DynamicResource Header3Style}" ></TextBlock>
-                        <TextBlock Text="" Style="{DynamicResource Header4Style}" > </TextBlock>
-                    </StackPanel>
 
-                    <Button
-                        Grid.Column="1"
-                        DataContext="{StaticResource MenuViewModel}"
-                        Command="{Binding OpenEditProWDCommand}"
-                        CommandParameter="{Binding ElementName=ProCard}"
-                        Style="{DynamicResource ButtonEditMenu}">
-                    </Button>
-                    <Button 
-                        Grid.Column="2" 
-                        DataContext="{StaticResource MenuViewModel}"
-                        Command="{Binding DeleteProductCommand}"
-                        CommandParameter="{Binding ElementName=ProCard}"
-                        Margin="0,0,5,0"
-                        Style="{DynamicResource ButtonDeleteMenu}">
-                    </Button>
+                        <Button
+                            Grid.Column="1"
+                            DataContext="{StaticResource MenuViewModel}"
+                            Command="{Binding OpenEditProWDCommand}"
+                            Margin="0,0,0,5"
+                            CommandParameter="{Binding ElementName=ProCard}"
+                            Style="{DynamicResource ButtonEditMenu}">
+                        </Button>
+                        <Button 
+                            Grid.Column="2" 
+                            DataContext="{StaticResource MenuViewModel}"
+                            Command="{Binding DeleteProductCommand}"
+                            CommandParameter="{Binding ElementName=ProCard}"
+                            Margin="0,0,5,5"
+                            Style="{DynamicResource ButtonDeleteMenu}">
+                        </Button>
+                    </Grid>
                 </Grid>
             </Grid>    
         

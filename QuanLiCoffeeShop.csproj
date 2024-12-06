@@ -622,9 +622,21 @@
     <Resource Include="DemoDataPrdImg\sinhtoDau.jpg" />
     <Resource Include="DemoDataPrdImg\sinhtoduahau.png" />
     <Resource Include="DemoDataPrdImg\coffee.jpg" />
-    <Resource Include="DemoDataPrdImg\bacxiu.png" />
     <Resource Include="DemoDataPrdImg\coffeemuoi.jpg" />
     <Resource Include="DemoDataPrdImg\trasuapudding.jpg" />
+    <Resource Include="DemoDataPrdImg\cacaoSua.jpg" />
+    <Resource Include="DemoDataPrdImg\bacxiu.jpg" />
+    <Resource Include="DemoDataPrdImg\traoi.jpg" />
+    <Resource Include="DemoDataPrdImg\espresso.jpg" />
+    <Resource Include="DemoDataPrdImg\epcam.jpg" />
+    <Resource Include="DemoDataPrdImg\eptao.jpg" />
+    <Resource Include="DemoDataPrdImg\tratac.jpg" />
+    <Resource Include="DemoDataPrdImg\eple.jpg" />
+    <Resource Include="DemoDataPrdImg\tsthaixanh.jpg" />
+    <Resource Include="DemoDataPrdImg\tssocola.jpg" />
+    <Resource Include="DemoDataPrdImg\trasen.jpg" />
+    <Resource Include="DemoDataPrdImg\stdua.jpg" />
+    <Resource Include="DemoDataPrdImg\stmangcau.jpg" />
     <Content Include="MVVM\Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

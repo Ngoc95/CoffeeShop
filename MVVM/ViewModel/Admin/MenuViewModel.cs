@@ -23,7 +23,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 {
     class MenuViewModel : ObservableObject
     {
-        public static List<ProductDTO> prdList;
         private ObservableCollection<ProductDTO> _productList;
 
         public ObservableCollection<ProductDTO> ProductList
@@ -32,15 +31,19 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             set { _productList = value; OnPropertyChanged(); }
         }
 
-        public static List<GenreProductDTO> genPrdList;
 
         private List<string> _genPrdNameList;
+        public List<string> GenPrdNameList
+        {
+            get => _genPrdNameList;
+            set { _genPrdNameList = value; OnPropertyChanged(); }
+        }
 
-        private ObservableCollection<GenreProductDTO> _genreProductList;
+        private ObservableCollection<GenreProductDTO> _GenreProductList;
         public ObservableCollection<GenreProductDTO> GenreProductList
         {
-            get { return _genreProductList; }
-            set { _genreProductList = value; OnPropertyChanged(); }
+            get { return _GenreProductList; }
+            set { _GenreProductList = value; OnPropertyChanged(); }
         }
 
 
@@ -82,34 +85,31 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         {
             FirstLoadCM = new RelayCommand<Page>((p) => { return true; }, async (p) =>
             {
-                ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
-                if (ProductList != null)
-                {
-                    prdList = new List<ProductDTO>(ProductList);
-                }
+                if(ProductList == null)
+                    ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
 
-                GenreProductList = new ObservableCollection<GenreProductDTO>(await GenreProService.Ins.GetAllGenre());
+                if(GenreProductList == null)
+                    GenreProductList = new ObservableCollection<GenreProductDTO>(await GenreProService.Ins.GetAllGenre());
                 if (GenreProductList != null)
                 {
-                    genPrdList = new List<GenreProductDTO>(GenreProductList);
                     if (_genPrdNameList == null)
+                    {                        
                         _genPrdNameList = new List<string>();
-                    if (genPrdList != null)
-                    {
-                        foreach (var item in genPrdList)
+                        foreach (var item in GenreProductList)
                         {
                             _genPrdNameList.Add(item.GP_NAME);
                         }
+                        GenreProductList.Insert(0, new GenreProductDTO(0, "Tất cả"));
+                        
                     }
                 }
-                GenreProductList.Insert(0, new GenreProductDTO(0, "Tất cả"));
             });
 
             OpenAddProWDCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 _SelectedItem = new ProductDTO();
                 SelectedItemGenreName = "";
-                AddProductWindow wd = new AddProductWindow(_genPrdNameList, GetGenreName());
+                AddProductWindow wd = new AddProductWindow();
                 wd.ShowDialog();
             });
 
@@ -117,7 +117,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             {
                 _SelectedItem = new ProductDTO(p.DataContext as ProductDTO);
                 SelectedItemGenreName = GetGenreName();
-                EditProductWindow wd = new EditProductWindow(_genPrdNameList, GetGenreName());
+                EditProductWindow wd = new EditProductWindow();
                 //wd.DataContext = _SelectedItem;
                 wd.ShowDialog();
             });
@@ -133,7 +133,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     (bool IsDeleted, string messageDelete) = await ProductService.Ins.DeletePrdList(SelectedItem.PRO_ID);
                     if (IsDeleted)
                     {
-                        ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+                        ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.FilterPrdList(FilterGnereID, SearchText));
                         MessageBoxCustom.Show(MessageBoxCustom.Success, messageDelete);
                     }
                     else
@@ -154,7 +154,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 if (IsAdded)
                 {
                     p.Close();
-                    ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+                    ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.FilterPrdList(FilterGnereID, SearchText));
                     MessageBoxCustom.Show(MessageBoxCustom.Success, messageAdd);
                 }
                 else
@@ -167,23 +167,13 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             {
                 if(int.TryParse(p.ToString(), out int temp))
                     FilterGnereID = temp;
-                //else
-                //    SearchText = p.ToString();
+
                 if (SearchText == "" && FilterGnereID == 0)
                 {
                     ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
-                    if (ProductList != null)
-                    {
-                        prdList = new List<ProductDTO>(ProductList);
-                    }
                     return;
                 }
                 ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.FilterPrdList(FilterGnereID, SearchText));
-                if (ProductList != null)
-                {
-                    prdList = new List<ProductDTO>(ProductList);
-                }
-                
             });
 
             SearchMenuCommand = new RelayCommand<Object>((p) => { return true; }, async (p) =>
@@ -192,18 +182,10 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 if (SearchText == "")
                 {
                     ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
-                    if (ProductList != null)
-                    {
-                        prdList = new List<ProductDTO>(ProductList);
-                    }
                 }
                 else
                 {
                     ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.FilterPrdList(FilterGnereID, SearchText));
-                    if (ProductList != null)
-                    {
-                        prdList = new List<ProductDTO>(ProductList);
-                    }
                 }
             });
 
@@ -240,7 +222,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 if (IsAdded)
                 {
                     p.Close();
-                    ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+                    ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.FilterPrdList(FilterGnereID, SearchText));
                     MessageBoxCustom.Show(MessageBoxCustom.Success, messageAdd);
                 }
                 else
@@ -285,5 +267,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             }
             return 0;
         }
+
     }
 }

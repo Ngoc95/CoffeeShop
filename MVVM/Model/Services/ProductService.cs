@@ -156,7 +156,7 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                                            }).ToListAsync();
                         return await productList;
                     }
-                    else if (SearchMess.Length == 0)
+                    else if (SearchMess.Length == 0 && ID != 0)
                     {
                         var productList = (from c in context.PRODUCTs
                                            where (c.GP_ID == ID && c.IS_DELETED == false)
@@ -172,10 +172,26 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                                            }).ToListAsync();
                         return await productList;
                     }
-                    else 
+                    else if (ID == 0 && SearchMess.Length != 0)
                     {
                         var productList = (from c in context.PRODUCTs
                                            where (c.IS_DELETED == false && c.PRO_NAME.Contains(SearchMess))
+                                           select new ProductDTO
+                                           {
+                                               PRO_ID = c.PRO_ID,
+                                               PRO_NAME = c.PRO_NAME,
+                                               PRO_PRICE = c.PRO_PRICE,
+                                               GP_ID = c.GP_ID,
+                                               PRO_DESCRIPTION = c.PRO_DESCRIPTION,
+                                               PRO_IMG = c.PRO_IMG == null ? "pack://application:,,,/Images/MenuAndError/UploadImg.jpg" : c.PRO_IMG,
+                                               IS_DELETED = c.IS_DELETED,
+                                           }).ToListAsync();
+                        return await productList;
+                    }
+                    else
+                    {
+                        var productList = (from c in context.PRODUCTs
+                                           where c.IS_DELETED == false
                                            select new ProductDTO
                                            {
                                                PRO_ID = c.PRO_ID,

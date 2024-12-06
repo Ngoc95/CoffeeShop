@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.TableCard"
              mc:Ignorable="d"  
              x:Name="TableCard2"
-             d:DesignHeight="236" d:DesignWidth="150"
+             d:DesignHeight="236" d:DesignWidth="154"
              HorizontalAlignment="Left"
              VerticalAlignment="Top">
     <Border 

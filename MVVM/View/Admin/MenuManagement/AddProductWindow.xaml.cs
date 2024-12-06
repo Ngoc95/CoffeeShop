@@ -25,14 +25,6 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement
             InitializeComponent();
         }
 
-        public AddProductWindow(List<string> genre_Prd, string Genre)
-        {
-            InitializeComponent();
-            if (_GenreProductLists.Count > 0) return;
-            _GenreProductLists = genre_Prd;
-            Genre_Product_cbb.ItemsSource = _GenreProductLists;
-        }
-
         private void moveAddCusWin_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
