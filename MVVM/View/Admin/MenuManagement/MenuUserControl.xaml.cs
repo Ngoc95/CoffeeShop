@@ -26,16 +26,6 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement
             InitializeComponent();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //Vi TextBox ko the dug command tren xaml
-            var viewModel = DataContext as MenuViewModel;
-            
-            if (viewModel?.FilterCommand.CanExecute(null) == true)
-            {
-                viewModel.FilterCommand.Execute(((TextBox)sender).Text);
-            }
-        }
 
     }
 }

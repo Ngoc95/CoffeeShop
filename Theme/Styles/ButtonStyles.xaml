@@ -67,7 +67,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" 
-                            Height="65" 
+                            Height="55" 
                             Width="{TemplateBinding Width}"
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Center"
@@ -271,8 +271,8 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Height" Value="43"/>
-                <Setter Property="Width" Value="43"/>
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Width" Value="35"/>
             </Trigger>
 
             <Trigger Property="IsMouseCaptured" Value="True">
@@ -313,8 +313,8 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Height" Value="43"/>
-                <Setter Property="Width" Value="43"/>
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Width" Value="35"/>
             </Trigger>
 
             <Trigger Property="IsMouseCaptured" Value="True">

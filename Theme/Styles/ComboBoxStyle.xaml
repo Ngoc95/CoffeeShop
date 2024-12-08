@@ -22,7 +22,7 @@
 
     <Style x:Key="ComboBoxStyle1" TargetType="{x:Type ComboBox}">
         <Setter Property="Background" Value="#FFC3A1"/>
-        <Setter Property="Height" Value="65"/>
+        <Setter Property="Height" Value="55"/>
         <Setter Property="FontSize" Value="22"/>
         <Setter Property="Width" Value="360"/>
         <Setter Property="Padding" Value="15"/>

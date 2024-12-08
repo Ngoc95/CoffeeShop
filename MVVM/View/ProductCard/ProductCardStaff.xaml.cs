@@ -1,5 +1,4 @@
-﻿using QuanLiCoffeeShop.MVVM.ViewModel.Admin;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu
+namespace QuanLiCoffeeShop.MVVM.View.ProductCard
 {
     /// <summary>
-    /// Interaction logic for StaffMenuOrderUserControl.xaml
+    /// Interaction logic for ProductCardStaff.xaml
     /// </summary>
-    public partial class StaffMenuOrderUserControl : UserControl
+    public partial class ProductCardStaff : UserControl
     {
-        public StaffMenuOrderUserControl()
+        public ProductCardStaff()
         {
             InitializeComponent();
         }

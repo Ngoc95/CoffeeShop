@@ -195,5 +195,117 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
 
         }
 
+        public async Task<List<CustomerDTO>> SearchCus(int ID, string Name, string Phone)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    if(ID == 0 && string.IsNullOrEmpty(Name) == true && string.IsNullOrEmpty(Phone) == true)
+                    {
+                        var cusList = (from s in context.CUSTOMERs
+                                       where s.IS_DELETED == false
+                                       select new CustomerDTO
+                                       {
+                                           ID = s.CUS_ID,
+                                           Name = s.CUS_NAME,
+                                           Email = s.CUS_EMAIL,
+                                           Phone = s.CUS_PHONE,
+                                           Gender = s.CUS_GENDER,
+                                           Point = s.CUS_POINT,
+                                           IsDeleted = s.IS_DELETED,
+                                       }).ToListAsync();
+                        return await cusList;
+                    }
+                    else if(ID != 0)
+                    {
+                        var cusList = (from s in context.CUSTOMERs
+                                       where s.IS_DELETED == false && ID == s.CUS_ID
+                                       select new CustomerDTO
+                                       {
+                                           ID = s.CUS_ID,
+                                           Name = s.CUS_NAME,
+                                           Email = s.CUS_EMAIL,
+                                           Phone = s.CUS_PHONE,
+                                           Gender = s.CUS_GENDER,
+                                           Point = s.CUS_POINT,
+                                           IsDeleted = s.IS_DELETED,
+                                       }).ToListAsync();
+                        return await cusList;
+                    }
+                    else if (string.IsNullOrEmpty(Name) == false && string.IsNullOrEmpty(Phone) == false)
+                    {
+                        var cusList = (from s in context.CUSTOMERs
+                                       where s.IS_DELETED == false && s.CUS_NAME.Contains(Name) && s.CUS_PHONE.Contains(Phone) 
+                                       select new CustomerDTO
+                                       {
+                                           ID = s.CUS_ID,
+                                           Name = s.CUS_NAME,
+                                           Email = s.CUS_EMAIL,
+                                           Phone = s.CUS_PHONE,
+                                           Gender = s.CUS_GENDER,
+                                           Point = s.CUS_POINT,
+                                           IsDeleted = s.IS_DELETED,
+                                       }).ToListAsync();
+                        return await cusList;
+                    }
+                    else if (string.IsNullOrEmpty(Name) == true)
+                    {
+                        var cusList = (from s in context.CUSTOMERs
+                                       where s.IS_DELETED == false && s.CUS_PHONE.Contains(Phone)
+                                       select new CustomerDTO
+                                       {
+                                           ID = s.CUS_ID,
+                                           Name = s.CUS_NAME,
+                                           Email = s.CUS_EMAIL,
+                                           Phone = s.CUS_PHONE,
+                                           Gender = s.CUS_GENDER,
+                                           Point = s.CUS_POINT,
+                                           IsDeleted = s.IS_DELETED,
+                                       }).ToListAsync();
+                        return await cusList;
+                    }
+                    else if(string.IsNullOrEmpty(Phone) == true)
+                    {
+                        var cusList = (from s in context.CUSTOMERs
+                                       where s.IS_DELETED == false && s.CUS_NAME.Contains(Name)
+                                       select new CustomerDTO
+                                       {
+                                           ID = s.CUS_ID,
+                                           Name = s.CUS_NAME,
+                                           Email = s.CUS_EMAIL,
+                                           Phone = s.CUS_PHONE,
+                                           Gender = s.CUS_GENDER,
+                                           Point = s.CUS_POINT,
+                                           IsDeleted = s.IS_DELETED,
+                                       }).ToListAsync();
+                        return await cusList;
+                    }
+                    else
+                    {
+                        var cusList = (from s in context.CUSTOMERs
+                                       where s.IS_DELETED == false
+                                       select new CustomerDTO
+                                       {
+                                           ID = s.CUS_ID,
+                                           Name = s.CUS_NAME,
+                                           Email = s.CUS_EMAIL,
+                                           Phone = s.CUS_PHONE,
+                                           Gender = s.CUS_GENDER,
+                                           Point = s.CUS_POINT,
+                                           IsDeleted = s.IS_DELETED,
+                                       }).ToListAsync();
+                        return await cusList;
+                    }
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return null;
+            }
+
+        }
+
     }
 }

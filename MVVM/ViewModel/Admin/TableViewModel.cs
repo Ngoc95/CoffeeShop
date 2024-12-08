@@ -90,6 +90,20 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             set { _TableStatusList = value; OnPropertyChanged(); }
         }
 
+        private int _IDOfNextTable = 0;
+        public int IDOfNextTable
+        {
+            get { return _IDOfNextTable; }
+            set
+            {
+                if (_IDOfNextTable != value)
+                {
+                    _IDOfNextTable = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
 
         #region Command
@@ -134,8 +148,9 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 wd.ShowDialog();
             });
 
-            OpenAddWDCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            OpenAddWDCommand = new RelayCommand<UserControl>((p) => { return true; }, async (p) =>
             {
+                IDOfNextTable = await TableService.Ins.NumOfTable() + 1;
                 _SelectedTable = new TableDTO();
                 SelectedTableGenreName = null;
                 Window wd = new AddTableWindow();

@@ -3,33 +3,125 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffTable"
+             DataContext="{StaticResource StaffTableResViewModel}"
              mc:Ignorable="d" 
              Background="White"
              d:DesignHeight="692" d:DesignWidth="930">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <local:MyTemplateSelector x:Key="MySelector"
+                                  Table2Template="{StaticResource Table2Staff}"
+                                  Table3Template="{StaticResource Table3Staff}"
+                                  Table4Template="{StaticResource Table4Staff}"
+                                  Table6Template="{StaticResource Table6Staff}" />
+    </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="110"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="370"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
+
+        <ScrollViewer Grid.Column="0" 
+            Margin="5"
+            VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3">
+            <ItemsControl
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                ItemsSource="{Binding GenreTableList}"
+                Width="auto" Height="auto">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Cursor="Hand"
+                            FontSize="25"
+                            Margin="0"
+                            Command="{Binding DataContext.FilterCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                            CommandParameter="{Binding GT_ID}"
+                            Content="{Binding GT_NAME}"
+                            IsChecked="False"
+                            GroupName="ProductTypeGroup"
+                            Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <Rectangle Grid.Column="1" Width="0.5" Margin="0,10" Fill="black" />
+
+        <Grid
+            Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
-
-            <Menu Grid.Row="0" FocusVisualStyle="{DynamicResource MenuStyle1}">
-                <MenuItem Header="Ban 2"/>
-                <MenuItem Header="Ban 3"/>
-                <MenuItem Header="Ban 4"/>
-                <MenuItem Header="Ban 6"/>
-                <MenuItem Header="Khac"/>
-            </Menu>
-            <!--toi chiu-->
+            <ComboBox 
+                Width="350"
+                Grid.Row="0"
+                HorizontalAlignment="Center"
+                Margin="0,0,0,10"
+                Tag="Lọc theo trạng thái"
+                FontSize="22"
+                SelectedIndex="{Binding CbbSelectedIndex, Mode=TwoWay}"
+                Style="{DynamicResource ComboBoxStyle1}" 
+                VerticalAlignment="Bottom">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding FilterCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ComboBoxItem
+                        Width="200"
+                        Content="Tất cả"/>
+                <ComboBoxItem
+                        Width="200"
+                        Content="Còn trống"/>
+                <ComboBoxItem 
+                        Width="200"  
+                        Content="Đang bận"/>
+                <ComboBoxItem 
+                        Width="200"  
+                        Content="Đang sửa chữa"/>
+            </ComboBox>       
+            <Grid Grid.Row="1">
+                <ScrollViewer 
+                    HorizontalAlignment="Left"
+                    VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3">
+                    <ItemsControl
+                        Padding="0"
+                        HorizontalAlignment="Left"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"        
+                        Width="370" Height="auto"
+                        ItemsSource="{Binding TableList}" 
+                        ItemTemplateSelector="{StaticResource MySelector}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
         </Grid>
 
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="9*"/>
                 <RowDefinition/>
@@ -68,7 +160,7 @@
                 Content="Thêm lịch đặt bàn"
                 Background="#ffc3a1"></Button>
         </Grid>
-        
+
         <!--con thieu nhan ban-->
     </Grid>
 </UserControl>

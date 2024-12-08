@@ -23,6 +23,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 {
     class MenuViewModel : ObservableObject
     {
+        #region Declare
+
         private ObservableCollection<ProductDTO> _productList;
 
         public ObservableCollection<ProductDTO> ProductList
@@ -31,7 +33,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             set { _productList = value; OnPropertyChanged(); }
         }
 
-
+        //Use as Combobox ItemSource
         private List<string> _genPrdNameList;
         public List<string> GenPrdNameList
         {
@@ -45,7 +47,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             get { return _GenreProductList; }
             set { _GenreProductList = value; OnPropertyChanged(); }
         }
-
 
         private ProductDTO _SelectedItem;
         public ProductDTO SelectedItem 
@@ -67,6 +68,10 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         private int _FilterGnereID = 0;
         public int FilterGnereID { get => _FilterGnereID; set { _FilterGnereID = value; OnPropertyChanged(); } }
 
+        private int _IDOfNextProduct = 0;
+        public int IDOfNextProduct { get => _IDOfNextProduct; set { _IDOfNextProduct = value; OnPropertyChanged(); } }
+
+        #endregion
 
         #region Command
         public ICommand FirstLoadCM { get; set; }
@@ -79,6 +84,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public ICommand FilterCommand { get; set; }
         public ICommand BtnImageCommand { get; set; }
         public ICommand BtnAddProductDataComand { get; set; }
+        public ICommand CloseWDnotChangeCommand { get; set; }
 
         #endregion
         public MenuViewModel()
@@ -105,8 +111,9 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 }
             });
 
-            OpenAddProWDCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            OpenAddProWDCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                IDOfNextProduct = await ProductService.Ins.NumOfProduct() + 1;
                 _SelectedItem = new ProductDTO();
                 SelectedItemGenreName = "";
                 AddProductWindow wd = new AddProductWindow();
@@ -121,6 +128,12 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 //wd.DataContext = _SelectedItem;
                 wd.ShowDialog();
             });
+
+            CloseWDnotChangeCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                p.Close();
+            });
+
 
             DeleteProductCommand = new RelayCommand<ProductCard>((p) => { return true; }, async (p) =>
             {
@@ -165,7 +178,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
             FilterCommand = new RelayCommand<Object>((p) => { return true; }, async (p) =>
             {
-                if(int.TryParse(p.ToString(), out int temp))
+                if(p != null && int.TryParse(p.ToString(), out int temp))
                     FilterGnereID = temp;
 
                 if (SearchText == "" && FilterGnereID == 0)

@@ -191,5 +191,22 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             }
         }
 
+        public async Task<int> NumOfTable()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    return await Task.Run(() => context.C_TABLE.Count());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, $"Xảy ra lỗi: {ex.Message}");
+                return 0;
+            }
+        }
+
+
     }
 }

@@ -212,6 +212,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\ProductCard\ProductCardStaff.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Staff\CustomerManagement\AddCustomerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,6 +229,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Staff\StaffOrderMenu\SearchCustomerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\StaffOrderMenu\StaffInforPrdWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -338,6 +346,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Theme\Styles\ListViewStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Theme\Styles\MenuStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -360,6 +372,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\BillDTO.cs" />
+    <Compile Include="DTOs\Bill_InfoDTO.cs" />
     <Compile Include="DTOs\CustomerDTO.cs" />
     <Compile Include="DTOs\ErrorDTO.cs" />
     <Compile Include="DTOs\GenreProductDTO.cs" />
@@ -414,6 +428,8 @@
     <Compile Include="MVVM\Model\RESERVATION.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\Model\Services\BillService.cs" />
+    <Compile Include="MVVM\Model\Services\Bill_InfoService.cs" />
     <Compile Include="MVVM\Model\Services\CustomerService.cs" />
     <Compile Include="MVVM\Model\Services\ErrorService.cs" />
     <Compile Include="MVVM\Model\Services\GenreProService.cs" />
@@ -520,6 +536,9 @@
     <Compile Include="MVVM\View\ProductCard\ProductCard.xaml.cs">
       <DependentUpon>ProductCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\ProductCard\ProductCardStaff.xaml.cs">
+      <DependentUpon>ProductCardStaff.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Staff\CustomerManagement\AddCustomerWindow.xaml.cs">
       <DependentUpon>AddCustomerWindow.xaml</DependentUpon>
     </Compile>
@@ -531,6 +550,9 @@
     </Compile>
     <Compile Include="MVVM\View\Staff\StaffOrderMenu\SearchCustomerWindow.xaml.cs">
       <DependentUpon>SearchCustomerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\StaffOrderMenu\StaffInforPrdWindow.xaml.cs">
+      <DependentUpon>StaffInforPrdWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Staff\StaffOrderMenu\StaffMenuOrderUserControl.xaml.cs">
       <DependentUpon>StaffMenuOrderUserControl.xaml</DependentUpon>

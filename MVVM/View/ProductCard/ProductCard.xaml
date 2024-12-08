@@ -25,7 +25,7 @@
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.6*"/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0">

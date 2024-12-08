@@ -213,6 +213,24 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             }
         }
 
+        public async Task<int> NumOfProduct()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    // Đếm số hóa đơn bất đồng bộ
+                    return await Task.Run(() => context.PRODUCTs.Count());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, $"Xảy ra lỗi: {ex.Message}");
+                return 0;
+            }
+        }
+
+
 
     }
 }

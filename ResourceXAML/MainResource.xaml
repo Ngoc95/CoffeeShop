@@ -10,22 +10,22 @@
     <AdminViewModel:TableViewModel x:Key="TableViewModel"/>
     <StaffViewModel:MenuOrderViewModel x:Key="MenuOrderViewModel"/>
     <StaffViewModel:StaffTableResViewModel x:Key="StaffTableResViewModel"/>
+
+
     <!--TableCardforAdmin-->
     <DataTemplate x:Key="Table2">
         <TableCard:Table2Card Width="157" Height="240" Margin="10"/>
     </DataTemplate>
-
     <DataTemplate x:Key="Table3">
         <TableCard:Table3Card Width="157" Height="240" Margin="10"/>
     </DataTemplate>
-
     <DataTemplate x:Key="Table4">
         <TableCard:Table4Card Width="157" Height="240" Margin="10"/>
     </DataTemplate>
-
     <DataTemplate x:Key="Table6">
         <TableCard:Table6Card Width="157" Height="240" Margin="10"/>
     </DataTemplate>
+    
 
     <DataTemplate DataType="{x:Type StaffViewModel:MenuOrderViewModel}">
         <StaffMenuOrderView:StaffMenuOrderUserControl/>
@@ -33,6 +33,21 @@
 
     <DataTemplate DataType="{x:Type StaffViewModel:StaffTableResViewModel}">
         <StaffTableResView:StaffTableUserControl/>
+    </DataTemplate>
+    
+
+    <!--TableCardForStaff-->
+    <DataTemplate x:Key="Table2Staff">
+        <TableCard:StaffTable2Card Width="157" Height="240" Margin="10"/>
+    </DataTemplate>
+    <DataTemplate x:Key="Table3Staff">
+        <TableCard:StaffTable3Card Width="157" Height="240" Margin="10"/>
+    </DataTemplate>
+    <DataTemplate x:Key="Table4Staff">
+        <TableCard:StaffTable4Card Width="157" Height="240" Margin="10"/>
+    </DataTemplate>
+    <DataTemplate x:Key="Table6Staff">
+        <TableCard:StaffTable6Card Width="157" Height="240" Margin="10"/>
     </DataTemplate>
 
 </ResourceDictionary>

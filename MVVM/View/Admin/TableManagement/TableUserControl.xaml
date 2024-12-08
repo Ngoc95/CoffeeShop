@@ -75,6 +75,7 @@
 
             <Button 
                 Width="210" 
+                Height="55"
                 HorizontalAlignment="Left"
                 Command="{Binding OpenAddWDCommand}"
                 Style="{DynamicResource ButtonStyle1}" 

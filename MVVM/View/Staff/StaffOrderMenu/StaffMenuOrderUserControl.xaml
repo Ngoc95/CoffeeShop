@@ -6,9 +6,16 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu"
              xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ProductCard"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             DataContext="{StaticResource MenuOrderViewModel}"
              mc:Ignorable="d" 
              Background="White"
              d:DesignHeight="692" d:DesignWidth="930">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -22,27 +29,83 @@
             </Grid.RowDefinitions>
 
             <TextBox 
+                x:Name="searchBox"
                 Grid.Row="0"
+                Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                 Style="{DynamicResource SearchTextBoxStyleStaff}">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction 
+                            Command="{Binding FilterCommand}" 
+                            CommandParameter="{Binding Text, ElementName=searchBox}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </TextBox>
 
-            <ListView
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top" 
-                Background="Transparent"  
-                Grid.Row="1">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListViewItem Content="Tất cả" />
-                <ListViewItem Content="Caffee" />
-                <ListViewItem Content="Trà sữa"/>
-                <ListViewItem Content="Trà"/>
-                <ListViewItem Content="Freeze"/>
-                <ListViewItem Content="Khác"/>
-            </ListView>
+            <ScrollViewer 
+                Grid.Row="1" 
+                Margin="10"
+                HorizontalScrollBarVisibility="Auto">
+                    <ItemsControl
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    ItemsSource="{Binding GenreProductList}"
+                    Width="auto" Height="auto">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton
+                                    HorizontalAlignment="Stretch"
+                                    Cursor="Hand"
+                                    FontSize="25"
+                                    Margin="15, 0"
+                                    Command="{Binding DataContext.FilterCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                    CommandParameter="{Binding GP_ID}"
+                                    Content="{Binding GP_NAME}"
+                                    IsChecked="False"
+                                    GroupName="ProductTypeGroup"
+                                    Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <ScrollViewer 
+                Grid.Row="2" 
+                VerticalScrollBarVisibility="Auto">
+                    <ItemsControl
+                    Padding="0"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"        
+                    ItemsSource="{Binding ProductList}"
+                    Width="auto" Height="auto">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                            <uc:ProductCardStaff
+                                    DataContext="{Binding}"
+                                    Width="211.68" Height="313.11"
+                                    Margin="5">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction
+                                            Command="{Binding DataContext.SelectProductCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            CommandParameter="{Binding}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </uc:ProductCardStaff>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+            </ScrollViewer>
 
         </Grid>
 
@@ -53,13 +116,18 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="0,0,10,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.8*"/>
+                    <RowDefinition Height="0.6*"/>
                     <RowDefinition Height="2.8*"/>
                 </Grid.RowDefinitions>
 
-                <Border Grid.Row="0" BorderBrush="#603127" BorderThickness="1">
-                    <Grid Grid.Row="0" Background="#ffc3a1">
+                <Border 
+                    Grid.Row="0" 
+                    CornerRadius="10,10,0,0"
+                    Background="#ffc3a1"
+                    BorderBrush="#603127" 
+                    BorderThickness="1">
+                    <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1.5*"/>
                             <ColumnDefinition/>
@@ -67,28 +135,30 @@
                         <StackPanel Grid.Column="0">
                             <StackPanel Orientation="Horizontal" Margin="15,15,0,5">
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="Tên khách hàng: "></TextBlock>
-                                <TextBlock Style="{DynamicResource Header5Style}" Text="vãng lai"/>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedCustomer.Name}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="15,5,0,5">
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="Mã khách hàng: "></TextBlock>
-                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding}"></TextBlock>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedCustomer.ID, StringFormat='KH000'}"></TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="15,5,0,5">
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="Điểm tích lũy: "></TextBlock>
-                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding}"></TextBlock>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedCustomer.Point, StringFormat='000'}"></TextBlock>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Grid.Column="1">
                             <Button 
                                 Style="{DynamicResource ButtonStaffStyle}"
                                 Content="Tìm khách hàng"
+                                Command="{Binding OpenSearchCusWDCommand}"
                                 Background="Transparent"
                                 Margin="10,10,5,0"
                                 Width="160"
                                 HorizontalAlignment="Right"></Button>
                             <Button 
                                 Style="{DynamicResource ButtonStaffStyle}"
-                                Content="Thêm khách hàng"
+                                Command="{Binding btnSetDefaultCustomerCommand}"
+                                Content="Khách vãng lai"
                                 Margin="10,10,5,0"
                                 Width="160"
                                 Background="#d3756b"
@@ -103,17 +173,20 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
-                            <StackPanel Orientation="Horizontal" Margin="15,15,0,10">
+                            <StackPanel Orientation="Horizontal" Margin="15,15,0,-10">
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="Tên món: "></TextBlock>
-                                <TextBlock Style="{DynamicResource Header5Style}" Text="binding"/>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedBillPrd.PRO_NAME}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="15,15,0,10">
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="Số lượng: "></TextBlock>
                                 <materialDesign:NumericUpDown 
                                     Foreground="Black"
                                     Background="Transparent"
+                                    Minimum="1"
+                                    Maximum="50"
                                     FontSize="18"
                                     Height="auto"
+                                    Value="{Binding QuantityOfSelectedProduct}"
                                     Width="auto"/>
                                     <!--Value="{x:Null}"-->
                             </StackPanel>
@@ -129,7 +202,11 @@
                                 HorizontalAlignment="Right"></Button>
                     </Grid>
                 </Border>
-                <Border Grid.Row="2" BorderBrush="#603127" BorderThickness="1">
+                <Border 
+                    Grid.Row="2" 
+                    CornerRadius="0,0,10,10"
+                    BorderBrush="#603127" 
+                    BorderThickness="1">
                     <Grid Grid.Row="2" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -142,45 +219,35 @@
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Margin="10,0" VerticalAlignment="Top" Text="Thông tin hóa đơn" Style="{DynamicResource Header5Style}"></TextBlock>
+                                <TextBlock Grid.Row="0" Margin="15,5,0,0" VerticalAlignment="Top" Text="Thông tin hóa đơn" Style="{DynamicResource Header5Style}"></TextBlock>
                                 <Border 
                                     Grid.Row="1"
-                                    Margin="5"
-                                    Height="70"
+                                    Margin="10"
+                                    Height="auto"
                                     VerticalAlignment="Top"
                                     BorderBrush="Gray"
                                     BorderThickness="1">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="auto"/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <StackPanel Grid.Column="0">
-                                            <StackPanel Orientation="Horizontal" Margin="5,5,5,0">
+
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Top" Margin="5,5,5,0">
                                                 <TextBlock Style="{DynamicResource Header6Style}" Text="Ngày lập: "></TextBlock>
-                                                <TextBlock Style="{DynamicResource Header6Style}" Text="Binding"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="5,10,5,0">
-                                                <TextBlock Style="{DynamicResource Header6Style}" Text="Mã nhân viên: "></TextBlock>
-                                                <TextBlock Style="{DynamicResource Header6Style}" Text="Binding"/>
-                                            </StackPanel>
+                                            <TextBlock Style="{DynamicResource Header6Style}" Text="{Binding Today, StringFormat='dd/MM/yyyy'}"/>
                                         </StackPanel>
-                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="5,5,0,5" >
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="5,5,10,5" HorizontalAlignment="Right">
                                             <TextBlock Style="{DynamicResource Header6Style}" Text="Mã hóa đơn: "></TextBlock>
-                                            <TextBlock Style="{DynamicResource Header6Style}" Text="Binding"/>
+                                            <TextBlock Style="{DynamicResource Header6Style}" Text="{Binding IdOfNextBill, StringFormat='00000'}"/>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
                             </Grid>
                         </Grid>
-                        <DataGrid Grid.Row="1">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Mặc hàng"></DataGridTextColumn>
-                                <DataGridTextColumn Header="SL"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Giá"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Thành tiền"></DataGridTextColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <ListView Grid.Row="1">
+                            
+                        </ListView>
                         <Button Grid.Row="2" 
                             Style="{DynamicResource ButtonStaffStyle}"
                             VerticalAlignment="Bottom"
@@ -191,7 +258,7 @@
                             Content="Dùng điểm "></Button>
                         <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                             <TextBlock Text="Tổng tiền: " Style="{DynamicResource Header6Style}"></TextBlock>
-                            <TextBlock Text="{Binding}" Style="{DynamicResource Header6Style}"></TextBlock>
+                            <TextBlock Text="" Style="{DynamicResource Header6Style}"></TextBlock>
                         </StackPanel>
                         <Button Grid.Row="2" 
                                 VerticalAlignment="Bottom"

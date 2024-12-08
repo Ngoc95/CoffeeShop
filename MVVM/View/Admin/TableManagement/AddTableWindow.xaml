@@ -49,6 +49,10 @@
                            RadiusX="20" RadiusY="20"></Rectangle>
                 <StackPanel Orientation="Vertical" Height="316" Width="310">
                     <StackPanel Height="auto">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{DynamicResource Header2Style}" Text="Mã bàn: "></TextBlock>
+                            <TextBlock Style="{DynamicResource Header2Style}" Text="{Binding IDOfNextTable, StringFormat='000'}"/>
+                        </StackPanel>
                         <TextBlock Style="{DynamicResource Header2Style}" Text="Trạng thái: "></TextBlock>
                         <ComboBox
                             Foreground="#603127"

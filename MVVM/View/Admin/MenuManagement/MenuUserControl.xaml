@@ -34,30 +34,29 @@
                 <ColumnDefinition Width="280"/>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0" Width="350" Height="74" Margin="15,0,0,0" VerticalAlignment="Bottom">
-                <TextBox 
-                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                    TextChanged="TextBox_TextChanged"
-                    Style="{StaticResource searchTextbox_style}"/>
-                <Button 
-                    x:Name="searchBtn"
-                    Width="65" Height="50"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0,0,5,0"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    FontSize="30"
-                    Foreground="#49454F">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE721;"/>
-                </Button>
-            </Grid>
+
+            <TextBox 
+                Grid.Row="0" 
+                Width="350" Height="55" 
+                Margin="15,0,0,0" VerticalAlignment="Bottom"
+                x:Name="searchTxtBox"
+                    
+                Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource SearchTextBoxStyleStaff}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction 
+                            Command="{Binding FilterCommand}" 
+                            CommandParameter="{Binding Text, ElementName=searchTxtBox}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
 
 
 
             <Button 
                 Command="{Binding OpenAddProWDCommand}"
-                Width="250" Height="76"
+                Width="250" Height="55"
                 HorizontalAlignment="Right"
                 Style="{DynamicResource ButtonStyle1}" 
                 Grid.Column="1"
@@ -70,7 +69,7 @@
                 
             <Button 
                 Command="{Binding PrintMenuCommand}"
-                Width="250" Height="76"
+                Width="250" Height="55"
                 HorizontalAlignment="Right"
                 Style="{DynamicResource ButtonStyle1}" 
                 Content="In menu"

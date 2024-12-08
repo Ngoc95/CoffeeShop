@@ -13,7 +13,7 @@
              xmlns:viewModelStaff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
              xmlns:viewStaffCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement"
              xmlns:viewStaffErr="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement"
-             StartupUri="/MVVM/View/Admin/MainAdminWindow.xaml">
+             StartupUri="/MVVM/View/Staff/MainStaffWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -42,6 +42,7 @@
                 <ResourceDictionary Source="Theme/Styles/TextBlockStyles.xaml"/>
                 <ResourceDictionary Source="Theme/Styles/TextBoxStyles.xaml"/>
                 <ResourceDictionary Source="Theme/Styles/MenuStyles.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/ListViewStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <!--Converter-->
