@@ -2,18 +2,21 @@
 using QuanLiCoffeeShop.DTOs;
 using QuanLiCoffeeShop.MVVM.Model;
 using QuanLiCoffeeShop.MVVM.Model.Services;
+using QuanLiCoffeeShop.MVVM.View.Message;
 using QuanLiCoffeeShop.MVVM.View.ProductCard;
 using QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu;
 
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using static MaterialDesignThemes.Wpf.Theme;
 
 namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 {
@@ -147,11 +150,43 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             set { _SelectedBillPrd = value; OnPropertyChanged(); }
         }
 
-        private ObservableCollection<BILL_INFO> _Bill_InforList;
-        private ObservableCollection<BILL_INFO> Bill_InforList
+        private ObservableCollection<Bill_InfoDTO> _Bill_InforList;
+        public ObservableCollection<Bill_InfoDTO> Bill_InforList
         {
             get { return _Bill_InforList; }
-            set { _Bill_InforList = value; OnPropertyChanged(); }
+            set 
+            { 
+                _Bill_InforList = value;
+                OnPropertyChanged(nameof(Bill_InforList)); 
+            }
+        }
+
+        private Bill_InfoDTO _SelectedBillInfor;
+        public Bill_InfoDTO SelectedBillInfor
+        {
+            get { return _SelectedBillInfor; }
+            set { _SelectedBillInfor = value; OnPropertyChanged(); }
+        }
+
+        private Nullable<decimal> _Total_Bill;
+        public Nullable<decimal> Total_Bill
+        {
+            get { return _Total_Bill; }
+            set { _Total_Bill = value; OnPropertyChanged(); }
+        }
+        private bool _UsePointBtnChecked;
+        public bool UsePointBtnChecked
+        {
+            get { return _UsePointBtnChecked; }
+            set { _UsePointBtnChecked = value; OnPropertyChanged(nameof(UsePointBtnChecked)); }
+        }
+
+        //diem dang dung
+        private Nullable<decimal> _PointHaveUsed;
+        public Nullable<decimal> PointHaveUsed
+        {
+            get { return _PointHaveUsed; } 
+            set { _PointHaveUsed = value; OnPropertyChanged(); }
         }
 
         #endregion
@@ -168,7 +203,12 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         public ICommand btnSetDefaultCustomerCommand { get; set; }
 
         //Command use to order
+        public ICommand AddPrdToBillCommand { get; set; }
         public ICommand SelectProductCommand { get; set; }
+        public ICommand DeleteBillInfoCommand { get; set; }
+        public ICommand ToggerBtnUsePointCommand { get; set; }
+        public ICommand DeleteCurrentBillCommand { get; set; }
+        public ICommand SaveCurrAndGenNewBillCommand { get; set; }
 
         #endregion
 
@@ -210,7 +250,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 }
                 QuantityOfSelectedProduct = 1;
                 Today = DateTime.Now;
-                IdOfNextBill = await BillService.Ins.NumOfBill() + 1;
+                IdOfNextBill = await BillService.Ins.NumOfBill() + 1;                
             });
 
             FilterCommand = new RelayCommand<Object>((p) => { return true; }, async (p) =>
@@ -241,6 +281,9 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 
             OpenSearchCusWDCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
+                UsePointBtnChecked = false;
+                CaculatePoint();
+                SelectedCustomer = new CustomerDTO(SelectedCustomer);
                 SearchCustomerIDstring = null; SearchCustomerName = null; SearchCustomerPhone = null;
                 SearchingCustomer = new CustomerDTO(SelectedCustomer);
                 CustomerList = new ObservableCollection<CustomerDTO>(await Task.Run(() => CustomerService.Ins.GetAllCus()));
@@ -269,7 +312,68 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 SelectedBillPrd = p;    
             });
 
+            btnSetDefaultCustomerCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            { 
+                UsePointBtnChecked = false;
+                CaculatePoint();
+                SelectedCustomer = new CustomerDTO() { ID = 0, Point = 0, Name = "Vãng lai" };
+            });
 
+
+            AddPrdToBillCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                if(Bill_InforList == null)
+                    Bill_InforList = new ObservableCollection<Bill_InfoDTO>();
+                if (SelectedBillPrd != null && QuantityOfSelectedProduct != 0 && IdOfNextBill != 0)
+                {
+                    if(CanAddToBillInforList())
+                        Bill_InforList.Add(new Bill_InfoDTO(SelectedBillPrd, QuantityOfSelectedProduct, IdOfNextBill));
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Sản phẩm đã được thêm vào Bill trước đó");
+                        return;
+                    }
+                }
+                CaculateTotalBill();
+                SelectedBillPrd = null;
+                QuantityOfSelectedProduct = 1;
+            });
+
+            DeleteBillInfoCommand = new RelayCommand<Bill_InfoDTO>((p) => { return true; }, (p) =>
+            {
+                if (p != null && Bill_InforList.Contains(p))
+                {
+                    Bill_InforList.Remove(p);
+                    CaculateTotalBill();
+                }
+            });
+
+
+            ToggerBtnUsePointCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                UsePointBtnChecked = !UsePointBtnChecked;
+                CaculatePoint();
+                Total_Bill -= PointHaveUsed;
+                SelectedCustomer = new CustomerDTO(SelectedCustomer);
+            });
+
+            DeleteCurrentBillCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                UsePointBtnChecked = false;
+                CaculatePoint();
+                SelectedCustomer = new CustomerDTO(SelectedCustomer);
+                Bill_InforList = new ObservableCollection<Bill_InfoDTO>();
+                CaculateTotalBill();
+            });
+
+            SaveCurrAndGenNewBillCommand = new RelayCommand<object>((p) => { return true; },async (p) =>
+            {
+
+            });
+        }
+
+        private void saveBill()
+        {
 
         }
 
@@ -287,11 +391,66 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             return null;
         }
 
-        public void GetProductName()
+        private bool CanAddToBillInforList()
         {
-
+            if(SelectedBillPrd == null)
+                return false;
+            if (Bill_InforList == null)
+                return false;
+            foreach(var item in Bill_InforList)
+            {
+                if (item.PRO_ID == SelectedBillPrd.PRO_ID)
+                    return false;
+            }
+            return true;
         }
 
+        private void CaculateTotalBill()
+        {
+            if (Bill_InforList == null)
+                Total_Bill = 0;
+            else
+            {
+                Total_Bill = 0;
+                foreach(var item in Bill_InforList)
+                {
+                    Total_Bill += item.Total_PRICE_ITEM;
+                }
+                if(Total_Bill != 0)
+                {
+                    CaculatePoint();
+                    Total_Bill -= PointHaveUsed;
+                }
+            }
+        }
 
+        private void CaculatePoint()
+        {
+            if (PointHaveUsed == null)
+                PointHaveUsed = new decimal();
+            
+            if(UsePointBtnChecked)
+            {
+                if(Total_Bill >= SelectedCustomer.Point)
+                {
+                    PointHaveUsed = SelectedCustomer.Point;
+                    SelectedCustomer.Point = 0;
+                }
+                else
+                {
+                    PointHaveUsed = SelectedCustomer.Point - Total_Bill;
+                    SelectedCustomer.Point -= PointHaveUsed;
+                }
+            }
+            else
+            {
+                if(PointHaveUsed != 0)
+                {
+                    Total_Bill += PointHaveUsed;
+                    SelectedCustomer.Point += PointHaveUsed;
+                }
+                PointHaveUsed = 0;
+            }
+        }
     }
 }

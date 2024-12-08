@@ -14,5 +14,20 @@ namespace QuanLiCoffeeShop.DTOs
         public Nullable<int> QUANTITY { get; set; }
         public Nullable<decimal> PRICE_ITEM { get; set; }
         public Nullable<bool> IS_DELETED { get; set; }
+        public string PRO_Name { get; set; }
+        public Nullable<decimal> Total_PRICE_ITEM { get; set; }
+
+        public Bill_InfoDTO() { }
+        public Bill_InfoDTO(ProductDTO product, int NumOfPrd, int IdOfBill)
+        {
+            BILL_ID = IdOfBill;
+            PRO_ID = product.PRO_ID;
+            QUANTITY = NumOfPrd;
+            PRICE_ITEM = product.PRO_PRICE;
+            IS_DELETED = false;
+
+            PRO_Name = product.PRO_NAME;
+            Total_PRICE_ITEM = QUANTITY * PRICE_ITEM;
+        }
     }
 }

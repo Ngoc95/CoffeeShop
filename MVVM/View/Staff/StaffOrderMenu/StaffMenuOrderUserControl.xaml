@@ -48,10 +48,10 @@
                 Margin="10"
                 HorizontalScrollBarVisibility="Auto">
                     <ItemsControl
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Left"
-                    ItemsSource="{Binding GenreProductList}"
-                    Width="auto" Height="auto">
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        ItemsSource="{Binding GenreProductList}"
+                        Width="auto" Height="auto">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal"/>
@@ -97,7 +97,7 @@
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseLeftButtonDown">
                                         <i:InvokeCommandAction
-                                            Command="{Binding DataContext.SelectProductCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        Command="{Binding DataContext.SelectProductCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                             CommandParameter="{Binding}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
@@ -194,6 +194,7 @@
                         </StackPanel>
                         <Button Grid.Column="1"
                                 Style="{DynamicResource ButtonStaffStyle}"
+                                Command="{Binding AddPrdToBillCommand}"
                                 Content="Thêm vào hóa đơn"
                                 VerticalAlignment="Bottom"
                                 Margin="10,10,5,10"
@@ -245,35 +246,119 @@
                                 </Border>
                             </Grid>
                         </Grid>
-                        <ListView Grid.Row="1">
-                            
-                        </ListView>
-                        <Button Grid.Row="2" 
-                            Style="{DynamicResource ButtonStaffStyle}"
+
+                        <Grid Grid.Row="1">
+                            <ListView x:Name="CusList"  
+                               Margin="0"
+                               FontSize="18"
+                               ItemsSource="{Binding Bill_InforList}"
+                               SelectedItem="{Binding SelectedBillInfor}" >
+                                <ListView.ItemContainerStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="120" Header="Mặc hàng" 
+                                            HeaderContainerStyle="{StaticResource GridViewHeaderStyle}" >
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding PRO_Name}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn Width="50" Header="SL"
+                                            HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding QUANTITY}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn Width="115" Header="Giá"
+                                            HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding PRICE_ITEM, StringFormat={}{0:C0}}" Language="vi-VN"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn Width="110" Header="Thành tiền"
+                                            HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding Total_PRICE_ITEM, StringFormat={}{0:C0}}" Language="vi-VN" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="50" Header=""
+                                            HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button 
+                                                        Margin="-15,0,0,0" 
+                                                        Style="{StaticResource ButtonStyleDeleteBillInfor}"
+                                                        Command="{Binding DataContext.DeleteBillInfoCommand,RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                        CommandParameter="{Binding}"></Button>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+
+                        <ToggleButton 
+                            Grid.Row="2" 
+                            IsChecked="{Binding UsePointBtnChecked, Mode=TwoWay}"
+                            Style="{StaticResource ToggleButtonStaffStyle}"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Left"
                             Width="200"
                             Margin="5"
-                            Background="#ffc3a1"
-                            Content="Dùng điểm "></Button>
+                            Background="#ffc3a1"></ToggleButton>
+                        <Button 
+                            Grid.Row="2" 
+                            Content="Reset" 
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Left"
+                            Command="{Binding ToggerBtnUsePointCommand}"
+                            Opacity="0"
+                            Width="200" Height="40" 
+                            Margin="5"/>
+
                         <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                             <TextBlock Text="Tổng tiền: " Style="{DynamicResource Header6Style}"></TextBlock>
-                            <TextBlock Text="" Style="{DynamicResource Header6Style}"></TextBlock>
+                            <TextBlock Text="{Binding Total_Bill,StringFormat={}{0:C0}}" Language="vi-VN" Style="{DynamicResource Header6Style}"></TextBlock>
                         </StackPanel>
                         <Button Grid.Row="2" 
                                 VerticalAlignment="Bottom"
                                 HorizontalAlignment="Right"
                                 Margin="5"
+                                Command="{Binding DeleteCurrentBillCommand}"
                                 Style="{DynamicResource ButtonStaffStyle}"
                                 Width="200"
                                 Background="#d3756b"
-                                Content="Xóa hóa đơn hiện tại"
-                                >  </Button>
+                                Content="Xóa hóa đơn hiện tại"></Button>
                     </Grid>
                 </Border>
             </Grid>
             <Button 
                 Grid.Row="1"
+                Command="{Binding SaveCurrAndGenNewBillCommand}"
                 Style="{DynamicResource ButtonStaffStyle}"
                 HorizontalAlignment="Left"
                 Background="#ffc3a1"

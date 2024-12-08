@@ -1,4 +1,5 @@
-﻿using QuanLiCoffeeShop.MVVM.View.Message;
+﻿using QuanLiCoffeeShop.DTOs;
+using QuanLiCoffeeShop.MVVM.View.Message;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -35,10 +36,35 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                     return await Task.Run(() => context.BILLs.Count());
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
                 return 0;
+            }
+        }
+        public async Task<(bool, string)> AddBill(BillDTO newBill)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    BILL bill = new BILL()
+                    {
+                        CUS_ID = newBill.CUS_ID,
+                        EMP_ID = newBill.EMP_ID,
+                        TOTAL_COST = newBill.TOTAL_COST,
+                        CREATE_AT = newBill.CREATE_AT,
+                        IS_DELETED = false,
+                    };
+                    if (bill == null) return (false, "Thêm thất bại");
+                    context.BILLs.Add(bill);
+                    await context.SaveChangesAsync();
+                    return (true, "Thêm hóa đơn thành công");
+                }
+            }
+            catch
+            {
+                return (false, "Xảy ra lỗi khi thêm hóa đơn");
             }
         }
 

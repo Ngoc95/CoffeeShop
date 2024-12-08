@@ -659,6 +659,7 @@
     <Resource Include="DemoDataPrdImg\trasen.jpg" />
     <Resource Include="DemoDataPrdImg\stdua.jpg" />
     <Resource Include="DemoDataPrdImg\stmangcau.jpg" />
+    <Resource Include="Images\ControlBarImg\closeBill_Infor.png" />
     <Content Include="MVVM\Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

@@ -5,6 +5,7 @@
     <ImageBrush x:Key="CloseIconMouseOverSource" ImageSource="../../Images/ControlBarImg/close_mouseover.png"></ImageBrush>
     <ImageBrush x:Key="MinusIconSource" ImageSource="../../Images/ControlBarImg/minimize.png"></ImageBrush>
     <ImageBrush x:Key="MinusIconMouseOverSource" ImageSource="../../Images/ControlBarImg/minimize_mouseover.png"></ImageBrush>
+    <ImageBrush x:Key="CloseIconBillInforSource" ImageSource="../../Images/ControlBarImg/closeBill_Infor.png"></ImageBrush>
     
     <Style x:Key="ButtonStyleEditTBCard" TargetType="Button">
         <Setter Property="Margin" Value="10, 0, 10, 0"/>
@@ -381,5 +382,67 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="ButtonStyleDeleteBillInfor" TargetType="Button">
+        <Setter Property="Margin" Value="-10,0,0,0"/>
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border x:Name="BorderImg" 
+                            Background="{StaticResource CloseIconBillInforSource}"
+                            Height="{TemplateBinding Height}" 
+                            Width="{TemplateBinding Width}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ToggleButtonStaffStyle" TargetType="ToggleButton">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="Border" 
+                        BorderBrush="#603127" 
+                        BorderThickness="1" 
+                        CornerRadius="5" 
+                        Background="{TemplateBinding Background}">
+                        <ContentPresenter x:Name="ContentText" 
+                               VerticalAlignment="Center" 
+                               HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                        </Trigger>
+
+                        <!-- Khi RadioButton được chọn -->
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Content" Value="Bỏ dùng điểm" />
+                            <Setter TargetName="Border" Property="Background" Value="White" />
+                        </Trigger>
+
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="Content" Value="Dùng điểm" />
+                            <Setter TargetName="Border" Property="Background" Value="#ffc3a1" />
+                        </Trigger>
+
+                        <!-- Khi RadioButton bị nhấn -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Opacity" Value="0.7"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
 </ResourceDictionary>
