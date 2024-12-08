@@ -5,7 +5,6 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Margin" Value="15,0,0,0"/>
         <Setter Property="FontSize" Value="24"/>
-        <!--con fontfamily-->
     </Style>
 
     <Style x:Key="Header2Style" TargetType="TextBlock">
@@ -35,14 +34,40 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <!--con fontfamily-->
     </Style>
 
     <Style x:Key="Header6Style" TargetType="TextBlock">
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="FontSize" Value="18"/>
-        <!--con fontfamily-->
+    </Style>
+    <Style x:Key="HeaderResStatusStyle" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="Khách đã nhận bàn">
+                <Setter Property="Foreground" Value="Green"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="Khách chưa nhận bàn">
+                <Setter Property="Foreground" Value="OrangeRed"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="StatusTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="Còn trống">
+                <Setter Property="Foreground" Value="Green"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="Đang bận">
+                <Setter Property="Foreground" Value="OrangeRed"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
 

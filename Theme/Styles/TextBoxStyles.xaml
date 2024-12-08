@@ -167,6 +167,25 @@
         </Setter>
         <Setter Property="Padding" Value="5"/>
     </Style>
-    
+
+    <Style x:Key="ReservationTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="AcceptsReturn" Value="True"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border
+                        x:Name="BorderTBox"
+                        BorderBrush="#603127"
+                        BorderThickness="0,0,0,1">
+                        <ScrollViewer x:Name="PART_ContentHost"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
     

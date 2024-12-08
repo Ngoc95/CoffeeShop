@@ -91,8 +91,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         {
             FirstLoadCM = new RelayCommand<Page>((p) => { return true; }, async (p) =>
             {
-                if(ProductList == null)
-                    ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+
+                 ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
 
                 if(GenreProductList == null)
                     GenreProductList = new ObservableCollection<GenreProductDTO>(await GenreProService.Ins.GetAllGenre());
@@ -109,6 +109,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                         
                     }
                 }
+                FilterGnereID = 0;
+                SearchText = null;//co the gay bug
             });
 
             OpenAddProWDCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>

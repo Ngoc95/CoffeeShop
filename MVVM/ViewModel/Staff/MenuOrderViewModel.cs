@@ -216,8 +216,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         {
             FirstLoadCM = new RelayCommand<Page>((p) => { return true; }, async (p) =>
             {
-                if (ProductList == null)
-                    ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+
+                 ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
 
                 if (GenreProductList == null)
                     GenreProductList = new ObservableCollection<GenreProductDTO>(await GenreProService.Ins.GetAllGenre());
@@ -248,6 +248,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                     SelectedCustomer.Point = 0;
                     SelectedCustomer.Name = "Vãng lai";
                 }
+                FilterGnereID = 0;
+                SearchText = "";
                 QuantityOfSelectedProduct = 1;
                 Today = DateTime.Now;
                 IdOfNextBill = await BillService.Ins.NumOfBill() + 1;                
@@ -352,9 +354,12 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             ToggerBtnUsePointCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 UsePointBtnChecked = !UsePointBtnChecked;
-                CaculatePoint();
-                Total_Bill -= PointHaveUsed;
-                SelectedCustomer = new CustomerDTO(SelectedCustomer);
+                if(SelectedCustomer.ID != 0)
+                {
+                    CaculatePoint();
+                    Total_Bill -= PointHaveUsed;
+                    SelectedCustomer = new CustomerDTO(SelectedCustomer);
+                }
             });
 
             DeleteCurrentBillCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -449,6 +454,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                     Total_Bill += PointHaveUsed;
                     SelectedCustomer.Point += PointHaveUsed;
                 }
+                //Total_Bill += PointHaveUsed;
                 PointHaveUsed = 0;
             }
         }

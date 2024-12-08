@@ -244,6 +244,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\Staff\StaffTable\ReservationInfor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Staff\StaffTable\StaffTableUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -379,6 +383,7 @@
     <Compile Include="DTOs\GenreProductDTO.cs" />
     <Compile Include="DTOs\GenreTableDTO.cs" />
     <Compile Include="DTOs\ProductDTO.cs" />
+    <Compile Include="DTOs\ReservationDTO.cs" />
     <Compile Include="DTOs\TableDTO.cs" />
     <Compile Include="MVVM\Model\BILL.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -435,6 +440,7 @@
     <Compile Include="MVVM\Model\Services\GenreProService.cs" />
     <Compile Include="MVVM\Model\Services\GenreTableService.cs" />
     <Compile Include="MVVM\Model\Services\ProductService.cs" />
+    <Compile Include="MVVM\Model\Services\ReservationService.cs" />
     <Compile Include="MVVM\Model\Services\TableService.cs" />
     <Compile Include="MVVM\Model\WORK_SHIFT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -560,6 +566,9 @@
     <Compile Include="MVVM\View\Staff\StaffTable\AddReservationWindow.xaml.cs">
       <DependentUpon>AddReservationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\Staff\StaffTable\ReservationInfor.xaml.cs">
+      <DependentUpon>ReservationInfor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Staff\StaffTable\StaffTableUserControl.xaml.cs">
       <DependentUpon>StaffTableUserControl.xaml</DependentUpon>
     </Compile>
@@ -660,6 +669,7 @@
     <Resource Include="DemoDataPrdImg\stdua.jpg" />
     <Resource Include="DemoDataPrdImg\stmangcau.jpg" />
     <Resource Include="Images\ControlBarImg\closeBill_Infor.png" />
+    <Resource Include="Images\ControlBarImg\more.png" />
     <Content Include="MVVM\Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

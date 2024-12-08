@@ -53,9 +53,8 @@
         <Setter Property="TextBlock.FontSize" Value="15" />
 
         <Setter Property="VerticalContentAlignment" Value="Center" />
-
     </Style>
 
-        
-    
+
+
 </ResourceDictionary>

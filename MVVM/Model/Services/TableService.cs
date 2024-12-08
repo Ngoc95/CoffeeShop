@@ -206,7 +206,33 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 return 0;
             }
         }
+        public async Task<bool> UpdateATable(TableDTO temp)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var table = await context.C_TABLE.FirstOrDefaultAsync(c => c.IS_DELETED == false && c.TB_ID == temp.TB_ID);
 
+                    if (table != null)
+                    {
+                        table.TB_STATUS = temp.TB_STATUS;
+                        await context.SaveChangesAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Không tìm thấy bàn cần cập nhật.");
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, $"Xảy ra lỗi: {ex.Message}");
+                return false;
+            }
+        }
 
     }
 }

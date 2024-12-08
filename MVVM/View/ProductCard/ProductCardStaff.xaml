@@ -42,13 +42,13 @@
                 <Button
                     Grid.Row="1"
                     VerticalAlignment="Bottom"
-                    Height="43"
+                    Height="30"
                     HorizontalAlignment="Right"
                     DataContext="{StaticResource MenuOrderViewModel}"
                     Command="{Binding OpenInfoProWDCommand}"
                     CommandParameter="{Binding ElementName=ProCardStaff}"
                     Margin="5,0,5,5"
-                    Style="{DynamicResource ButtonEditMenu}">
+                    Style="{DynamicResource ButtonMoreMenu}">
                 </Button>
 
             </Grid>

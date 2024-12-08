@@ -23,6 +23,21 @@ namespace QuanLiCoffeeShop.MVVM.View.TableCard
         public StaffTable6Card()
         {
             InitializeComponent();
+            Loaded += StaffTable6Card_Loaded;
+        }
+
+        private void StaffTable6Card_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Status.Text == "Còn trống")
+                ToggleButton.IsChecked = false;
+            else if (Status.Text == "Đang bận")
+                ToggleButton.IsChecked = true;
+            else
+            {
+                ToggleButton.Opacity = 0.5;
+                ToggleButton.IsChecked = false;
+                ToggleButton.IsEnabled = false;
+            }
         }
     }
 }

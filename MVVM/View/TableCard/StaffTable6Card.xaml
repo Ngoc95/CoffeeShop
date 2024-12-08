@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.TableCard"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="236" d:DesignWidth="150"
              HorizontalAlignment="Left"
@@ -26,7 +27,11 @@
             </Grid>
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
                 <TextBlock TextAlignment="Center" FontSize="20" Margin="0, -4, 0, 0" Text="{Binding TB_ID, StringFormat='000'}"></TextBlock>
-                <TextBlock TextAlignment="Center" FontSize="18" Margin="0,5, 0, 0" Text="{Binding TB_STATUS}"></TextBlock>
+                <TextBlock 
+                    x:Name="Status"
+                    TextAlignment="Center" Margin="0,5, 0, 0" 
+                    Style="{StaticResource StatusTextBlockStyle}"
+                    Text="{Binding TB_STATUS}"></TextBlock>
                 <TextBlock TextAlignment="Center" FontSize="18" Foreground="#49454F" Text="Bàn 6 người"></TextBlock>
             </StackPanel>
 
@@ -34,10 +39,22 @@
 
 
             <Grid Grid.Row="2">
-                <Button Style="{DynamicResource ButtonStyleStaffTable}"/>
+                <ToggleButton 
+                    x:Name="ToggleButton"
+                    DataContext="{StaticResource StaffTableResViewModel}"
+                    Style="{DynamicResource RadioButtonStyleStaffTable}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Checked">
+                            <i:InvokeCommandAction Command="{Binding TableCheckCommand}" 
+                                                   CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Unchecked">
+                            <i:InvokeCommandAction Command="{Binding TableCheckCommand}" 
+                                                   CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ToggleButton>
             </Grid>
-
-
         </Grid>
     </Border>
 </UserControl>

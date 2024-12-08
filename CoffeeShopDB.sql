@@ -238,7 +238,7 @@ INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà sữa s
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà sen', 3, 'pack://application:,,,/DemoDataPrdImg/trasen.jpg', 15000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố dừa', 4, 'pack://application:,,,/DemoDataPrdImg/stdua.jpg', 20000)
 
---1/10 gia tri hoa don
+--1/20 gia tri hoa don
 INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Huệ Nguyên', N'Nữ', '0967484222', 200)
 INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Chị Khánh', N'Nữ', '0966484224', 400)
 INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Chị Ngọc', N'Nữ', '0674484122', 200)
@@ -247,4 +247,20 @@ INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Hu�
 INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Thế Tùng', N'Nam', '092459869', 400)
 INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Ngọc Hân', N'Nữ', '0674112998', 200)
 INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Quốc Anh', N'Nam', '0000555440', 200)
+
+set dateformat dmy
+
+INSERT INTO RESERVATION (CUS_ID, TABLE_ID, RES_DATE, RES_TIME, NUM_OF_PEOPLE, RES_STATUS, SPECIAL_REQUEST)
+VALUES
+(1, 1, '08-12-2024', '19:00:00', 2, N'Khách chưa nhận bàn', N'Chỗ gần cửa sổ'),
+(2, 2, '08-12-2024', '19:30:00', 3, N'Khách đã nhận bàn', NULL),
+(3, 3, '09-12-2024', '18:00:00', 3, N'Khách chưa nhận bàn', N'Yêu cầu yên tĩnh'),
+(4, 4, '09-1-2024', '20:00:00', 5, N'Khách chưa nhận bàn', NULL),
+(5, 1, '10-12-2024', '12:00:00', 2, N'Khách đã nhận bàn', N'Không dùng thức uống lạnh'),
+(6, 4, '10-1-2024', '14:00:00', 6, N'Khách chưa nhận bàn', N'Chỗ gần máy lạnh'),
+(7, 3, '11-1-2024', '15:00:00', 4, N'Khách chưa nhận bàn', N'Thích đồ uống ít đường'),
+(8, 1, '11-12-2024', '17:00:00', 2, N'Khách đã nhận bàn', NULL),
+(1, 2, '12-1-2024', '13:00:00', 3, N'Khách chưa nhận bàn', NULL),
+(2, 4, '12-12-2024', '16:00:00', 5, N'Khách đã nhận bàn', NULL);
+
 
