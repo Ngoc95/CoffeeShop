@@ -224,6 +224,118 @@
                         </Grid>
                     </TabItem>
                 <TabItem Header="Thêm lịch đặt bàn" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.5*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Thông tin khách hàng: " Style="{DynamicResource Header4Style}" Margin="15,5" VerticalAlignment="Top"></TextBlock>
+                                <StackPanel Orientation="Horizontal" Margin="15,0,0,5" Height="30">
+                                    <TextBlock Style="{DynamicResource Header5Style}" Text="Tên khách hàng: "></TextBlock>
+                                    <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedCustomer.Name}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="15,5,0,10" Height="30">
+                                    <TextBlock Style="{DynamicResource Header5Style}" Text="Mã khách hàng: "></TextBlock>
+                                    <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedCustomer.ID, StringFormat='KH000'}"></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                            <Button 
+                                    Grid.Column="1" 
+                                    Style="{DynamicResource ButtonStaffStyle}"
+                                    Content="Tìm khách hàng"
+                                    Command="{Binding OpenSearchCusWDCommand}"
+                                    Background="#f6e8d0"
+                                    Margin="10,0"
+                                    Width="160"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Right"></Button>
+                        </Grid>
+
+                        <Separator Grid.Row="1" Margin="5, 10, 5, 10" ></Separator>
+                        <Grid Grid.Row="2">
+                            <StackPanel>
+                                <TextBlock Text="Thông tin đặt bàn: " Style="{DynamicResource Header4Style}" Margin="15,5" VerticalAlignment="Top"></TextBlock>
+                                <StackPanel Margin="15,0">
+                                    <StackPanel Grid.Column="0">
+                                        <StackPanel Margin="5,15,5,5" Orientation="Horizontal">
+                                            <TextBlock Grid.Column="0" Text="Mã đặt bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                            <TextBlock Grid.Column="0" Text="{Binding NewReservation.RES_ID}" Style="{DynamicResource Header6Style}"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Margin="5" Orientation="Horizontal">
+                                            <TextBlock Grid.Column="0" Text="Mã bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                            <TextBox Width="40" Height="25" Text="{Binding NewReservation.TABLE_ID, StringFormat='000'}" Style="{DynamicResource ReservationTextBoxStyle}"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="5" Orientation="Horizontal">
+                                            <TextBlock Grid.Column="0" Text="Số lượng người: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                            <materialDesign:NumericUpDown 
+                                                Foreground="Black"
+                                                Background="Transparent"
+                                                Minimum="1"
+                                                Maximum="6"
+                                                FontSize="18"
+                                                Height="auto"
+                                                Value="{Binding NewReservation.NUM_OF_PEOPLE}"
+                                                Width="auto"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <StackPanel Margin="5" Orientation="Horizontal">
+                                            <TextBlock Grid.Column="0" Text="Ngày đặt bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                            <TextBox x:Name="DayRes" Height="25" Text="{Binding NewResDay, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
+                                            <TextBlock Text="/" Style="{StaticResource Header6Style}"></TextBlock>
+                                            <TextBox x:Name="MonthRes" Height="25" Text="{Binding NewResMonth, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
+                                            <TextBlock Text="/" Style="{StaticResource Header6Style}"></TextBlock>
+                                            <TextBox x:Name="YearRes" Height="25" Text="{Binding NewResYear, StringFormat='0000'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Margin="5" Orientation="Horizontal">
+                                            <TextBlock Grid.Column="0" Text="Giờ đặt bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                            <TextBox Width="22" Height="25" Text="{Binding NewResHour, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
+                                            <TextBlock Width="auto" Height="25" Text=" : " Style="{DynamicResource Header6Style}"></TextBlock>
+                                            <TextBox Width="22" Height="25" Text="{Binding NewResMinute, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <TextBlock 
+                                    Margin="20,5" 
+                                    Text="Yêu cầu của khách: " 
+                                    Style="{DynamicResource Header6Style}">
+                                </TextBlock>
+                                <TextBox 
+                                    Margin="20,5"
+                                    Height="150"
+                                    Text="{Binding NewReservation.SPECIAL_REQUEST}"
+                                    Style="{DynamicResource TextBoxDescribeStyle}"></TextBox>
+                            </StackPanel>
+                        </Grid>
+                        <Button 
+                            Grid.Row="3"
+                            Style="{DynamicResource ButtonStaffStyle}" 
+                            Command="{Binding btnSaveReservationCommand}"
+                            Margin="0,0,20,0" 
+                            Width="200"
+                            HorizontalAlignment="Right"
+                            Content="Thêm lịch đặt bàn"
+                            Background="#f6e8d0"></Button>
+
+                        <Button 
+                            Grid.Row="3"
+                            Style="{DynamicResource ButtonStaffStyle}"
+                            Command="{Binding btnDeleteResWithoutSaveCommand}"
+                            Margin="20,0" 
+                            Width="180"
+                            HorizontalAlignment="Left"
+                            Content="Xóa lịch đang tạo"
+                            Background="Transparent"></Button>
+                    </Grid>
                 </TabItem>
             </TabControl>
         </Border>

@@ -161,7 +161,6 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             }
         }
 
-
         public async Task<(bool, string)> AddTableList(TableDTO newTable)
         {
             try
@@ -231,6 +230,33 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             {
                 MessageBoxCustom.Show(MessageBoxCustom.Error, $"Xảy ra lỗi: {ex.Message}");
                 return false;
+            }
+        }
+
+        public async Task<(bool,string)> TableStatusIsAbleAndUpdate(int ID)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var table = await context.C_TABLE.FirstOrDefaultAsync(c => c.IS_DELETED == false && c.TB_ID == ID);
+
+                    if (table.TB_STATUS == "Còn trống")
+                    {
+                        table.TB_STATUS = "Đang bận";
+                        await context.SaveChangesAsync();
+                        return (true,"");
+                    }
+                    else
+                    {
+                        return (false,"Bàn đang bận hoặc đang sửa chữa, cân nhắc đổi bàn!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, $"Xảy ra lỗi: {ex.Message}");
+                return (false, "");
             }
         }
 

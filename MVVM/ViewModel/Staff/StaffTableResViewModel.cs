@@ -3,6 +3,7 @@ using QuanLiCoffeeShop.DTOs;
 using QuanLiCoffeeShop.MVVM.Model;
 using QuanLiCoffeeShop.MVVM.Model.Services;
 using QuanLiCoffeeShop.MVVM.View.Message;
+using QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu;
 using QuanLiCoffeeShop.MVVM.View.Staff.StaffTable;
 using QuanLiCoffeeShop.MVVM.View.TableCard;
 using System;
@@ -126,6 +127,85 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             set { _EditingYear = value; OnPropertyChanged(); }
         }
 
+        private CustomerDTO _SelectedCustomer;
+        public CustomerDTO SelectedCustomer
+        {
+            set { _SelectedCustomer = value; OnPropertyChanged(); }
+            get { return _SelectedCustomer; }
+        }
+        private CustomerDTO _SearchingCustomer;
+        public CustomerDTO SearchingCustomer
+        {
+            set { _SearchingCustomer = value; OnPropertyChanged(); }
+            get { return _SearchingCustomer; }
+        }
+        private string _SearchCustomerIDstring;
+        public string SearchCustomerIDstring
+        {
+            get { return _SearchCustomerIDstring; }
+            set { _SearchCustomerIDstring = value; OnPropertyChanged(); }
+        }
+        private string _SearchCustomerName;
+        public string SearchCustomerName
+        {
+            get { return _SearchCustomerName; }
+            set { _SearchCustomerName = value; OnPropertyChanged(); }
+        }
+        private string _SearchCustomerPhone;
+        public string SearchCustomerPhone
+        {
+            get { return _SearchCustomerPhone; }
+            set { _SearchCustomerPhone = value; OnPropertyChanged(); }
+        }
+        private ObservableCollection<CustomerDTO> _customerList;
+        public ObservableCollection<CustomerDTO> CustomerList
+        {
+            get { return _customerList; }
+            set
+            {
+                _customerList = value;
+                OnPropertyChanged(nameof(CustomerList));
+            }
+        }
+
+        private ReservationDTO _NewReservation;
+        public ReservationDTO NewReservation
+        {
+            set { _NewReservation = value; OnPropertyChanged(); }   
+            get { return _NewReservation; }
+        }
+        private int _NewResDay;
+        public int NewResDay
+        {
+            set { _NewResDay = value; OnPropertyChanged(); }
+            get { return _NewResDay; }
+        }
+        private int _NewResMonth;
+        public int NewResMonth
+        {
+            set { _NewResMonth = value; OnPropertyChanged(); }
+            get { return _NewResMonth; }
+        }
+        private int _NewResYear;
+        public int NewResYear
+        {
+            get { return _NewResYear; }
+            set { _NewResYear = value; OnPropertyChanged(); }
+        }
+
+        private int _NewResHour;
+        public int NewResHour
+        {
+            get { return _NewResHour; }
+            set { _NewResHour = value; OnPropertyChanged(); }
+        }
+        private int _NewResMinute;
+        public int NewResMinute
+        {
+            get { return _NewResMinute; }
+            set { _NewResMinute = value; OnPropertyChanged(); }
+        }
+
         #endregion
 
         #endregion
@@ -139,6 +219,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         public ICommand OpenResevationDetailCommand {  get; set; }
         public ICommand btnCheckinCommand {  get; set; }
         public ICommand SaveReservationChangeCommand {  get; set; }
+        public ICommand OpenSearchCusWDCommand {  get; set; }
+        public ICommand btnSelectCustomerCommand { get; set; }
+        public ICommand CustomerFilterCommand { get; set; }
+        public ICommand CloseWDCommand { get; set; }
+        public ICommand btnSaveReservationCommand { get; set; }
 
         #endregion
 
@@ -165,7 +250,19 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 
                 if (ReservationList == null)
                     ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
-                SelectedReservation = ReservationList[0];
+                //SelectedReservation = ReservationList[0];
+
+                if (SelectedCustomer == null)
+                {
+                    SelectedCustomer = new CustomerDTO()
+                    {
+                        ID = 0,
+                    };
+                }
+                else
+                {
+                    SelectedCustomer.ID = 0;
+                }
             });
 
             FilterCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
@@ -183,7 +280,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                     TableList = new ObservableCollection<TableDTO>(await TableService.Ins.GetAllTable());
                     return;
                 }
-
                 TableList = new ObservableCollection<TableDTO>(await TableService.Ins.FilterTableList(_FilterGnereID, text));
 
             });
@@ -222,12 +318,18 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 
             btnCheckinCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
-                p.Close();
                 if(SelectedReservation.IsEqual(EditingReservetion))
                 {
                     SelectedReservation.RES_STATUS = SelectedReservation.RES_STATUS == "Khách đã nhận bàn" ? "Khách chưa nhận bàn" : "Khách đã nhận bàn";
-                    await ReservationService.Ins.UpdateReservation(SelectedReservation);
-                    ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
+                    (bool Res,string messs)  = await TableService.Ins.TableStatusIsAbleAndUpdate(SelectedReservation.TABLE_ID); 
+                    if(Res)
+                    {
+                        await ReservationService.Ins.UpdateReservation(SelectedReservation);
+                        ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
+                        p.Close();
+                    }    
+                    else
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, messs);
                 }
                 else
                 {
@@ -249,6 +351,38 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                     await ReservationService.Ins.UpdateReservation(SelectedReservation);
                     ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
                 }
+            });
+
+            OpenSearchCusWDCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            {
+                SearchCustomerIDstring = null; SearchCustomerName = null; SearchCustomerPhone = null;
+                SearchingCustomer = new CustomerDTO(SelectedCustomer);
+                CustomerList = new ObservableCollection<CustomerDTO>(await Task.Run(() => CustomerService.Ins.GetAllCus()));
+                CusForReservationWindow wd = new CusForReservationWindow();
+                wd.ShowDialog();
+            });
+
+            btnSelectCustomerCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                if (SearchingCustomer != null)
+                    SelectedCustomer = SearchingCustomer;
+                SearchingCustomer = null;
+                p.Close();
+            });
+
+            CustomerFilterCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                int SearchCustomerID;
+                if (int.TryParse(SearchCustomerIDstring, out int temp))
+                    SearchCustomerID = temp;
+                else SearchCustomerID = 0;
+                CustomerList = new ObservableCollection<CustomerDTO>(await CustomerService.Ins.SearchCus(SearchCustomerID, SearchCustomerName, SearchCustomerPhone));
+            });
+
+            CloseWDCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                SearchingCustomer = null;
+                p.Close();
             });
 
         }
@@ -276,6 +410,21 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 return true;
             }
             catch 
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày không hợp lệ");
+                return false;
+            }
+        }
+
+        private bool SetDateForNewReservation()
+        {
+            try
+            {
+                NewReservation.RES_DATE = new DateTime(NewResYear, NewResMonth, NewResDay);
+                NewReservation.RES_TIME = new DateTime(1,1,1,NewResHour, NewResMinute, 0);
+                return true;
+            }
+            catch
             {
                 MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày không hợp lệ");
                 return false;

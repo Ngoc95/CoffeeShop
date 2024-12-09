@@ -169,8 +169,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Admin\TableManagement\AddTableWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MVVM\View\Admin\TableManagement\EditTableWindow.xaml">
       <SubType>Designer</SubType>
@@ -241,6 +241,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Staff\StaffTable\AddReservationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\StaffTable\CusForReservationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -565,6 +569,9 @@
     </Compile>
     <Compile Include="MVVM\View\Staff\StaffTable\AddReservationWindow.xaml.cs">
       <DependentUpon>AddReservationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\StaffTable\CusForReservationWindow.xaml.cs">
+      <DependentUpon>CusForReservationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Staff\StaffTable\ReservationInfor.xaml.cs">
       <DependentUpon>ReservationInfor.xaml</DependentUpon>

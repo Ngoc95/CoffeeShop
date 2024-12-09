@@ -29,11 +29,11 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="201*"/>
             <ColumnDefinition Width="310*"/>
             <ColumnDefinition Width="419*"/>
-        </Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="78"></RowDefinition>
             <RowDefinition Height="auto"/>
