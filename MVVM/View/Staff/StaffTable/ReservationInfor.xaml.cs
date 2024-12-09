@@ -22,6 +22,50 @@ namespace QuanLiCoffeeShop.MVVM.View.Staff.StaffTable
         public ReservationInfor()
         {
             InitializeComponent();
+            Loaded += ReservationInfor_Loaded;
+        }
+
+        private void ReservationInfor_Loaded(object sender, RoutedEventArgs e)
+        {
+            DateTime a = new DateTime(int.Parse(YearRes.Text), int.Parse(MonthRes.Text), int.Parse(DayRes.Text));
+            if (a.Date < DateTime.Now.Date)
+            {
+                CheckInBtn.Visibility = Visibility.Hidden;
+                Savebtn.Visibility = Visibility.Hidden;
+                TxtNumPP.IsEnabled = false;
+                TxtTB_id.IsEnabled = false;
+                TxtTimeRes.IsEnabled = false;
+                DayRes.IsEnabled = false;
+                MonthRes.IsEnabled = false;
+                YearRes.IsEnabled = false;
+                TxtReqRes.IsEnabled = false;
+            }
+            else if (a.Date > DateTime.Now.Date)
+            {
+                CheckInBtn.Visibility = Visibility.Hidden;
+                Savebtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                if (status.Text == "Khách đã nhận bàn")
+                {
+                    CheckInBtn.Content = "Hủy trạng thái đã xác nhận";
+                }
+                else
+                {
+                    CheckInBtn.Content = "CheckIn";
+                }
+            }
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
+            
         }
     }
 }

@@ -8,21 +8,23 @@
         xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffTable"
         mc:Ignorable="d"
+        x:Name="ResInforWD"
         Background="Transparent"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Title="ReservationInfor" Height="670" Width="810">
+        Title="ReservationInfor" Height="680" Width="810">
 
     <Border 
         Background="White" 
         BorderBrush="#603127"
         CornerRadius="20"
+        MouseDown="Border_MouseDown"
         BorderThickness="1">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
-                <RowDefinition Height="510"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="520"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBlock 
                 Grid.Row="0"
@@ -40,7 +42,7 @@
                 CornerRadius="10">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.4*"/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     
@@ -60,10 +62,6 @@
                                     <TextBlock Margin="15, 10" Text="Tên khách hàng" Style="{DynamicResource Header5Style}"></TextBlock>
                                     <TextBlock Text="{Binding ReservationCustome.Name}" Style="{DynamicResource Header6Style}"></TextBlock>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Margin="15, 10" Text="Giới tính" Style="{DynamicResource Header5Style}"></TextBlock>
-                                    <TextBlock Text="{Binding ReservationCustome.Gender}" Style="{DynamicResource Header6Style}"></TextBlock>
-                                </StackPanel>
                             </StackPanel>
 
                             <StackPanel Grid.Column="1">
@@ -74,10 +72,6 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Margin="15, 10" Text="Email" Style="{DynamicResource Header5Style}"></TextBlock>
                                     <TextBlock Text="{Binding ReservationCustome.Email}" Style="{DynamicResource Header6Style}"></TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Margin="15, 10" Text="Điểm tích luỹ" Style="{DynamicResource Header5Style}"></TextBlock>
-                                    <TextBlock Text="{Binding ReservationCustome.Point, StringFormat={}{0:N0}}" Style="{DynamicResource Header6Style}"></TextBlock>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
@@ -95,40 +89,50 @@
                                 <StackPanel Grid.Column="0">
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Text="Mã đặt bàn: " Width="auto" Style="{DynamicResource Header5Style}"></TextBlock>
-                                        <TextBlock Text="{Binding SelectedReservation.RES_ID, StringFormat='0000'}" Style="{DynamicResource Header6Style}"></TextBlock>
+                                        <TextBlock Text="{Binding EditingReservetion.RES_ID, StringFormat='0000'}" Style="{DynamicResource Header6Style}"></TextBlock>
                                     </StackPanel>
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Text="Mã bàn: " Width="auto" Style="{DynamicResource Header5Style}"></TextBlock>
-                                        <TextBox Height="25" Text="{Binding SelectedReservation.TABLE_ID, StringFormat='000'}" Style="{DynamicResource ReservationTextBoxStyle}"/>
+                                        <TextBox x:Name="TxtTB_id" Height="25" Text="{Binding EditingReservetion.TABLE_ID, StringFormat='000'}" Style="{DynamicResource ReservationTextBoxStyle}"/>
                                     </StackPanel>
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Grid.Column="0" Text="Số lượng người: " Width="140" Style="{DynamicResource Header5Style}"></TextBlock>
-                                        <TextBox Height="25" Text="{Binding SelectedReservation.NUM_OF_PEOPLE, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"/>
+                                        <TextBox x:Name="TxtNumPP" Height="25" Text="{Binding EditingReservetion.NUM_OF_PEOPLE, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"/>
                                     </StackPanel>
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Grid.Column="0" Text="Trạng thái: " Width="auto" Style="{DynamicResource Header5Style}"></TextBlock>
-                                        <TextBlock Height="25" Text="{Binding SelectedReservation.RES_STATUS}" Style="{DynamicResource HeaderResStatusStyle}"/>
+                                        <TextBlock x:Name="status" Height="25" Text="{Binding EditingReservetion.RES_STATUS}" Style="{DynamicResource HeaderResStatusStyle}"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1">
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Grid.Column="0" Text="Ngày đặt bàn: " Style="{DynamicResource Header5Style}"></TextBlock>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBox Height="25" Text="{Binding EditingDay, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
+                                            <TextBox x:Name="DayRes" Height="25" Text="{Binding EditingDay, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
                                             <TextBlock Text="/" Style="{StaticResource Header6Style}"></TextBlock>
-                                            <TextBox Height="25" Text="{Binding EditingMonth, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
+                                            <TextBox x:Name="MonthRes" Height="25" Text="{Binding EditingMonth, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
                                             <TextBlock Text="/" Style="{StaticResource Header6Style}"></TextBlock>
-                                            <TextBox Height="25" Text="{Binding EditingYear, StringFormat='0000'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
+                                            <TextBox x:Name="YearRes" Height="25" Text="{Binding EditingYear, StringFormat='0000'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
                                         </StackPanel>
                                     </StackPanel>
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Grid.Column="0" Text="Giờ đặt bàn: " Style="{DynamicResource Header5Style}"></TextBlock>
-                                        <TextBox Height="25" Text="{Binding SelectedReservation.RES_TIME, StringFormat='hh:mm'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
+                                        <TextBox x:Name="TxtTimeRes" Height="25" Text="{Binding EditingReservetion.RES_TIME, StringFormat='hh:mm'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
                                     </StackPanel>
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Grid.Column="0" Text="Thời điểm đặt bàn: " Style="{DynamicResource Header5Style}"></TextBlock>
-                                        <TextBlock Height="25" Width="auto" Text="{Binding SelectedReservation.CREATE_AT, StringFormat='hh:mm dd/MM/yyyy'}" Style="{DynamicResource Header6Style}"></TextBlock>
+                                        <TextBlock Height="25" Width="auto" Text="{Binding EditingReservetion.CREATE_AT, StringFormat='hh:mm dd/MM/yyyy'}" Style="{DynamicResource Header6Style}"></TextBlock>
                                     </StackPanel>
+                                    <Button
+                                        x:Name="CheckInBtn"
+                                        Style="{StaticResource ButtonCancel_WD}"
+                                        Command="{Binding btnCheckinCommand}"
+                                        CommandParameter="{Binding ElementName=ResInforWD}"
+                                        Width="200"
+                                        Margin="5,10,5,0"
+                                        VerticalAlignment="Bottom"
+                                        HorizontalAlignment="Right"
+                                        Content="Xác nhận checkin"></Button>
                                 </StackPanel>
                             </Grid>
 
@@ -138,7 +142,8 @@
                                 Style="{DynamicResource Header5Style}">
                             </TextBlock>
                             <TextBox 
-                                Text="{Binding SelectedReservation.SPECIAL_REQUEST}"
+                                x:Name="TxtReqRes"
+                                Text="{Binding EditingReservetion.SPECIAL_REQUEST}"
                                 Margin="20,5"
                                 Height="120"
                                 Style="{DynamicResource TextBoxDescribeStyle}"></TextBox>
@@ -156,11 +161,14 @@
                 Style="{DynamicResource ButtonCancel_WD}"/>
             <Button
                 Grid.Row="2"
+                x:Name="Savebtn"
+                Command="{Binding SaveReservationChangeCommand}"
+                CommandParameter="{Binding ElementName=ResInforWD}"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"
-                Width="200"
+                Width="150"
                 Margin="20,10"
-                Content="Khách đã nhận bàn"
+                Content="Lưu thay đổi"
                 Style="{DynamicResource ButtonAdd_WD}"/>
         </Grid>
     </Border>

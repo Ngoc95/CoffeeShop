@@ -93,6 +93,13 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             set { _SelectedReserVation = value; OnPropertyChanged(); }
         }
 
+        private ReservationDTO _EditingReservetion;
+        public ReservationDTO EditingReservetion
+        {
+            get { return _EditingReservetion; }
+            set { _EditingReservetion = value; OnPropertyChanged(); }
+        }
+
         public CustomerDTO _ReservationCustomer;
         public CustomerDTO ReservationCustome
         {
@@ -130,6 +137,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         #endregion
         #region ReservationCommand
         public ICommand OpenResevationDetailCommand {  get; set; }
+        public ICommand btnCheckinCommand {  get; set; }
+        public ICommand SaveReservationChangeCommand {  get; set; }
 
         #endregion
 
@@ -196,10 +205,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 
             OpenResevationDetailCommand = new RelayCommand<ReservationDTO>((p) => { return true; }, (p) =>
             {
-                SelectedReservation = p;
+                EditingReservetion = p;
+                SelectedReservation = new ReservationDTO(p);
                 SetResCustomer();
                 SetEditingDate();
-                if(SelectedReservation != null)
+                if(EditingReservetion != null)
                 {
                     ReservationInfor wd = new ReservationInfor();
                     wd.ShowDialog();
@@ -207,6 +217,37 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 else
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra");
+                }
+            });
+
+            btnCheckinCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            {
+                p.Close();
+                if(SelectedReservation.IsEqual(EditingReservetion))
+                {
+                    SelectedReservation.RES_STATUS = SelectedReservation.RES_STATUS == "Khách đã nhận bàn" ? "Khách chưa nhận bàn" : "Khách đã nhận bàn";
+                    await ReservationService.Ins.UpdateReservation(SelectedReservation);
+                    ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
+                }
+                else
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Thông tin thay đổi chưa được lưu");
+                }
+            });
+
+            SaveReservationChangeCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            {
+                p.Close();
+                SetDateForEditingeservation();
+                if(SelectedReservation.IsEqual(EditingReservetion))
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi khi thay đổi thông tin");
+                }
+                else
+                {
+                    SelectedReservation = EditingReservetion;
+                    await ReservationService.Ins.UpdateReservation(SelectedReservation);
+                    ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
                 }
             });
 
@@ -222,9 +263,23 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         }
         private void SetEditingDate()
         {
-            _EditingDay = SelectedReservation.RES_DATE.Day;
-            _EditingMonth = SelectedReservation.RES_DATE.Month;
-            _EditingYear = SelectedReservation.RES_DATE.Year;
+            EditingDay = SelectedReservation.RES_DATE.Day;
+            EditingMonth = SelectedReservation.RES_DATE.Month;
+            EditingYear = SelectedReservation.RES_DATE.Year;
+        }
+
+        private bool SetDateForEditingeservation()
+        {
+            try
+            {
+                EditingReservetion.RES_DATE = new DateTime(EditingYear, EditingMonth, EditingDay);
+                return true;
+            }
+            catch 
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày không hợp lệ");
+                return false;
+            }
         }
     }
 }

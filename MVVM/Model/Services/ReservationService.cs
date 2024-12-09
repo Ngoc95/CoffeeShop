@@ -56,5 +56,38 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 return null;
             }
         }
+
+        public async Task<bool> UpdateReservation(ReservationDTO reservation)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var res = await context.RESERVATIONs.FirstOrDefaultAsync(c => c.IS_DELETED == false && c.RES_ID == reservation.RES_ID); 
+                    if (res != null)
+                    {
+                        res.RES_STATUS = reservation.RES_STATUS;
+                        res.TABLE_ID = reservation.TABLE_ID;
+                        res.RES_DATE = reservation.RES_DATE;
+                        res.RES_TIME = reservation.RES_TIME;
+                        res.NUM_OF_PEOPLE = reservation.NUM_OF_PEOPLE;
+                        res.SPECIAL_REQUEST = reservation.SPECIAL_REQUEST;
+                        await context.SaveChangesAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                        return false;
+                    }
+
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return false;
+            }
+        }
     }
 }
