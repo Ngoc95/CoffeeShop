@@ -230,7 +230,7 @@ INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố d�
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sữa tươi đường đen', 2, 'pack://application:,,,/DemoDataPrdImg/suatuoitc.jpg', 23000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố dưa hấu', 4, 'pack://application:,,,/DemoDataPrdImg/sinhtoduahau.png', 20000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Ép táo', 5, 'pack://application:,,,/DemoDataPrdImg/eptao.jpg', 18000)
-INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Coffee', 1, 'pack://application:,,,/DemoDataPrdImg/tradao.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Coffee', 1, 'pack://application:,,,/DemoDataPrdImg/coffee.jpg', 15000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố mãng cầu', 4, 'pack://application:,,,/DemoDataPrdImg/stmangcau.jpg', 20000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Ép lê', 5, 'pack://application:,,,/DemoDataPrdImg/eple.jpg', 18000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà sữa thái xanh', 2, 'pack://application:,,,/DemoDataPrdImg/tsthaixanh.jpg', 15000)

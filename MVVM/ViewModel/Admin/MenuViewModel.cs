@@ -110,7 +110,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     }
                 }
                 FilterGnereID = 0;
-                SearchText = null;//co the gay bug
+                SearchText = "";
             });
 
             OpenAddProWDCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
@@ -222,7 +222,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                         p.Source = bitmap;
 
                     }
-                    catch (Exception ex)
+                    catch 
                     {
                         // Hiển thị lỗi nếu quá trình tải ảnh thất bại
                         MessageBoxCustom.Show(MessageBoxCustom.Error, "Tải ảnh thất bại");

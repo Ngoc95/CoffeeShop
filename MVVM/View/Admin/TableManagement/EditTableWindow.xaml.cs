@@ -21,7 +21,7 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.TableManagement
     /// </summary>
     public partial class EditTableWindow : Window
     {
-        private List<string> _GenreTableLists;
+        //private List<string> _GenreTableLists;
 
         public EditTableWindow()
         {

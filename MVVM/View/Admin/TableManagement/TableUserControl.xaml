@@ -29,111 +29,123 @@
     </UserControl.Resources>
 
     <Grid>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="201*"/>
-            <ColumnDefinition Width="310*"/>
-            <ColumnDefinition Width="419*"/>
-        </Grid.ColumnDefinitions>-->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="78"></RowDefinition>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
+        <TabControl 
+            Style="{x:Null}"
+            materialDesign:ColorZoneAssist.Mode="Inverted"
+            materialDesign:BottomDashedLineAdorner.Thickness="2"
+            materialDesign:ColorZoneAssist.Foreground="#653128">
+            <TabItem Style="{DynamicResource TabItemMyStyle}" 
+                     Tag="Thông tin chung">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="78"></RowDefinition>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
 
-            <ComboBox 
-                Grid.Column="0"
-                Margin="20,0,15,0"
-                Tag="Lọc theo trạng thái"
-                FontSize="22"
-                SelectedIndex="{Binding CbbSelectedIndex, Mode=TwoWay}"
-                Style="{DynamicResource ComboBoxStyle1}" 
-                VerticalAlignment="Bottom">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding FilterCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <ComboBoxItem
-                        Width="200"
-                        Content="Tất cả"/>
-                <ComboBoxItem
-                        Width="200"
-                        Content="Còn trống"/>
-                <ComboBoxItem 
-                        Width="200"  
-                        Content="Đang bận"/>
-                <ComboBoxItem 
-                        Width="200"  
-                        Content="Đang sửa chữa"/>
-            </ComboBox>
+                        <ComboBox 
+                            Grid.Column="0"
+                            Margin="20,0,15,0"
+                            Tag="Lọc theo trạng thái"
+                            FontSize="22"
+                            SelectedIndex="{Binding CbbSelectedIndex, Mode=TwoWay}"
+                            Style="{DynamicResource ComboBoxStyle1}" 
+                            VerticalAlignment="Bottom">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding FilterCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <ComboBoxItem
+                                Width="200"
+                                Content="Tất cả"/>
+                            <ComboBoxItem
+                                Width="200"
+                                Content="Còn trống"/>
+                            <ComboBoxItem 
+                                Width="200"  
+                                Content="Đang bận"/>
+                            <ComboBoxItem 
+                                Width="200"  
+                                Content="Đang sửa chữa"/>
+                        </ComboBox>
 
-            <Button 
-                Width="210" 
-                Height="55"
-                HorizontalAlignment="Left"
-                Command="{Binding OpenAddWDCommand}"
-                Style="{DynamicResource ButtonStyle1}" 
-                Grid.Column="1"
-                Content="Thêm bàn"
-                VerticalAlignment="Bottom">
-            </Button>
-        </Grid>
+                        <Button 
+                            Width="210" 
+                            Height="55"
+                            HorizontalAlignment="Left"
+                            Command="{Binding OpenAddWDCommand}"
+                            Style="{DynamicResource ButtonStyle1}" 
+                            Grid.Column="1"
+                            Content="Thêm bàn"
+                            VerticalAlignment="Bottom">
+                        </Button>
+                    </Grid>
 
-        <ScrollViewer 
-            Grid.Row="1" 
-            Margin="10,10,10,10"
-            VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3">
-            <ItemsControl
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            ItemsSource="{Binding GenreTableList}"
-            Width="auto" Height="auto">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <RadioButton
-                    HorizontalAlignment="Stretch"
-                    Cursor="Hand"
-                    FontSize="25"
-                    Margin="15, 0"
-                    Command="{Binding DataContext.FilterCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                    CommandParameter="{Binding GT_ID}"
-                    Content="{Binding GT_NAME}"
-                    IsChecked="False"
-                    GroupName="ProductTypeGroup"
-                    Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+                    <ScrollViewer 
+                        Grid.Row="1" 
+                        Margin="10,10,10,10"
+                        VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3">
+                        <ItemsControl
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding GenreTableList}"
+                            Width="auto" Height="auto">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <RadioButton
+                                        HorizontalAlignment="Stretch"
+                                        Cursor="Hand"
+                                        FontSize="25"
+                                        Margin="15, 0"
+                                        Command="{Binding DataContext.FilterCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding GT_ID}"
+                                        Content="{Binding GT_NAME}"
+                                        IsChecked="False"
+                                        GroupName="ProductTypeGroup"
+                                        Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
 
-        <Separator Grid.Row="2" Margin="20,0,20,0" Grid.ColumnSpan="3" ></Separator>
+                    <Separator Grid.Row="2" Margin="20,0,20,0" Grid.ColumnSpan="3" ></Separator>
 
-        <ScrollViewer 
-            Grid.Row="3" 
-            VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3">
-            <ItemsControl
-                Padding="0"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"        
-                Width="auto" Height="auto"
-                ItemsSource="{Binding TableList}" 
-                ItemTemplateSelector="{StaticResource MySelector}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
+                    <ScrollViewer 
+                        Grid.Row="3" 
+                        VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3">
+                        <ItemsControl
+                            Padding="0"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"        
+                            Width="auto" Height="auto"
+                            ItemsSource="{Binding TableList}" 
+                            ItemTemplateSelector="{StaticResource MySelector}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem
+                Style="{StaticResource TabItemMyStyle}"
+                Tag="Quản lí đặt bàn">
+                
+            </TabItem>
+        </TabControl>
     </Grid>
+    
 </UserControl>

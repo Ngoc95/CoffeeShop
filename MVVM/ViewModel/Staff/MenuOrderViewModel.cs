@@ -371,7 +371,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 CaculateTotalBill();
             });
 
-            SaveCurrAndGenNewBillCommand = new RelayCommand<object>((p) => { return true; },async (p) =>
+            SaveCurrAndGenNewBillCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
 
             });

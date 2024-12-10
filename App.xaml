@@ -43,6 +43,7 @@
                 <ResourceDictionary Source="Theme/Styles/TextBoxStyles.xaml"/>
                 <ResourceDictionary Source="Theme/Styles/MenuStyles.xaml"/>
                 <ResourceDictionary Source="Theme/Styles/ListViewStyle.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/TabControl.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <!--Converter-->
