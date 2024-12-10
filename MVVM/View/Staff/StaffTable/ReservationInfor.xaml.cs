@@ -34,7 +34,8 @@ namespace QuanLiCoffeeShop.MVVM.View.Staff.StaffTable
                 Savebtn.Visibility = Visibility.Hidden;
                 TxtNumPP.IsEnabled = false;
                 TxtTB_id.IsEnabled = false;
-                TxtTimeRes.IsEnabled = false;
+                TxtHourRes.IsEnabled = false;
+                TxtMinuteRes.IsEnabled = false;
                 DayRes.IsEnabled = false;
                 MonthRes.IsEnabled = false;
                 YearRes.IsEnabled = false;

@@ -120,8 +120,7 @@
           <Property Name="RES_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CUS_ID" Type="int" Nullable="false" />
           <Property Name="TABLE_ID" Type="int" Nullable="false" />
-          <Property Name="RES_DATE" Type="smalldatetime" Nullable="false" />
-          <Property Name="RES_TIME" Type="smalldatetime" Nullable="false" />
+          <Property Name="RES_DATETIME" Type="smalldatetime" Nullable="false" />
           <Property Name="NUM_OF_PEOPLE" Type="int" Nullable="false" />
           <Property Name="RES_STATUS" Type="nvarchar" MaxLength="100" />
           <Property Name="SPECIAL_REQUEST" Type="nvarchar(max)" />
@@ -502,8 +501,7 @@
           <Property Name="RES_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CUS_ID" Type="Int32" Nullable="false" />
           <Property Name="TABLE_ID" Type="Int32" Nullable="false" />
-          <Property Name="RES_DATE" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="RES_TIME" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RES_DATETIME" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="NUM_OF_PEOPLE" Type="Int32" Nullable="false" />
           <Property Name="RES_STATUS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SPECIAL_REQUEST" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -773,8 +771,7 @@
                 <ScalarProperty Name="SPECIAL_REQUEST" ColumnName="SPECIAL_REQUEST" />
                 <ScalarProperty Name="RES_STATUS" ColumnName="RES_STATUS" />
                 <ScalarProperty Name="NUM_OF_PEOPLE" ColumnName="NUM_OF_PEOPLE" />
-                <ScalarProperty Name="RES_TIME" ColumnName="RES_TIME" />
-                <ScalarProperty Name="RES_DATE" ColumnName="RES_DATE" />
+                <ScalarProperty Name="RES_DATETIME" ColumnName="RES_DATETIME" />
                 <ScalarProperty Name="TABLE_ID" ColumnName="TABLE_ID" />
                 <ScalarProperty Name="CUS_ID" ColumnName="CUS_ID" />
                 <ScalarProperty Name="RES_ID" ColumnName="RES_ID" />

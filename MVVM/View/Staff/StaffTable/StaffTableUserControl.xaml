@@ -181,7 +181,7 @@
                                                 <DataTemplate>
                                                     <TextBlock
                                                         Style="{StaticResource Header6Style}"
-                                                        Text="{Binding RES_DATE, StringFormat='dd/MM/yyyy'}"/>
+                                                        Text="{Binding RES_DATETIME, StringFormat='dd/MM/yyyy'}"/>
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
@@ -191,7 +191,7 @@
                                                 <DataTemplate>
                                                     <TextBlock
                                                         Style="{StaticResource Header6Style}"
-                                                        Text="{Binding RES_TIME, StringFormat={}{0:HH:mm}}"/>
+                                                        Text="{Binding RES_DATETIME, StringFormat={}{0:HH:mm}}"/>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
@@ -267,7 +267,7 @@
                                     <StackPanel Grid.Column="0">
                                         <StackPanel Margin="5,15,5,5" Orientation="Horizontal">
                                             <TextBlock Grid.Column="0" Text="Mã đặt bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
-                                            <TextBlock Grid.Column="0" Text="{Binding NewReservation.RES_ID}" Style="{DynamicResource Header6Style}"></TextBlock>
+                                            <TextBlock Grid.Column="0" Text="{Binding NewReservation.RES_ID, StringFormat='0000'}" Style="{DynamicResource Header6Style}"></TextBlock>
                                         </StackPanel>
                                         <StackPanel Margin="5" Orientation="Horizontal">
                                             <TextBlock Grid.Column="0" Text="Mã bàn: " Style="{DynamicResource Header6Style}"></TextBlock>

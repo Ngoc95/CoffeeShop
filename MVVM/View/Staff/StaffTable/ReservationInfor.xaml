@@ -89,19 +89,19 @@
                                 <StackPanel Grid.Column="0">
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Text="Mã đặt bàn: " Width="auto" Style="{DynamicResource Header5Style}"></TextBlock>
-                                        <TextBlock Text="{Binding EditingReservetion.RES_ID, StringFormat='0000'}" Style="{DynamicResource Header6Style}"></TextBlock>
+                                        <TextBlock Text="{Binding EditingReservation.RES_ID, StringFormat='0000'}" Style="{DynamicResource Header6Style}"></TextBlock>
                                     </StackPanel>
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Text="Mã bàn: " Width="auto" Style="{DynamicResource Header5Style}"></TextBlock>
-                                        <TextBox x:Name="TxtTB_id" Height="25" Text="{Binding EditingReservetion.TABLE_ID, StringFormat='000'}" Style="{DynamicResource ReservationTextBoxStyle}"/>
+                                        <TextBox x:Name="TxtTB_id" Height="25" Text="{Binding EditingReservation.TABLE_ID, StringFormat='000'}" Style="{DynamicResource ReservationTextBoxStyle}"/>
                                     </StackPanel>
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Grid.Column="0" Text="Số lượng người: " Width="140" Style="{DynamicResource Header5Style}"></TextBlock>
-                                        <TextBox x:Name="TxtNumPP" Height="25" Text="{Binding EditingReservetion.NUM_OF_PEOPLE, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"/>
+                                        <TextBox x:Name="TxtNumPP" Height="25" Text="{Binding EditingReservation.NUM_OF_PEOPLE, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"/>
                                     </StackPanel>
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Grid.Column="0" Text="Trạng thái: " Width="auto" Style="{DynamicResource Header5Style}"></TextBlock>
-                                        <TextBlock x:Name="status" Height="25" Text="{Binding EditingReservetion.RES_STATUS}" Style="{DynamicResource HeaderResStatusStyle}"/>
+                                        <TextBlock x:Name="status" Height="25" Text="{Binding EditingReservation.RES_STATUS}" Style="{DynamicResource HeaderResStatusStyle}"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1">
@@ -117,11 +117,13 @@
                                     </StackPanel>
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Grid.Column="0" Text="Giờ đặt bàn: " Style="{DynamicResource Header5Style}"></TextBlock>
-                                        <TextBox x:Name="TxtTimeRes" Height="25" Text="{Binding EditingReservetion.RES_TIME, StringFormat='hh:mm'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
+                                        <TextBox x:Name="TxtHourRes" Height="25" Text="{Binding EditingHour, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
+                                        <TextBlock Height="25" Text=":" Style="{DynamicResource Header6Style}"></TextBlock>
+                                        <TextBox x:Name="TxtMinuteRes" Height="25" Text="{Binding EditingMinute, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
                                     </StackPanel>
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Grid.Column="0" Text="Thời điểm đặt bàn: " Style="{DynamicResource Header5Style}"></TextBlock>
-                                        <TextBlock Height="25" Width="auto" Text="{Binding EditingReservetion.CREATE_AT, StringFormat='hh:mm dd/MM/yyyy'}" Style="{DynamicResource Header6Style}"></TextBlock>
+                                        <TextBlock Height="25" Width="auto" Text="{Binding EditingReservation.CREATE_AT, StringFormat='hh:mm dd/MM/yyyy'}" Style="{DynamicResource Header6Style}"></TextBlock>
                                     </StackPanel>
                                     <Button
                                         x:Name="CheckInBtn"
@@ -143,7 +145,7 @@
                             </TextBlock>
                             <TextBox 
                                 x:Name="TxtReqRes"
-                                Text="{Binding EditingReservetion.SPECIAL_REQUEST}"
+                                Text="{Binding EditingReservation.SPECIAL_REQUEST}"
                                 Margin="20,5"
                                 Height="120"
                                 Style="{DynamicResource TextBoxDescribeStyle}"></TextBox>

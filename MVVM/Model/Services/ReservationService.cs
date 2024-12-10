@@ -39,8 +39,7 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                                                RES_ID = c.RES_ID,
                                                CUS_ID = c.CUS_ID,
                                                TABLE_ID = c.TABLE_ID,
-                                               RES_DATE = c.RES_DATE,
-                                               RES_TIME = c.RES_TIME,
+                                               RES_DATETIME = c.RES_DATETIME,
                                                NUM_OF_PEOPLE = c.NUM_OF_PEOPLE,
                                                RES_STATUS = c.RES_STATUS,
                                                SPECIAL_REQUEST = c.SPECIAL_REQUEST,
@@ -61,15 +60,35 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
         {
             try
             {
+                if(reservation.RES_STATUS == "Khách chưa nhận bàn")
+                {
+                    if (reservation.RES_DATETIME.Date < DateTime.Now.Date)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error,"Ngày đặt bàn không phù hợp");
+                        return false;
+                    }
+                    if (reservation.RES_DATETIME.Date == DateTime.Now.Date && reservation.RES_DATETIME.TimeOfDay < DateTime.Now.TimeOfDay)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày đặt bàn không phù hợp");
+                        return false;
+                    }
+
+                    if (reservation.RES_DATETIME.TimeOfDay < new TimeSpan(7, 0, 0) || reservation.RES_DATETIME.TimeOfDay > new TimeSpan(20,0,0))
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Giờ đặt bàn từ 7h đến 20h");
+                        return false;
+                    }
+                }
+
                 using (var context = new CoffeeShopDBEntities())
                 {
                     var res = await context.RESERVATIONs.FirstOrDefaultAsync(c => c.IS_DELETED == false && c.RES_ID == reservation.RES_ID); 
                     if (res != null)
                     {
+                        res.CUS_ID = reservation.RES_ID;
                         res.RES_STATUS = reservation.RES_STATUS;
                         res.TABLE_ID = reservation.TABLE_ID;
-                        res.RES_DATE = reservation.RES_DATE;
-                        res.RES_TIME = reservation.RES_TIME;
+                        res.RES_DATETIME = reservation.RES_DATETIME;
                         res.NUM_OF_PEOPLE = reservation.NUM_OF_PEOPLE;
                         res.SPECIAL_REQUEST = reservation.SPECIAL_REQUEST;
                         await context.SaveChangesAsync();
@@ -89,5 +108,78 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 return false;
             }
         }
+
+        public int GetNextResID()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    return context.RESERVATIONs.Count() + 1;
+                }
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public async Task<bool> AddNewReservation(ReservationDTO reservation)
+        {
+            try
+            {
+                if (!(await TableService.Ins.TableID_Exsist(reservation.TABLE_ID)))
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Mã bàn không chính xác");
+                    return false;
+                }
+                if (reservation.CUS_ID == 0 || reservation.TABLE_ID == 0 || reservation.NUM_OF_PEOPLE <= 0)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Thông tin nhập vào chưa chính xác");
+                    return false;
+                }
+                if (reservation.RES_DATETIME.Date < DateTime.Now.Date)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày đặt bàn không phù hợp");
+                    return false;
+                }
+                if (reservation.RES_DATETIME.Date == DateTime.Now.Date && reservation.RES_DATETIME.TimeOfDay < DateTime.Now.TimeOfDay)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày đặt bàn không phù hợp");
+                    return false;
+                }
+
+                if (reservation.RES_DATETIME.TimeOfDay < new TimeSpan(7, 0, 0) || reservation.RES_DATETIME.TimeOfDay > new TimeSpan(20, 0, 0))
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Giờ đặt bàn từ 7h đến 20h");
+                    return false;
+                }
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    RESERVATION newRes = new RESERVATION()
+                    {
+                        CUS_ID = reservation.CUS_ID,
+                        RES_STATUS = "Khách chưa nhận bàn",
+                        RES_DATETIME = reservation.RES_DATETIME,
+                        TABLE_ID = reservation.TABLE_ID,
+                        NUM_OF_PEOPLE = reservation.NUM_OF_PEOPLE,
+                        SPECIAL_REQUEST = reservation.SPECIAL_REQUEST,
+                        IS_DELETED = false,
+                        CREATE_AT = DateTime.Now,
+                    };
+
+                    context.RESERVATIONs.Add(newRes);
+                    await context.SaveChangesAsync();
+
+                        return true;
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return false;
+            }
+        }
+
     }
 }

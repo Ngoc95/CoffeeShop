@@ -57,8 +57,8 @@ create table RESERVATION
 	RES_ID int identity(1,1),
 	CUS_ID int not null,
 	TABLE_ID int not null, 
-	RES_DATE smalldatetime not null, 
-	RES_TIME smalldatetime not null, 
+	RES_DATETIME smalldatetime not null, 
+	--RES_TIME smalldatetime not null, 
 	NUM_OF_PEOPLE int not null, 
 	RES_STATUS nvarchar(100) default N'Khách chưa nhận bàn', 
 	SPECIAL_REQUEST nvarchar(max),  
@@ -228,7 +228,7 @@ INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố xo
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà tắc', 3, 'pack://application:,,,/DemoDataPrdImg/tratac.jpg', 15000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố dâu', 4, 'pack://application:,,,/DemoDataPrdImg/sinhtoDau.jpg', 20000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sữa tươi đường đen', 2, 'pack://application:,,,/DemoDataPrdImg/suatuoitc.jpg', 23000)
-INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố dưa hấu', 4, 'pack://application:,,,/DemoDataPrdImg/sinhtoDau.jpg', 20000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố dưa hấu', 4, 'pack://application:,,,/DemoDataPrdImg/sinhtoduahau.png', 20000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Ép táo', 5, 'pack://application:,,,/DemoDataPrdImg/eptao.jpg', 18000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Coffee', 1, 'pack://application:,,,/DemoDataPrdImg/tradao.jpg', 15000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố mãng cầu', 4, 'pack://application:,,,/DemoDataPrdImg/stmangcau.jpg', 20000)
@@ -250,17 +250,17 @@ INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Qu�
 
 set dateformat dmy
 
-INSERT INTO RESERVATION (CUS_ID, TABLE_ID, RES_DATE, RES_TIME, NUM_OF_PEOPLE, RES_STATUS, SPECIAL_REQUEST)
+INSERT INTO RESERVATION (CUS_ID, TABLE_ID, RES_DATETIME, NUM_OF_PEOPLE, RES_STATUS, SPECIAL_REQUEST)
 VALUES
-(1, 1, '08-12-2024', '19:00:00', 2, N'Khách chưa nhận bàn', N'Chỗ gần cửa sổ'),
-(2, 2, '08-12-2024', '19:30:00', 3, N'Khách đã nhận bàn', NULL),
-(3, 3, '09-12-2024', '18:00:00', 3, N'Khách chưa nhận bàn', N'Yêu cầu yên tĩnh'),
-(4, 4, '09-1-2024', '20:00:00', 5, N'Khách chưa nhận bàn', NULL),
-(5, 1, '10-12-2024', '12:00:00', 2, N'Khách đã nhận bàn', N'Không dùng thức uống lạnh'),
-(6, 4, '10-1-2024', '14:00:00', 6, N'Khách chưa nhận bàn', N'Chỗ gần máy lạnh'),
-(7, 3, '11-1-2024', '15:00:00', 4, N'Khách chưa nhận bàn', N'Thích đồ uống ít đường'),
-(8, 1, '11-12-2024', '17:00:00', 2, N'Khách đã nhận bàn', NULL),
-(1, 2, '12-1-2024', '13:00:00', 3, N'Khách chưa nhận bàn', NULL),
-(2, 4, '12-12-2024', '16:00:00', 5, N'Khách đã nhận bàn', NULL);
+(1, 1, '08-12-2024 19:00:00', 2, N'Khách chưa nhận bàn', N'Chỗ gần cửa sổ'),
+(2, 2, '08-12-2024 19:30:00', 3, N'Khách đã nhận bàn', NULL),
+(3, 3, '09-12-2024 18:00:00', 3, N'Khách chưa nhận bàn', N'Yêu cầu yên tĩnh'),
+(4, 4, '09-1-2024 20:00:00', 5, N'Khách chưa nhận bàn', NULL),
+(5, 1, '10-12-2024 12:00:00', 2, N'Khách đã nhận bàn', N'Không dùng thức uống lạnh'),
+(6, 4, '10-1-2024 14:00:00', 6, N'Khách chưa nhận bàn', N'Chỗ gần máy lạnh'),
+(7, 3, '11-1-2024 15:00:00', 4, N'Khách chưa nhận bàn', N'Thích đồ uống ít đường'),
+(8, 1, '11-12-2024 17:00:00', 2, N'Khách đã nhận bàn', NULL),
+(1, 2, '12-1-2024 13:00:00', 3, N'Khách chưa nhận bàn', NULL),
+(2, 4, '12-12-2024 16:00:00', 5, N'Khách đã nhận bàn', NULL);
 
 

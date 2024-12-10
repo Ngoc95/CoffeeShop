@@ -259,6 +259,50 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 return (false, "");
             }
         }
+        public async Task<(bool, string)> TableStatusUpdateChangeCheckin(int ID)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var table = await context.C_TABLE.FirstOrDefaultAsync(c => c.IS_DELETED == false && c.TB_ID == ID);
 
+                    if (table.TB_STATUS == "Đang bận")
+                    {
+                        table.TB_STATUS = "Còn trống";
+                        await context.SaveChangesAsync();
+                        return (true, "");
+                    }
+                    else
+                    {
+                        return (false, "Có lỗi xảy ra!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, $"Xảy ra lỗi: {ex.Message}");
+                return (false, "");
+            }
+        }
+
+        public async Task<bool> TableID_Exsist(int ID)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var table = await context.C_TABLE.FirstOrDefaultAsync(c => c.IS_DELETED == false && c.TB_ID == ID);
+                    if (table == null)
+                        return false;
+                    else return true;
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return false;
+            }
+        }
     }
 }

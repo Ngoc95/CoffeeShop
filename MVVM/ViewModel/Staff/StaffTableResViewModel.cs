@@ -95,7 +95,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         }
 
         private ReservationDTO _EditingReservetion;
-        public ReservationDTO EditingReservetion
+        public ReservationDTO EditingReservation
         {
             get { return _EditingReservetion; }
             set { _EditingReservetion = value; OnPropertyChanged(); }
@@ -125,6 +125,19 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         {
             get { return _EditingYear; }
             set { _EditingYear = value; OnPropertyChanged(); }
+        }
+
+        public int _EditingHour;
+        public int EditingHour
+        {
+            get { return _EditingHour; }
+            set { _EditingHour = value; OnPropertyChanged(); }
+        }
+        public int _EditingMinute;
+        public int EditingMinute
+        {
+            get { return _EditingMinute; }
+            set { _EditingMinute = value; OnPropertyChanged(); }
         }
 
         private CustomerDTO _SelectedCustomer;
@@ -224,6 +237,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         public ICommand CustomerFilterCommand { get; set; }
         public ICommand CloseWDCommand { get; set; }
         public ICommand btnSaveReservationCommand { get; set; }
+        public ICommand btnDeleteResWithoutSaveCommand { get; set; }
 
         #endregion
 
@@ -263,6 +277,10 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 {
                     SelectedCustomer.ID = 0;
                 }
+                if (NewReservation == null)
+                {
+                    NewReservation = new ReservationDTO() { RES_ID = ReservationService.Ins.GetNextResID(), NUM_OF_PEOPLE = 1 };
+                }
             });
 
             FilterCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
@@ -301,11 +319,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 
             OpenResevationDetailCommand = new RelayCommand<ReservationDTO>((p) => { return true; }, (p) =>
             {
-                EditingReservetion = p;
+                EditingReservation = p;
                 SelectedReservation = new ReservationDTO(p);
+                SetEditingDateTime();
                 SetResCustomer();
-                SetEditingDate();
-                if(EditingReservetion != null)
+                if(EditingReservation != null)
                 {
                     ReservationInfor wd = new ReservationInfor();
                     wd.ShowDialog();
@@ -318,18 +336,46 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 
             btnCheckinCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
-                if(SelectedReservation.IsEqual(EditingReservetion))
+                if(SelectedReservation.IsEqual(EditingReservation))
                 {
-                    SelectedReservation.RES_STATUS = SelectedReservation.RES_STATUS == "Khách đã nhận bàn" ? "Khách chưa nhận bàn" : "Khách đã nhận bàn";
-                    (bool Res,string messs)  = await TableService.Ins.TableStatusIsAbleAndUpdate(SelectedReservation.TABLE_ID); 
-                    if(Res)
+                    if(SelectedReservation.RES_STATUS == "Khách chưa nhận bàn")
                     {
-                        await ReservationService.Ins.UpdateReservation(SelectedReservation);
-                        ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
-                        p.Close();
-                    }    
+                        SelectedReservation.RES_STATUS = "Khách đã nhận bàn";
+                        (bool Res,string messs)  = await TableService.Ins.TableStatusIsAbleAndUpdate(SelectedReservation.TABLE_ID); 
+                        if(Res)
+                        {
+                            await ReservationService.Ins.UpdateReservation(SelectedReservation);
+                            ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
+                            p.Close();
+                        }    
+                        else
+                        {
+                            MessageBoxCustom.Show(MessageBoxCustom.Error, messs);
+                            return;
+                        }
+                    }
                     else
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, messs);
+                    {
+                        SelectedReservation.RES_STATUS = "Khách chưa nhận bàn";
+                        (bool Res, string messs) = await TableService.Ins.TableStatusUpdateChangeCheckin(SelectedReservation.TABLE_ID);
+                        if (Res)
+                        {
+                            await ReservationService.Ins.UpdateReservation(SelectedReservation);
+                            ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
+                            p.Close();
+                        }
+                        else
+                        {
+                            MessageBoxCustom.Show(MessageBoxCustom.Error, messs);
+                            return;
+                        }
+                    }
+                    string text;
+                    if (_CbbSelectedIndex == 0) text = null;
+                    else if (_CbbSelectedIndex == 1) text = "Còn trống";
+                    else if (_CbbSelectedIndex == 2) text = "Đang bận";
+                    else text = "Đang sửa chữa";
+                    TableList = new ObservableCollection<TableDTO>(await TableService.Ins.FilterTableList(_FilterGnereID, text));
                 }
                 else
                 {
@@ -339,17 +385,20 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 
             SaveReservationChangeCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
-                p.Close();
+                
                 SetDateForEditingeservation();
-                if(SelectedReservation.IsEqual(EditingReservetion))
+                if(SelectedReservation.IsEqual(EditingReservation))
                 {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi khi thay đổi thông tin");
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Thông tin không có thay đổi!");
                 }
                 else
                 {
-                    SelectedReservation = EditingReservetion;
-                    await ReservationService.Ins.UpdateReservation(SelectedReservation);
-                    ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
+                    bool res = await ReservationService.Ins.UpdateReservation(EditingReservation);
+                    if (res)
+                    {
+                        ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
+                        p.Close();
+                    }
                 }
             });
 
@@ -385,6 +434,36 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 p.Close();
             });
 
+            btnSaveReservationCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            {
+                if(SetDateForNewReservation())
+                {
+                    NewReservation.CUS_ID = SelectedCustomer.ID;
+                    bool res = await ReservationService.Ins.AddNewReservation(NewReservation);
+                    if (res)
+                    {
+                        ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
+                        NewReservation = new ReservationDTO() { RES_ID = ReservationService.Ins.GetNextResID(), NUM_OF_PEOPLE = 1 };
+                        SelectedCustomer = new CustomerDTO();
+                        NewResHour = 0;
+                        NewResMinute = 0;
+                        NewResDay = 0;
+                        NewResMonth = 0;
+                        NewResYear = 0;
+                    }
+                }
+            });
+            btnDeleteResWithoutSaveCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                NewReservation = new ReservationDTO() { RES_ID = ReservationService.Ins.GetNextResID(), NUM_OF_PEOPLE = 1 };
+                SelectedCustomer = new CustomerDTO();
+                NewResHour = 0;
+                NewResMinute = 0;
+                NewResDay = 0;
+                NewResMonth = 0;
+                NewResYear = 0;
+            });
+
         }
 
         private async void SetResCustomer()
@@ -395,23 +474,26 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 ReservationCustome = await CustomerService.Ins.FindCustomerbyID(ID);
             }
         }
-        private void SetEditingDate()
+        private void SetEditingDateTime()
         {
-            EditingDay = SelectedReservation.RES_DATE.Day;
-            EditingMonth = SelectedReservation.RES_DATE.Month;
-            EditingYear = SelectedReservation.RES_DATE.Year;
+            EditingDay = SelectedReservation.RES_DATETIME.Day;
+            EditingMonth = SelectedReservation.RES_DATETIME.Month;
+            EditingYear = SelectedReservation.RES_DATETIME.Year;
+            EditingHour = SelectedReservation.RES_DATETIME.Hour;
+            EditingMinute = SelectedReservation.RES_DATETIME.Minute;    
         }
+
 
         private bool SetDateForEditingeservation()
         {
             try
             {
-                EditingReservetion.RES_DATE = new DateTime(EditingYear, EditingMonth, EditingDay);
+                EditingReservation.RES_DATETIME = new DateTime(EditingYear, EditingMonth, EditingDay, EditingHour, EditingMinute, 0);
                 return true;
             }
             catch 
             {
-                MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày không hợp lệ");
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày giờ không hợp lệ");
                 return false;
             }
         }
@@ -420,13 +502,12 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         {
             try
             {
-                NewReservation.RES_DATE = new DateTime(NewResYear, NewResMonth, NewResDay);
-                NewReservation.RES_TIME = new DateTime(1,1,1,NewResHour, NewResMinute, 0);
+                NewReservation.RES_DATETIME = new DateTime(NewResYear, NewResMonth, NewResDay, NewResHour, NewResMinute, 0);
                 return true;
             }
             catch
             {
-                MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày không hợp lệ");
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày giờ không hợp lệ");
                 return false;
             }
         }
