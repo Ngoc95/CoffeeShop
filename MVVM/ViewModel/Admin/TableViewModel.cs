@@ -265,6 +265,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     CoreReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
                     ReservationList = new ObservableCollection<ReservationDTO>(CoreReservationList);
                 }
+                if(IDOfNextTable == 0)
+                    IDOfNextTable = await TableService.Ins.NumOfTable() + 1;
 
                 FilterGnereID = 0;
                 CbbSelectedIndex = 0;
@@ -298,10 +300,10 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 wd.ShowDialog();
             });
 
-            OpenAddWDCommand = new RelayCommand<UserControl>((p) => { return true; }, async (p) =>
+            OpenAddWDCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
-                IDOfNextTable = await TableService.Ins.NumOfTable() + 1;
                 SelectedTable = new TableDTO();
+                SelectedTable.TB_ID = IDOfNextTable;
                 SelectedTableGenreName = null;
                 Window wd = new AddTableWindow();
                 wd.ShowDialog();
@@ -578,6 +580,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
         private void AddTableToCoreList(TableDTO selectedTable)
         {
+            IDOfNextTable++;
             CoreTableList.Add(selectedTable);
             TableList = new ObservableCollection<TableDTO>(CoreTableList);
         }

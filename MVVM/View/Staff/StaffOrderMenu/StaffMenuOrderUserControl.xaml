@@ -131,7 +131,7 @@
                     BorderThickness="1">
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1.4*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
@@ -171,7 +171,7 @@
                 <Border Grid.Row="1" BorderBrush="#603127" BorderThickness="1">
                     <Grid Grid.Row="2" Background="#ffc3a1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1.4*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">

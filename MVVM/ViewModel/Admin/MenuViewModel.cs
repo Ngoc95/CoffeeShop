@@ -120,9 +120,9 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
             OpenAddProWDCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                SelectedItem.PRO_ID = IDOfNextProduct;
                 _SelectedItem = new ProductDTO();
                 SelectedItemGenreName = "";
+                SelectedItem.PRO_ID = IDOfNextProduct;
                 AddProductWindow wd = new AddProductWindow();
                 wd.ShowDialog();
             });
@@ -248,6 +248,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
         private void AddProductCoreList(ProductDTO selectedItem)
         {
+            if (selectedItem.PRO_IMG == null)
+                selectedItem.PRO_IMG = "pack://application:,,,/Images/MenuAndError/UploadImg.jpg";
             CoreProductList.Add(selectedItem);
             ProductList = new ObservableCollection<ProductDTO>(CoreProductList);    
             IDOfNextProduct++;

@@ -90,7 +90,7 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             {
                 using (var context = new CoffeeShopDBEntities())
                 {
-                    if (newPrd.PRO_NAME == "" || newPrd.PRO_PRICE == 0 || newPrd.GP_ID == 0)
+                    if (newPrd.PRO_NAME == "" || newPrd.PRO_PRICE == null || newPrd.PRO_PRICE == 0 || newPrd.GP_ID == 0)
                     {
                         return (false, "Điền chưa đủ thông tin");
                     }
