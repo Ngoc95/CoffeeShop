@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiCoffeeShop.MVVM.ViewModel.Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,31 +22,17 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement
         {
             InitializeComponent();
         }
-        private void tb_TextChanged(object sender, TextChangedEventArgs e)
+        private void pbPassword_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            btnEditEmp.IsEnabled = CheckIfAllFieldsAreFilled();
-        }
-        private void dp_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            btnEditEmp.IsEnabled = CheckIfAllFieldsAreFilled();
-        }
-
-        private void cbRole_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            btnEditEmp.IsEnabled = CheckIfAllFieldsAreFilled();
-        }
-        private bool CheckIfAllFieldsAreFilled()
-        {
-            return !string.IsNullOrWhiteSpace(tbName.Text)
-                    || !string.IsNullOrWhiteSpace(tbSDT.Text)
-                    || !string.IsNullOrWhiteSpace(tbEmail.Text)
-                    || !string.IsNullOrWhiteSpace(tbCCCD.Text)
-                    || !string.IsNullOrWhiteSpace(tbSalary.Text)
-                    || !string.IsNullOrWhiteSpace(tbUsername.Text)
-                    || !string.IsNullOrWhiteSpace(tbPassword.Text)
-                    || dpBDay.SelectedDate.HasValue
-                    || dpStartDate.SelectedDate.HasValue
-                    || cbRole.SelectedItem != null;
+            var passwordBox = sender as PasswordBox;
+            if (passwordBox != null)
+            {
+                var viewModel = this.DataContext as EmployeeViewModel;
+                if (viewModel != null)
+                {
+                    viewModel.EditEmp.EMP_PASSWORD = passwordBox.Password;
+                }
+            }
         }
 
         private void moveAddEmpWin_MouseDown(object sender, MouseButtonEventArgs e)

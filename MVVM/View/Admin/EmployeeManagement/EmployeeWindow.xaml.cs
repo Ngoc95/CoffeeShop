@@ -20,6 +20,7 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement
         public EmployeeWindow()
         {
             InitializeComponent();
+            cbFilter.SelectedIndex = 0;
         }
 
         private void addEmp_Button_Click(object sender, RoutedEventArgs e)
@@ -33,5 +34,7 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement
             var showDetailEmpView = new EditEmployeeWindow();
             showDetailEmpView.ShowDialog();
         }
+
+
     }
 }

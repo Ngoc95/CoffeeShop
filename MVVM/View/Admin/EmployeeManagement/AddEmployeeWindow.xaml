@@ -4,12 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement"
-        mc:Ignorable="d"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement" 
+        xmlns:admin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
+        xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
+        d:DataContext="{d:DesignInstance Type=admin:EmployeeViewModel}"
+        mc:Ignorable="d" x:Name="AddEmpPage"
         Title="AddEmployeeWindow" Height="900" Width="800"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         WindowStartupLocation="CenterScreen" Background="Transparent"
-        FontFamily="Fonts/Roboto-Light.ttf #Roboto">
+        FontFamily="Fonts/Roboto-Light.ttf #Roboto"
+        DataContext="{StaticResource EmployeeAdminVM}">
+    
     <Border Background="White" CornerRadius="30"  BorderBrush="#603127" BorderThickness="1"
             MouseDown="moveAddEmpWin_MouseDown" >
         <Grid>
@@ -44,7 +49,8 @@
                                     <TextBox x:Name="tbName" Height="50" Width="285"
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10"
-                                         TextChanged="tb_TextChanged" BorderBrush="White"/>
+                                         BorderBrush="White"
+                                         Text="{Binding Name}"/>
                                 </Border>
                             </StackPanel>
                             <StackPanel Orientation="Vertical" Margin="70,0,0,0">
@@ -55,8 +61,8 @@
                                     <TextBox x:Name="tbSDT" Height="50" Width="285"
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10" BorderBrush="White"
-                                         TextChanged="tb_TextChanged" 
-                                         PreviewTextInput="tbSDT_PreviewTextInput"/>
+                                         PreviewTextInput="tbSDT_PreviewTextInput"
+                                         Text="{Binding Phone}"/>
                                 </Border>
                             </StackPanel>
                         </StackPanel>
@@ -70,16 +76,18 @@
                                     <TextBox x:Name="tbCCCD" Height="50" Width="285"
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10"
-                                         TextChanged="tb_TextChanged" BorderBrush="White"
-                                         PreviewTextInput="tbCCCD_PreviewTextInput"/>
+                                         BorderBrush="White"
+                                         PreviewTextInput="tbCCCD_PreviewTextInput"
+                                         Text="{Binding Cccd}"/>
                                 </Border>
                             </StackPanel>
                             <StackPanel Orientation="Vertical" Margin="70,0,0,0">
                                 <Label Margin="0,10,0,0" Content="Giới tính:" 
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                                 <ToggleButton Style="{StaticResource genderToggleButton_style}"
-                                          IsChecked="{Binding SelectedPersonIsMale, Mode=TwoWay}"
-                                          Margin="0,7,0,0" FontSize="22" Height="50" Width="305"/>
+                                              IsChecked="{Binding IsMale, Mode=TwoWay}"
+                                              Content="{Binding Gender, Mode=TwoWay}"
+                                              Margin="0,7,0,0" FontSize="22" Height="50" Width="305"/>
                             </StackPanel>
                         </StackPanel>
 
@@ -90,9 +98,10 @@
                                 <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="0,7,0,0" Background="White">
                                     <TextBox x:Name="tbEmail" Height="50" Width="285"
-                                         HorizontalAlignment="Left" Background="Transparent"
-                                         FontSize="22" Margin="10,0,0,10"
-                                         TextChanged="tb_TextChanged" BorderBrush="White"/>
+                                             HorizontalAlignment="Left" Background="Transparent"
+                                             FontSize="22" Margin="10,0,0,10"
+                                             BorderBrush="White"
+                                             Text="{Binding Email}"/>
                                 </Border>
                             </StackPanel>
                             <StackPanel Orientation="Vertical" Margin="70,0,0,0">
@@ -100,9 +109,11 @@
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                                 <Border Margin="0,7,0,0" Width="305" Height="50" Background="White" CornerRadius="10">
                                     <DatePicker x:Name="dpBDay" Height="50" FontSize="22" BorderBrush="White" Foreground="#49454F"
-                                                 SelectedDate="{Binding SelectedFromDate, Mode=TwoWay}" VerticalAlignment="Center"
-                                                 DisplayDateStart="1/1/1900" Margin="10,13,10,0"
-                                                SelectedDateChanged="dp_SelectedDateChanged"/>
+                                                Language="vi-VN" 
+                                                SelectedDate="{Binding Bday, Mode=TwoWay}" VerticalAlignment="Center"
+                                                Text="{Binding Bday, StringFormat=dd/MM/yyyy, Mode=OneWay}"
+                                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                                Margin="10,13,10,0"/>
                                 </Border>
                             </StackPanel>
                         </StackPanel>
@@ -111,12 +122,13 @@
                             <StackPanel Orientation="Vertical">
                                 <Label Margin="0,10,0,0" Content="Lương:" 
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                                <Border CornerRadius="10" Height="50" Width="305" 
-                                        Margin="0,7,0,0" Background="White">
+                                <Border CornerRadius="10" Height="50" Width="305" BorderThickness="0.3"
+                                        Margin="0,7,0,0" Background="#E0DEDE" BorderBrush="Black">
                                     <TextBox x:Name="tbSalary" Height="50" Width="285"
-                                         HorizontalAlignment="Left" Background="Transparent"
-                                         FontSize="22" Margin="10,0,0,10"
-                                         TextChanged="tb_TextChanged" BorderBrush="White"/>
+                                             HorizontalAlignment="Left" Background="Transparent"
+                                             FontSize="22" Margin="10,0,0,10"
+                                             BorderBrush="White" IsReadOnly="True"
+                                             Text="{Binding Salary, Converter={StaticResource PriceConverter}}"/>
                                 </Border>
                             </StackPanel>
                             <StackPanel Orientation="Vertical" Margin="70,0,0,0">
@@ -124,37 +136,39 @@
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                                 <Border Margin="0,7,0,0" Width="305" Height="50" Background="White" CornerRadius="10">
                                     <DatePicker x:Name="dpStartDate" Height="50" FontSize="22" BorderBrush="White" Foreground="#49454F"
-                                                 SelectedDate="{Binding SelectedFromDate, Mode=TwoWay}" VerticalAlignment="Center"
-                                                 DisplayDateStart="1/1/1900" Margin="10,13,10,0"
-                                                SelectedDateChanged="dp_SelectedDateChanged"/>
+                                                Language="vi-VN" 
+                                                SelectedDate="{Binding StartDate, Mode=TwoWay}" VerticalAlignment="Center"
+                                                Text="{Binding StartDate, StringFormat=dd/MM/yyyy, Mode=OneWay}"
+                                                DisplayDateStart="1/1/1900" Margin="10,13,10,0"/>
                                 </Border>
                             </StackPanel>
                         </StackPanel>
 
 
-                        <StackPanel Orientation="Horizontal" >
-                            <StackPanel Orientation="Vertical">
-                                <Label Margin="0,10,0,0" Content="Mã nhân viên:" 
+                        <StackPanel Orientation="Horizontal" Margin="0,20" >
+
+                            <Label Margin="0,10,0,0" Content="Chức vụ:" VerticalAlignment="Center"
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                                <TextBox Margin="0,7,0,0" Height="50" Width="305" HorizontalAlignment="Left" 
-                                         IsReadOnly="True" Text="PV001"
-                                         Style="{StaticResource textBox_style}" Background="#E0DEDE">
-                                </TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical" Margin="70,0,0,0">
-                                <Label Margin="0,10,0,0" Content="Chức vụ:" 
-                                       FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                                <ComboBox x:Name="cbRole"
-                                          Style="{StaticResource filterCombobox_style}" Margin="0,7,0,0" Height="50"
+                            <ComboBox x:Name="cbRole"
+                                          Style="{StaticResource filterCombobox_style}" Margin="20,7,0,0" Height="50"
                                           Background="White" Text="{Binding Role}" 
-                                          FontSize="22" Foreground="Black" VerticalAlignment="Center" Width="200"
-                                          SelectionChanged="cbRole_SelectionChanged">
-                                    <ComboBoxItem Content="Quản lý"/>
-                                    <ComboBoxItem Content="Pha chế"/>
-                                    <ComboBoxItem Content="Phục vụ"/>
-                                    <ComboBoxItem Content="Thu ngân"/>
-                                </ComboBox>
-                            </StackPanel>
+                                          FontSize="22" Foreground="Black" VerticalAlignment="Center" Width="190">
+                                <ComboBoxItem Content="Quản lý"/>
+                                <ComboBoxItem Content="Pha chế"/>
+                                <ComboBoxItem Content="Phục vụ"/>
+                                <ComboBoxItem Content="Thu ngân"/>
+                            </ComboBox>
+
+
+                            <Label Margin="70,10,0,0" Content="Trạng thái:" VerticalAlignment="Center"
+                                       FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
+                            <ComboBox x:Name="cbStatus"
+                                          Style="{StaticResource filterCombobox_style}" Margin="10,7,0,0" Height="50"
+                                          Background="White" Text="{Binding Status}" SelectedIndex="0"
+                                          FontSize="22" Foreground="Black" VerticalAlignment="Center" Width="182">
+                                <ComboBoxItem Content="Đang làm"/>
+                                <ComboBoxItem Content="Xin nghỉ"/>
+                            </ComboBox>
                         </StackPanel>
 
                     </StackPanel>
@@ -176,9 +190,10 @@
                         <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="20,3,0,0" Background="White">
                             <TextBox x:Name="tbUsername" Height="50" Width="285"
-                                         HorizontalAlignment="Left" Background="Transparent"
-                                         FontSize="22" Margin="10,0,0,10"
-                                         TextChanged="tb_TextChanged" BorderBrush="White"/>
+                                     HorizontalAlignment="Left" Background="Transparent"
+                                     FontSize="22" Margin="10,0,0,10"
+                                     BorderBrush="White"
+                                     Text="{Binding Username}"/>
                         </Border>
 
                     </StackPanel>
@@ -187,10 +202,12 @@
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                         <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="73,0,0,0" Background="White">
-                            <TextBox x:Name="tbPassword" Height="50" Width="285"
-                                         HorizontalAlignment="Left" Background="Transparent"
-                                         FontSize="22" Margin="10,0,0,10"
-                                         TextChanged="tb_TextChanged" BorderBrush="White"/>
+                            <PasswordBox x:Name="pbPassword" Height="45" Width="285" Foreground="#401409"
+                                         HorizontalAlignment="Center" Background="Transparent" 
+                                         FontSize="22" Margin="0,1,0,4" BorderBrush="Transparent"
+                                         Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
+                                         PasswordChanged="pbPassword_PasswordChanged"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"/>
                         </Border>
                     </StackPanel>
 
@@ -203,15 +220,19 @@
                          Background="#F6E8D0" FontSize="22" Width="150" Height="55"
                          Click="passAddEmp_Button_Click"/>
 
-                <Button  x:Name="btnAddEmp"
+                <Button  
                          materialDesign:ButtonAssist.CornerRadius="15.36"  HorizontalAlignment="Right"
                          Content="Thêm" Foreground="Black" FontWeight="DemiBold"
-                         Background="#F0997D" Margin="425,0,0,0" IsEnabled="False"
-                         FontSize="22" Width="150" Height="55">
+                         Background="#F0997D" Margin="425,0,0,0" 
+                         FontSize="22" Width="150" Height="55"
+                         Command="{Binding AddEmpListCM}"
+                         CommandParameter="{Binding ElementName=AddEmpPage}">
                 </Button>
 
             </StackPanel>
-
+            <Grid HorizontalAlignment="Right" Margin="0,10,30,0" Width="80" VerticalAlignment="Top" Grid.Column="1" Height="40" Grid.RowSpan="2">
+                <uc:ControlBarUserControl></uc:ControlBarUserControl>
+            </Grid>
         </Grid>
     </Border>
 </Window>

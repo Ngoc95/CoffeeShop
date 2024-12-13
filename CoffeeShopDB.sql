@@ -72,7 +72,7 @@ create table RESERVATION
 
 create table EMPLOYEE
 (
-	EMP_ID  int identity(1,1),
+	EMP_ID int identity(1,1),
 	EMP_NAME nvarchar(max),
 	EMP_PHONE varchar(20),
 	EMP_CCCD varchar(12),
@@ -90,10 +90,11 @@ create table EMPLOYEE
 	constraint chk_EMP check(EMP_GENDER in (N'Nam',N'Nữ') and EMP_STATUS in (N'Đang làm',N'Xin nghỉ') and EMP_ROLE in(N'Quản lý',N'Pha chế',N'Thu ngân',N'Phục vụ')),
 )
 CREATE TABLE WORK_SHIFT (
-    SHIFT_ID  int identity(1,1),
+    SHIFT_ID  int,
     SHIFT_NAME nvarchar(100),
     START_TIME smalldatetime,
     END_TIME smalldatetime,
+	WAGE money,
 	IS_DELETED bit default 0,
 	constraint pk_WORK_SHIFT primary key(SHIFT_ID),
 	constraint chk_WORK_SHIFT check (SHIFT_NAME in (N'Ca sáng',N'Ca chiều',N'Ca tối')),
@@ -102,12 +103,30 @@ CREATE TABLE WORK_SHIFT (
 CREATE TABLE EMPLOYEE_SHIFT (
     EMP_ID int,
     SHIFT_ID int,
-    WORK_DATE date,
+    WORK_DAY int,
 	IS_DELETED bit default 0,
-	constraint pk_EMP_SHIFT primary key (EMP_ID, SHIFT_ID),
+	constraint pk_EMP_SHIFT primary key (EMP_ID, SHIFT_ID, WORK_DAY),
     constraint fk_EMPSHIFT_EMP foreign key (EMP_ID) references EMPLOYEE(EMP_ID),
-    constraint fk_EMPSHIFT_SHIFT foreign key (SHIFT_ID) references WORK_SHIFT(SHIFT_ID)
+    constraint fk_EMPSHIFT_SHIFT foreign key (SHIFT_ID) references WORK_SHIFT(SHIFT_ID),
+	constraint chk_WORK_DAY check (WORK_DAY BETWEEN 1 AND 7)
 );
+CREATE TABLE REQUEST (
+    REQ_ID int identity(1,1), 
+    EMP_ID int, 
+    REQ_TYPE nvarchar(50) NOT NULL,
+    REQ_DATE smalldatetime NOT NULL default GETDATE(), 
+    REQ_STATUS nvarchar(50) default N'Chờ duyệt', 
+    EMP_COMMENT nvarchar(MAX), 
+    APPROVER_COMMENT nvarchar(MAX), 
+    APPROVED_BY int NULL, -- Mã người phê duyệt (quản lý)
+    APPROVED_DATE smalldatetime NULL, 
+	IS_DELETED bit default 0,
+	constraint pk_REQ primary key(REQ_ID),
+	constraint fk_REQ_EMP foreign key (EMP_ID) references EMPLOYEE(EMP_ID),
+	constraint chk_REQ_STATUS check (REQ_STATUS in (N'Chờ duyệt',N'Đã duyệt',N'Từ chối')),
+	constraint chk_REQ_TYPE check (REQ_TYPE in (N'Xin nghỉ', N'Đổi ca')),
+)
+
 
 --create table INGREDIENT
 --(
@@ -184,7 +203,8 @@ create table ERROR
 
 INSERT INTO EMPLOYEE (EMP_NAME, EMP_PHONE, EMP_CCCD, EMP_BIRTHDAY, EMP_USERNAME, EMP_PASSWORD, EMP_EMAIL, EMP_GENDER, EMP_SALARY, EMP_ROLE)
 VALUES 
-(N'Ngọc Nguyên', '0912345678', '012345678901', '2005-01-01', 'admin', '123', 'ngocnguyen@example.com', N'Nữ', 15000000, N'Quản lý')
+(N'Ngọc Nguyên', '0912345678',	'012345678901', '2005-01-01', 'admin', '123', 'ngocnguyen@example.com', N'Nữ', 15000000, N'Quản lý'),
+(N'Ngọc', '098',	'01', '2005-01-01', 'ngoc', '123', 'ngoc', N'Nữ', 5000000, N'Phục vụ');
 
 INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Coffee')
 INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Trà sữa')
@@ -264,3 +284,25 @@ VALUES
 (8, 1, '2-1-2025', '17:00:00', 2, N'Khách chưa nhận bàn', NULL),
 (1, 2, '12-12-2025', '13:00:00', 3, N'Khách chưa nhận bàn', NULL),
 (2, 4, '12-12-2024', '16:00:00', 5, N'Khách chưa nhận bàn', NULL);
+
+
+-- Insert sample data for WORK_SHIFT
+INSERT INTO WORK_SHIFT (SHIFT_ID, SHIFT_NAME, START_TIME, END_TIME)
+VALUES 
+    (1, N'Ca sáng', '06:00:00', '14:00:00'),
+    (2, N'Ca chiều', '14:00:00', '17:30:00'),
+    (3, N'Ca tối', '17:30:00', '22:00:00');
+INSERT INTO EMPLOYEE_SHIFT (EMP_ID, SHIFT_ID, WORK_DAY)
+VALUES 
+    (1, 1, 1), -- Thứ Hai
+    (1, 1, 2), -- Thứ Ba
+    (1, 1, 3), -- Thứ Tư
+    (1, 1, 4), -- Thứ Năm
+    (1, 1, 5), -- Thứ Sáu
+    (1, 1, 6), -- Thứ Bảy
+    (1, 1, 7), -- Chủ nhật
+	(1, 2, 5),
+	(1, 3, 3),
+	(2, 3, 3);
+INSERT INTO REQUEST(EMP_ID, REQ_TYPE, EMP_COMMENT) VALUES (1,N'Đổi ca',N'Xin đổi sang ca sáng thứ 2')
+

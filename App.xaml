@@ -9,11 +9,13 @@
              xmlns:viewAdminErr="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.ErrorManagement"
              xmlns:viewAdminMenu="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement"
              xmlns:viewAdminTable="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagament"
+             xmlns:viewAdminWorkshift="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement"
              xmlns:converter="clr-namespace:QuanLiCoffeeShop.Converters"
              xmlns:viewModelStaff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
              xmlns:viewStaffCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement"
              xmlns:viewStaffErr="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement"
-             StartupUri="/MVVM/View/Staff/MainStaffWindow.xaml">
+             xmlns:viewStaffWorkshift="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffCaLamViec"
+             StartupUri="/MVVM/View/Admin/MainAdminWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -49,7 +51,19 @@
             <!--Converter-->
             <converter:GenderConverter x:Key="GenderConverter" />
             <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+            <converter:PriceConverter x:Key="PriceConverter"/>
+            
+            
+            <!--Resources-->
+            <viewModelAdmin:CustomerViewModel x:Key="CustomerAdminVM"/>
+            <viewModelAdmin:EmployeeViewModel x:Key="EmployeeAdminVM"/>
+            <viewModelAdmin:WorkshiftViewModel x:Key="WorkshiftAdminVM"/>
+            <viewModelAdmin:ErrorViewModel x:Key="ErrorAdminVM"/>
 
+            <viewModelStaff:CustomerViewModel x:Key="CustomerStaffVM"/>
+            <viewModelStaff:ErrorViewModel x:Key="ErrorStaffVM"/>
+            
+            
             <!--Change view (Admin)-->
             <DataTemplate DataType="{x:Type viewModelAdmin:CustomerViewModel}">
                 <viewAdminCus:CustomerWindow/>
@@ -70,20 +84,30 @@
             <DataTemplate DataType="{x:Type viewModelAdmin:TableViewModel}">
                 <viewAdminTable:TableUserControl/>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelAdmin:WorkshiftViewModel}">
+                <viewAdminWorkshift:CaLamViecTable/>
+            </DataTemplate>
             
             <!--Change view (Staff)-->
-            <DataTemplate DataType="{x:Type viewModelStaff:CustomerViewModel}">
+            <DataTemplate DataType="{x:Type viewModelStaff:CustomerViewModel}" >
                 <viewStaffCus:CustomerUserControl/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModelStaff:ErrorViewModel}">
                 <viewStaffErr:ErrorUserControl/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModelStaff:WorkshiftViewModel}">
+                <viewStaffWorkshift:CaLamViecTable/>
+            </DataTemplate>
+
+
 
             <viewModelAdmin:CustomerViewModel x:Key="CustomerAdminVM"/>
             
             <viewModelStaff:CustomerViewModel x:Key="CustomerStaffVM"/>
             
             <viewModelStaff:ErrorViewModel x:Key="ErrorStaffVM"/>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

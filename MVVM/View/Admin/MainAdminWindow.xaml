@@ -45,7 +45,7 @@
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True" 
-                             Command="{Binding HomeViewCommand}"
+                             Command="{Binding WorkshiftCommand}"
                              Content="Trang chủ"
                              Cursor="Hand">
                     <RadioButton.Tag>
@@ -105,7 +105,7 @@
                              Height="65"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding HomeViewCommand}"
+                             Command="{Binding WorkshiftViewCommand}"
                              Content="Ca làm việc"
                              Cursor="Hand">
                     <RadioButton.Tag>

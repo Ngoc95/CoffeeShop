@@ -145,7 +145,6 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             {
                 return (false, "Xảy ra lỗi khi xóa khách hàng");
             }
-
         }
         // tìm theo email
         public async Task<(CUSTOMER, bool, string)> findCusbyEmail(string email)

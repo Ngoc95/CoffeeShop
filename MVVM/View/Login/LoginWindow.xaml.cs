@@ -24,7 +24,6 @@ namespace QuanLiCoffeeShop.MVVM.View.Login
 
         private void forgetPassword_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            tbForgotPass.Foreground = new SolidColorBrush(Color.FromRgb(45, 45, 45));
             ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
             forgotPasswordWindow.ShowDialog();
         }
@@ -47,6 +46,14 @@ namespace QuanLiCoffeeShop.MVVM.View.Login
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
         }
     }
 }
