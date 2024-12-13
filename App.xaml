@@ -15,7 +15,7 @@
              xmlns:viewStaffCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement"
              xmlns:viewStaffErr="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement"
              xmlns:viewStaffWorkshift="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffCaLamViec"
-             StartupUri="/MVVM/View/Admin/MainAdminWindow.xaml">
+             StartupUri="/MVVM/View/Staff/MainStaffWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -62,8 +62,7 @@
 
             <viewModelStaff:CustomerViewModel x:Key="CustomerStaffVM"/>
             <viewModelStaff:ErrorViewModel x:Key="ErrorStaffVM"/>
-            
-            
+
             <!--Change view (Admin)-->
             <DataTemplate DataType="{x:Type viewModelAdmin:CustomerViewModel}">
                 <viewAdminCus:CustomerWindow/>
@@ -99,15 +98,6 @@
             <DataTemplate DataType="{x:Type viewModelStaff:WorkshiftViewModel}">
                 <viewStaffWorkshift:CaLamViecTable/>
             </DataTemplate>
-
-
-
-            <viewModelAdmin:CustomerViewModel x:Key="CustomerAdminVM"/>
-            
-            <viewModelStaff:CustomerViewModel x:Key="CustomerStaffVM"/>
-            
-            <viewModelStaff:ErrorViewModel x:Key="ErrorStaffVM"/>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

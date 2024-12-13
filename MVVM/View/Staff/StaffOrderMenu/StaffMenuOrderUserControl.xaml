@@ -135,13 +135,13 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
-                            <StackPanel Orientation="Horizontal" Margin="15,15,0,5">
-                                <TextBlock Style="{DynamicResource Header5Style}" Text="Tên khách hàng: "></TextBlock>
-                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedCustomer.Name}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="15,5,0,5">
+                            <StackPanel Orientation="Horizontal" Margin="15,15,0,5" >
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="Mã khách hàng: "></TextBlock>
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedCustomer.ID, StringFormat='KH000'}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="15,5,0,5">
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="Tên: "></TextBlock>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedCustomer.Name}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="15,5,0,5">
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="Điểm tích lũy: "></TextBlock>

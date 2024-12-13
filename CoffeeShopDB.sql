@@ -221,6 +221,7 @@ INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Còn trống')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Đang bận')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang sửa chữa')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang bận')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (3, N'Đang sửa chữa')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (3, N'Đang bận')
@@ -232,7 +233,6 @@ INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Đang sửa chữa')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (3, N'Đang bận')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (3, N'Đang sửa chữa')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
-
 
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà đào', 3, 'pack://application:,,,/DemoDataPrdImg/tradao.jpg', 15000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Cacao sữa xay', 1, 'pack://application:,,,/DemoDataPrdImg/cacaoSua.jpg', 20000)
@@ -258,32 +258,29 @@ INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà sen', 3
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố dừa', 4, 'pack://application:,,,/DemoDataPrdImg/stdua.jpg', 20000)
 
 --1/20 gia tri hoa don
-INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Huệ Nguyên', N'Nữ', '0967484222', 200)
-INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Chị Khánh', N'Nữ', '0966484224', 400)
-INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Chị Ngọc', N'Nữ', '0674484122', 200)
-INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Anh a', N'Nam', '0000555000', 200)
-INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Huệ Trinh', N'Nữ', '0962245993', 200)
-INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Thế Tùng', N'Nam', '092459869', 400)
-INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Ngọc Hân', N'Nữ', '0674112998', 200)
-INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Quốc Anh', N'Nam', '0000555440', 200)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Huệ Nguyên', N'Nữ', '0967484222', 'huenguyentran3110@gmail.com', 2000)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Chị Khánh', N'Nữ', '0966484224', 'khanh@gmail.com' ,4000)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Anh Duy', N'Nam', '0674112998', 'duy@gmail.com',6000)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Chị Ngọc', N'Nữ', '0674484122', 'ngoc2413@gmail.com', 2000)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Bảo Ngọc', N'Nam', '0000555000', 'baongoc25@gmail.com', 2500)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Trinh', N'Nữ', '0962245993', 'ngoctrinh@gmail.com', 2000)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Khánh', N'Nữ', '092459869', 'KhanhNgoc@gmail.com', 5000)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Quốc Anh', N'Nam', '0000555440', 'quocanh22@gmail.com', 7000)
 
 set dateformat dmy
 
-INSERT INTO RESERVATION (CUS_ID, TABLE_ID, RES_DATE, RES_TIME, NUM_OF_PEOPLE, SPECIAL_REQUEST)
-VALUES (1, 1, '3/1/2025', '10:10:00', 1, N'Chỗ gần cửa sổ')
-
 INSERT INTO RESERVATION (CUS_ID, TABLE_ID, RES_DATE, RES_TIME, NUM_OF_PEOPLE, RES_STATUS, SPECIAL_REQUEST)
 VALUES
-(1, 1, '31-12-2024', '15:00:00', 2, N'Khách chưa nhận bàn', N'Chỗ gần cửa sổ'),
-(2, 2, '2-1-2025', '13:30:00', 3, N'Khách chưa nhận bàn', NULL),
-(3, 3, '2-1-2025', '8:00:00', 4, N'Khách chưa nhận bàn', N'Yêu cầu yên tĩnh'),
-(4, 4, '09-1-2025', '19:00:00', 5, N'Khách chưa nhận bàn', NULL),
+(1, 1, '31-12-2024', '15:00:00', 2, N'Khách đã nhận bàn', N'Chỗ gần cửa sổ'),
+(2, 3, '2-1-2025', '13:30:00', 3, N'Khách chưa nhận bàn', NULL),
+(3, 6, '2-1-2025', '8:00:00', 4, N'Khách chưa nhận bàn', N'Yêu cầu yên tĩnh'),
+(4, 15, '09-1-2025', '19:00:00', 5, N'Khách chưa nhận bàn', NULL),
 (5, 1, '30-12-2024', '12:00:00', 2, N'Khách đã nhận bàn', N'Không dùng thức uống lạnh'),
-(6, 4, '3-1-2025', '8:00:00', 6, N'Khách chưa nhận bàn', N'Chỗ gần máy lạnh'),
-(7, 3, '4-1-2025', '15:00:00', 4, N'Khách chưa nhận bàn', N'Thích đồ uống ít đường'),
+(6, 9, '3-1-2025', '8:00:00', 6, N'Khách chưa nhận bàn', N'Chỗ gần máy lạnh'),
+(7, 13, '1-1-2025', '15:00:00', 4, N'Khách chưa nhận bàn', N'Thích đồ uống ít đường'),
 (8, 1, '2-1-2025', '17:00:00', 2, N'Khách chưa nhận bàn', NULL),
-(1, 2, '12-12-2025', '13:00:00', 3, N'Khách chưa nhận bàn', NULL),
-(2, 4, '12-12-2024', '16:00:00', 5, N'Khách chưa nhận bàn', NULL);
+(1, 4, '2-1-2025', '13:00:00', 3, N'Khách chưa nhận bàn', NULL),
+(2, 16, '2-1-2024', '8:00:00', 5, N'Khách chưa nhận bàn', NULL);
 
 
 -- Insert sample data for WORK_SHIFT
