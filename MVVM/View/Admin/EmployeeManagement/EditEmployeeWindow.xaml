@@ -44,7 +44,7 @@
                                 <Border CornerRadius="10" Height="50" Width="305" 
                                         BorderBrush="Black" BorderThickness="0.3"
                                         Margin="0,7,0,0" Background="#E0DEDE">
-                                    <TextBox x:Name="tbName" Height="50" Width="305"
+                                    <TextBox x:Name="tbName" Height="50" Width="285"
                                              HorizontalAlignment="Left" Background="Transparent"
                                              FontSize="22" Margin="10,0,0,10"
                                              BorderBrush="White" IsReadOnly="True"
@@ -57,7 +57,7 @@
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                                 <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="0,7,0,0" Background="White">
-                                    <TextBox x:Name="tbID" Height="50" Width="305"
+                                    <TextBox x:Name="tbID" Height="50" Width="285"
                                              HorizontalAlignment="Left" Background="Transparent"
                                              FontSize="22" Margin="10,0,0,10"
                                              BorderBrush="White"
@@ -73,7 +73,7 @@
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                                 <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="0,7,0,0" Background="White">
-                                    <TextBox x:Name="tbCCCD" Height="50" Width="305"
+                                    <TextBox x:Name="tbCCCD" Height="50" Width="285"
                                              HorizontalAlignment="Left" Background="Transparent"
                                              FontSize="22" Margin="10,0,0,10"
                                              BorderBrush="White"
@@ -96,7 +96,7 @@
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                                 <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="0,7,0,0" Background="White">
-                                    <TextBox x:Name="tbEmail" Height="50" Width="305"
+                                    <TextBox x:Name="tbEmail" Height="50" Width="285"
                                              HorizontalAlignment="Left" Background="Transparent"
                                              FontSize="22" Margin="10,0,0,10"
                                              BorderBrush="White"
@@ -108,7 +108,7 @@
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                                 <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="0,7,0,0" Background="White">
-                                    <TextBox x:Name="tbSDT" Height="50" Width="305"
+                                    <TextBox x:Name="tbSDT" Height="50" Width="285"
                                              HorizontalAlignment="Left" Background="Transparent"
                                              FontSize="22" Margin="10,0,0,10" BorderBrush="White"
                                              PreviewTextInput="tbSDT_PreviewTextInput"
@@ -151,7 +151,7 @@
                                 <Border CornerRadius="10" Height="50" Width="305" 
                                         BorderBrush="Black" BorderThickness="0.3"
                                         Margin="0,7,0,0" Background="#E0DEDE">
-                                    <TextBox x:Name="tbTongca" Height="50" Width="305"
+                                    <TextBox x:Name="tbTongca" Height="50" Width="285"
                                              HorizontalAlignment="Left" Background="Transparent"
                                              FontSize="22" Margin="10,0,0,10"
                                              BorderBrush="White" IsReadOnly="True"
@@ -163,7 +163,7 @@
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                                 <Border CornerRadius="10" Height="50" Width="305" BorderThickness="0.3"
                                         Margin="0,7,0,0" Background="#E0DEDE" BorderBrush="Black">
-                                    <TextBox x:Name="tbSalary" Height="50" Width="305"
+                                    <TextBox x:Name="tbSalary" Height="50" Width="285"
                                              HorizontalAlignment="Left" Background="Transparent"
                                              FontSize="22" Margin="10,0,0,10"
                                              BorderBrush="Transparent" IsReadOnly="True"
@@ -217,7 +217,7 @@
                                FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
                         <Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="20,3,0,0" Background="White">
-                            <TextBox x:Name="tbUsername" Height="50" Width="305"
+                            <TextBox x:Name="tbUsername" Height="50" Width="285"
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10"
                                          BorderBrush="White"

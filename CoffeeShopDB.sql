@@ -62,7 +62,7 @@ create table EMPLOYEE
 	EMP_EMAIL varchar(max),
 	EMP_GENDER nvarchar(3) not null,
 	EMP_STATUS nvarchar(100) default N'Đang làm',
-	EMP_SALARY money,
+	EMP_SALARY money default 0,
 	EMP_ROLE nvarchar(100),
 	IS_DELETED bit default 0,
 	constraint pk_EMP primary key(EMP_ID),
@@ -180,16 +180,16 @@ create table ERROR
 	constraint chk_ER check(ER_STATUS in (N'Chưa khắc phục', N'Đã khắc phục')),
 )
 
-INSERT INTO EMPLOYEE (EMP_NAME, EMP_PHONE, EMP_CCCD, EMP_BIRTHDAY, EMP_USERNAME, EMP_PASSWORD, EMP_EMAIL, EMP_GENDER, EMP_SALARY, EMP_ROLE)
+INSERT INTO EMPLOYEE (EMP_NAME, EMP_PHONE, EMP_CCCD, EMP_BIRTHDAY, EMP_USERNAME, EMP_PASSWORD, EMP_EMAIL, EMP_GENDER, EMP_ROLE)
 VALUES 
-(N'Ngọc Nguyên', '0912345678',	'012345678901', '2005-01-01', 'admin', '123', 'ngocnguyen@example.com', N'Nữ', 15000000, N'Quản lý'),
-(N'Ngọc', '098',	'01', '2005-01-01', 'ngoc', '123', 'ngoc', N'Nữ', 5000000, N'Phục vụ');
+(N'Ngọc Nguyên', '0912345678',	'012345678901', '2005-01-01', 'admin', '202cb962ac59075b964b07152d234b70', 'ngocnguyen@example.com', N'Nữ', N'Quản lý'),
+(N'Ngọc', '098',	'01', '2005-01-01', 'ngoc', '202cb962ac59075b964b07152d234b70', 'ngoc', N'Nữ', N'Phục vụ');
 -- Insert sample data for WORK_SHIFT
-INSERT INTO WORK_SHIFT (SHIFT_ID, SHIFT_NAME, START_TIME, END_TIME)
+INSERT INTO WORK_SHIFT (SHIFT_ID, SHIFT_NAME, WAGE, START_TIME, END_TIME)
 VALUES 
-    (1, N'Ca sáng', '06:00:00', '14:00:00'),
-    (2, N'Ca chiều', '14:00:00', '17:30:00'),
-    (3, N'Ca tối', '17:30:00', '22:00:00');
+    (1, N'Ca sáng', 230000, '06:00:00', '14:00:00'),
+    (2, N'Ca chiều', 200000, '14:00:00', '17:30:00'),
+    (3, N'Ca tối', 250000, '17:30:00', '22:00:00');
 INSERT INTO EMPLOYEE_SHIFT (EMP_ID, SHIFT_ID, WORK_DAY)
 VALUES 
     (1, 1, 1), -- Thứ Hai

@@ -4,33 +4,39 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:viewModelStaff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
         xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
-        mc:Ignorable="d"
+        mc:Ignorable="d" x:Name="staffWd"
         Title="MainStaffWindow" Height="800" Width="1200"
         WindowStyle="None" ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen" 
         Background="Transparent" AllowsTransparency="True"
-        MouseDown="Window_MouseDown">
+        MouseDown="Window_MouseDown"
+        MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"
+        MaxWidth="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Width}">
     <Window.DataContext>
         <viewModelStaff:MainViewModel/>
     </Window.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" CommandParameter="{Binding ElementName=staffWd}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
-    <Border Background="White">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="270"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="270"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="74"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="108"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.RowSpan="2" Background="#FFC3A1"/>
-            <TextBlock
+        <Grid Grid.RowSpan="2" Background="#FFC3A1"/>
+        <TextBlock
                    Text="Coffee Shop"
                    Foreground="black"
                    FontSize="40"
@@ -38,15 +44,20 @@
                    Background="Transparent"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   FontFamily="Fonts/Roboto-Light.ttf #Roboto" RenderTransformOrigin="0.28,0.584" Height="48" Width="230" />
+                   FontFamily="Fonts/Roboto-Light.ttf #Roboto" Height="48" Width="230" />
 
-            <StackPanel Grid.Row="1" Margin="0,0,0,0">
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="0.2*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Margin="0,10,0,0">
                 <RadioButton Margin="5,0,0,10"
                              Height="65"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True" 
-                             Command="{Binding HomeViewCommand}"
+                             Command="{Binding TableViewCommand}"
                              Content="Trang chủ"
                              Cursor="Hand">
                     <RadioButton.Tag>
@@ -58,7 +69,7 @@
                              Height="65" Cursor="Hand"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding MenuViewCommand}"
+                             Command="{Binding TableViewCommand}"
                              Content="   Menu">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/coffeeMenu.png" />
@@ -91,7 +102,7 @@
                              Height="65" Cursor="Hand"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding HomeViewCommand}"
+                             Command="{Binding WorkshiftViewCommand}"
                              Content="Ca làm việc">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/shiftMenu.png" />
@@ -108,48 +119,13 @@
                         <BitmapImage UriSource="/Images/Menu/errorMenu.png" />
                     </RadioButton.Tag>
                 </RadioButton>
-
-
-                <Button Margin="10,170,0,0" BorderBrush="Transparent"
-                        Height="57" Cursor="Hand"
-                        FontWeight="DemiBold">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="Foreground" Value="#49454F"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border HorizontalAlignment="Left" 
-                                                Background="{TemplateBinding Background}" 
-                                                BorderBrush="{TemplateBinding BorderBrush}" 
-                                                BorderThickness="0">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Foreground" Value="Black"/>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Foreground" Value="Black"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <StackPanel Orientation="Horizontal" >
-                        <Image Source="/Images/Menu/logout.png"/>
-                        <TextBlock Text="Đăng xuất" FontSize="35" Margin="5,4,0,0"/>
-                    </StackPanel>
-                </Button>
-
             </StackPanel>
-
-            <Button Grid.Column="1" Grid.Row="0" Cursor="Hand"
-                        Margin="40,16,0,30" BorderBrush="Transparent" 
-                        FontWeight="DemiBold">
+            <Button Grid.Row="1" Margin="10,25,0,0"
+                        BorderBrush="Transparent"
+                        Height="57" Cursor="Hand"
+                        FontWeight="DemiBold"
+                        Command="{Binding LogOutCommand}"
+                        CommandParameter="{Binding ElementName=staffWd}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="Transparent" />
@@ -176,18 +152,52 @@
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/ControlbarImg/user.png" Height="50"/>
-                    <TextBlock Text="Nguyễn Văn A" FontSize="30" Margin="10,5,0,0"/>
+                <StackPanel Orientation="Horizontal" >
+                    <Image Source="/Images/Menu/logout.png"/>
+                    <TextBlock Text="Đăng xuất" FontSize="35" Margin="5,4,0,0"/>
                 </StackPanel>
             </Button>
-            <Grid HorizontalAlignment="Left" Margin="820,0,0,0" Width="80" VerticalAlignment="Center" Grid.Column="1" Height="40">
-                <uc:ControlBarUserControl></uc:ControlBarUserControl>
-            </Grid>
-
-            <ContentControl Grid.Column="1" Grid.Row="1" Margin="0,-20,0,0"
-                            Content="{Binding CurrentView}" Grid.RowSpan="2"/>
         </Grid>
-    </Border>
 
+        <Button Grid.Column="1" Cursor="Hand"
+                        Margin="40,0,0,0" BorderBrush="Transparent" 
+                        FontWeight="DemiBold">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Foreground" Value="#49454F"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border HorizontalAlignment="Left" 
+                                                Background="{TemplateBinding Background}" 
+                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                BorderThickness="0">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Images/ControlbarImg/user.png" Height="50"/>
+                <TextBlock Text="{Binding CurrentName}" FontSize="30" Margin="10,5,0,0"/>
+            </StackPanel>
+        </Button>
+        <Grid HorizontalAlignment="Right" Margin="0 0 20 0" Width="80" VerticalAlignment="Center" Grid.Column="1" Height="40">
+            <uc:ControlBarUserControl></uc:ControlBarUserControl>
+        </Grid>
+        <Grid Grid.Column="1" Grid.RowSpan="2" Margin="0 65 0 0">
+            <ContentControl Content="{Binding CurrentView}"/>
+        </Grid>
+    </Grid>
 </Window>

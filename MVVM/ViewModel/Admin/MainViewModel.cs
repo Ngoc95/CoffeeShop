@@ -1,9 +1,13 @@
 ﻿using QuanLiCoffeeShop.Core;
+using QuanLiCoffeeShop.DTOs;
+using QuanLiCoffeeShop.MVVM.View.Login;
+using QuanLiCoffeeShop.MVVM.View.Message;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -11,6 +15,13 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 {
     class MainViewModel : ObservableObject
     {
+        public static EmployeeDTO currentEmp;
+        private string _currentName;
+        public string CurrentName
+        {
+            get { return _currentName; }
+            set { _currentName = value; OnPropertyChanged(); }
+        }
         public ICommand CustomerViewCommand { get; set; }
         public ICommand EmployeeViewCommand { get; set; }
         public ICommand ErrorViewCommand { get; set; }
@@ -36,9 +47,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             }
 
         }
-
+        public ICommand FirstLoadCM { get; set; }
+        public ICommand LogOutCommand { get; set; }
         public MainViewModel()
         {
+            FirstLoadCM = new RelayCommand<Window>((p) => { return true; }, (p) => { CurrentName = currentEmp == null ? "" : currentEmp.EMP_NAME; });
             CustomerVM = new CustomerViewModel();
             EmployeeVM = new EmployeeViewModel();
             ErrorVM = new ErrorViewModel();
@@ -54,6 +67,23 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             MenuViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = MenuVM; });
             TableViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = TableVM; });
             WorkshiftViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = WorkshiftVM; });
+
+            LogOutCommand = new RelayCommand<Window>(null, (p) =>
+            {
+                ConfirmLogOut confirmLogOut = new ConfirmLogOut();
+                confirmLogOut.ShowDialog();
+
+                if (confirmLogOut.DialogResult == true)
+                {
+                    if (p.Owner != null)
+                    {
+                        LoginWindow newLogin = new LoginWindow();
+                        newLogin.Show();
+                        p.Owner.Close();
+                    }
+                    p.Close();
+                }
+            });
         }
     }
 }

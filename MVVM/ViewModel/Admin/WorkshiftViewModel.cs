@@ -179,7 +179,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             }
         }
 
-        #region WorkShift Infomation 
+        #region WorkShift Information 
         //ca sáng
         private int _startHourCS;
         public int StartHourCS
@@ -348,6 +348,59 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             }
         }
         #endregion         //điều chỉnh ca làm việc
+
+
+        #region Request Information
+        public static List<RequestDTO> reqList;
+        private ObservableCollection<RequestDTO> _reqList;
+        public ObservableCollection<RequestDTO> ReqList
+        {
+            get { return _reqList; }
+            set
+            {
+                _reqList = value;
+                OnPropertyChanged(nameof(ReqList));
+            }
+        }
+        private RequestDTO _selectedItem;
+        public RequestDTO SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+                if (_selectedItem != null)
+                {
+                    //tạo bản sao để edit
+                    EditReq = new RequestDTO
+                    {
+                        REQ_ID = _selectedItem.REQ_ID,
+                        REQ_DATE = _selectedItem.REQ_DATE,
+                        REQ_STATUS = _selectedItem.REQ_STATUS,
+                        REQ_TYPE = _selectedItem.REQ_TYPE,
+                        EMPLOYEE = _selectedItem.EMPLOYEE,
+                        EMP_COMMENT = _selectedItem.EMP_COMMENT,
+                        EMP_ID = _selectedItem.EMP_ID,
+                        APPROVED_BY = _selectedItem.APPROVED_BY,
+                        APPROVED_DATE = _selectedItem.APPROVED_DATE,
+                        APPROVER_COMMENT = _selectedItem.APPROVER_COMMENT,
+                    };
+                }
+                OnPropertyChanged(nameof(SelectedItem));
+            }
+        }
+        private RequestDTO _editReq;
+        public RequestDTO EditReq
+        {
+            get => _editReq;
+            set
+            {
+                _editReq = value;
+                OnPropertyChanged(nameof(EditReq));
+            }
+        }
+
+        #endregion
         public ICommand EditEmpWdCM { get; set; }
         public ICommand AddEmpToShiftCM { get; set; }
         public ICommand RemoveEmpFromShiftCM { get; set; }
@@ -776,58 +829,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             catch
             {
                 return;
-            }
-        }
-        public ObservableCollection<ShiftScheduleDTO> LoadShiftScheduleData()
-        {
-            ObservableCollection<ShiftScheduleDTO> schedules = new ObservableCollection<ShiftScheduleDTO>();
-
-            try
-            {
-
-                using (var context = new CoffeeShopDBEntities())
-                {
-                    // Lấy danh sách các ca làm việc
-                    var shifts = context.WORK_SHIFT.Where(s => s.IS_DELETED == false).ToList();
-
-                    foreach (var shift in shifts)
-                    {
-                        var schedule = new ShiftScheduleDTO
-                        {
-                            ShiftID = shift.SHIFT_ID,
-                            ShiftName = shift.SHIFT_NAME,
-                            StartTime = shift.START_TIME,
-                            EndTime = shift.END_TIME
-                        };
-
-                        // Lấy danh sách nhân viên theo ca làm việc, phân loại theo ngày
-                        var employeeShifts = context.EMPLOYEE_SHIFT
-                            .Where(es => es.SHIFT_ID == shift.SHIFT_ID && es.IS_DELETED == false)
-                            .ToList();
-
-                        foreach (var empShift in employeeShifts)
-                        {
-                            int dayOfWeek = empShift.WORK_DAY > 0 ? empShift.WORK_DAY : (int)DayOfWeek.Monday; // Chuyển đổi sang thứ (1: Thứ 2)
-                            if (!schedule.EmployeeNamesByDay.ContainsKey(dayOfWeek))
-                            {
-                                schedule.EmployeeNamesByDay[dayOfWeek] = new List<string>();
-                            }
-
-                            var emp = context.EMPLOYEEs.FirstOrDefault(e => e.EMP_ID == empShift.EMP_ID);
-                            if (emp != null)
-                            {
-                                schedule.EmployeeNamesByDay[dayOfWeek].Add($"{emp.EMP_ID} - {emp.EMP_NAME}");
-                            }
-                        }
-
-                        schedules.Add(schedule);
-                    }
-                }
-                return schedules;
-            }
-            catch
-            {
-                return null;
             }
         }
     }

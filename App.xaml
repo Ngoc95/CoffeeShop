@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:QuanLiCoffeeShop"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModelLogin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Login"
+             xmlns:viewLogin="clr-namespace:QuanLiCoffeeShop.MVVM.View.Login"
              xmlns:viewModelAdmin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
              xmlns:viewAdminCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CustomerManagement"
              xmlns:viewAdminEmp="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement"
@@ -15,7 +17,7 @@
              xmlns:viewStaffCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement"
              xmlns:viewStaffErr="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement"
              xmlns:viewStaffWorkshift="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffCaLamViec"
-             StartupUri="/MVVM/View/Admin/MainAdminWindow.xaml">
+             StartupUri="/MVVM/View/Login/LoginWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -52,6 +54,8 @@
             
             
             <!--Resources-->
+            <viewModelLogin:LoginViewModel x:Key="LoginVM"/>
+
             <viewModelAdmin:CustomerViewModel x:Key="CustomerAdminVM"/>
             <viewModelAdmin:EmployeeViewModel x:Key="EmployeeAdminVM"/>
             <viewModelAdmin:WorkshiftViewModel x:Key="WorkshiftAdminVM"/>
@@ -59,8 +63,9 @@
 
             <viewModelStaff:CustomerViewModel x:Key="CustomerStaffVM"/>
             <viewModelStaff:ErrorViewModel x:Key="ErrorStaffVM"/>
-            
-            
+            <viewModelStaff:WorkshiftViewModel x:Key="WorkshiftStaffVM"/>
+
+
             <!--Change view (Admin)-->
             <DataTemplate DataType="{x:Type viewModelAdmin:CustomerViewModel}">
                 <viewAdminCus:CustomerWindow/>

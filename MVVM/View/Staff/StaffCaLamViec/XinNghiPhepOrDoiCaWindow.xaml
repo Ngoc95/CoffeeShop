@@ -4,27 +4,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffCaLamViec"
-        xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
-        mc:Ignorable="d"
-        WindowStyle="None"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX" 
+        xmlns:staff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff" d:DataContext="{d:DesignInstance Type=staff:WorkshiftViewModel}"
+        mc:Ignorable="d" x:Name="requestWd"
+        WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         Background="Transparent"
         WindowState="Normal"
         WindowStartupLocation="CenterScreen"
-        Title="XinNghiPhepOrDoiCaWindow" Height="503" Width="667">
+        Title="XinNghiPhepOrDoiCaWindow" Height="503" Width="667"
+        MouseDown="requestWd_MouseDown"
+        DataContext="{StaticResource WorkshiftStaffVM}">
     <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="318"/>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="360"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <TextBlock 
-                    Margin="15"
+                    Margin="15" FontWeight="DemiBold"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Style="{DynamicResource Header1Style}"
-                    Text="Xin nghỉ phép/đổi ca"></TextBlock>
+                    Text="Đơn xin nghỉ phép / đổi ca"></TextBlock>
                 <Grid 
                     Margin="25,0"
                     VerticalAlignment="Center"
@@ -35,13 +39,11 @@
 
             <Border 
                 Grid.Row="1"
-                Margin="15, 0"
+                Margin="15,0,15,0"
                 Background="#ffc3a1"
                 CornerRadius="20">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="70"/>
-                        <RowDefinition Height="70"/>
                         <RowDefinition Height="70"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
@@ -52,79 +54,35 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock
                                  Grid.Column="0"
-                                 Margin="30,5,0,0"
+                                 Margin="69,0,0,0"
                                  Style="{DynamicResource Header2Style}"
-                                 Text="Mong muốn"/>
+                                 Text="Loại đơn" Width="91"/>
                         <ComboBox Grid.Column="1"
-                                  x:Name="cbMongMuon"
-                                  Style="{StaticResource filterCombobox_style}" Margin="10,18,0,0" Height="50"
-                                  Background="White" Text="{Binding MongMuon}" 
+                                  x:Name="cbType"
+                                  Style="{StaticResource filterCombobox_style}" Margin="10,0,0,0" Height="50"
+                                  Background="White" Text="{Binding SelectedRequestType}"
                                   HorizontalAlignment="Left"
-                                  FontSize="22" Foreground="Black" VerticalAlignment="Top" Width="200">
-                            <ComboBoxItem Content="Xin nghỉ phép"/>
+                                  FontSize="22" Foreground="Black" VerticalAlignment="Center" Width="200">
+                            <ComboBoxItem Content="Xin nghỉ"/>
                             <ComboBoxItem Content="Đổi ca"/>
                         </ComboBox>
 
                     </Grid>
-                    <Grid Grid.Row="1" VerticalAlignment="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="160"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Column="0"
-                            Margin="113,0,0,0"
-                            Style="{DynamicResource Header2Style}"
-                            Text="Thứ"/>
-                        <ComboBox x:Name="cbThu"
-                                   Style="{StaticResource filterCombobox_style}" Margin="10,18,0,0" Height="50"
-                                   Background="White" Text="{Binding Thu}" 
-                                   HorizontalAlignment="Left"
-                                   FontSize="22" Foreground="Black" VerticalAlignment="Top" Width="200" Grid.Column="1">
-                            <ComboBoxItem Content="Thứ 2"/>
-                            <ComboBoxItem Content="Thứ 3"/>
-                            <ComboBoxItem Content="Thứ 4"/>
-                            <ComboBoxItem Content="Thứ 5"/>
-                            <ComboBoxItem Content="Thứ 6"/>
-                            <ComboBoxItem Content="Thứ 7"/>
-                            <ComboBoxItem Content="Chủ nhật"/>
-                        </ComboBox>
-                    </Grid>
-                    <Grid Grid.Row="2" VerticalAlignment="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="160"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Column="0"
-                            Margin="113,0,0,0"
-                            Style="{DynamicResource Header2Style}"
-                            Text="Ca" RenderTransformOrigin="3.051,0.801"/>
-                        <ComboBox Grid.Column="1"
-                                   x:Name="cbCa"
-                                   Style="{StaticResource filterCombobox_style}" Margin="10,18,0,0" Height="50"
-                                   Background="White" Text="{Binding MongMuon}" 
-                                   HorizontalAlignment="Left"
-                                   FontSize="22" Foreground="Black" VerticalAlignment="Top" Width="200">
-                            <ComboBoxItem Content="Ca sáng"/>
-                            <ComboBoxItem Content="Ca trưa"/>
-                            <ComboBoxItem Content="Ca triều"/>
-                        </ComboBox>
-                    </Grid>
-                    <Grid Grid.Row="3">
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="160"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock VerticalAlignment="Top"
                             Grid.Column="0"
-                            Margin="76,10,0,0"
+                            Margin="68,10,0,0"
                             Style="{DynamicResource Header2Style}"
-                            Text="Ghi chú"/>
-                        <TextBox
+                            Text="Nội dung" Grid.ColumnSpan="2" Width="100"/>
+                        <TextBox 
+                            Text="{Binding EmployeeComment}"
                             Height="auto"
                             Grid.Column="1"
-                            Margin="10,18,10,5"
+                            Margin="10,18,57,21"
                             Style="{DynamicResource InputTextBoxStyle}"/>
                     </Grid>
                 </Grid>
@@ -132,22 +90,25 @@
 
             <Button 
                 Grid.Row="2"
-                Margin="20"
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Left"
-                Style="{DynamicResource ButtonCancel_WD}"
-                Content="Bỏ qua" Click="btnBoQua_Click">
+                Margin="20,0,0,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left" 
+                Background="#F6E8D0" Foreground="Black"
+                materialDesign:ButtonAssist.CornerRadius="15.36"
+                Content="Bỏ qua" Click="btnBoQua_Click" Height="46" Width="131"
+                BorderBrush="Black" BorderThickness="1" FontSize="20" FontWeight="DemiBold">
             </Button>
-
 
             <Button 
                 Grid.Row="2"
-                Margin="20"
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Right"
-                Style="{DynamicResource ButtonAdd_WD}"
-                Content="Cập nhật"
-                Click="btnCapNhat_Click">
+                Margin="0,0,15,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right" 
+                materialDesign:ButtonAssist.CornerRadius="15.36"
+                Background="#F0997D" Foreground="Black"
+                Content="Gửi" Height="48" Width="131"
+                BorderBrush="Black" BorderThickness="1" FontSize="20" FontWeight="DemiBold"
+                Command="{Binding SendRequestCM}" CommandParameter="{Binding ElementName=requestWd}">
             </Button>
         </Grid>
     </Border>

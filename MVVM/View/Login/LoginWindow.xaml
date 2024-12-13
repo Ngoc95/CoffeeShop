@@ -3,14 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Login"
-        mc:Ignorable="d"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Login" 
+        xmlns:login="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Login" d:DataContext="{d:DesignInstance Type=login:LoginViewModel}"
+        mc:Ignorable="d" x:Name="loginWd"
         Title="LoginWindow" Height="477.6" Width="800"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         WindowStartupLocation="CenterScreen" Background="Transparent"
         FontFamily="Fonts/Roboto-Light.ttf #Roboto"
-        MouseDown="Window_MouseDown">
+        MouseDown="Window_MouseDown"
+        DataContext="{StaticResource LoginVM}">
     <Grid>
         <Image Source="/Images/Login/login.png"/>
         <StackPanel Orientation="Vertical" Margin="100,60,420,100">
@@ -22,7 +25,7 @@
                     <TextBox x:Name="tbUsername" Height="45" Width="250" Foreground="#401409"
                              HorizontalAlignment="Left" Background="Transparent" 
                              FontSize="22" Margin="10,0,0,0" BorderBrush="Transparent"
-                             TextChanged="tbUsername_TextChanged"/>
+                             Text="{Binding Username}"/>
                 </Border>
 
                 <Label Margin="0,10,0,0" Content="Mật khẩu" 
@@ -33,22 +36,29 @@
                              HorizontalAlignment="Left" Background="Transparent" 
                              FontSize="22" Margin="10,-3,0,0" BorderBrush="Transparent"
                              Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
-                             PasswordChanged="pbPassword_PasswordChanged"
-                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"/>
+                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                             PasswordChanged="pbPassword_PasswordChanged"/>
                 </Border>
 
                 <Label Margin="0,0,5,0" FontSize="20" 
                        HorizontalAlignment="Right">
                     <TextBlock x:Name="tbForgotPass" Cursor="Hand"
                                TextDecorations="Underline" Text="Quên mật khẩu"
-                               MouseDown="forgetPassword_MouseDown" Foreground="#401409">
+                               Foreground="#401409">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDown">
+                                        <i:InvokeCommandAction Command="{Binding ForgotPasswordCM}"
+                                                               CommandParameter="{Binding ElementName=forgotPass}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                     </TextBlock>
                 </Label>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <Button x:Name="btnLogin" Cursor="Hand"
+                    <Button x:Name="btnLogin" Cursor="Hand" 
                             Width="123" Margin="0,0,45,30" Content="Đăng nhập"
                             Height="50" BorderBrush="Transparent" FontSize="20" 
-                            IsEnabled="False">
+                            Command="{Binding LoginCommand}" 
+                            CommandParameter="{Binding ElementName=loginWd}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="Transparent" />

@@ -22,40 +22,36 @@
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="411"/>
+            <RowDefinition Height="4.1*"/>
             <RowDefinition Height="129"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-            <ComboBox x:Name="cbFilter"
-                      Style="{StaticResource filterCombobox_style}" Margin="40,0,0,10" Height="66" Background="#FDB2B2"
-                      FontSize="22" Foreground="Black" VerticalAlignment="Center" Width="198" Text="Lọc nhân viên"
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox x:Name="cbFilter" Grid.Column="1"
+                      Style="{StaticResource filterCombobox_style}" Margin="0,0,45,10" Height="66" Background="#FDB2B2"
+                      FontSize="22" Foreground="Black" VerticalAlignment="Center" 
+                      Width="198" Text="Lọc nhân viên" HorizontalAlignment="Right"
                       ItemsSource="{Binding RoleList}"
                       SelectedItem="{Binding SelectedRole, Mode=TwoWay}">
             </ComboBox>
-
-            <Button Width="80" 
-                    Height="80" 
-                    BorderThickness="0" 
-                    Margin="190,0,0,7"
-                    Command="{Binding AddEmpWdCM}">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Images/Addbtn.png" />
-                </Button.Background>
-            </Button>
-            <Grid Width="350" Height="74" Margin="20,0,0,10">
-                <TextBox x:Name="SearchEmp" 
+            <StackPanel Margin="40,10,45,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                <Grid Width="350" Height="74" Margin="0 0 0 7">
+                    <TextBox x:Name="SearchEmp" 
                         Style="{StaticResource searchTextbox_style}"
                          Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="TextChanged">
-                            <i:InvokeCommandAction Command="{Binding SearchEmpCM}" 
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction Command="{Binding SearchEmpCM}" 
                                    CommandParameter="{Binding ElementName=SearchEmp}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
-                <Button x:Name="searchBtn"
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+                    <Button x:Name="searchBtn"
                         Width="65" Height="50"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
@@ -64,17 +60,26 @@
                         BorderBrush="Transparent"
                         FontSize="30"
                         Foreground="#49454F">
-                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE721;"/>
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE721;"/>
+                    </Button>
+                </Grid>
+                <Button Width="80" 
+                    Height="80" 
+                    BorderThickness="0" 
+                    Margin="20,0,0,10"
+                    Command="{Binding AddEmpWdCM}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Images/Addbtn.png" />
+                    </Button.Background>
                 </Button>
-            </Grid>
-        </StackPanel>
-
+            </StackPanel>
+        </Grid>
         <Border Grid.Row="1" Background="#FFC3A1" CornerRadius="10" Margin="45,0,45,26">
             <Border
                 Margin="18"
                 Background="White"
                 CornerRadius="10">
-                <DataGrid
+                <DataGrid 
                     x:Name="dataGridNV"
                     Margin="15"
                     HorizontalAlignment="Left"
@@ -99,6 +104,12 @@
 
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Width="auto" Header="ID" SortMemberPath="EMP_ID">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -111,6 +122,12 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="Họ tên" SortMemberPath="EMP_NAME">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -123,6 +140,12 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="Ngày sinh" SortMemberPath="EMP_BIRTHDAY">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <DatePicker
@@ -139,6 +162,12 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="SĐT" SortMemberPath="EMP_PHONE">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -151,6 +180,12 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="Email" SortMemberPath="EMP_EMAIL">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -163,6 +198,11 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="Chức vụ" SortMemberPath="EMP_ROLE">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -175,6 +215,12 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="Tổng ca làm trong tuần" SortMemberPath="EMP_TotalShifts">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -187,6 +233,12 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="Lương tuần" SortMemberPath="EMP_SALARY">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -199,6 +251,12 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="Trạng thái" SortMemberPath="EMP_STATUS">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -229,14 +287,13 @@
             </TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="45,0,45,0">
-            <Border Width="840" Height="1" Background="#603127" Margin="0,20,0,0" />
+            <Border Height="1" Background="#603127" Margin="0,20,0,0" />
 
-                <Grid Margin="0,20,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="350"/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+            <Grid Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Horizontal" 
                             Visibility="{Binding SelectedItem, Converter={StaticResource NullToVisibilityConverter}}">
@@ -246,19 +303,21 @@
                                    FontSize="22" Foreground="Black" FontWeight="Medium"
                                    VerticalAlignment="Center"/>
                 </StackPanel>
-                    
-                <Button Grid.Column="1" x:Name="btnShowDetail"
-                    Style="{StaticResource btn_style}" BorderThickness="0"
-                    Content="Thông tin chi tiết" Foreground="Black"
-                    FontSize="22" Width="210" Height="55" Background="#FFC3A1"
-                    Margin="0,0,0,0" Command="{Binding EditEmpWdCM}"/>
-                <Button Grid.Column="2" Style="{StaticResource btn_style}" BorderThickness="0"
-                    Content="Xóa nhân viên" Foreground="Black"
-                    FontSize="22" Width="210" Height="55" Background="#FDB2B2"
-                    Margin="35,0,0,0" Command="{Binding DeleteEmpListCM}"/>
-                </Grid>
 
-            <Border Width="840" Height="1" Background="#603127" Margin="0,20,0,0" />
+                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                    <Button  x:Name="btnShowDetail"
+                            Style="{StaticResource btn_style}" BorderThickness="0"
+                            Content="Thông tin chi tiết" Foreground="Black" Margin="0 0 20 0"
+                            FontSize="22" Width="210" Height="55" Background="#FFC3A1"
+                            Command="{Binding EditEmpWdCM}"/>
+                    <Button Style="{StaticResource btn_style}" BorderThickness="0"
+                            Content="Xóa nhân viên" Foreground="Black" HorizontalAlignment="Right"
+                            FontSize="22" Width="210" Height="55" Background="#FDB2B2"
+                            Command="{Binding DeleteEmpListCM}"/>
+                </StackPanel>
+            </Grid>
+
+            <Border Height="1" Background="#603127" Margin="0,20,0,0" />
         </StackPanel>
 
         <Button Grid.Row="3" Style="{StaticResource btn_style}" BorderThickness="0" Margin="0,0,45,30"

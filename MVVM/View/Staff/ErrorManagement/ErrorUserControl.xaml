@@ -33,12 +33,13 @@
             <Grid Grid.Row="0" Height="74" VerticalAlignment="Top" Margin="4,16,3,0">
                 <StackPanel Orientation="Horizontal">
                     <Grid Width="350" Height="74" Margin="20,0,0,0">
-                        <TextBox x:Name="searchErr" 
-                                Style="{StaticResource searchTextbox_style}">
+                        <TextBox x:Name="SearchErr" 
+                                Style="{StaticResource searchTextbox_style}"
+                                Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="TextChanged">
                                     <i:InvokeCommandAction Command="{Binding SearchErrorCM}" 
-                                   CommandParameter="{Binding ElementName=searchErr}" />
+                                   CommandParameter="{Binding ElementName=SearchErr}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </TextBox>
@@ -58,7 +59,8 @@
                 </StackPanel>
             </Grid>
 
-            <ComboBox Style="{StaticResource filterCombobox_style}" Margin="25,20,26,0" 
+            <ComboBox x:Name="cbFilter"
+                      Style="{StaticResource filterCombobox_style}" Margin="25,20,26,0" 
                       Height="66" Background="#FDB2B2" Grid.Column="1" 
                       FontSize="22" Foreground="Black" VerticalAlignment="Top"  Text="Lọc trạng thái"
                       ItemsSource="{Binding StatusList}"
@@ -80,8 +82,8 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="620"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="6.3*"/>
+                <ColumnDefinition Width="3.1*"/>
             </Grid.ColumnDefinitions>
             <Border  
                 Background="#ffc3a1" 
@@ -116,6 +118,12 @@
 
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="auto" Header="ID" SortMemberPath="ER_ID">
+                                <DataGridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.HeaderTemplate>
+
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -128,6 +136,12 @@
                             </DataGridTemplateColumn>
 
                             <DataGridTemplateColumn Width="auto" Header="Tên sự cố" SortMemberPath="ER_NAME">
+                                <DataGridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.HeaderTemplate>
+
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -140,6 +154,12 @@
                             </DataGridTemplateColumn>
 
                             <DataGridTemplateColumn Width="auto" Header="Tình trạng" SortMemberPath="ER_STATUS">
+                                <DataGridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.HeaderTemplate>
+
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -151,7 +171,13 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Ghi chú" SortMemberPath="ER_DESCRIPTION">
+                            <DataGridTemplateColumn Width="*" Header="Ghi chú" SortMemberPath="ER_DESCRIPTION">
+                                <DataGridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.HeaderTemplate>
+
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -167,13 +193,12 @@
                 </Border>
             </Border>
 
-            <Grid Grid.Column="1" Margin="0,0,0,0"
+            <Grid Grid.Column="1" Margin="0,20,0,0"
                   Visibility="{Binding SelectedItem, Converter={StaticResource NullToVisibilityConverter}}">
                 <StackPanel Orientation="Horizontal">
-                    <Border HorizontalAlignment="Left" Margin="10,0,0,20" CornerRadius="10"
-                            VerticalAlignment="Bottom"
-                            Width="1" Height="570" Background="#603127"/>
-                    <Grid Margin="10,30,0,0" Width="300">
+                    <Border Margin="10,0,0,20" CornerRadius="10"
+                            Width="1" Background="#603127"/>
+                    <Grid Margin="10,0,0,0" Width="300">
                         <StackPanel Orientation="Vertical">
                             <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
                                 <Label Content="Mã sự cố:" FontSize="22" Foreground="Black" FontWeight="Medium"/>
@@ -244,7 +269,7 @@
                                    FontWeight="Medium"/>
                             <TextBox
                                 Width="270"
-                                Height="203"
+                                Height="234"
                                 Margin="5,7,0,0"
                                 Padding="12"
                                 HorizontalAlignment="Left"
