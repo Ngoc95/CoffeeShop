@@ -10,11 +10,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
@@ -41,13 +45,25 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             set { _GenreTableNameList = value; OnPropertyChanged(); }
         }
 
-        private ObservableCollection<TableDTO> _TableList;
-        public ObservableCollection<TableDTO> TableList
+        //dung de load du lieu len
+        private ObservableCollection<TableDTO> _CoreTableList;
+        public ObservableCollection<TableDTO> CoreTableList
         {
             get { return _TableList; }
             set
             {
                 _TableList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<TableDTO> _TableList;
+        public ObservableCollection<TableDTO> TableList
+        {
+            get { return _CoreTableList; }
+            set
+            {
+                _CoreTableList = value;
                 OnPropertyChanged();
             }
         }
@@ -59,12 +75,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             set { _TableStatusList = value; OnPropertyChanged(); }
         }
 
-        private int _FilterGnereID = 0;
-        public int FilterGnereID
-        {
-            get { return _FilterGnereID; }
-            set { _FilterGnereID = value; OnPropertyChanged(); }
-        }
+        private int FilterGnereID = 0;
+
 
         private int _CbbSelectedIndex = 0;
         public int CbbSelectedIndex
@@ -81,6 +93,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         }
 
         #region Reservation
+        private ObservableCollection<ReservationDTO> CoreReservationList;
         private ObservableCollection<ReservationDTO> _ReservationList;
         public ObservableCollection<ReservationDTO> ReservationList
         {
@@ -106,38 +119,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         {
             get { return _ReservationCustomer; }
             set { _ReservationCustomer = value; OnPropertyChanged(); }
-        }
-
-        private int _EditingDay;
-        public int EditingDay
-        {
-            set { _EditingDay = value; OnPropertyChanged(); }
-            get { return _EditingDay; }
-        }
-        private int _EditingMonth;
-        public int EditingMonth
-        {
-            get { return _EditingMonth; }
-            set { _EditingMonth = value; OnPropertyChanged(); }
-        }
-        public int _EditingYear;
-        public int EditingYear
-        {
-            get { return _EditingYear; }
-            set { _EditingYear = value; OnPropertyChanged(); }
-        }
-
-        public int _EditingHour;
-        public int EditingHour
-        {
-            get { return _EditingHour; }
-            set { _EditingHour = value; OnPropertyChanged(); }
-        }
-        public int _EditingMinute;
-        public int EditingMinute
-        {
-            get { return _EditingMinute; }
-            set { _EditingMinute = value; OnPropertyChanged(); }
         }
 
         private CustomerDTO _SelectedCustomer;
@@ -170,6 +151,9 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             get { return _SearchCustomerPhone; }
             set { _SearchCustomerPhone = value; OnPropertyChanged(); }
         }
+
+        private ObservableCollection<CustomerDTO> CoreCustomerList;
+
         private ObservableCollection<CustomerDTO> _customerList;
         public ObservableCollection<CustomerDTO> CustomerList
         {
@@ -187,37 +171,23 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             set { _NewReservation = value; OnPropertyChanged(); }   
             get { return _NewReservation; }
         }
-        private int _NewResDay;
-        public int NewResDay
-        {
-            set { _NewResDay = value; OnPropertyChanged(); }
-            get { return _NewResDay; }
-        }
-        private int _NewResMonth;
-        public int NewResMonth
-        {
-            set { _NewResMonth = value; OnPropertyChanged(); }
-            get { return _NewResMonth; }
-        }
-        private int _NewResYear;
-        public int NewResYear
-        {
-            get { return _NewResYear; }
-            set { _NewResYear = value; OnPropertyChanged(); }
-        }
 
-        private int _NewResHour;
-        public int NewResHour
+        private int _FilterIndexReservation;
+        public int FilterIndexReservation
         {
-            get { return _NewResHour; }
-            set { _NewResHour = value; OnPropertyChanged(); }
+            get { return _FilterIndexReservation; }
+            set { _FilterIndexReservation = value; OnPropertyChanged(); }
         }
-        private int _NewResMinute;
-        public int NewResMinute
+        private DateTime _FilterDateReservation = DateTime.Now;
+        public DateTime FilterDateReservation
         {
-            get { return _NewResMinute; }
-            set { _NewResMinute = value; OnPropertyChanged(); }
+            get { return _FilterDateReservation; }
+            set { _FilterDateReservation = value; OnPropertyChanged(); }
         }
+        private bool _UseDateFilter;
+        public bool UseDateFilter
+        { get { return _UseDateFilter; } set { _UseDateFilter = value; OnPropertyChanged(); } }
+
 
         #endregion
 
@@ -238,6 +208,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         public ICommand CloseWDCommand { get; set; }
         public ICommand btnSaveReservationCommand { get; set; }
         public ICommand btnDeleteResWithoutSaveCommand { get; set; }
+        public ICommand SelectTableCommand { get; set; }
+        public ICommand FilterReservationCommand { get; set; }
+        public ICommand SetDateFilterCommand { get; set; }
+
+
 
         #endregion
 
@@ -257,14 +232,21 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 FilterGnereID = 0;
                 CbbSelectedIndex = 0;
 
-                TableList = new ObservableCollection<TableDTO>(await TableService.Ins.GetAllTable());
+                if(CoreTableList == null)
+                {
+                    CoreTableList = new ObservableCollection<TableDTO>(await TableService.Ins.GetAllTable());
+                    TableList = CoreTableList;
+                }
                 
                 if (TableStatusList == null)
                     TableStatusList = new List<string>() { "Còn trống", "Đang bận", "Đang sửa chữa" };
 
-                if (ReservationList == null)
-                    ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
-                //SelectedReservation = ReservationList[0];
+                if (CoreReservationList == null)
+                {
+                    CoreReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
+                    ReservationList = CoreReservationList;
+                }
+
 
                 if (SelectedCustomer == null)
                 {
@@ -279,49 +261,32 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 }
                 if (NewReservation == null)
                 {
-                    NewReservation = new ReservationDTO() { RES_ID = ReservationService.Ins.GetNextResID(), NUM_OF_PEOPLE = 1 };
+                    RecreateNewReservation();
                 }
+
+                FilterTableList();
             });
 
-            FilterCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            FilterCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 if (p != null && int.TryParse(p.ToString(), out int temp))
                     FilterGnereID = temp;
-                string text;
-                if (_CbbSelectedIndex == 0) text = null;
-                else if (_CbbSelectedIndex == 1) text = "Còn trống";
-                else if (_CbbSelectedIndex == 2) text = "Đang bận";
-                else text = "Đang sửa chữa";
-
-                if (FilterGnereID == 0 && text == null)
-                {
-                    TableList = new ObservableCollection<TableDTO>(await TableService.Ins.GetAllTable());
-                    return;
-                }
-                TableList = new ObservableCollection<TableDTO>(await TableService.Ins.FilterTableList(_FilterGnereID, text));
-
+                FilterTableList();
             });
-
 
             TableCheckCommand = new RelayCommand<TableDTO>((p) => { return true; }, async (p) =>
             {
                 if (p.TB_STATUS == "Đang sửa chữa") return;
                 p.TB_STATUS = p.TB_STATUS == "Còn trống" ? "Đang bận" : "Còn trống";
                 await TableService.Ins.UpdateATable(p);
-                string text;
-                if (_CbbSelectedIndex == 0) text = null;
-                else if (_CbbSelectedIndex == 1) text = "Còn trống";
-                else if (_CbbSelectedIndex == 2) text = "Đang bận";
-                else text = "Đang sửa chữa";
-                TableList = new ObservableCollection<TableDTO>(await TableService.Ins.FilterTableList(_FilterGnereID, text));
+                UpdateCoreTableList(p);
             });
 
 
             OpenResevationDetailCommand = new RelayCommand<ReservationDTO>((p) => { return true; }, (p) =>
-            {
-                EditingReservation = p;
-                SelectedReservation = new ReservationDTO(p);
-                SetEditingDateTime();
+            { 
+                EditingReservation = new ReservationDTO(p);
+                SelectedReservation = new ReservationDTO(EditingReservation);
                 SetResCustomer();
                 if(EditingReservation != null)
                 {
@@ -333,71 +298,60 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra");
                 }
             });
-
+           
             btnCheckinCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
-                if(SelectedReservation.IsEqual(EditingReservation))
+                if(SelectedReservation.IsEqual(EditingReservation))//bug
                 {
-                    if(SelectedReservation.RES_STATUS == "Khách chưa nhận bàn")
+                    if (SelectedReservation.RES_STATUS == "Khách chưa nhận bàn")
                     {
-                        SelectedReservation.RES_STATUS = "Khách đã nhận bàn";
-                        (bool Res,string messs)  = await TableService.Ins.TableStatusIsAbleAndUpdate(SelectedReservation.TABLE_ID); 
-                        if(Res)
+                        bool temp = await TableCanCheckIn(SelectedReservation.TABLE_ID);
+                        if (temp)
                         {
+                            SelectedReservation.RES_STATUS = "Khách đã nhận bàn";
                             await ReservationService.Ins.UpdateReservation(SelectedReservation);
-                            ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
+                            UpdateCoreReservationList(SelectedReservation);
+                            FilterReservation(FilterDateReservation, FilterIndexReservation);
                             p.Close();
-                        }    
+                        }
                         else
                         {
-                            MessageBoxCustom.Show(MessageBoxCustom.Error, messs);
                             return;
                         }
                     }
                     else
                     {
                         SelectedReservation.RES_STATUS = "Khách chưa nhận bàn";
-                        (bool Res, string messs) = await TableService.Ins.TableStatusUpdateChangeCheckin(SelectedReservation.TABLE_ID);
-                        if (Res)
-                        {
-                            await ReservationService.Ins.UpdateReservation(SelectedReservation);
-                            ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
-                            p.Close();
-                        }
-                        else
-                        {
-                            MessageBoxCustom.Show(MessageBoxCustom.Error, messs);
-                            return;
-                        }
+                        await ReservationService.Ins.UpdateReservation(SelectedReservation);
+                        UpdateCoreReservationList(SelectedReservation);
+                        FilterReservation(FilterDateReservation, FilterIndexReservation);
+                        p.Close();
                     }
-                    string text;
-                    if (_CbbSelectedIndex == 0) text = null;
-                    else if (_CbbSelectedIndex == 1) text = "Còn trống";
-                    else if (_CbbSelectedIndex == 2) text = "Đang bận";
-                    else text = "Đang sửa chữa";
-                    TableList = new ObservableCollection<TableDTO>(await TableService.Ins.FilterTableList(_FilterGnereID, text));
                 }
                 else
                 {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Thông tin thay đổi chưa được lưu");
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Lưu thông tin thay đổi trước");
                 }
             });
 
             SaveReservationChangeCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
-                
-                SetDateForEditingeservation();
                 if(SelectedReservation.IsEqual(EditingReservation))
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Thông tin không có thay đổi!");
                 }
                 else
                 {
-                    bool res = await ReservationService.Ins.UpdateReservation(EditingReservation);
-                    if (res)
+                    if(canSaveReservationChange(EditingReservation))
                     {
-                        ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
-                        p.Close();
+                        bool res = await ReservationService.Ins.UpdateReservation(EditingReservation);
+                        if (res)
+                        {
+                            UpdateCoreReservationList(EditingReservation);
+                            FilterReservation(FilterDateReservation, FilterIndexReservation);
+                            MessageBoxCustom.Show(MessageBoxCustom.Success, "Chỉnh sửa thành công");
+                            p.Close();
+                        }
                     }
                 }
             });
@@ -406,10 +360,16 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             {
                 SearchCustomerIDstring = null; SearchCustomerName = null; SearchCustomerPhone = null;
                 SearchingCustomer = new CustomerDTO(SelectedCustomer);
-                CustomerList = new ObservableCollection<CustomerDTO>(await Task.Run(() => CustomerService.Ins.GetAllCus()));
+                if(CoreCustomerList == null)
+                {
+                    CoreCustomerList = new ObservableCollection<CustomerDTO>(await Task.Run(() => CustomerService.Ins.GetAllCus()));
+                    CustomerList = new ObservableCollection<CustomerDTO>();
+                    CustomerList = CoreCustomerList;
+                }
                 CusForReservationWindow wd = new CusForReservationWindow();
                 wd.ShowDialog();
             });
+            
 
             btnSelectCustomerCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -419,13 +379,13 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 p.Close();
             });
 
-            CustomerFilterCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            CustomerFilterCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 int SearchCustomerID;
                 if (int.TryParse(SearchCustomerIDstring, out int temp))
                     SearchCustomerID = temp;
                 else SearchCustomerID = 0;
-                CustomerList = new ObservableCollection<CustomerDTO>(await CustomerService.Ins.SearchCus(SearchCustomerID, SearchCustomerName, SearchCustomerPhone));
+                FilterCustomer(SearchCustomerID, SearchCustomerName, SearchCustomerPhone);
             });
 
             CloseWDCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -436,34 +396,298 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 
             btnSaveReservationCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
-                if(SetDateForNewReservation())
+                NewReservation.CUS_ID = SelectedCustomer.ID;
+                if (ResCanAddToDB(NewReservation))
                 {
-                    NewReservation.CUS_ID = SelectedCustomer.ID;
                     bool res = await ReservationService.Ins.AddNewReservation(NewReservation);
                     if (res)
                     {
-                        ReservationList = new ObservableCollection<ReservationDTO>(await ReservationService.Ins.GetAllReservation());
-                        NewReservation = new ReservationDTO() { RES_ID = ReservationService.Ins.GetNextResID(), NUM_OF_PEOPLE = 1 };
+                        NewReservation.RES_STATUS = "Khách chưa nhận bàn";
+                        NewReservation.CREATE_AT = DateTime.Now;
+                        AddCoreReservationList(NewReservation);
+                        RecreateNewReservation();
                         SelectedCustomer = new CustomerDTO();
-                        NewResHour = 0;
-                        NewResMinute = 0;
-                        NewResDay = 0;
-                        NewResMonth = 0;
-                        NewResYear = 0;
+                        MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm lịch thành công");
                     }
+                    else
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Thất bại khi truy cập Database");
+
                 }
             });
+
             btnDeleteResWithoutSaveCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
-                NewReservation = new ReservationDTO() { RES_ID = ReservationService.Ins.GetNextResID(), NUM_OF_PEOPLE = 1 };
+                RecreateNewReservation();
                 SelectedCustomer = new CustomerDTO();
-                NewResHour = 0;
-                NewResMinute = 0;
-                NewResDay = 0;
-                NewResMonth = 0;
-                NewResYear = 0;
             });
 
+            SelectTableCommand = new RelayCommand<TableDTO>((p) => { return true; }, (p) =>
+            {
+                NewReservation.TABLE_ID = p.TB_ID;
+                NewReservation = new ReservationDTO(NewReservation);
+            });
+
+
+            SetDateFilterCommand = new RelayCommand<DatePicker>((p) => { return true; }, (p) =>
+            {
+                if (p.Visibility == Visibility.Visible)
+                {
+                    p.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    p.Visibility = Visibility.Visible;
+                }
+                FilterReservation(FilterDateReservation, FilterIndexReservation);
+            });
+
+            FilterReservationCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                FilterReservation(FilterDateReservation, FilterIndexReservation);
+            });
+
+        }
+
+
+        private async Task<bool> TableCanCheckIn(int tABLE_ID)
+        {
+            foreach (TableDTO table in CoreTableList)
+            {
+                if (tABLE_ID == table.TB_ID)
+                {
+                    if (table.TB_STATUS == "Còn trống")
+                    {
+                        table.TB_STATUS = "Đang bận";
+                        await TableService.Ins.UpdateATable(table);
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Bàn đang bận hoặc đang sửa chữa, cân nhắc đổi bàn");
+                        return false;
+                    }
+                }
+            }
+            MessageBoxCustom.Show(MessageBoxCustom.Error, "Mã bàn không tồn tại, có thể đã bị xóa, cân nhắc đổi bàn");
+            return false;
+        }
+
+        private void UpdateCoreReservationList(ReservationDTO newReservation)
+        {
+            CoreReservationList.Add(newReservation);
+            ReservationList = CoreReservationList;
+        }
+
+        private bool ResCanAddToDB(ReservationDTO reservation)
+        {
+            if (reservation.TABLE_ID == 0)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Chưa chọn bàn!!");
+                return false;
+            }
+            if (reservation.CUS_ID == 0)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Chưa chọn khách hàng đặt bàn!!");
+                return false;
+            }
+            if (reservation.RES_DATE.Date < DateTime.Now.Date)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày đặt bàn không phù hợp");
+                return false;
+            }
+            if (reservation.RES_DATE.Date == DateTime.Now.Date && reservation.RES_TIME.TimeOfDay < DateTime.Now.TimeOfDay)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Giờ đặt bàn không phù hợp");
+                return false;
+            }
+
+            if (reservation.RES_TIME.TimeOfDay < new TimeSpan(7, 0, 0) || reservation.RES_TIME.TimeOfDay > new TimeSpan(20, 0, 0))
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Giờ đặt bàn từ 7h đến 20h");
+                return false;
+            }
+
+            foreach (ReservationDTO item in ReservationList)
+            {
+                if (item.TABLE_ID == reservation.TABLE_ID
+                    && item.RES_TIME.TimeOfDay == reservation.RES_TIME.TimeOfDay
+                    && item.RES_DATE.Date == reservation.RES_DATE.Date)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Đã tồn tại lịch đặt bàn này vào cùng thời điểm");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void RecreateNewReservation()
+        {
+            int temp = ReservationService.Ins.GetNextResID();
+            NewReservation = new ReservationDTO()
+            {
+                RES_ID = temp,
+                NUM_OF_PEOPLE = 1,
+                RES_DATE = DateTime.Now,
+                RES_TIME = DateTime.Now,
+            };
+        }
+
+        private void FilterCustomer(int ID, string Name, string Phone)
+        {
+            CustomerList = new ObservableCollection<CustomerDTO>();
+            if (ID == 0 && string.IsNullOrEmpty(Name) == true && string.IsNullOrEmpty(Phone) == true)
+            {
+                foreach (CustomerDTO item in CoreCustomerList)
+                    CustomerList.Add(item);
+            }
+            else if (ID != 0)
+            {
+                foreach (CustomerDTO item in CoreCustomerList)
+                {
+                    if (ID.ToString().Contains(item.ID.ToString()))
+                        CustomerList.Add(item);
+                }
+            }
+            else if (string.IsNullOrEmpty(Name) == false && string.IsNullOrEmpty(Phone) == false)
+            {
+                foreach (CustomerDTO item in CoreCustomerList)
+                {
+                    if (item.Name.Contains(Name) && item.Phone.Contains(Phone))
+                        CustomerList.Add(item);
+                }
+            }
+            else if (string.IsNullOrEmpty(Name) == true)
+            {
+                foreach (CustomerDTO item in CoreCustomerList)
+                {
+                    if (item.Phone.Contains(Phone))
+                        CustomerList.Add(item);
+                }
+            }
+            else if (string.IsNullOrEmpty(Phone) == true)
+            {
+                foreach (CustomerDTO item in CoreCustomerList)
+                {
+                    if (item.Name.Contains(Name))
+                        CustomerList.Add(item);
+                }
+            }
+            else
+            {
+                CustomerList = CoreCustomerList;
+            }
+        }
+    
+
+        private bool canSaveReservationChange(ReservationDTO SeleReservation)
+        {
+            if (SeleReservation.RES_DATE.Date < DateTime.Now.Date)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày đặt bàn không phù hợp");
+                return false;
+            }
+
+            if (SeleReservation.RES_TIME.TimeOfDay < new TimeSpan(7, 0, 0) || SeleReservation.RES_TIME.TimeOfDay > new TimeSpan(20, 0, 0))
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Giờ đặt bàn từ 7h đến 20h");
+                return false;
+            }
+            return true;
+            
+        }
+
+        private void UpdateAIteminCoreReservationList(ReservationDTO selReservation)
+        {
+            for (int i = 0; i < CoreReservationList.Count; i++)
+            {
+                if(CoreReservationList[i].RES_ID == selReservation.RES_ID)
+                {
+                    CoreReservationList[i] = new ReservationDTO(selReservation);
+                }
+            }
+            ReservationList = CoreReservationList;
+        }
+
+        private async Task<bool> CanUseTableNow(ReservationDTO SeReservation)
+        {
+            int i = 0;
+            for (i = 0; i < TableList.Count(); i++)
+            {
+                if (TableList[i].TB_ID == SeReservation.TABLE_ID)
+                    break;
+            }
+            if (TableList[i].TB_STATUS == "Còn trống")
+            {
+                TableList[i].TB_STATUS = "Đang bận";
+                TableList[i] = new TableDTO(TableList[i]);
+                await TableService.Ins.UpdateATable(TableList[i]);
+                UpdateCoreTableList(TableList[i]);
+                return true;
+            }
+            else
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Bàn đang bận hoặc đang sửa chữa, cân nhắc đổi bàn!");
+                return false;
+            }
+        }
+
+        private void UpdateCoreTableList(TableDTO table)
+        {
+            //da thay doi TableList
+            for (int i = 0; i < CoreTableList.Count(); i++)
+            {
+                if (CoreTableList[i].TB_ID == table.TB_ID)
+                {
+                    //CoreTableList[i] = new TableDTO();
+                    CoreTableList[i] = table;
+                    FilterTableList();
+                    return;
+                }
+            }
+        }
+
+        private void FilterTableList()
+        {
+            string Status;
+            if (_CbbSelectedIndex == 0) Status = null;
+            else if (_CbbSelectedIndex == 1) Status = "Còn trống";
+            else if (_CbbSelectedIndex == 2) Status = "Đang bận";
+            else Status = "Đang sửa chữa";
+            if (FilterGnereID != 0 && CbbSelectedIndex != 0)
+            {
+                TableList = new ObservableCollection<TableDTO>();
+                foreach(TableDTO item in CoreTableList)
+                {
+                    if (item.TB_STATUS.Equals(Status) && item.GT_ID == FilterGnereID)
+                        TableList.Add(item);
+                }
+            }
+            else if (FilterGnereID != 0 && CbbSelectedIndex == 0)
+            {
+                TableList = new ObservableCollection<TableDTO>();
+                foreach (TableDTO item in CoreTableList)
+                {
+                    if (item.GT_ID == FilterGnereID)
+                        TableList.Add(item);
+                }
+            }
+            else if (CbbSelectedIndex != 0 && FilterGnereID == 0)
+            {
+                TableList = new ObservableCollection<TableDTO>();
+                foreach (TableDTO item in CoreTableList)
+                {
+                    if (item.TB_STATUS.Equals(Status))
+                        TableList.Add(item);
+                }
+            }
+            else
+            {
+                TableList = new ObservableCollection<TableDTO>();
+                foreach (TableDTO item in CoreTableList)
+                {
+                        TableList.Add(item);
+                }
+            }
         }
 
         private async void SetResCustomer()
@@ -474,42 +698,52 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 ReservationCustome = await CustomerService.Ins.FindCustomerbyID(ID);
             }
         }
-        private void SetEditingDateTime()
+
+        private void FilterReservation(DateTime filterDateRes, int filterIndexRes)
         {
-            EditingDay = SelectedReservation.RES_DATETIME.Day;
-            EditingMonth = SelectedReservation.RES_DATETIME.Month;
-            EditingYear = SelectedReservation.RES_DATETIME.Year;
-            EditingHour = SelectedReservation.RES_DATETIME.Hour;
-            EditingMinute = SelectedReservation.RES_DATETIME.Minute;    
+            ReservationList = new ObservableCollection<ReservationDTO>();
+            string text;
+            if (filterIndexRes == 0) text = null;
+            else if (filterIndexRes == 1) text = "Khách đã nhận bàn";
+            else text = "Khách chưa nhận bàn";
+            if (UseDateFilter)
+            {
+                if (text == null)
+                {
+                    foreach (ReservationDTO reservation in CoreReservationList)
+                    {
+                        if (reservation.RES_DATE == filterDateRes)
+                            ReservationList.Add(reservation);
+                    }
+                }
+                else
+                {
+                    foreach (ReservationDTO reservation in CoreReservationList)
+                    {
+                        if (reservation.RES_DATE == filterDateRes && reservation.RES_STATUS == text)
+                            ReservationList.Add(reservation);
+                    }
+                }
+            }
+            else if (text != null)
+            {
+                foreach (ReservationDTO reservation in CoreReservationList)
+                {
+                    if (reservation.RES_STATUS == text)
+                        ReservationList.Add(reservation);
+                }
+            }
+            else
+            {
+                ReservationList = CoreReservationList;
+
+            }
+        }
+        private void AddCoreReservationList(ReservationDTO newReservation)
+        {
+            CoreReservationList.Add(newReservation);
+            ReservationList = CoreReservationList;
         }
 
-
-        private bool SetDateForEditingeservation()
-        {
-            try
-            {
-                EditingReservation.RES_DATETIME = new DateTime(EditingYear, EditingMonth, EditingDay, EditingHour, EditingMinute, 0);
-                return true;
-            }
-            catch 
-            {
-                MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày giờ không hợp lệ");
-                return false;
-            }
-        }
-
-        private bool SetDateForNewReservation()
-        {
-            try
-            {
-                NewReservation.RES_DATETIME = new DateTime(NewResYear, NewResMonth, NewResDay, NewResHour, NewResMinute, 0);
-                return true;
-            }
-            catch
-            {
-                MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày giờ không hợp lệ");
-                return false;
-            }
-        }
     }
 }

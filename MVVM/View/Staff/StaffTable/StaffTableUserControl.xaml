@@ -18,6 +18,7 @@
     </i:Interaction.Triggers>
 
     <UserControl.Resources>
+        
         <local:MyTemplateSelector x:Key="MySelector"
                                   Table2Template="{StaticResource Table2Staff}"
                                   Table3Template="{StaticResource Table3Staff}"
@@ -29,7 +30,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="365"/>
+            <ColumnDefinition Width="0.88*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
@@ -75,10 +76,9 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <ComboBox 
-                Width="350"
                 Grid.Row="0"
-                HorizontalAlignment="Center"
-                Margin="0,0,0,10"
+                HorizontalAlignment="Left"
+                Margin="10"
                 Tag="Lọc theo trạng thái"
                 FontSize="22"
                 SelectedIndex="{Binding CbbSelectedIndex, Mode=TwoWay}"
@@ -110,9 +110,10 @@
                         Padding="0"
                         HorizontalAlignment="Left"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"        
-                        Width="370" Height="auto"
+                        Height="auto"
                         ItemsSource="{Binding TableList}" 
                         ItemTemplateSelector="{StaticResource MySelector}">
+                        
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal"/>
@@ -138,12 +139,68 @@
                 <TabItem Header="Thông tin đặt bàn">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="auto"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                        <TextBlock 
-                                Grid.Row="0" 
-                                Style="{DynamicResource Header5Style}" Text="Lịch đặt bàn" Margin="10"></TextBlock>
+                        <StackPanel Orientation="Horizontal" 
+                            Margin="0,10"
+                            Grid.Row="0">
+                            <StackPanel 
+                                Margin="20,0"
+                                HorizontalAlignment="Left">
+                                <CheckBox
+                                    Content="Lọc theo ngày đặt bàn"
+                                    FontSize="16"
+                                    IsChecked="{Binding UseDateFilter}"
+                                    Foreground="black"
+                                    Background="#603127"
+                                    Style="{StaticResource MaterialDesignDarkCheckBox}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Checked">
+                                            <i:InvokeCommandAction Command="{Binding SetDateFilterCommand}"
+                                           CommandParameter="{Binding ElementName=DateFilter}"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="Unchecked">
+                                            <i:InvokeCommandAction Command="{Binding SetDateFilterCommand}"
+                                           CommandParameter="{Binding ElementName=DateFilter}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </CheckBox>
+                                <DatePicker
+                                    Visibility="Hidden"
+                                    x:Name="DateFilter"
+                                    HorizontalAlignment="Right"
+                                    SelectedDate="{Binding FilterDateReservation}"
+                                    Margin="0" 
+                                    Tag="Ngày"
+                                    FontSize="16" 
+                                    Height="30"
+                                    Width="120">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectedDateChanged">
+                                            <i:InvokeCommandAction Command="{Binding FilterReservationCommand}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </DatePicker>
+                            </StackPanel>
+                            <ComboBox 
+                                Margin="10,0" 
+                                Tag="Trạng thái"
+                                Width="200" 
+                                Height="50"
+                                FontSize="17"
+                                SelectedIndex="{Binding FilterIndexReservation}"
+                                Style="{StaticResource ComboBoxSimpleStyle}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding FilterReservationCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <ComboBoxItem Content="Tất cả"></ComboBoxItem>
+                                <ComboBoxItem Content="Khách đã nhận bàn"></ComboBoxItem>
+                                <ComboBoxItem Content="Khách chưa nhận bàn"></ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
 
                         <Border Grid.Row="1" 
                             Background="White" 
@@ -165,7 +222,7 @@
                                     </ListView.ItemContainerStyle>
                                     <ListView.View>
                                     <GridView>
-                                        <GridViewColumn Width="55" Header="Mã ĐB"
+                                        <GridViewColumn Width="52" Header="Mã ĐB"
                                                 HeaderContainerStyle="{StaticResource GridViewTableHeaderStyle}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -175,33 +232,34 @@
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
-                                        <GridViewColumn Width="110" Header="Ngày đặt"
+                                        <GridViewColumn Width="108" Header="Ngày đặt"
                                                 HeaderContainerStyle="{StaticResource GridViewTableHeaderStyle}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock
                                                         Style="{StaticResource Header6Style}"
-                                                        Text="{Binding RES_DATETIME, StringFormat='dd/MM/yyyy'}"/>
+                                                        Text="{Binding RES_DATE, StringFormat='dd/MM/yyyy'}"/>
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
-                                        <GridViewColumn Width="65" Header="Giờ đặt"
+                                        <GridViewColumn Width="55" Header="Giờ đặt"
                                             HeaderContainerStyle="{StaticResource GridViewTableHeaderStyle}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock
                                                         Style="{StaticResource Header6Style}"
-                                                        Text="{Binding RES_DATETIME, StringFormat={}{0:HH:mm}}"/>
+                                                        Text="{Binding RES_TIME, StringFormat={}{0:HH:mm}}"/>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
-                                        <GridViewColumn Width="190" Header="Trạng thái" 
+                                        <GridViewColumn Width="158" Header="Trạng thái" 
                                                 HeaderContainerStyle="{StaticResource GridViewTableHeaderStyle}" >
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock
-                                                Style="{StaticResource HeaderResStatusStyle}"
-                                                Text="{Binding RES_STATUS}" />
+                                                        FontSize="15"
+                                                        Style="{StaticResource HeaderResStatusStyle}"
+                                                        Text="{Binding RES_STATUS}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
@@ -254,7 +312,7 @@
                                     Command="{Binding OpenSearchCusWDCommand}"
                                     Background="#f6e8d0"
                                     Margin="10,0"
-                                    Width="160"
+                                    Width="150"
                                     VerticalAlignment="Bottom"
                                     HorizontalAlignment="Right"></Button>
                         </Grid>
@@ -271,7 +329,7 @@
                                         </StackPanel>
                                         <StackPanel Margin="5" Orientation="Horizontal">
                                             <TextBlock Grid.Column="0" Text="Mã bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
-                                            <TextBox Width="40" Height="25" Text="{Binding NewReservation.TABLE_ID, StringFormat='000'}" Style="{DynamicResource ReservationTextBoxStyle}"/>
+                                            <TextBlock Width="40" Height="25" Text="{Binding NewReservation.TABLE_ID, StringFormat='000'}" Style="{DynamicResource Header6Style}"/>
                                         </StackPanel>
                                         <StackPanel Margin="5" Orientation="Horizontal">
                                             <TextBlock Grid.Column="0" Text="Số lượng người: " Style="{DynamicResource Header6Style}"></TextBlock>
@@ -289,17 +347,22 @@
                                     <StackPanel Grid.Column="1">
                                         <StackPanel Margin="5" Orientation="Horizontal">
                                             <TextBlock Grid.Column="0" Text="Ngày đặt bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
-                                            <TextBox x:Name="DayRes" Height="25" Text="{Binding NewResDay, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
-                                            <TextBlock Text="/" Style="{StaticResource Header6Style}"></TextBlock>
-                                            <TextBox x:Name="MonthRes" Height="25" Text="{Binding NewResMonth, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
-                                            <TextBlock Text="/" Style="{StaticResource Header6Style}"></TextBlock>
-                                            <TextBox x:Name="YearRes" Height="25" Text="{Binding NewResYear, StringFormat='0000'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
+                                            <DatePicker
+                                                FontSize="16"
+                                                Width="100"
+                                                SelectedDate="{Binding NewReservation.RES_DATE, Mode=TwoWay}"
+                                                ></DatePicker>
                                         </StackPanel>
                                         <StackPanel Margin="5" Orientation="Horizontal">
                                             <TextBlock Grid.Column="0" Text="Giờ đặt bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
-                                            <TextBox Width="22" Height="25" Text="{Binding NewResHour, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
-                                            <TextBlock Width="auto" Height="25" Text=" : " Style="{DynamicResource Header6Style}"></TextBlock>
-                                            <TextBox Width="22" Height="25" Text="{Binding NewResMinute, StringFormat='00'}" Style="{DynamicResource ReservationTextBoxStyle}"></TextBox>
+                                            <materialDesign:TimePicker
+                                                FontSize="16"
+                                                Width="80"
+                                                Is24Hours="True"
+                                                x:Name="Time"
+                                                SelectedTime="{Binding NewReservation.RES_TIME}">
+
+                                            </materialDesign:TimePicker>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>

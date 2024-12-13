@@ -283,7 +283,7 @@
                                 IsHitTestVisible="False"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
-                                FontSize="22"
+                                FontSize="{TemplateBinding FontSize}"
                                 Text="{TemplateBinding SelectionBoxItem}">
                             </TextBlock>
                         </Border>
@@ -293,7 +293,7 @@
                             Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Left"
-                            FontSize="22"
+                            FontSize="{TemplateBinding FontSize}"
                             Visibility="Hidden"
                             Opacity="0.5"
                             Padding="15">
@@ -311,9 +311,9 @@
                             IsOpen="{TemplateBinding IsDropDownOpen}"
                             AllowsTransparency="True"
                             Focusable="False"
-                            Placement="right"
+                            Placement="Left"
                             Width="auto"
-                            HorizontalOffset="-100"
+                            HorizontalOffset="{TemplateBinding Width}"
                             VerticalOffset="50"
                             PopupAnimation="Slide">
                             <Border 
@@ -346,7 +346,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 
 
 

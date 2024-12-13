@@ -35,7 +35,7 @@
                            Style="{DynamicResource Header1Style}"
                            Text="Thêm bàn">
                 </TextBlock>
-                <Grid Grid.Column="1" Height="40" Width="80" 
+                <Grid Grid.Column="1" Height="40" Width="120" 
                       VerticalAlignment="Center" 
                       HorizontalAlignment="Right" 
                       Margin="0,0,15,0"> 

@@ -66,7 +66,7 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                     {
                         return (false, "Điền chưa đủ thông tin");
                     }
-                        var Prd = await context.PRODUCTs.Where(p => p.PRO_ID == ID).FirstOrDefaultAsync();
+                    var Prd = await context.PRODUCTs.Where(p => p.PRO_ID == ID).FirstOrDefaultAsync();
                     if (Prd == null) return (false, "Không tìm thấy ID");
                     Prd.PRO_NAME = newPrd.PRO_NAME;
                     Prd.PRO_PRICE = newPrd.PRO_PRICE;
@@ -133,93 +133,12 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 return (false, "Xảy ra lỗi khi chỉnh sửa sản phẩm");
             }
         }
-
-        public async Task<List<ProductDTO>> FilterPrdList(int ID, string SearchMess)
-        {
-            try
-            {
-                using (var context = new CoffeeShopDBEntities())
-                {
-                    if (ID != 0 && SearchMess != "")
-                    {
-                        var productList = (from c in context.PRODUCTs
-                                           where (c.GP_ID == ID && c.IS_DELETED == false && c.PRO_NAME.Contains(SearchMess))
-                                           select new ProductDTO
-                                           {
-                                               PRO_ID = c.PRO_ID,
-                                               PRO_NAME = c.PRO_NAME,
-                                               PRO_PRICE = c.PRO_PRICE,
-                                               GP_ID = c.GP_ID,
-                                               PRO_DESCRIPTION = c.PRO_DESCRIPTION,
-                                               PRO_IMG = c.PRO_IMG == null ? "pack://application:,,,/Images/MenuAndError/UploadImg.jpg" : c.PRO_IMG,
-                                               IS_DELETED = c.IS_DELETED,
-                                           }).ToListAsync();
-                        return await productList;
-                    }
-                    else if (SearchMess.Length == 0 && ID != 0)
-                    {
-                        var productList = (from c in context.PRODUCTs
-                                           where (c.GP_ID == ID && c.IS_DELETED == false)
-                                           select new ProductDTO
-                                           {
-                                               PRO_ID = c.PRO_ID,
-                                               PRO_NAME = c.PRO_NAME,
-                                               PRO_PRICE = c.PRO_PRICE,
-                                               GP_ID = c.GP_ID,
-                                               PRO_DESCRIPTION = c.PRO_DESCRIPTION,
-                                               PRO_IMG = c.PRO_IMG == null ? "pack://application:,,,/Images/MenuAndError/UploadImg.jpg" : c.PRO_IMG,
-                                               IS_DELETED = c.IS_DELETED,
-                                           }).ToListAsync();
-                        return await productList;
-                    }
-                    else if (ID == 0 && SearchMess.Length != 0)
-                    {
-                        var productList = (from c in context.PRODUCTs
-                                           where (c.IS_DELETED == false && c.PRO_NAME.Contains(SearchMess))
-                                           select new ProductDTO
-                                           {
-                                               PRO_ID = c.PRO_ID,
-                                               PRO_NAME = c.PRO_NAME,
-                                               PRO_PRICE = c.PRO_PRICE,
-                                               GP_ID = c.GP_ID,
-                                               PRO_DESCRIPTION = c.PRO_DESCRIPTION,
-                                               PRO_IMG = c.PRO_IMG == null ? "pack://application:,,,/Images/MenuAndError/UploadImg.jpg" : c.PRO_IMG,
-                                               IS_DELETED = c.IS_DELETED,
-                                           }).ToListAsync();
-                        return await productList;
-                    }
-                    else
-                    {
-                        var productList = (from c in context.PRODUCTs
-                                           where c.IS_DELETED == false
-                                           select new ProductDTO
-                                           {
-                                               PRO_ID = c.PRO_ID,
-                                               PRO_NAME = c.PRO_NAME,
-                                               PRO_PRICE = c.PRO_PRICE,
-                                               GP_ID = c.GP_ID,
-                                               PRO_DESCRIPTION = c.PRO_DESCRIPTION,
-                                               PRO_IMG = c.PRO_IMG == null ? "pack://application:,,,/Images/MenuAndError/UploadImg.jpg" : c.PRO_IMG,
-                                               IS_DELETED = c.IS_DELETED,
-                                           }).ToListAsync();
-                        return await productList;
-                    }
-                }
-            }
-            catch
-            {
-                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
-                return null;
-            }
-        }
-
         public async Task<int> NumOfProduct()
         {
             try
             {
                 using (var context = new CoffeeShopDBEntities())
                 {
-                    // Đếm số hóa đơn bất đồng bộ
                     return await Task.Run(() => context.PRODUCTs.Count());
                 }
             }

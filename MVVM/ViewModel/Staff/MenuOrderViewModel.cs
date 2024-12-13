@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,6 +30,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             get { return _GenreProductList; }
             set { _GenreProductList = value; OnPropertyChanged(); }
         }
+
+        private ObservableCollection<ProductDTO> CoreProductList;
 
         private ObservableCollection<ProductDTO> _ProductList;
         public ObservableCollection<ProductDTO> ProductList
@@ -67,6 +70,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         #endregion
 
         #region DeclareForCustomer
+
+        private ObservableCollection<CustomerDTO> CoreCustomerList;
 
         private ObservableCollection<CustomerDTO> _customerList;
         public ObservableCollection<CustomerDTO> CustomerList
@@ -216,8 +221,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         {
             FirstLoadCM = new RelayCommand<Page>((p) => { return true; }, async (p) =>
             {
-
-                 ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+                if(CoreProductList == null)
+                {
+                    CoreProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+                    ProductList = new ObservableCollection<ProductDTO>(CoreProductList);
+                }
 
                 if (GenreProductList == null)
                     GenreProductList = new ObservableCollection<GenreProductDTO>(await GenreProService.Ins.GetAllGenre());
@@ -252,20 +260,15 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 SearchText = "";
                 QuantityOfSelectedProduct = 1;
                 Today = DateTime.Now;
+                FilterProduct(FilterGnereID, SearchText);
                 IdOfNextBill = await BillService.Ins.NumOfBill() + 1;                
             });
 
-            FilterCommand = new RelayCommand<Object>((p) => { return true; }, async (p) =>
+            FilterCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
                 if (p != null && int.TryParse(p.ToString(), out int temp))
                     FilterGnereID = temp;
-
-                if (SearchText == "" && FilterGnereID == 0)
-                {
-                    ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
-                    return;
-                }
-                ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.FilterPrdList(FilterGnereID, SearchText));
+                FilterProduct(FilterGnereID, SearchText);
             });
 
             OpenInfoProWDCommand = new RelayCommand<ProductCardStaff>((p) => { return true; }, (p) =>
@@ -286,19 +289,23 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 UsePointBtnChecked = false;
                 CaculatePoint();
                 SelectedCustomer = new CustomerDTO(SelectedCustomer);
-                SearchCustomerIDstring = null; SearchCustomerName = null; SearchCustomerPhone = null;
+                SearchCustomerIDstring = ""; SearchCustomerName = ""; SearchCustomerPhone = "";
                 SearchingCustomer = new CustomerDTO(SelectedCustomer);
-                CustomerList = new ObservableCollection<CustomerDTO>(await Task.Run(() => CustomerService.Ins.GetAllCus()));
+                if(CoreCustomerList == null)
+                {
+                    CoreCustomerList = new ObservableCollection<CustomerDTO>(await Task.Run(() => CustomerService.Ins.GetAllCus()));
+                    CustomerList = new ObservableCollection<CustomerDTO>(CoreCustomerList); 
+                }
                 SearchCustomerWindow wd = new SearchCustomerWindow();
                 wd.ShowDialog();
             });
 
-            CustomerFilterCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            CustomerFilterCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 if (int.TryParse(SearchCustomerIDstring, out int temp))
                     SearchCustomerID = temp;
                 else SearchCustomerID = 0;
-                CustomerList = new ObservableCollection<CustomerDTO>(await CustomerService.Ins.SearchCus(SearchCustomerID, SearchCustomerName, SearchCustomerPhone));
+                FilterCustomer(SearchCustomerID, SearchCustomerName, SearchCustomerPhone);
             });
 
             btnSelectCustomerCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -375,6 +382,43 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             {
 
             });
+        }
+
+        private void FilterProduct(int filterGenID, string searchtxt)
+        {
+            ProductList = new ObservableCollection<ProductDTO>();
+            if (filterGenID != 0 && searchtxt != "")
+            {
+                foreach(ProductDTO product in CoreProductList)
+                {
+                    if(product.PRO_NAME.ToLower().Contains(searchtxt.ToLower()) && product.GP_ID == filterGenID)
+                    {
+                        ProductList.Add(product);
+                    }
+                }
+            }
+            else if (searchtxt == "" && filterGenID != 0)
+            {
+                foreach (ProductDTO product in CoreProductList)
+                {
+                    if(product.GP_ID == filterGenID)
+                        ProductList.Add(product);
+                }
+            }
+            else if (filterGenID == 0 && searchtxt.Length != 0)
+            {
+                foreach (ProductDTO product in CoreProductList)
+                {
+                    if (product.PRO_NAME.ToLower().Contains(searchtxt.ToLower()))
+                    {
+                        ProductList.Add(product);
+                    }
+                }
+            }
+            else
+            {
+                ProductList = new ObservableCollection<ProductDTO>(CoreProductList);
+            }
         }
 
         private void saveBill()
@@ -458,5 +502,52 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 PointHaveUsed = 0;
             }
         }
+
+        private void FilterCustomer(int ID, string Name, string Phone)
+        {
+            CustomerList = new ObservableCollection<CustomerDTO>();
+            if (ID == 0 && string.IsNullOrEmpty(Name) == true && string.IsNullOrEmpty(Phone) == true)
+            {
+                foreach (CustomerDTO item in CoreCustomerList)
+                    CustomerList.Add(item);
+            }
+            else if (ID != 0)
+            {
+                foreach (CustomerDTO item in CoreCustomerList)
+                {
+                    if (ID.ToString().Contains(item.ID.ToString()))
+                        CustomerList.Add(item);
+                }
+            }
+            else if (string.IsNullOrEmpty(Name) == false && string.IsNullOrEmpty(Phone) == false)
+            {
+                foreach (CustomerDTO item in CoreCustomerList)
+                {
+                    if (item.Name.Contains(Name) && item.Phone.Contains(Phone))
+                        CustomerList.Add(item);
+                }
+            }
+            else if (string.IsNullOrEmpty(Name) == true)
+            {
+                foreach (CustomerDTO item in CoreCustomerList)
+                {
+                    if (item.Phone.Contains(Phone))
+                        CustomerList.Add(item);
+                }
+            }
+            else if (string.IsNullOrEmpty(Phone) == true)
+            {
+                foreach (CustomerDTO item in CoreCustomerList)
+                {
+                    if (item.Name.Contains(Name))
+                        CustomerList.Add(item);
+                }
+            }
+            else
+            {
+                CustomerList = CoreCustomerList;
+            }
+        }
+
     }
 }

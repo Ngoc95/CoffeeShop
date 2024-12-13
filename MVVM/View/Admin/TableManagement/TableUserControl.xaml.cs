@@ -29,7 +29,6 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.TableManagament
             InitializeComponent();
         }
 
-
     }
     public class MyTemplateSelector : DataTemplateSelector
     {

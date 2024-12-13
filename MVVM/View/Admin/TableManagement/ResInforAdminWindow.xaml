@@ -1,19 +1,18 @@
-﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Staff.StaffTable.ReservationInfor"
+﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Admin.TableManagement.ResInforAdminWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        DataContext="{StaticResource StaffTableResViewModel}"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagement"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        DataContext="{StaticResource TableViewModel}"
         xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
-        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffTable"
+        x:Name="ResInforAdminWD"
         mc:Ignorable="d"
-        x:Name="ResInforWD"
         Background="Transparent"
-        WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Title="ReservationInfor" Height="680" Width="810">
-
+        WindowStyle="None"
+        Title="ResInforAdminWindow" Height="680" Width="810">
     <Border 
         Background="White" 
         BorderBrush="#603127"
@@ -45,7 +44,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    
+
                     <StackPanel Grid.Row="0">
                         <TextBlock Text="Thông tin khách hàng: " Style="{DynamicResource Header4Style}" Margin="15,5"></TextBlock>
                         <Grid>
@@ -107,12 +106,14 @@
                                 <StackPanel Grid.Column="1">
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Grid.Column="0" Text="Ngày đặt bàn: " Style="{DynamicResource Header5Style}"></TextBlock>
-                                        <DatePicker
+                                        <StackPanel Orientation="Horizontal">
+                                            <DatePicker
                                             FontSize="16"
                                             x:Name="Date"
                                             Width="100"
                                             SelectedDate="{Binding EditingReservation.RES_DATE}">
-                                        </DatePicker>
+                                            </DatePicker>
+                                        </StackPanel>
                                     </StackPanel>
                                     <StackPanel Margin="5" Orientation="Horizontal">
                                         <TextBlock Grid.Column="0" Text="Giờ đặt bàn: " Style="{DynamicResource Header5Style}"></TextBlock>
@@ -131,8 +132,8 @@
                                     <Button
                                         x:Name="CheckInBtn"
                                         Style="{StaticResource ButtonCancel_WD}"
-                                        Command="{Binding btnCheckinCommand}"
-                                        CommandParameter="{Binding ElementName=ResInforWD}"
+                                        Command="{Binding btnCheckinAdminCommand}"
+                                        CommandParameter="{Binding ElementName=ResInforAdminWD}"
                                         Width="200"
                                         Margin="5,10,5,0"
                                         VerticalAlignment="Bottom"
@@ -155,8 +156,8 @@
                         </StackPanel>
                     </Grid>
 
-                    </Grid>
-                </Border>
+                </Grid>
+            </Border>
             <Button
                 Grid.Row="2"
                 VerticalAlignment="Bottom"
@@ -167,8 +168,8 @@
             <Button
                 Grid.Row="2"
                 x:Name="Savebtn"
-                Command="{Binding SaveReservationChangeCommand}"
-                CommandParameter="{Binding ElementName=ResInforWD}"
+                Command="{Binding SaveReservationChangeAdminCommand}"
+                CommandParameter="{Binding ElementName=ResInforAdminWD}"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"
                 Width="150"

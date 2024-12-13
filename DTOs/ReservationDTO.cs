@@ -13,7 +13,8 @@ namespace QuanLiCoffeeShop.DTOs
         public int RES_ID { get; set; }
         public int CUS_ID { get; set; }
         public int TABLE_ID { get; set; }
-        public System.DateTime RES_DATETIME { get; set; }
+        public System.DateTime RES_DATE { get; set; }
+        public System.DateTime RES_TIME { get; set; }
         public int NUM_OF_PEOPLE { get; set; }
         public string RES_STATUS { get; set; }
         public string SPECIAL_REQUEST { get; set; }
@@ -25,7 +26,8 @@ namespace QuanLiCoffeeShop.DTOs
         {
             CREATE_AT = a.CREATE_AT;
             RES_ID = a.RES_ID;
-            RES_DATETIME = a.RES_DATETIME;
+            RES_DATE = a.RES_DATE;
+            RES_TIME = a.RES_TIME;
             CUS_ID = a.CUS_ID;
             TABLE_ID = a.TABLE_ID;
             NUM_OF_PEOPLE = a.NUM_OF_PEOPLE;
@@ -36,7 +38,7 @@ namespace QuanLiCoffeeShop.DTOs
 
         public bool IsEqual(ReservationDTO other)
         {
-            if(this.RES_DATETIME == other.RES_DATETIME && this.NUM_OF_PEOPLE == other.NUM_OF_PEOPLE
+            if(this.RES_TIME == other.RES_TIME && this.RES_DATE == other.RES_DATE && this.NUM_OF_PEOPLE == other.NUM_OF_PEOPLE
                 && this.TABLE_ID == other.TABLE_ID
                 && this.SPECIAL_REQUEST == other.SPECIAL_REQUEST)
                 return true;

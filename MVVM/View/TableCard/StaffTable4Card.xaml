@@ -9,6 +9,13 @@
              d:DesignHeight="236" d:DesignWidth="150"
              HorizontalAlignment="Left"
              VerticalAlignment="Top">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction
+                    Command="{Binding DataContext.SelectTableCommand, RelativeSource={RelativeSource AncestorType= ItemsControl}}"
+                    CommandParameter="{Binding}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Border 
         BorderThickness="1" 
         BorderBrush="Black" 

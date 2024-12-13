@@ -16,6 +16,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         #region commands
         public ICommand CloseWindowCommand { get; set; }
         public ICommand MinimizeWindowCommand { get; set; }
+        public ICommand MaximizeWindowCommand { get; set; }
         #endregion
 
         public ControlBarViewModel()
@@ -33,6 +34,27 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 Window w = parent as Window;
                 if (w != null)
                     w.WindowState = WindowState.Minimized;
+            });
+
+            MaximizeWindowCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            {
+                FrameworkElement parent = GetParent(p);
+                Window w = parent as Window;
+                if (w != null)
+                {
+                    if (w.Width != SystemParameters.WorkArea.Width)
+                    {
+                        w.Width = SystemParameters.WorkArea.Width;
+                        w.Height = SystemParameters.WorkArea.Height;
+                        w.Left = SystemParameters.WorkArea.Left;
+                        w.Top = SystemParameters.WorkArea.Top;
+                    }
+                    else
+                    {
+                        w.Width = 1200;
+                        w.Height = 800;
+                    }
+                }
             });
         }
 

@@ -27,21 +27,18 @@ namespace QuanLiCoffeeShop.MVVM.View.Staff.StaffTable
 
         private void ReservationInfor_Loaded(object sender, RoutedEventArgs e)
         {
-            DateTime a = new DateTime(int.Parse(YearRes.Text), int.Parse(MonthRes.Text), int.Parse(DayRes.Text));
-            if (a.Date < DateTime.Now.Date)
+
+            if (Date.SelectedDate < DateTime.Now.Date)
             {
                 CheckInBtn.Visibility = Visibility.Hidden;
                 Savebtn.Visibility = Visibility.Hidden;
                 TxtNumPP.IsEnabled = false;
                 TxtTB_id.IsEnabled = false;
-                TxtHourRes.IsEnabled = false;
-                TxtMinuteRes.IsEnabled = false;
-                DayRes.IsEnabled = false;
-                MonthRes.IsEnabled = false;
-                YearRes.IsEnabled = false;
+                Date.IsEnabled = false;
+                Time.IsEnabled = false;
                 TxtReqRes.IsEnabled = false;
             }
-            else if (a.Date > DateTime.Now.Date)
+            else if (Date.SelectedDate > DateTime.Now.Date)
             {
                 CheckInBtn.Visibility = Visibility.Hidden;
                 Savebtn.Visibility = Visibility.Visible;
@@ -54,7 +51,7 @@ namespace QuanLiCoffeeShop.MVVM.View.Staff.StaffTable
                 }
                 else
                 {
-                    CheckInBtn.Content = "CheckIn";
+                    CheckInBtn.Content = "Check In";
                 }
             }
         }
@@ -67,6 +64,11 @@ namespace QuanLiCoffeeShop.MVVM.View.Staff.StaffTable
                 this.DragMove();
             }
             
+        }
+
+        private void Border_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

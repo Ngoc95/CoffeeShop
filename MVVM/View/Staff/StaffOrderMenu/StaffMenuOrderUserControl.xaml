@@ -18,7 +18,7 @@
     </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.23*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
@@ -29,6 +29,8 @@
             </Grid.RowDefinitions>
 
             <TextBox 
+                HorizontalAlignment="Stretch"
+                Margin="10,0"
                 x:Name="searchBox"
                 Grid.Row="0"
                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
@@ -153,14 +155,14 @@
                                 Command="{Binding OpenSearchCusWDCommand}"
                                 Background="Transparent"
                                 Margin="10,10,5,0"
-                                Width="160"
+                                Width="150"
                                 HorizontalAlignment="Right"></Button>
                             <Button 
                                 Style="{DynamicResource ButtonStaffStyle}"
                                 Command="{Binding btnSetDefaultCustomerCommand}"
                                 Content="Khách vãng lai"
                                 Margin="10,10,5,0"
-                                Width="160"
+                                Width="150"
                                 Background="#d3756b"
                                 HorizontalAlignment="Right"></Button>
                         </StackPanel>
@@ -198,7 +200,7 @@
                                 Content="Thêm vào hóa đơn"
                                 VerticalAlignment="Bottom"
                                 Margin="10,10,5,10"
-                                Width="160"
+                                Width="150"
                                 Background="#d3756b"
                                 HorizontalAlignment="Right"></Button>
                     </Grid>
@@ -282,7 +284,7 @@
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
-                                        <GridViewColumn Width="115" Header="Giá"
+                                        <GridViewColumn Width="100" Header="Giá"
                                             HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -327,7 +329,7 @@
                             Style="{StaticResource ToggleButtonStaffStyle}"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Left"
-                            Width="200"
+                            Width="180"
                             Margin="5"
                             Background="#ffc3a1"></ToggleButton>
                         <Button 
@@ -337,7 +339,7 @@
                             HorizontalAlignment="Left"
                             Command="{Binding ToggerBtnUsePointCommand}"
                             Opacity="0"
-                            Width="200" Height="40" 
+                            Width="180" Height="40" 
                             Margin="5"/>
 
                         <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
@@ -370,7 +372,7 @@
                 Style="{DynamicResource ButtonStaffStyle}"
                 HorizontalAlignment="Right"
                 Margin="15,10"
-                Width="200"
+                Width="160"
                 Background="#d3756b"
                 Content="Lưu và in hóa đơn"
                 ></Button>

@@ -6,6 +6,8 @@
     <ImageBrush x:Key="MinusIconSource" ImageSource="../../Images/ControlBarImg/minimize.png"></ImageBrush>
     <ImageBrush x:Key="MinusIconMouseOverSource" ImageSource="../../Images/ControlBarImg/minimize_mouseover.png"></ImageBrush>
     <ImageBrush x:Key="CloseIconBillInforSource" ImageSource="../../Images/ControlBarImg/closeBill_Infor.png"></ImageBrush>
+    <ImageBrush x:Key="MaxiIconSource" ImageSource="../../Images/ControlBarImg/Maxi.png"></ImageBrush>
+    <ImageBrush x:Key="MaxiIconMouseOverSource" ImageSource="../../Images/ControlBarImg/MaxiMouseOver.png"></ImageBrush>
     
     <Style x:Key="ButtonStyleEditTBCard" TargetType="Button">
         <Setter Property="Margin" Value="10, 0, 10, 0"/>
@@ -140,6 +142,30 @@
                         <Trigger Property="IsMouseCaptured" Value="True">
                             <Setter TargetName="BorderImg" Property="Width" Value="35"/>
                             <Setter TargetName="BorderImg" Property="Height" Value="35"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MyButtonMaximineStyle" TargetType="Button">
+        <Setter Property="Height" Value="37"/>
+        <Setter Property="Width" Value="37"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border x:Name="BorderImg" 
+                            Background="{StaticResource MaxiIconSource}"
+                            Height="{TemplateBinding Height}" 
+                            Width="{TemplateBinding Width}"/>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="BorderImg" Property="Background" Value="{StaticResource MaxiIconMouseOverSource}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseCaptured" Value="True">
+                            <Setter TargetName="BorderImg" Property="Width" Value="32"/>
+                            <Setter TargetName="BorderImg" Property="Height" Value="32"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -345,7 +371,7 @@
 
     <Style x:Key="RadioButtonStyleStaffTable" TargetType="ToggleButton">
         <Setter Property="Width" Value="109"/>
-        <Setter Property="Height" Value="40"/>
+        <Setter Property="Height" Value="35"/>
         <Setter Property="Effect">
             <Setter.Value>
                 <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="3" Opacity="0.5"/>

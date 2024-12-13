@@ -25,6 +25,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
     {
         #region Declare
 
+        private ObservableCollection<ProductDTO> CoreProductList;
         private ObservableCollection<ProductDTO> _productList;
 
         public ObservableCollection<ProductDTO> ProductList
@@ -68,9 +69,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         private int _FilterGnereID = 0;
         public int FilterGnereID { get => _FilterGnereID; set { _FilterGnereID = value; OnPropertyChanged(); } }
 
-        private int _IDOfNextProduct = 0;
-        public int IDOfNextProduct { get => _IDOfNextProduct; set { _IDOfNextProduct = value; OnPropertyChanged(); } }
-
+        private int IDOfNextProduct = 0;
         #endregion
 
         #region Command
@@ -91,8 +90,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         {
             FirstLoadCM = new RelayCommand<Page>((p) => { return true; }, async (p) =>
             {
-
-                 ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+                if(CoreProductList == null)
+                {
+                    CoreProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+                    ProductList = CoreProductList;
+                }
 
                 if(GenreProductList == null)
                     GenreProductList = new ObservableCollection<GenreProductDTO>(await GenreProService.Ins.GetAllGenre());
@@ -111,11 +113,14 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 }
                 FilterGnereID = 0;
                 SearchText = "";
+                FilterProduct(FilterGnereID, SearchText);
+                if (IDOfNextProduct == 0)
+                    IDOfNextProduct = await ProductService.Ins.NumOfProduct() + 1;
             });
 
-            OpenAddProWDCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            OpenAddProWDCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                IDOfNextProduct = await ProductService.Ins.NumOfProduct() + 1;
+                SelectedItem.PRO_ID = IDOfNextProduct;
                 _SelectedItem = new ProductDTO();
                 SelectedItemGenreName = "";
                 AddProductWindow wd = new AddProductWindow();
@@ -148,7 +153,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     (bool IsDeleted, string messageDelete) = await ProductService.Ins.DeletePrdList(SelectedItem.PRO_ID);
                     if (IsDeleted)
                     {
-                        ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.FilterPrdList(FilterGnereID, SearchText));
+                        DeleteProductCoreList(SelectedItem);
+                        FilterProduct(FilterGnereID, SearchText);
                         MessageBoxCustom.Show(MessageBoxCustom.Success, messageDelete);
                     }
                     else
@@ -169,7 +175,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 if (IsAdded)
                 {
                     p.Close();
-                    ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.FilterPrdList(FilterGnereID, SearchText));
+                    UpdateProductCoreList(SelectedItem);
+                    FilterProduct(FilterGnereID, SearchText);
                     MessageBoxCustom.Show(MessageBoxCustom.Success, messageAdd);
                 }
                 else
@@ -178,30 +185,16 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 }
             });
 
-            FilterCommand = new RelayCommand<Object>((p) => { return true; }, async (p) =>
+            FilterCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
                 if(p != null && int.TryParse(p.ToString(), out int temp))
                     FilterGnereID = temp;
-
-                if (SearchText == "" && FilterGnereID == 0)
-                {
-                    ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
-                    return;
-                }
-                ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.FilterPrdList(FilterGnereID, SearchText));
+                FilterProduct(FilterGnereID, SearchText);
             });
 
-            SearchMenuCommand = new RelayCommand<Object>((p) => { return true; }, async (p) =>
+            SearchMenuCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                
-                if (SearchText == "")
-                {
-                    ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
-                }
-                else
-                {
-                    ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.FilterPrdList(FilterGnereID, SearchText));
-                }
+                FilterProduct(FilterGnereID, SearchText);   
             });
 
 
@@ -224,7 +217,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     }
                     catch 
                     {
-                        // Hiển thị lỗi nếu quá trình tải ảnh thất bại
                         MessageBoxCustom.Show(MessageBoxCustom.Error, "Tải ảnh thất bại");
                     }
                 }
@@ -233,12 +225,13 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             BtnAddProductDataComand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
                 _SelectedItem.GP_ID = GetGenreID();
-                (bool IsAdded, string messageAdd) = await ProductService.Ins.AddPrdList(_SelectedItem);
+                (bool IsAdded, string messageAdd) = await ProductService.Ins.AddPrdList(SelectedItem);
                 if (IsAdded)
                 {
                     p.Close();
-                    ProductList = new ObservableCollection<ProductDTO>(await ProductService.Ins.FilterPrdList(FilterGnereID, SearchText));
                     MessageBoxCustom.Show(MessageBoxCustom.Success, messageAdd);
+                    AddProductCoreList(SelectedItem);
+                    FilterProduct(FilterGnereID, SearchText);
                 }
                 else
                 {
@@ -253,11 +246,42 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             });
         }
 
-        public static implicit operator MenuViewModel(MenuOrderViewModel v)
+        private void AddProductCoreList(ProductDTO selectedItem)
         {
-            throw new NotImplementedException();
+            CoreProductList.Add(selectedItem);
+            ProductList = new ObservableCollection<ProductDTO>(CoreProductList);    
+            IDOfNextProduct++;
         }
 
+        private void UpdateProductCoreList(ProductDTO selectedItem)
+        {
+            foreach(ProductDTO product in CoreProductList)
+            {
+                if(product.PRO_ID == selectedItem.PRO_ID)
+                {
+                    product.PRO_NAME = selectedItem.PRO_NAME;
+                    product.PRO_PRICE = selectedItem.PRO_PRICE;
+                    product.GP_ID = selectedItem.GP_ID;
+                    product.PRO_IMG = selectedItem.PRO_IMG;
+                    product.PRO_DESCRIPTION = selectedItem.PRO_DESCRIPTION;
+                    ProductList = new ObservableCollection<ProductDTO>(CoreProductList);
+                    return;
+                }
+            }
+        }
+
+        private void DeleteProductCoreList(ProductDTO selectedItem)
+        {
+            for (int i = 0; i < CoreProductList.Count; i++)
+            {
+                if(CoreProductList[i].PRO_ID == selectedItem.PRO_ID)
+                {
+                    CoreProductList.RemoveAt(i);
+                    ProductList = new ObservableCollection<ProductDTO>(CoreProductList);
+                    return;
+                }
+            }
+        }
 
         public string GetGenreName()
         {
@@ -282,6 +306,44 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             }
             return 0;
         }
+
+        private void FilterProduct(int filterGenID, string searchtxt)
+        {
+            ProductList = new ObservableCollection<ProductDTO>();
+            if (filterGenID != 0 && searchtxt != "")
+            {
+                foreach (ProductDTO product in CoreProductList)
+                {
+                    if (product.PRO_NAME.ToLower().Contains(searchtxt.ToLower()) && product.GP_ID == filterGenID)
+                    {
+                        ProductList.Add(product);
+                    }
+                }
+            }
+            else if (searchtxt == "" && filterGenID != 0)
+            {
+                foreach (ProductDTO product in CoreProductList)
+                {
+                    if (product.GP_ID == filterGenID)
+                        ProductList.Add(product);
+                }
+            }
+            else if (filterGenID == 0 && searchtxt.Length != 0)
+            {
+                foreach (ProductDTO product in CoreProductList)
+                {
+                    if (product.PRO_NAME.ToLower().Contains(searchtxt.ToLower()))
+                    {
+                        ProductList.Add(product);
+                    }
+                }
+            }
+            else
+            {
+                ProductList = new ObservableCollection<ProductDTO>(CoreProductList);
+            }
+        }
+
 
     }
 }

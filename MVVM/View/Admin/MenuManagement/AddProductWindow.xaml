@@ -46,7 +46,7 @@
                     <StackPanel Margin="5,0,0,0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Mã sản phẩm: " Margin="15,0,0,17" Style="{StaticResource Header3Style}"></TextBlock>
-                            <TextBlock Text="{Binding IDOfNextProduct, StringFormat='000'}" Margin="0,0,0,17" Style="{StaticResource Header3Style}"></TextBlock>
+                            <TextBlock Text="{Binding SelectedItem.PRO_ID, StringFormat='000'}" Margin="0,0,0,17" Style="{StaticResource Header3Style}"></TextBlock>
                         </StackPanel>
 
                         <TextBlock Text="Tên sản phẩm"

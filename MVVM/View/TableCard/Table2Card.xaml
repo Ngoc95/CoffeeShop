@@ -26,7 +26,8 @@
             </Grid>
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
                 <TextBlock TextAlignment="Center" FontSize="20" Margin="0, 5, 0, 0" Text="{Binding TB_ID, StringFormat='000'}"></TextBlock>
-                <TextBlock TextAlignment="Center" FontSize="18" Margin="0,5, 0, 0" Text="{Binding TB_STATUS}"></TextBlock>
+                <TextBlock TextAlignment="Center" FontSize="18" Margin="0,5, 0, 0" Text="{Binding TB_STATUS}" 
+                           Style="{StaticResource StatusTextBlockStyle}"></TextBlock> 
                 <TextBlock TextAlignment="Center" FontSize="18" Margin="5" Foreground="#49454F" Text="Bàn 2 người"></TextBlock>
             </StackPanel>
 

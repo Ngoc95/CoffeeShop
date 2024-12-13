@@ -57,8 +57,8 @@ create table RESERVATION
 	RES_ID int identity(1,1),
 	CUS_ID int not null,
 	TABLE_ID int not null, 
-	RES_DATETIME smalldatetime not null, 
-	--RES_TIME smalldatetime not null, 
+	RES_DATE datetime2 not null, 
+	RES_TIME datetime2 not null, 
 	NUM_OF_PEOPLE int not null, 
 	RES_STATUS nvarchar(100) default N'Khách chưa nhận bàn', 
 	SPECIAL_REQUEST nvarchar(max),  
@@ -67,7 +67,6 @@ create table RESERVATION
 	constraint pk_RES primary key(RES_ID),
 	constraint fk_CUS foreign key(CUS_ID) references CUSTOMER(CUS_ID),
 	constraint fk_TABLE foreign key(TABLE_ID) references _TABLE(TB_ID),
-
 	constraint chk_RES check(RES_STATUS in ( N'Khách chưa nhận bàn',  N'Khách đã nhận bàn'))
 )
 
@@ -250,17 +249,18 @@ INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_POINT) VALUES (N'Qu�
 
 set dateformat dmy
 
-INSERT INTO RESERVATION (CUS_ID, TABLE_ID, RES_DATETIME, NUM_OF_PEOPLE, RES_STATUS, SPECIAL_REQUEST)
+INSERT INTO RESERVATION (CUS_ID, TABLE_ID, RES_DATE, RES_TIME, NUM_OF_PEOPLE, SPECIAL_REQUEST)
+VALUES (1, 1, '3/1/2025', '10:10:00', 1, N'Chỗ gần cửa sổ')
+
+INSERT INTO RESERVATION (CUS_ID, TABLE_ID, RES_DATE, RES_TIME, NUM_OF_PEOPLE, RES_STATUS, SPECIAL_REQUEST)
 VALUES
-(1, 1, '08-12-2024 19:00:00', 2, N'Khách chưa nhận bàn', N'Chỗ gần cửa sổ'),
-(2, 2, '08-12-2024 19:30:00', 3, N'Khách đã nhận bàn', NULL),
-(3, 3, '09-12-2024 18:00:00', 3, N'Khách chưa nhận bàn', N'Yêu cầu yên tĩnh'),
-(4, 4, '09-1-2024 20:00:00', 5, N'Khách chưa nhận bàn', NULL),
-(5, 1, '10-12-2024 12:00:00', 2, N'Khách đã nhận bàn', N'Không dùng thức uống lạnh'),
-(6, 4, '10-1-2024 14:00:00', 6, N'Khách chưa nhận bàn', N'Chỗ gần máy lạnh'),
-(7, 3, '11-1-2024 15:00:00', 4, N'Khách chưa nhận bàn', N'Thích đồ uống ít đường'),
-(8, 1, '11-12-2024 17:00:00', 2, N'Khách đã nhận bàn', NULL),
-(1, 2, '12-1-2024 13:00:00', 3, N'Khách chưa nhận bàn', NULL),
-(2, 4, '12-12-2024 16:00:00', 5, N'Khách đã nhận bàn', NULL);
-
-
+(1, 1, '31-12-2024', '15:00:00', 2, N'Khách chưa nhận bàn', N'Chỗ gần cửa sổ'),
+(2, 2, '2-1-2025', '13:30:00', 3, N'Khách chưa nhận bàn', NULL),
+(3, 3, '2-1-2025', '8:00:00', 4, N'Khách chưa nhận bàn', N'Yêu cầu yên tĩnh'),
+(4, 4, '09-1-2025', '19:00:00', 5, N'Khách chưa nhận bàn', NULL),
+(5, 1, '30-12-2024', '12:00:00', 2, N'Khách đã nhận bàn', N'Không dùng thức uống lạnh'),
+(6, 4, '3-1-2025', '8:00:00', 6, N'Khách chưa nhận bàn', N'Chỗ gần máy lạnh'),
+(7, 3, '4-1-2025', '15:00:00', 4, N'Khách chưa nhận bàn', N'Thích đồ uống ít đường'),
+(8, 1, '2-1-2025', '17:00:00', 2, N'Khách chưa nhận bàn', NULL),
+(1, 2, '12-12-2025', '13:00:00', 3, N'Khách chưa nhận bàn', NULL),
+(2, 4, '12-12-2024', '16:00:00', 5, N'Khách chưa nhận bàn', NULL);
