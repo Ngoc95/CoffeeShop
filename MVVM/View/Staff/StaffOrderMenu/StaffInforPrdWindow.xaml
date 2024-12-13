@@ -1,0 +1,130 @@
+﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu.StaffInforPrdWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
+        DataContext="{StaticResource MenuOrderViewModel}"
+        x:Name="InforPrdWD"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="StafInforPrdWindow" Height="703" Width="668"
+        WindowStyle="None"
+        Background="Transparent">
+    <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White"
+            MouseDown="moveAddCusWin_MouseDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" 
+                        Height="80"
+                        Width="auto">
+                <TextBlock Text="Thông tin sản phẩm" HorizontalAlignment="Left"
+                           Style="{DynamicResource Header1Style}"></TextBlock>
+
+                <Grid HorizontalAlignment="Right" Margin="0,0,30,0" Width="auto">
+                    <uc:ControlBarUserControl></uc:ControlBarUserControl>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <StackPanel Margin="5,0,0,0">
+                        <StackPanel Margin="0,0,0,15" Orientation="Horizontal">
+                            <TextBlock Text="Mã sản phẩm: "
+                                       Style="{DynamicResource Header3Style}"/>
+                            <TextBlock Text="{Binding SelectedItem.PRO_ID, StringFormat='000'}"
+                                        Style="{DynamicResource Header3Style}"/>
+                        </StackPanel>
+                        <TextBlock Text="Tên sản phẩm"
+                                   Style="{DynamicResource Header3Style}"/>
+
+                        <TextBox 
+                            x:Name="Prd_Name_tb"
+                            IsEnabled="False"
+                            Text="{Binding SelectedItem.PRO_NAME}"
+                            Margin="15,0,30,15" 
+                            Width="auto" 
+                            Style="{DynamicResource TextBoxStyle1}" ></TextBox>
+
+                        <TextBlock 
+                            Text="Loại sản phẩm"
+                            Style="{DynamicResource Header3Style}"/>
+                        <TextBox 
+                            x:Name="Genre_Prd_tb"
+                            IsEnabled="False"
+                            Text="{Binding SelectedItemGenreName}"
+                            Margin="15,0,30,15" 
+                            Width="auto" 
+                            Style="{DynamicResource TextBoxStyle1}" ></TextBox>
+
+                        <TextBlock Text="Giá bán" Style="{DynamicResource Header3Style}"/>
+                        <Grid>
+                            <TextBox 
+                                IsEnabled="False"
+                                x:Name="Prd_Price_tb"
+                                Text="{Binding SelectedItem.PRO_PRICE, Mode=TwoWay, StringFormat={}{0:C0}}" Language="vi-VN"
+                                Margin="15,0,30,15" 
+                                Width="auto" 
+                                Style="{DynamicResource TextBoxStyle1}" />
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <StackPanel>
+
+                        <TextBlock Text="Hình ảnh" 
+                                   Height="30"
+                                   Style="{DynamicResource Header3Style}"
+                                   Margin="15,0,0,0"/>
+                        <Border
+                            Height="250" Width="250"
+                            Background="#ffc3a1" CornerRadius="20" Margin="10">
+
+                            <Image
+                                x:Name="ProductImg"
+                                Margin="0"
+                                Source="{Binding SelectedItem.PRO_IMG, Mode=TwoWay}"
+                                Stretch="Fill" Grid.ColumnSpan="2"></Image>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+
+
+            <StackPanel Grid.Row="2" Margin="5,5,0,0">
+                <TextBlock Text="Mô tả" Style="{DynamicResource Header3Style}"/>
+                <TextBox
+                    IsEnabled="False"
+                    Text="{Binding SelectedItem.PRO_DESCRIPTION}"
+                    Margin="15,0,20,0"
+                    Style="{DynamicResource TextBoxDescribeStyle}"></TextBox>
+            </StackPanel>
+
+
+            <Button 
+                Grid.Row="3"
+                Command="{Binding CloseWDCommand}"
+                CommandParameter="{Binding ElementName=InforPrdWD}"
+                HorizontalAlignment="Right"
+                Margin="0,0,20,0"
+                Content="Xong"
+                Style="{DynamicResource ButtonAdd_WD}">
+            </Button>
+        </Grid>
+    </Border>
+</Window>
+

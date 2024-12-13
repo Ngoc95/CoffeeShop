@@ -1,12 +1,37 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style x:Key="MyMenuItemStyle" BasedOn="{x:Null}" TargetType="{x:Type MenuItem}">
-        <Style.Triggers>
-            <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="Pink"/>
-            </Trigger>
-        </Style.Triggers>
+    <Style x:Key="MyMenuItemStyle" BasedOn="{x:Null}" TargetType="ListViewItem">
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Padding" Value="10,5" />
+        <Setter Property="Margin" Value="10,10"/>
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate 
+                        TargetType="MenuItem">
+                        <Grid>
+                            <ContentPresenter 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center" 
+                                Content="day la content" />
+                            <Border x:Name="Underline" Height="2" Background="Transparent" VerticalAlignment="Bottom" Margin="5,0,5,0" />
+                        </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Underline" Property="Background" Value="#FFC89C" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Underline" Property="Background" Value="#FFC89C" />
+                                <Setter Property="Foreground" Value="#FFC89C" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        
     </Style>
     <Style x:Key="MenuStyle1" TargetType="{x:Type Control}">
         <Style.Resources>
@@ -28,9 +53,8 @@
         <Setter Property="TextBlock.FontSize" Value="15" />
 
         <Setter Property="VerticalContentAlignment" Value="Center" />
-
     </Style>
 
-        
-    
+
+
 </ResourceDictionary>

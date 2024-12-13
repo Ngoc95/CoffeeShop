@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiCoffeeShop.MVVM.ViewModel.Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,9 +26,6 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement
             InitializeComponent();
         }
 
-        private void Table6_Checked(object sender, RoutedEventArgs e)
-        {
 
-        }
     }
 }

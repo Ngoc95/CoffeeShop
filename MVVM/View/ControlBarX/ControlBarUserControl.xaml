@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
              mc:Ignorable="d" Name="controlbar"
-             d:DesignHeight="40" d:DesignWidth="80">
+             d:DesignHeight="40" d:DesignWidth="120">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
@@ -15,8 +16,11 @@
                 Style="{DynamicResource ButtonMinimizeStyle}"
                 Command="{Binding MinimizeWindowCommand}"
                 CommandParameter="{Binding ElementName=controlbar}"/>
-
         <Button Grid.Column="1"
+                Command="{Binding MaximizeWindowCommand}"
+                CommandParameter="{Binding ElementName=controlbar}"
+                Style="{DynamicResource MyButtonMaximineStyle}"/>
+        <Button Grid.Column="2"
                 Command="{Binding CloseWindowCommand}"
                 CommandParameter="{Binding ElementName=controlbar}"
                 Style="{DynamicResource MyButtonCloseStyle}"/>

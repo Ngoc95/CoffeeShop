@@ -18,6 +18,7 @@ namespace QuanLiCoffeeShop.MVVM.Model
         public CUSTOMER()
         {
             this.BILLs = new HashSet<BILL>();
+            this.RESERVATIONs = new HashSet<RESERVATION>();
         }
     
         public int CUS_ID { get; set; }
@@ -30,5 +31,7 @@ namespace QuanLiCoffeeShop.MVVM.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BILL> BILLs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RESERVATION> RESERVATIONs { get; set; }
     }
 }

@@ -5,16 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement"
         xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
+        xmlns:admin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin" 
         mc:Ignorable="d"
+        x:Name="AddPrdWD"
+        d:DataContext="{d:DesignInstance Type=admin:MenuViewModel}"
+        DataContext="{StaticResource MenuViewModel}"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Title="AddProductWindow" Height="703" Width="668"
         Background="Transparent">
-    <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White">
+    <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White"
+            MouseDown="moveAddCusWin_MouseDown">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
-                <RowDefinition Height="300"/>
+                <RowDefinition Height="33.333"/>
+                <RowDefinition Height="266.667"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="102.72"/>
             </Grid.RowDefinitions>
@@ -30,7 +36,7 @@
                 </Grid>
             </Grid>
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition Width="300"></ColumnDefinition>
@@ -38,76 +44,97 @@
 
                 <Grid Grid.Column="0">
                     <StackPanel Margin="5,0,0,0">
-                        <StackPanel Margin="0,0,0,15" Orientation="Horizontal">
-                            <TextBlock Text="Mã sản phẩm: "
-                                       Style="{DynamicResource Header3Style}"/>
-                            <TextBlock Text="{Binding}"
-                                        Style="{DynamicResource Header3Style}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Mã sản phẩm: " Margin="15,0,0,17" Style="{StaticResource Header3Style}"></TextBlock>
+                            <TextBlock Text="{Binding SelectedItem.PRO_ID, StringFormat='000'}" Margin="0,0,0,17" Style="{StaticResource Header3Style}"></TextBlock>
                         </StackPanel>
-                        <TextBlock Text="Tên sản phẩm"
-                                   Style="{DynamicResource Header3Style}"/>
 
-                        <TextBox Margin="15,0,30,15" Width="auto" Style="{DynamicResource TextBoxStyle1}" IsEnabled="True"></TextBox>
+                        <TextBlock Text="Tên sản phẩm"
+                                   Margin="15,0,0,0"
+                       Style="{DynamicResource Header3Style}"/>
+
+                        <TextBox 
+                            x:Name="Prd_Name_tb"
+                            Text="{Binding SelectedItem.PRO_NAME}"
+                            Margin="15,0,30,15" 
+                            Width="auto" 
+                            Style="{DynamicResource TextBoxStyle1}" 
+                            IsEnabled="True"></TextBox>
 
                         <TextBlock Text="Loại sản phẩm"
-                                   Style="{DynamicResource Header3Style}"/>
+                             Style="{DynamicResource Header3Style}"/>
                         <ComboBox 
+                            x:Name="Genre_Product_cbb"
+                            SelectedItem="{Binding SelectedItemGenreName, Mode=TwoWay}"
+                            ItemsSource="{Binding GenPrdNameList}"
                             Style="{DynamicResource ComboBoxStyleMenu}"
                             Margin="15,0,30,15"
                             Width="auto">
-                            <ComboBoxItem Content="Coffee"></ComboBoxItem>
-                            <ComboBoxItem Content="Trà sữa"/>
-                            <ComboBoxItem Content="Freeze"/>
-                            <ComboBoxItem Content="Trà sữa"/>
-                            <ComboBoxItem Content="Trà"/>
-                            <ComboBoxItem Content="Topping"/>
-                            <ComboBoxItem Content="Khác"/>
                         </ComboBox>
 
                         <TextBlock Text="Giá bán" Style="{DynamicResource Header3Style}"/>
                         <Grid>
-                            <TextBox Margin="15,0,30,15" Width="auto" Style="{DynamicResource TextBoxStyle1}" IsEnabled="True"/>
-                            <TextBlock Text="đ" 
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Right"
-                                       FontSize="22"
-                                       Margin="15,0,45,15"/>
+                            <TextBox 
+                                x:Name="Prd_Price_tb"
+                                Text="{Binding SelectedItem.PRO_PRICE, Mode=TwoWay, StringFormat={}{0:C0}}" Language="vi-VN"
+                                Margin="15,0,30,15" 
+                                Width="auto" 
+                                Style="{DynamicResource TextBoxStyle1}" 
+                                IsEnabled="True"/>
                         </Grid>
                     </StackPanel>
                 </Grid>
-
                 <Grid Grid.Column="1">
-                    <Rectangle Fill="#ffc3a1" Margin="15,25,20,14" RadiusX="20" RadiusY="20"></Rectangle>
                     <StackPanel>
-                        <TextBlock Text="Thêm ảnh" 
-                                   Style="{DynamicResource Header3Style}"
-                                   Margin="15,0,0,0"/>
-                        <Grid Height="258"
-                            Margin="15,5,20,14">
+                        <StackPanel 
+                            Orientation="Horizontal" 
+                            Margin="15,0,0,0"
+                            Height="30">
+
+                            <TextBlock Text="Hình ảnh" 
+                               Style="{DynamicResource Header3Style}"
+                               Margin="15,0,0,0"/>
+                            <Button 
+                                Command="{Binding BtnImageCommand}"
+                                CommandParameter="{Binding ElementName=ProductImg}"
+                                Width="60" 
+                                Height="25" 
+                                Style="{DynamicResource ButtonUploadStyle}">
+                            </Button>
+                        </StackPanel>
+                        <Border
+                            Height="250" Width="250"
+                            Background="#ffc3a1" CornerRadius="20" Margin="10">
+
                             <Image
-                                Source="{Binding}"
+                                x:Name="ProductImg"
+                                Margin="0"
+                                Source="{Binding SelectedItem.PRO_IMG, Mode=TwoWay}"
                                 Stretch="Fill" Grid.ColumnSpan="2"></Image>
-                        </Grid>
+                        </Border>
                     </StackPanel>
                 </Grid>
             </Grid>
 
-            <StackPanel Grid.Row="2" Margin="5,5,0,0">
+            <StackPanel Grid.Row="3" Margin="5,5,0,0">
                 <TextBlock Text="Mô tả" Style="{DynamicResource Header3Style}"/>
                 <TextBox
+                    Text="{Binding SelectedItem.PRO_DESCRIPTION}"
                     Margin="15,0,20,0"
-                    Text="{x:Null}"
                     Style="{DynamicResource TextBoxDescribeStyle}"></TextBox>
             </StackPanel>
 
-            <Grid Grid.Row="3">
-                <Button 
+            <Grid Grid.Row="3" Margin="0,216,0,0" Grid.RowSpan="2">
+                <Button
+                    Command="{Binding }"
                     HorizontalAlignment="Left"
                     Margin="20,0,0,0"
                     Content="Bỏ qua"
                     Style="{DynamicResource ButtonCancel_WD}">
                 </Button>
                 <Button 
+                    Command="{Binding BtnAddProductDataComand}"
+                    CommandParameter="{Binding ElementName=AddPrdWD}"
                     HorizontalAlignment="Right"
                     Margin="0,0,20,0"
                     Content="Thêm"

@@ -194,5 +194,28 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
 
         }
 
+        public async Task<CustomerDTO> FindCustomerbyID(int ID)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var cus = await context.CUSTOMERs.Where(p => p.CUS_ID == ID).FirstOrDefaultAsync();
+                    CustomerDTO customer = new CustomerDTO()
+                    {
+                        ID = cus.CUS_ID,
+                        Name = cus.CUS_NAME,
+                        Email = cus.CUS_EMAIL,
+                        Phone = cus.CUS_PHONE,
+                    };
+                    return customer;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
     }
 }

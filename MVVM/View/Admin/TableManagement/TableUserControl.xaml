@@ -4,6 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:in="http://schemas.microsoft.com/expression/2010/interactivity"
+             DataContext="{StaticResource TableViewModel}"
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagament"
              mc:Ignorable="d" 
              d:DesignHeight="740" d:DesignWidth="930"
@@ -11,105 +14,459 @@
              FontFamily="Fonts/Roboto-Light.ttf #Roboto"
              Background="White">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <local:MyTemplateSelector x:Key="MySelector"
+                                  Table2Template="{StaticResource Table2}"
+                                  Table3Template="{StaticResource Table3}"
+                                  Table4Template="{StaticResource Table4}"
+                                  Table6Template="{StaticResource Table6}" />
+    </UserControl.Resources>
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="78"></RowDefinition>
-            <RowDefinition Height="77"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
+        <TabControl 
+            Style="{x:Null}"
+            materialDesign:ColorZoneAssist.Mode="Inverted"
+            materialDesign:BottomDashedLineAdorner.Thickness="2"
+            materialDesign:ColorZoneAssist.Foreground="#653128">
+            <TabItem Style="{DynamicResource TabItemMyStyle}" 
+                     Tag="Thông tin chung">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="78"></RowDefinition>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
 
-            <ComboBox 
-                    Grid.Column="0"
-                    Margin="52,0,15,0"
-                    Tag="Vị trí"
-                    Style="{DynamicResource ComboBoxStyle1}" 
-                    ItemContainerStyle="{DynamicResource ComboBoxItemContainerStyle1}" 
-                    materialDesign:HintAssist.Hint="Vị trí"
-                    VerticalAlignment="Bottom">
-                <!--command cho combobox xaml-->
+                        <ComboBox 
+                            Grid.Column="0"
+                            Margin="20,0,15,0"
+                            Tag="Lọc theo trạng thái"
+                            FontSize="22"
+                            SelectedIndex="{Binding CbbSelectedIndex, Mode=TwoWay}"
+                            Style="{DynamicResource ComboBoxStyle1}" 
+                            VerticalAlignment="Bottom">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding FilterCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <ComboBoxItem
+                                Width="200"
+                                Content="Tất cả"/>
+                            <ComboBoxItem
+                                Width="200"
+                                Content="Còn trống"/>
+                            <ComboBoxItem 
+                                Width="200"  
+                                Content="Đang bận"/>
+                            <ComboBoxItem 
+                                Width="200"  
+                                Content="Đang sửa chữa"/>
+                        </ComboBox>
 
-                <ComboBoxItem
-                        Width="100"
-                        Content="Tầng 1">
-                </ComboBoxItem>
-                <ComboBoxItem 
-                        Width="100"  
-                        Content="Tầng 2"></ComboBoxItem>
-            </ComboBox>
+                        <Button 
+                            Width="210" 
+                            Height="55"
+                            HorizontalAlignment="Left"
+                            Command="{Binding OpenAddWDCommand}"
+                            Style="{DynamicResource ButtonStyle1}" 
+                            Grid.Column="1"
+                            Content="Thêm bàn"
+                            VerticalAlignment="Bottom">
+                        </Button>
+                    </Grid>
 
-            <Button 
-                Width="210" 
-                HorizontalAlignment="Left"
-                Style="{DynamicResource ButtonStyle1}" 
-                Grid.Column="1"
-                Content="Thêm bàn"
-                VerticalAlignment="Bottom">
+                    <ScrollViewer 
+                        Grid.Row="1" 
+                        Margin="10,10,10,10"
+                        VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3">
+                        <ItemsControl
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            ItemsSource="{Binding GenreTableList}"
+                            Width="auto" Height="auto">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <RadioButton
+                                        HorizontalAlignment="Stretch"
+                                        Cursor="Hand"
+                                        FontSize="25"
+                                        Margin="15, 0"
+                                        Command="{Binding DataContext.FilterCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding GT_ID}"
+                                        Content="{Binding GT_NAME}"
+                                        IsChecked="False"
+                                        GroupName="ProductTypeGroup"
+                                        Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
 
-            </Button>
-        </Grid>
-        <StackPanel 
-            Grid.Row="1" 
-            Orientation="Horizontal"
-            VerticalAlignment="Center" Height="40">
-            <RadioButton                    
-                Command="{Binding AllTable}"
-                HorizontalAlignment="Stretch"
-                Cursor="Hand"
-                Margin="40, 0"
-                Content="Tất cả"
-                FontSize="25"
-                IsChecked="True"                   
-                Style="{DynamicResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" />
-            <RadioButton
-                Command="{Binding TableFilter}"
-                HorizontalAlignment="Stretch"
-                x:Name="Table2"
-                CommandParameter="{Binding ElementName=Table2}"
-                Cursor="Hand"
-                Margin="40, 0"
-                FontSize="25"
-                Content="Bàn 2"
-                IsChecked="False"
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1" />
-            <RadioButton
-                HorizontalAlignment="Stretch"
-                Command="{Binding TableFilter}"
-                x:Name="Table3"
-                CommandParameter="{Binding ElementName=Table3}"
-                Cursor="Hand"
-                Margin="40, 0"
-                FontSize="25"
-                Content="Bàn 3"
-                IsChecked="False"                   
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
-            <RadioButton
-                HorizontalAlignment="Stretch"
-                Command="{Binding TableFilter}"
-                x:Name="Table4"
-                CommandParameter="{Binding ElementName=Table4}"
-                Cursor="Hand"
-                Margin="40, 0"
-                FontSize="25"
-                Content="Bàn 4"
-                IsChecked="False"                   
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
-            <RadioButton
-                HorizontalAlignment="Stretch"
-                Command="{Binding ProductFilter}"
-                x:Name="Table6"
-                CommandParameter="{Binding ElementName=Table6}"
-                Cursor="Hand"
-                FontSize="25"
-                Margin="40, 0"
-                Content="Bàn 6"
-                IsChecked="False"                   
-                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
-        </StackPanel>
+                    <Separator Grid.Row="2" Margin="20,0,20,0" Grid.ColumnSpan="3" ></Separator>
 
+                    <ScrollViewer 
+                        Grid.Row="3" 
+                        VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3">
+                        <ItemsControl
+                            Padding="0"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"        
+                            Width="auto" Height="auto"
+                            ItemsSource="{Binding TableList}" 
+                            ItemTemplateSelector="{StaticResource MySelector}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem
+                Style="{StaticResource TabItemMyStyle}"
+                Tag="Quản lí đặt bàn">
+                <Border 
+                    BorderBrush="#603127"
+                    BorderThickness="2"
+                    Margin="30,20"
+                    Background="LightGray"
+                    CornerRadius="30">
+                    <TabControl 
+                        Grid.Row="0" 
+                        materialDesign:ColorZoneAssist.Mode="Inverted"
+                        Style="{StaticResource MaterialDesignFilledTabControl}"
+                        materialDesign:ColorZoneAssist.Foreground="#653128">
+                        <TabItem Header="Thông tin đặt bàn">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid 
+                                    Margin="0,10,20,0"
+                                    Grid.Row="0">
+                                    <ComboBox 
+                                        HorizontalAlignment="Right"
+                                        Margin="0" 
+                                        Tag="Trạng thái"
+                                        Width="200" 
+                                        Height="50"
+                                        FontSize="17"
+                                        SelectedIndex="{Binding FilterIndexReservation}"
+                                        Style="{StaticResource ComboBoxSimpleStyle}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding FilterReservationCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ComboBoxItem Content="Tất cả"></ComboBoxItem>
+                                        <ComboBoxItem Content="Khách đã nhận bàn"></ComboBoxItem>
+                                        <ComboBoxItem Content="Khách chưa nhận bàn"></ComboBoxItem>
+                                    </ComboBox>
+                                    <StackPanel 
+                                        Margin="20,0"
+                                        HorizontalAlignment="Left"
+                                        Orientation="Horizontal">
+                                        <CheckBox
+                                            Content="Lọc theo ngày đặt bàn "
+                                            FontSize="16"
+                                            IsChecked="{Binding UseDateFilter}"
+                                            Foreground="black"
+                                            Background="#603127"
+                                            Style="{StaticResource MaterialDesignDarkCheckBox}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked">
+                                                    <i:InvokeCommandAction Command="{Binding SetDateFilterCommand}"
+                                                                           CommandParameter="{Binding ElementName=DateFilter}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked">
+                                                    <i:InvokeCommandAction Command="{Binding SetDateFilterCommand}"
+                                                                           CommandParameter="{Binding ElementName=DateFilter}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>
+                                        <DatePicker
+                                            x:Name="DateFilter"
+                                            Visibility="Hidden"
+                                            SelectedDate="{Binding FilterDateReservation}"
+                                            Margin="0" 
+                                            Tag="Ngày"
+                                            FontSize="16" 
+                                            Height="30"
+                                            Width="120">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="SelectedDateChanged">
+                                                    <i:InvokeCommandAction Command="{Binding FilterReservationCommand}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </DatePicker>
+                                    </StackPanel>
+                                </Grid>
+
+                                <Border Grid.Row="1" 
+                                    Background="#ffecd1" 
+                                    Margin="20,10,20,20"
+                                    Padding="10"
+                                    CornerRadius="10">
+
+                                    <ListView 
+                                        x:Name="ResList" 
+                                        Background="White"
+                                        Margin="0"
+                                        FontSize="16"
+                                        ItemsSource="{Binding ReservationList}"
+                                        SelectedItem="{Binding SelectedReservation}" >
+                                        <ListView.ItemContainerStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
+                                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Width="70" Header="Mã ĐB"
+                                                    HeaderContainerStyle="{StaticResource GridViewTableHeaderStyle}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Style="{StaticResource Header6Style}"
+                                                                Text="{Binding RES_ID, StringFormat='0000'}" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="70" Header="Mã KH"
+                                                    HeaderContainerStyle="{StaticResource GridViewTableHeaderStyle}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Style="{StaticResource Header6Style}"
+                                                                Text="{Binding CUS_ID, StringFormat='KH000'}" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="70" Header="Mã bàn"
+                                                    HeaderContainerStyle="{StaticResource GridViewTableHeaderStyle}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Style="{StaticResource Header6Style}"
+                                                                Text="{Binding TABLE_ID, StringFormat='000'}" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="110" Header="Ngày đặt"
+                                                    HeaderContainerStyle="{StaticResource GridViewTableHeaderStyle}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Style="{StaticResource Header6Style}"
+                                                                Text="{Binding RES_DATE, StringFormat='dd/MM/yyyy'}"/>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="65" Header="Giờ đặt"
+                                                    HeaderContainerStyle="{StaticResource GridViewTableHeaderStyle}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Style="{StaticResource Header6Style}"
+                                                                Text="{Binding RES_TIME, StringFormat={}{0:HH:mm}}"/>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="200" Header="Trạng thái" 
+                                                    HeaderContainerStyle="{StaticResource GridViewTableHeaderStyle}" >
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Style="{StaticResource HeaderResStatusStyle}"
+                                                                Text="{Binding RES_STATUS}" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="100" Header="Yêu cầu" 
+                                                    HeaderContainerStyle="{StaticResource GridViewTableHeaderStyle}" >
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock
+                                                                Style="{StaticResource HeaderResStatusStyle}"
+                                                                Text="{Binding SPECIAL_REQUEST}" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="35" Header=""
+                                                    HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button  
+                                                                Margin="-5,0"
+                                                                Style="{StaticResource ButtonMoreMenu}"
+                                                                Command="{Binding DataContext.OpenResevationDetailCommand,RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                                CommandParameter="{Binding}"></Button>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn Width="35" Header=""
+                                                    HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button  
+                                                                Margin="-5,0"
+                                                                Style="{StaticResource ButtonDeleteMenu}"
+                                                                Command="{Binding DataContext.btnDeleteReservationCommand,RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                                CommandParameter="{Binding}"></Button>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </Border>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Thêm lịch đặt bàn" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="60"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.5*"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="Thông tin khách hàng: " Style="{DynamicResource Header4Style}" Margin="15,5" VerticalAlignment="Top"></TextBlock>
+                                        <StackPanel Orientation="Horizontal" Margin="15,0,0,5" Height="30">
+                                            <TextBlock Style="{DynamicResource Header5Style}" Text="Tên khách hàng: "></TextBlock>
+                                            <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedCustomer.Name}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="15,5,0,0" Height="30">
+                                            <TextBlock Style="{DynamicResource Header5Style}" Text="Mã khách hàng: "></TextBlock>
+                                            <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedCustomer.ID, StringFormat='KH000'}"></TextBlock>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <Button 
+                                        Grid.Column="1" 
+                                        Style="{DynamicResource ButtonStaffStyle}"
+                                        Content="Tìm khách hàng"
+                                        Command="{Binding OpenSearchCusWDCommand}"
+                                        Background="#f6e8d0"
+                                        Margin="10,0"
+                                        Width="160"
+                                        VerticalAlignment="Bottom"
+                                        HorizontalAlignment="Right"></Button>
+                                </Grid>
+
+                                <Separator Grid.Row="1" Margin="5, 5, 5, 5" ></Separator>
+                                <Grid Grid.Row="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="57*"/>
+                                        <RowDefinition Height="11*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.RowSpan="2">
+                                        <TextBlock Text="Thông tin đặt bàn: " Style="{DynamicResource Header4Style}" Margin="15,5,0,0" VerticalAlignment="Top"></TextBlock>
+                                        <Grid Margin="15,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0">
+                                                <StackPanel Margin="5,15,5,5" Orientation="Horizontal">
+                                                    <TextBlock Text="Mã đặt bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                                    <TextBlock Text="{Binding NewReservation.RES_ID, StringFormat='0000'}" Style="{DynamicResource Header6Style}"></TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Margin="5" Orientation="Horizontal">
+                                                    <TextBlock Text="Mã bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                                    <TextBox Width="40" Height="25" Text="{Binding NewReservation.TABLE_ID, StringFormat='000'}" Style="{DynamicResource ReservationTextBoxStyle}"/>
+                                                </StackPanel>
+                                                <StackPanel Margin="5" Orientation="Horizontal">
+                                                    <TextBlock Grid.Column="0" Text="Số lượng người: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                                    <materialDesign:NumericUpDown 
+                                                        Foreground="Black"
+                                                        Background="Transparent"
+                                                        Minimum="1"
+                                                        Maximum="6"
+                                                        FontSize="18"
+                                                        Height="auto"
+                                                        Value="{Binding NewReservation.NUM_OF_PEOPLE}"
+                                                        Width="auto"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="1" Margin="0,40,0,0">
+                                                <StackPanel Margin="5" Orientation="Horizontal">
+                                                    <TextBlock Grid.Column="0" Text="Ngày đặt bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                                    <DatePicker
+                                                        SelectedDate="{Binding NewReservation.RES_DATE}"
+                                                        FontSize="18"
+                                                        Width="130">
+                                                    </DatePicker>
+                                                </StackPanel>
+                                                <StackPanel Margin="5" Orientation="Horizontal">
+                                                    <TextBlock Grid.Column="0" Text="Giờ đặt bàn: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                                    <materialDesign:TimePicker
+                                                        Is24Hours="True"
+                                                        Width="80"
+                                                        SelectedTime="{Binding NewReservation.RES_TIME}"></materialDesign:TimePicker>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <TextBlock 
+                                            Margin="20,5" 
+                                            Text="Yêu cầu của khách: " 
+                                            Style="{DynamicResource Header6Style}">
+                                        </TextBlock>
+                                        <TextBox 
+                                            Margin="20,5"
+                                            Text="{Binding NewReservation.SPECIAL_REQUEST}"
+                                            Style="{DynamicResource TextBoxDescribeStyle}"></TextBox>
+                                    </StackPanel>
+                                </Grid>
+                                <Button 
+                                    Grid.Row="3"
+                                    Style="{DynamicResource ButtonStaffStyle}" 
+                                    Command="{Binding btnSaveReservationCommand}"
+                                    Margin="0,0,20,0" 
+                                    Width="200"
+                                    HorizontalAlignment="Right"
+                                    Content="Thêm lịch đặt bàn"
+                                    Background="#f6e8d0"></Button>
+
+                                <Button 
+                                    Grid.Row="3"
+                                    Style="{DynamicResource ButtonStaffStyle}"
+                                    Command="{Binding btnDeleteResWithoutSaveCommand}"
+                                    Margin="20,0" 
+                                    Width="180"
+                                    HorizontalAlignment="Left"
+                                    Content="Xóa lịch đang tạo"
+                                    Background="Transparent"></Button>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Border>
+            </TabItem>
+        </TabControl>
     </Grid>
+
 </UserControl>

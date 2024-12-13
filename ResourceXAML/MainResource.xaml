@@ -1,0 +1,53 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:AdminViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
+                    xmlns:ProCardViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.ProductCardVM"
+                    xmlns:StaffViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
+                    xmlns:StaffMenuOrderView="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu"
+                    xmlns:StaffTableResView="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffTable"
+                    xmlns:TableCard="clr-namespace:QuanLiCoffeeShop.MVVM.View.TableCard">
+    <AdminViewModel:MenuViewModel x:Key="MenuViewModel"/>
+    <AdminViewModel:TableViewModel x:Key="TableViewModel"/>
+    <StaffViewModel:MenuOrderViewModel x:Key="MenuOrderViewModel"/>
+    <StaffViewModel:StaffTableResViewModel x:Key="StaffTableResViewModel"/>
+
+
+    <!--TableCardforAdmin-->
+    <DataTemplate x:Key="Table2">
+        <TableCard:Table2Card Width="157" Height="240" Margin="10"/>
+    </DataTemplate>
+    <DataTemplate x:Key="Table3">
+        <TableCard:Table3Card Width="157" Height="240" Margin="10"/>
+    </DataTemplate>
+    <DataTemplate x:Key="Table4">
+        <TableCard:Table4Card Width="157" Height="240" Margin="10"/>
+    </DataTemplate>
+    <DataTemplate x:Key="Table6">
+        <TableCard:Table6Card Width="157" Height="240" Margin="10"/>
+    </DataTemplate>
+    
+
+    <DataTemplate DataType="{x:Type StaffViewModel:MenuOrderViewModel}">
+        <StaffMenuOrderView:StaffMenuOrderUserControl/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type StaffViewModel:StaffTableResViewModel}">
+        <StaffTableResView:StaffTableUserControl/>
+    </DataTemplate>
+    
+
+    <!--TableCardForStaff-->
+    <DataTemplate x:Key="Table2Staff">
+        <TableCard:StaffTable2Card Width="157" Height="240" Margin="10"/>
+    </DataTemplate>
+    <DataTemplate x:Key="Table3Staff">
+        <TableCard:StaffTable3Card Width="157" Height="240" Margin="10"/>
+    </DataTemplate>
+    <DataTemplate x:Key="Table4Staff">
+        <TableCard:StaffTable4Card Width="157" Height="240" Margin="10"/>
+    </DataTemplate>
+    <DataTemplate x:Key="Table6Staff">
+        <TableCard:StaffTable6Card Width="157" Height="240" Margin="10"/>
+    </DataTemplate>
+
+</ResourceDictionary>

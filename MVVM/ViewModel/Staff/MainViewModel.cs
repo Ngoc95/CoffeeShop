@@ -18,8 +18,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         public ICommand TableViewCommand { get; set; }
         public CustomerViewModel CustomerVM { get; set; }
         public ErrorViewModel ErrorVM { get; set; }
-        public MenuViewModel MenuVM { get; set; }
-        public TableViewModel TableVM { get; set; }
+        public MenuOrderViewModel MenuOrderVM { get; set; }
+        public StaffTableResViewModel TableVM { get; set; }
 
         private object _currentView;
 
@@ -38,13 +38,13 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         {
             CustomerVM = new CustomerViewModel();
             ErrorVM = new ErrorViewModel();
-            MenuVM = new MenuViewModel();
-            TableVM = new TableViewModel();
+            MenuOrderVM = new MenuOrderViewModel();
+            TableVM = new StaffTableResViewModel();
             CurrentView = CustomerVM;
 
             CustomerViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = CustomerVM; });
             ErrorViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = ErrorVM; });
-            MenuViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = MenuVM; });
+            MenuViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = MenuOrderVM; });
             TableViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = TableVM; });
         }
     }

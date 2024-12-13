@@ -19,6 +19,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ResourceXAML/MainResource.xaml"/>
                 <ResourceDictionary Source="Theme/MenuTextTheme.xaml"/>
                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/SearchTextBoxTheme.xaml"/>
@@ -43,6 +44,8 @@
                 <ResourceDictionary Source="Theme/Styles/TextBlockStyles.xaml"/>
                 <ResourceDictionary Source="Theme/Styles/TextBoxStyles.xaml"/>
                 <ResourceDictionary Source="Theme/Styles/MenuStyles.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/ListViewStyle.xaml"/>
+                <ResourceDictionary Source="Theme/Styles/TabControl.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <!--Converter-->
@@ -98,6 +101,12 @@
             </DataTemplate>
 
 
+
+            <viewModelAdmin:CustomerViewModel x:Key="CustomerAdminVM"/>
+            
+            <viewModelStaff:CustomerViewModel x:Key="CustomerStaffVM"/>
+            
+            <viewModelStaff:ErrorViewModel x:Key="ErrorStaffVM"/>
 
         </ResourceDictionary>
     </Application.Resources>
