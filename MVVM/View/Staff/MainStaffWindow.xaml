@@ -157,8 +157,8 @@
                     <TextBlock Text="Đăng xuất" FontSize="35" Margin="5,4,0,0"/>
                 </StackPanel>
             </Button>
-        </Grid>
 
+        </Grid>
         <Button Grid.Column="1" Cursor="Hand"
                         Margin="40,0,0,0" BorderBrush="Transparent" 
                         FontWeight="DemiBold">

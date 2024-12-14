@@ -1,0 +1,225 @@
+﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Staff.StaffTable.CusForReservationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffTable"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
+        DataContext="{StaticResource StaffTableResViewModel}"
+        x:Name="SearchCusWDinStaffMenu"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        mc:Ignorable="d"
+        Title="CusForReservationWindow" Height="800" Width="900">
+    <Border BorderBrush="#603127" BorderThickness="1" CornerRadius="15" 
+            Background="White"
+            MouseDown="Border_MouseDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="82"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock 
+                Grid.Row="0"
+                HorizontalAlignment="Left"
+                Style="{DynamicResource Header1Style}" 
+                Text="Tìm khách hàng"
+                ></TextBlock>
+            <uc:ControlBarUserControl Grid.Row="0" Margin="15" HorizontalAlignment="Right"></uc:ControlBarUserControl>
+
+            <Border Grid.Row="1" Margin="15" Background="#ffc3a1" CornerRadius="10">
+                <Grid Width="auto">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.7*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="15">
+                            <TextBlock Text="Mã khách hàng" Style="{DynamicResource Header6Style}"></TextBlock>
+                            <TextBox 
+                                x:Name="searchIDBox"
+                                Height="40" 
+                                Text="{Binding SearchCustomerIDstring}"
+                                Style="{DynamicResource  textBox_styleForSearch}">
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="15">
+                            <TextBlock Text="Tên khách hàng" Style="{DynamicResource Header6Style}"></TextBlock>
+                            <TextBox 
+                                x:Name="searchNameBox"
+                                Height="40" 
+                                Text="{Binding SearchCustomerName}"
+                                Style="{DynamicResource  textBox_styleForSearch}">
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Margin="15">
+                            <TextBlock Text="Số điện thoại: " Style="{DynamicResource Header6Style}"></TextBlock>
+                            <TextBox 
+                                Height="40"
+                                x:Name="SearchPhoneBox"
+                                Text="{Binding SearchCustomerPhone}"
+                                Style="{DynamicResource  textBox_styleForSearch}">
+                            </TextBox>
+                        </StackPanel>
+                        <Button 
+                            Grid.Column="4" 
+                            Width="80" 
+                            Margin="5,25,10,0"
+                            Command="{Binding CustomerFilterCommand}"
+                            Style="{StaticResource ButtonStaffStyle}" 
+                            Content="Tìm"></Button>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <ListView x:Name="CusList"  
+                               Margin="0"
+                               FontSize="18"
+                               ItemsSource="{Binding CustomerList}"
+                               SelectedItem="{Binding SearchingCustomer}" >
+                            <ListView.ItemContainerStyle>
+                                <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Width="80" Header="ID" 
+                                        HeaderContainerStyle="{StaticResource GridViewHeaderStyle}" >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding ID, StringFormat = 'KH{0:D3}'}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn Width="180" Header="Tên Khách Hàng"
+                                        HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding Name}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn Width="100" Header="Giới tính"
+                                        HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding Gender}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn Width="158.4" Header="Số điện thoại"
+                                        HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding Phone}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="180" Header="Email"
+                                        HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding Email}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="150" Header="Điểm tích lũy"
+                                        HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding Point, StringFormat={}{0:N0}}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+
+                    <Separator Grid.Row="2" Margin="20, 0, 20, 0" ></Separator>
+
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="15, 10" Text="Mã khách hàng: " Style="{DynamicResource Header5Style}"></TextBlock>
+                                <TextBlock Text="{Binding SearchingCustomer.ID, StringFormat = 'KH{0:D3}'}" Style="{DynamicResource Header6Style}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="15, 10" Text="Tên khách hàng" Style="{DynamicResource Header5Style}"></TextBlock>
+                                <TextBlock Text="{Binding SearchingCustomer.Name}" Style="{DynamicResource Header6Style}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="15, 10" Text="Giới tính" Style="{DynamicResource Header5Style}"></TextBlock>
+                                <TextBlock Text="{Binding SearchingCustomer.Gender}" Style="{DynamicResource Header6Style}"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="15, 10" Text="Số điện thoại: " Style="{DynamicResource Header5Style}"></TextBlock>
+                                <TextBlock Text="{Binding SearchingCustomer.Phone}" Style="{DynamicResource Header6Style}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="15, 10" Text="Email" Style="{DynamicResource Header5Style}"></TextBlock>
+                                <TextBlock Text="{Binding SearchingCustomer.Email}" Style="{DynamicResource Header6Style}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="15, 10" Text="Điểm tích luỹ" Style="{DynamicResource Header5Style}"></TextBlock>
+                                <TextBlock Text="{Binding SearchingCustomer.Point, StringFormat={}{0:N0}}" Style="{DynamicResource Header6Style}"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+            <Button Grid.Row="2"
+                Style="{DynamicResource ButtonCancel_WD}"
+                Command="{Binding CloseWDCommand}"
+                CommandParameter="{Binding ElementName=SearchCusWDinStaffMenu}"
+                HorizontalAlignment="Left"
+                Margin="20,0"
+                Content="Bỏ qua">
+            </Button>
+
+            <Button Grid.Row="2"
+                Style="{DynamicResource ButtonAdd_WD}"
+                Command="{Binding btnSelectCustomerCommand}"
+                CommandParameter="{Binding ElementName=SearchCusWDinStaffMenu}"
+                HorizontalAlignment="Right"
+                Margin="20,0"
+                Content="Chọn">
+            </Button>
+        </Grid>
+    </Border>
+</Window>

@@ -3,13 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.TableCard"
              mc:Ignorable="d" 
              d:DesignHeight="236" d:DesignWidth="150"
              HorizontalAlignment="Left"
              VerticalAlignment="Top">
-             
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction
+                    Command="{Binding DataContext.SelectTableCommand, RelativeSource={RelativeSource AncestorType= ItemsControl}}"
+                    CommandParameter="{Binding}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Border 
         BorderThickness="1" 
         BorderBrush="Black" 
@@ -26,19 +33,35 @@
             <Grid Grid.Row="1" Background="#FFC3A1" Margin="0, 0, 0, -20">
             </Grid>
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <TextBlock VerticalAlignment="Center" FontSize="16" Text="{Binding}"></TextBlock>
-                <TextBlock TextAlignment="Center" FontSize="14" Text="{Binding }"></TextBlock>
-                <TextBlock TextAlignment="Center" FontSize="14" Foreground="#49454F" Text="Bàn 3 người"></TextBlock>
+                <TextBlock TextAlignment="Center" FontSize="20" Margin="0, 5, 0, 0" Text="{Binding TB_ID, StringFormat='000'}"></TextBlock>
+                <TextBlock 
+                    x:Name="Status"
+                    TextAlignment="Center" Margin="0,5, 0, 0" 
+                    Style="{StaticResource StatusTextBlockStyle}"
+                    Text="{Binding TB_STATUS}"></TextBlock>
+                <TextBlock TextAlignment="Center" FontSize="18" Margin="5" Foreground="#49454F" Text="Bàn 3 người"></TextBlock>
             </StackPanel>
 
             <Rectangle Grid.Row="2" Fill="#FFC3A1" RadiusX="20" RadiusY="20"/>
 
 
             <Grid Grid.Row="2">
-                <Button Style="{DynamicResource ButtonStyleStaffTable}"/>
+                <ToggleButton 
+                    x:Name="ToggleButton"
+                    DataContext="{StaticResource StaffTableResViewModel}"
+                    Style="{DynamicResource RadioButtonStyleStaffTable}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Checked">
+                            <i:InvokeCommandAction Command="{Binding TableCheckCommand}" 
+                                                   CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Unchecked">
+                            <i:InvokeCommandAction Command="{Binding TableCheckCommand}" 
+                                                   CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ToggleButton>
             </Grid>
-
-
         </Grid>
     </Border>
 </UserControl>

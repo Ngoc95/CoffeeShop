@@ -6,8 +6,9 @@ create table GENRE_PRODUCT
 (
 	GP_ID int identity(1,1),
 	GP_NAME nvarchar(max) not null,
-	constraint pk_GP primary key(GP_ID),
+	constraint pk_GP_ver1 primary key(GP_ID),
 )
+
 create table PRODUCT
 (	
 	PRO_ID  int identity(1,1),
@@ -17,9 +18,10 @@ create table PRODUCT
 	PRO_DESCRIPTION nvarchar(max),
 	PRO_PRICE money default 0,
 	IS_DELETED bit default 0,
-	constraint pk_PRO primary key(PRO_ID),
-	constraint fk_PRO_GENRE foreign key(GP_ID) references GENRE_PRODUCT(GP_ID),
+	constraint pk_PRO_v1 primary key(PRO_ID),
+	constraint fk_PRO_GENRE_v1 foreign key(GP_ID) references GENRE_PRODUCT(GP_ID),
 )
+
 create table GENRE_TABLE 
 (
 	GT_ID  int identity(1,1),
@@ -28,14 +30,15 @@ create table GENRE_TABLE
 )
 create table _TABLE
 (	
-	TB_ID  int identity(1,1),
+	TB_ID int identity(1,1),
 	GT_ID int,
 	TB_STATUS nvarchar(100) default N'Còn trống',
 	IS_DELETED bit default 0,
 	constraint pk_TB primary key(TB_ID),
 	constraint fk_TABLE_GENRE foreign key(GT_ID) references GENRE_TABLE(GT_ID),
-	constraint chk_TABLE_STATUS check (TB_STATUS in(N'Còn trống', N'Đã đặt', N'Đang sửa chữa')),
+	constraint chk_TABLE_STATUS check (TB_STATUS in(N'Còn trống', N'Đang bận', N'Đang sửa chữa')),
 )
+
 create table CUSTOMER
 (
 	CUS_ID  int identity(1,1),
@@ -47,6 +50,24 @@ create table CUSTOMER
 	IS_DELETED bit default 0,
 	constraint pk_CUS primary key(CUS_ID),
 	constraint chk_CUS check(CUS_GENDER in (N'Nam',N'Nữ')),
+)
+
+create table RESERVATION
+(
+	RES_ID int identity(1,1),
+	CUS_ID int not null,
+	TABLE_ID int not null, 
+	RES_DATE datetime2 not null, 
+	RES_TIME datetime2 not null, 
+	NUM_OF_PEOPLE int not null, 
+	RES_STATUS nvarchar(100) default N'Khách chưa nhận bàn', 
+	SPECIAL_REQUEST nvarchar(max),  
+	CREATE_AT smalldatetime default getdate(), 
+	IS_DELETED bit default 0, 
+	constraint pk_RES primary key(RES_ID),
+	constraint fk_CUS foreign key(CUS_ID) references CUSTOMER(CUS_ID),
+	constraint fk_TABLE foreign key(TABLE_ID) references _TABLE(TB_ID),
+	constraint chk_RES check(RES_STATUS in ( N'Khách chưa nhận bàn',  N'Khách đã nhận bàn'))
 )
 
 create table EMPLOYEE
@@ -184,6 +205,84 @@ INSERT INTO EMPLOYEE (EMP_NAME, EMP_PHONE, EMP_CCCD, EMP_BIRTHDAY, EMP_USERNAME,
 VALUES 
 (N'Ngọc Nguyên', '0912345678',	'012345678901', '2005-01-01', 'admin', '202cb962ac59075b964b07152d234b70', 'ngocnguyen@example.com', N'Nữ', N'Quản lý'),
 (N'Ngọc', '098',	'01', '2005-01-01', 'ngoc', '202cb962ac59075b964b07152d234b70', 'ngoc', N'Nữ', N'Phục vụ');
+
+INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Coffee')
+INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Trà sữa')
+INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Trà')
+INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Sinh tố')
+INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Nước ép')
+
+INSERT INTO GENRE_TABLE (GT_NAME) VALUES (N'Bàn 2')
+INSERT INTO GENRE_TABLE (GT_NAME) VALUES (N'Bàn 3')
+INSERT INTO GENRE_TABLE (GT_NAME) VALUES (N'Bàn 4')
+INSERT INTO GENRE_TABLE (GT_NAME) VALUES (N'Bàn 6')
+
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Đang bận')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang sửa chữa')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang bận')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (3, N'Đang sửa chữa')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (3, N'Đang bận')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (3, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Đang sửa chữa')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang bận')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Đang sửa chữa')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (3, N'Đang bận')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (3, N'Đang sửa chữa')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
+
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà đào', 3, 'pack://application:,,,/DemoDataPrdImg/tradao.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Cacao sữa xay', 1, 'pack://application:,,,/DemoDataPrdImg/cacaoSua.jpg', 20000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Espresso', 1, 'pack://application:,,,/DemoDataPrdImg/espresso.jpg', 18000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà sữa pudding', 2, 'pack://application:,,,/DemoDataPrdImg/trasuapudding.jpg', 23000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Coffee muối', 1, 'pack://application:,,,/DemoDataPrdImg/coffeemuoi.jpg', 18000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà ổi', 3, 'pack://application:,,,/DemoDataPrdImg/traoi.jpg', 20000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Ép cam', 5, 'pack://application:,,,/DemoDataPrdImg/epcam.jpg', 18000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Bạc xỉu', 1, 'pack://application:,,,/DemoDataPrdImg/bacxiu.jpg', 18000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà chanh', 3, 'pack://application:,,,/DemoDataPrdImg/trachanh.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố xoài', 4, 'pack://application:,,,/DemoDataPrdImg/sinhtoxoai.jpg', 20000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà tắc', 3, 'pack://application:,,,/DemoDataPrdImg/tratac.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố dâu', 4, 'pack://application:,,,/DemoDataPrdImg/sinhtoDau.jpg', 20000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sữa tươi đường đen', 2, 'pack://application:,,,/DemoDataPrdImg/suatuoitc.jpg', 23000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố dưa hấu', 4, 'pack://application:,,,/DemoDataPrdImg/sinhtoduahau.png', 20000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Ép táo', 5, 'pack://application:,,,/DemoDataPrdImg/eptao.jpg', 18000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Coffee', 1, 'pack://application:,,,/DemoDataPrdImg/coffee.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố mãng cầu', 4, 'pack://application:,,,/DemoDataPrdImg/stmangcau.jpg', 20000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Ép lê', 5, 'pack://application:,,,/DemoDataPrdImg/eple.jpg', 18000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà sữa thái xanh', 2, 'pack://application:,,,/DemoDataPrdImg/tsthaixanh.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà sữa socola', 2, 'pack://application:,,,/DemoDataPrdImg/tssocola.jpg', 25000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà sen', 3, 'pack://application:,,,/DemoDataPrdImg/trasen.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố dừa', 4, 'pack://application:,,,/DemoDataPrdImg/stdua.jpg', 20000)
+
+--1/20 gia tri hoa don
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Huệ Nguyên', N'Nữ', '0967484222', 'huenguyentran3110@gmail.com', 2000)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Chị Khánh', N'Nữ', '0966484224', 'khanh@gmail.com' ,4000)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Anh Duy', N'Nam', '0674112998', 'duy@gmail.com',6000)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Chị Ngọc', N'Nữ', '0674484122', 'ngoc2413@gmail.com', 2000)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Bảo Ngọc', N'Nam', '0000555000', 'baongoc25@gmail.com', 2500)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Trinh', N'Nữ', '0962245993', 'ngoctrinh@gmail.com', 2000)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Khánh', N'Nữ', '092459869', 'KhanhNgoc@gmail.com', 5000)
+INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Quốc Anh', N'Nam', '0000555440', 'quocanh22@gmail.com', 7000)
+
+set dateformat dmy
+
+INSERT INTO RESERVATION (CUS_ID, TABLE_ID, RES_DATE, RES_TIME, NUM_OF_PEOPLE, RES_STATUS, SPECIAL_REQUEST)
+VALUES
+(1, 1, '31-12-2024', '15:00:00', 2, N'Khách đã nhận bàn', N'Chỗ gần cửa sổ'),
+(2, 3, '2-1-2025', '13:30:00', 3, N'Khách chưa nhận bàn', NULL),
+(3, 6, '2-1-2025', '8:00:00', 4, N'Khách chưa nhận bàn', N'Yêu cầu yên tĩnh'),
+(4, 15, '09-1-2025', '19:00:00', 5, N'Khách chưa nhận bàn', NULL),
+(5, 1, '30-12-2024', '12:00:00', 2, N'Khách đã nhận bàn', N'Không dùng thức uống lạnh'),
+(6, 9, '3-1-2025', '8:00:00', 6, N'Khách chưa nhận bàn', N'Chỗ gần máy lạnh'),
+(7, 13, '1-1-2025', '15:00:00', 4, N'Khách chưa nhận bàn', N'Thích đồ uống ít đường'),
+(8, 1, '2-1-2025', '17:00:00', 2, N'Khách chưa nhận bàn', NULL),
+(1, 4, '2-1-2025', '13:00:00', 3, N'Khách chưa nhận bàn', NULL),
+(2, 16, '2-1-2024', '8:00:00', 5, N'Khách chưa nhận bàn', NULL);
+
+
 -- Insert sample data for WORK_SHIFT
 INSERT INTO WORK_SHIFT (SHIFT_ID, SHIFT_NAME, WAGE, START_TIME, END_TIME)
 VALUES 
@@ -203,3 +302,4 @@ VALUES
 	(1, 3, 3),
 	(2, 3, 3);
 INSERT INTO REQUEST(EMP_ID, REQ_TYPE, EMP_COMMENT) VALUES (2,N'Đổi ca',N'Xin đổi sang ca sáng thứ 2')
+

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.TableCard"
+             x:Name="TableCard6"
              mc:Ignorable="d" 
              d:DesignHeight="236" d:DesignWidth="154"
              HorizontalAlignment="Left"
@@ -26,9 +27,10 @@
             <Grid Grid.Row="1" Background="#FFC3A1" Margin="0, 0, 0, -20">
             </Grid>
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <TextBlock VerticalAlignment="Center" FontSize="16" Text="{Binding}"></TextBlock>
-                <TextBlock TextAlignment="Center" FontSize="14" Text="{Binding }"></TextBlock>
-                <TextBlock TextAlignment="Center" FontSize="14" Foreground="#49454F" Text="Bàn 6 người"></TextBlock>
+                <TextBlock TextAlignment="Center" FontSize="20" Margin="0, -4, 0, 0" Text="{Binding TB_ID, StringFormat='000'}"></TextBlock>
+                <TextBlock TextAlignment="Center" FontSize="18" Margin="0,5, 0, 0" Text="{Binding TB_STATUS}"
+                           Style="{StaticResource StatusTextBlockStyle}"></TextBlock>
+                <TextBlock TextAlignment="Center" FontSize="18" Foreground="#49454F" Text="Bàn 6 người"></TextBlock>
             </StackPanel>
 
             <Rectangle Grid.Row="2" Fill="#FFC3A1" RadiusX="20" RadiusY="20"/>
@@ -40,10 +42,18 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0"
+                <Button 
+                    Grid.Column="0"
+                    DataContext="{StaticResource TableViewModel}"
+                    Command="{Binding OpenEditTableWDCommand}"
+                    CommandParameter="{Binding ElementName=TableCard6}"
                     Style="{DynamicResource ButtonStyleEditTBCard}"/>
 
-                <Button   Grid.Column="1"
+                <Button   
+                    Grid.Column="1"
+                    DataContext="{StaticResource TableViewModel}"
+                    Command="{Binding OpenDeleteTableWDCommand}"
+                    CommandParameter="{Binding ElementName=TableCard6}"
                     Style="{DynamicResource ButtonStyleDeleteTBCard}"/>
             </Grid>
 

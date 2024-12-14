@@ -14,11 +14,19 @@ namespace QuanLiCoffeeShop.MVVM.Model
     
     public partial class C_TABLE
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public C_TABLE()
+        {
+            this.RESERVATIONs = new HashSet<RESERVATION>();
+        }
+    
         public int TB_ID { get; set; }
         public Nullable<int> GT_ID { get; set; }
         public string TB_STATUS { get; set; }
         public Nullable<bool> IS_DELETED { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RESERVATION> RESERVATIONs { get; set; }
         public virtual GENRE_TABLE GENRE_TABLE { get; set; }
     }
 }

@@ -23,5 +23,13 @@ namespace QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu
         {
             InitializeComponent();
         }
+
+        private void moveAddCusWin_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
+        }
     }
 }

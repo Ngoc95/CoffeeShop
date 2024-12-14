@@ -1,0 +1,97 @@
+﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Admin.TableManagement.EditTableWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagement"
+        xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
+        DataContext="{StaticResource TableViewModel}"
+        mc:Ignorable="d"
+        x:Name="EditTableWD"
+        Title="AddTableWindow" Height="464" Width="350"
+        Background="Transparent"
+        WindowStyle="none" WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Border 
+        BorderBrush="#603127" 
+        BorderThickness="2" 
+        CornerRadius="15" 
+        Background="White"
+        MouseDown="moveAddCusWin_MouseDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource Header1Style}"
+                           Text="Chỉnh sửa bàn">
+                </TextBlock>
+                <Grid Grid.Column="1" Height="40" Width="120" 
+                      VerticalAlignment="Center" 
+                      HorizontalAlignment="Right" 
+                      Margin="0,0,15,0">
+                    <uc:ControlBarUserControl Tag="{Binding Title, ElementName=mainWindow}"></uc:ControlBarUserControl>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" >
+                <Rectangle Width="310" 
+                           Height="316" 
+                           Fill="#ffc3a1"
+                           RadiusX="20" RadiusY="20"></Rectangle>
+                <StackPanel Orientation="Vertical" Height="316" Width="310">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{DynamicResource Header2Style}" Text="Mã bàn: "></TextBlock>
+                        <TextBlock Style="{DynamicResource Header2Style}" Text="{Binding SelectedTable.TB_ID, StringFormat='000'}"/>
+                    </StackPanel>
+                    <StackPanel Height="auto">
+                        <TextBlock Style="{DynamicResource Header2Style}" Text="Trạng thái: "></TextBlock>
+                        <ComboBox
+                            Foreground="#603127"
+                            IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
+                            ItemsSource="{Binding TableStatusList}"
+                            SelectedItem="{Binding SelectedTable.TB_STATUS}"
+                            Style="{StaticResource ComboBoxSimpleStyle}">
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Height="auto">
+                        <TextBlock Style="{DynamicResource Header2Style}" Text="Loại bàn: "></TextBlock>
+                        <ComboBox
+                            x:Name="GenreTableCbb"
+                            SelectedItem="{Binding SelectedTableGenreName, Mode=TwoWay}"
+                            ItemsSource="{Binding GenreTableNameList}"
+                            IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
+                            Style="{StaticResource ComboBoxSimpleStyle}">
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" 
+                        Content="Bỏ qua"
+                        Command="{Binding btnCloseTableCommand}"
+                        CommandParameter="{Binding ElementName=EditTableWD}"
+                        Style="{DynamicResource ButtonCancel_WD}">
+                </Button>
+                <Button Grid.Column="1" 
+                        Content="Lưu thay đổi"
+                        Command="{Binding btnEditTableCommand}"
+                        CommandParameter="{Binding ElementName=EditTableWD}"
+                        Style="{DynamicResource ButtonAdd_WD}"></Button>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

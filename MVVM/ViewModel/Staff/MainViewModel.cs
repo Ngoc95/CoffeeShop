@@ -48,9 +48,9 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         public ICommand WorkshiftViewCommand { get; set; }
         public CustomerViewModel CustomerVM { get; set; }
         public ErrorViewModel ErrorVM { get; set; }
-        public MenuViewModel MenuVM { get; set; }
-        public TableViewModel TableVM { get; set; }
         public WorkshiftViewModel WorkshiftVM { get; set; }
+        public MenuOrderViewModel MenuOrderVM { get; set; }
+        public StaffTableResViewModel TableVM { get; set; }
 
         private object _currentView;
 
@@ -72,16 +72,16 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 
             CustomerVM = new CustomerViewModel();
             ErrorVM = new ErrorViewModel();
-            MenuVM = new MenuViewModel();
-            TableVM = new TableViewModel();
             WorkshiftVM = new WorkshiftViewModel();
+            MenuOrderVM = new MenuOrderViewModel();
+            TableVM = new StaffTableResViewModel();
 
             CurrentView = WorkshiftVM;
 
             CustomerViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = CustomerVM; });
             ErrorViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = ErrorVM; });
-            MenuViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = MenuVM; });
-            TableViewCommand = new RelayCommand<ContentControl>((p) => {  return true; }, (p) => { CurrentView = TableVM; });
+            MenuViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = MenuOrderVM; });
+            TableViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = TableVM; });
             WorkshiftViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = WorkshiftVM; });
 
             LogOutCommand = new RelayCommand<Window>(null, (p) =>

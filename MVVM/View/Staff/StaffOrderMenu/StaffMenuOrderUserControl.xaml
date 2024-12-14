@@ -6,84 +6,163 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu"
              xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ProductCard"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             DataContext="{StaticResource MenuOrderViewModel}"
              mc:Ignorable="d" 
              Background="White"
              d:DesignHeight="692" d:DesignWidth="930">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.23*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="90"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
             <TextBox 
+                HorizontalAlignment="Stretch"
+                Margin="10,0"
+                x:Name="searchBox"
                 Grid.Row="0"
+                Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                 Style="{DynamicResource SearchTextBoxStyleStaff}">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction 
+                            Command="{Binding FilterCommand}" 
+                            CommandParameter="{Binding Text, ElementName=searchBox}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </TextBox>
 
-            <Menu
-                Grid.Row="1">
-                <MenuItem Header="Tất cả" />
-                <MenuItem Header="Caffee" />
-                <MenuItem Header="Trà sữa"/>
-                <MenuItem Header="Trà"/>
-                <MenuItem Header="Freeze"/>
-                <MenuItem Header="Khác"/>
-            </Menu>
+            <ScrollViewer 
+                Grid.Row="1" 
+                Margin="10"
+                HorizontalScrollBarVisibility="Auto">
+                    <ItemsControl
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        ItemsSource="{Binding GenreProductList}"
+                        Width="auto" Height="auto">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton
+                                    HorizontalAlignment="Stretch"
+                                    Cursor="Hand"
+                                    FontSize="25"
+                                    Margin="15, 0"
+                                    Command="{Binding DataContext.FilterCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                    CommandParameter="{Binding GP_ID}"
+                                    Content="{Binding GP_NAME}"
+                                    IsChecked="False"
+                                    GroupName="ProductTypeGroup"
+                                    Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <ScrollViewer 
+                Grid.Row="2" 
+                VerticalScrollBarVisibility="Auto">
+                    <ItemsControl
+                    Padding="0"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"        
+                    ItemsSource="{Binding ProductList}"
+                    Width="auto" Height="auto">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                            <uc:ProductCardStaff
+                                    DataContext="{Binding}"
+                                    Width="211.68" Height="313.11"
+                                    Margin="5">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction
+                                        Command="{Binding DataContext.SelectProductCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            CommandParameter="{Binding}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </uc:ProductCardStaff>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+            </ScrollViewer>
 
         </Grid>
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="90"/>
                 <RowDefinition Height="9*"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="1" Margin="0,0,10,0">
+            <Grid Grid.Row="0" Margin="0,0,10,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.8*"/>
+                    <RowDefinition Height="0.6*"/>
                     <RowDefinition Height="2.8*"/>
                 </Grid.RowDefinitions>
 
-                <Border Grid.Row="0" BorderBrush="#603127" BorderThickness="1">
-                    <Grid Grid.Row="0" Background="#ffc3a1">
+                <Border 
+                    Grid.Row="0" 
+                    CornerRadius="10,10,0,0"
+                    Background="#ffc3a1"
+                    BorderBrush="#603127" 
+                    BorderThickness="1">
+                    <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1.4*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
-                            <StackPanel Orientation="Horizontal" Margin="15,15,0,5">
-                                <TextBlock Style="{DynamicResource Header5Style}" Text="Tên khách hàng: "></TextBlock>
-                                <TextBlock Style="{DynamicResource Header5Style}" Text="vãng lai"/>
+                            <StackPanel Orientation="Horizontal" Margin="15,15,0,5" >
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="Mã khách hàng: "></TextBlock>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedCustomer.ID, StringFormat='KH000'}"></TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="15,5,0,5">
-                                <TextBlock Style="{DynamicResource Header5Style}" Text="Mã khách hàng: "></TextBlock>
-                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding}"></TextBlock>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="Tên: "></TextBlock>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedCustomer.Name}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="15,5,0,5">
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="Điểm tích lũy: "></TextBlock>
-                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding}"></TextBlock>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedCustomer.Point, StringFormat='000'}"></TextBlock>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Grid.Column="1">
                             <Button 
                                 Style="{DynamicResource ButtonStaffStyle}"
                                 Content="Tìm khách hàng"
+                                Command="{Binding OpenSearchCusWDCommand}"
                                 Background="Transparent"
                                 Margin="10,10,5,0"
-                                Width="160"
+                                Width="150"
                                 HorizontalAlignment="Right"></Button>
                             <Button 
                                 Style="{DynamicResource ButtonStaffStyle}"
-                                Content="Thêm khách hàng"
+                                Command="{Binding btnSetDefaultCustomerCommand}"
+                                Content="Khách vãng lai"
                                 Margin="10,10,5,0"
-                                Width="160"
+                                Width="150"
                                 Background="#d3756b"
                                 HorizontalAlignment="Right"></Button>
                         </StackPanel>
@@ -92,21 +171,24 @@
                 <Border Grid.Row="1" BorderBrush="#603127" BorderThickness="1">
                     <Grid Grid.Row="2" Background="#ffc3a1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1.4*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
-                            <StackPanel Orientation="Horizontal" Margin="15,15,0,10">
+                            <StackPanel Orientation="Horizontal" Margin="15,15,0,-10">
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="Tên món: "></TextBlock>
-                                <TextBlock Style="{DynamicResource Header5Style}" Text="binding"/>
+                                <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedBillPrd.PRO_NAME}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="15,15,0,10">
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="Số lượng: "></TextBlock>
                                 <materialDesign:NumericUpDown 
                                     Foreground="Black"
                                     Background="Transparent"
+                                    Minimum="1"
+                                    Maximum="50"
                                     FontSize="18"
                                     Height="auto"
+                                    Value="{Binding QuantityOfSelectedProduct}"
                                     Width="auto"/>
                                     <!--Value="{x:Null}"-->
                             </StackPanel>
@@ -114,15 +196,20 @@
                         </StackPanel>
                         <Button Grid.Column="1"
                                 Style="{DynamicResource ButtonStaffStyle}"
+                                Command="{Binding AddPrdToBillCommand}"
                                 Content="Thêm vào hóa đơn"
                                 VerticalAlignment="Bottom"
                                 Margin="10,10,5,10"
-                                Width="160"
+                                Width="150"
                                 Background="#d3756b"
                                 HorizontalAlignment="Right"></Button>
                     </Grid>
                 </Border>
-                <Border Grid.Row="2" BorderBrush="#603127" BorderThickness="1">
+                <Border 
+                    Grid.Row="2" 
+                    CornerRadius="0,0,10,10"
+                    BorderBrush="#603127" 
+                    BorderThickness="1">
                     <Grid Grid.Row="2" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -135,71 +222,145 @@
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Margin="10,0" VerticalAlignment="Top" Text="Thông tin hóa đơn" Style="{DynamicResource Header5Style}"></TextBlock>
+                                <TextBlock Grid.Row="0" Margin="15,5,0,0" VerticalAlignment="Top" Text="Thông tin hóa đơn" Style="{DynamicResource Header5Style}"></TextBlock>
                                 <Border 
                                     Grid.Row="1"
-                                    Margin="5"
-                                    Height="70"
+                                    Margin="10"
+                                    Height="auto"
                                     VerticalAlignment="Top"
                                     BorderBrush="Gray"
                                     BorderThickness="1">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="auto"/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <StackPanel Grid.Column="0">
-                                            <StackPanel Orientation="Horizontal" Margin="5,5,5,0">
+
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Top" Margin="5,5,5,0">
                                                 <TextBlock Style="{DynamicResource Header6Style}" Text="Ngày lập: "></TextBlock>
-                                                <TextBlock Style="{DynamicResource Header6Style}" Text="Binding"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="5,10,5,0">
-                                                <TextBlock Style="{DynamicResource Header6Style}" Text="Mã nhân viên: "></TextBlock>
-                                                <TextBlock Style="{DynamicResource Header6Style}" Text="Binding"/>
-                                            </StackPanel>
+                                            <TextBlock Style="{DynamicResource Header6Style}" Text="{Binding Today, StringFormat='dd/MM/yyyy'}"/>
                                         </StackPanel>
-                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="5,5,0,5" >
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="5,5,10,5" HorizontalAlignment="Right">
                                             <TextBlock Style="{DynamicResource Header6Style}" Text="Mã hóa đơn: "></TextBlock>
-                                            <TextBlock Style="{DynamicResource Header6Style}" Text="Binding"/>
+                                            <TextBlock Style="{DynamicResource Header6Style}" Text="{Binding IdOfNextBill, StringFormat='00000'}"/>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
                             </Grid>
                         </Grid>
-                        <DataGrid Grid.Row="1">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Mặc hàng"></DataGridTextColumn>
-                                <DataGridTextColumn Header="SL"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Giá"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Thành tiền"></DataGridTextColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <Button Grid.Row="2" 
-                            Style="{DynamicResource ButtonStaffStyle}"
+
+                        <Grid Grid.Row="1">
+                            <ListView x:Name="CusList"  
+                               Margin="0"
+                               FontSize="18"
+                               ItemsSource="{Binding Bill_InforList}"
+                               SelectedItem="{Binding SelectedBillInfor}" >
+                                <ListView.ItemContainerStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="120" Header="Mặc hàng" 
+                                            HeaderContainerStyle="{StaticResource GridViewHeaderStyle}" >
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding PRO_Name}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn Width="50" Header="SL"
+                                            HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding QUANTITY}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn Width="100" Header="Giá"
+                                            HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding PRICE_ITEM, StringFormat={}{0:C0}}" Language="vi-VN"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn Width="110" Header="Thành tiền"
+                                            HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding Total_PRICE_ITEM, StringFormat={}{0:C0}}" Language="vi-VN" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="50" Header=""
+                                            HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button 
+                                                        Margin="-15,0,0,0" 
+                                                        Style="{StaticResource ButtonStyleDeleteBillInfor}"
+                                                        Command="{Binding DataContext.DeleteBillInfoCommand,RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                        CommandParameter="{Binding}"></Button>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+
+                        <ToggleButton 
+                            Grid.Row="2" 
+                            IsChecked="{Binding UsePointBtnChecked, Mode=TwoWay}"
+                            Style="{StaticResource ToggleButtonStaffStyle}"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Left"
-                            Width="200"
+                            Width="180"
                             Margin="5"
-                            Background="#ffc3a1"
-                            Content="Dùng điểm "></Button>
+                            Background="#ffc3a1"></ToggleButton>
+                        <Button 
+                            Grid.Row="2" 
+                            Content="Reset" 
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Left"
+                            Command="{Binding ToggerBtnUsePointCommand}"
+                            Opacity="0"
+                            Width="180" Height="40" 
+                            Margin="5"/>
+
                         <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                             <TextBlock Text="Tổng tiền: " Style="{DynamicResource Header6Style}"></TextBlock>
-                            <TextBlock Text="{Binding}" Style="{DynamicResource Header6Style}"></TextBlock>
+                            <TextBlock Text="{Binding Total_Bill,StringFormat={}{0:C0}}" Language="vi-VN" Style="{DynamicResource Header6Style}"></TextBlock>
                         </StackPanel>
                         <Button Grid.Row="2" 
                                 VerticalAlignment="Bottom"
                                 HorizontalAlignment="Right"
                                 Margin="5"
+                                Command="{Binding DeleteCurrentBillCommand}"
                                 Style="{DynamicResource ButtonStaffStyle}"
                                 Width="200"
                                 Background="#d3756b"
-                                Content="Xóa hóa đơn hiện tại"
-                                >  </Button>
+                                Content="Xóa hóa đơn hiện tại"></Button>
                     </Grid>
                 </Border>
             </Grid>
             <Button 
-                Grid.Row="2"
+                Grid.Row="1"
+                Command="{Binding SaveCurrAndGenNewBillCommand}"
                 Style="{DynamicResource ButtonStaffStyle}"
                 HorizontalAlignment="Left"
                 Background="#ffc3a1"
@@ -207,11 +368,11 @@
                 Content="Lưu và tạo hóa đơn mới">
             </Button>
             <Button 
-                Grid.Row="2"
+                Grid.Row="1"
                 Style="{DynamicResource ButtonStaffStyle}"
                 HorizontalAlignment="Right"
                 Margin="15,10"
-                Width="200"
+                Width="160"
                 Background="#d3756b"
                 Content="Lưu và in hóa đơn"
                 ></Button>
