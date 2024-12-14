@@ -1,10 +1,12 @@
 ﻿using QuanLiCoffeeShop.DTOs;
+using QuanLiCoffeeShop.Helpers;
 using QuanLiCoffeeShop.MVVM.View.Message;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
@@ -77,6 +79,20 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                         string.IsNullOrEmpty(newEmp.EMP_PHONE) || string.IsNullOrEmpty(newEmp.EMP_ROLE) || 
                         string.IsNullOrEmpty(newEmp.EMP_USERNAME) || string.IsNullOrEmpty(newEmp.EMP_GENDER))
                         return (false, "Bạn nhập thiếu thông tin");
+                    if (DateTime.Compare((DateTime)newEmp.EMP_BIRTHDAY, new DateTime(1900, 1, 1)) < 0 || DateTime.Compare((DateTime)newEmp.EMP_BIRTHDAY, DateTime.Now) > 0)
+                    {
+                        return (false, "Ngày sinh không hợp lệ");
+                    }
+
+                    if (DateTime.Compare((DateTime)newEmp.EMP_STARTDATE, new DateTime(1900, 1, 1)) < 0 || DateTime.Compare((DateTime)newEmp.EMP_STARTDATE, DateTime.Now) > 0)
+                    {
+                        return (false, "Ngày bắt đầu không hợp lệ");
+                    }
+
+                    if (((DateTime)newEmp.EMP_STARTDATE).Year - ((DateTime)newEmp.EMP_BIRTHDAY).Year < 16)
+                    {
+                        return (false, "Đảm bảo nhân viên vào làm trên 16 tuổi");
+                    }
 
                     bool IsCccdExist = await context.EMPLOYEEs.AnyAsync(p => p.EMP_CCCD == newEmp.EMP_CCCD);
                     bool IsEmailExist = await context.EMPLOYEEs.AnyAsync(p => p.EMP_EMAIL == newEmp.EMP_EMAIL);
@@ -142,6 +158,25 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             {
                 using (var context = new CoffeeShopDBEntities())
                 {
+                    if (string.IsNullOrEmpty(newEmp.EMP_CCCD) || string.IsNullOrEmpty(newEmp.EMP_EMAIL) || string.IsNullOrEmpty(newEmp.EMP_NAME) ||
+                        string.IsNullOrEmpty(newEmp.EMP_PHONE) || string.IsNullOrEmpty(newEmp.EMP_ROLE) ||
+                        string.IsNullOrEmpty(newEmp.EMP_USERNAME) || string.IsNullOrEmpty(newEmp.EMP_GENDER))
+                        return (false, "Bạn nhập thiếu thông tin");
+                    if (DateTime.Compare((DateTime)newEmp.EMP_BIRTHDAY, new DateTime(1900, 1, 1)) < 0 || DateTime.Compare((DateTime)newEmp.EMP_BIRTHDAY, DateTime.Now) > 0)
+                    {
+                        return (false, "Ngày sinh không hợp lệ");
+                    }
+
+                    if (DateTime.Compare((DateTime)newEmp.EMP_STARTDATE, new DateTime(1900, 1, 1)) < 0 || DateTime.Compare((DateTime)newEmp.EMP_STARTDATE, DateTime.Now) > 0)
+                    {
+                        return (false, "Ngày bắt đầu không hợp lệ");
+                    }
+
+                    if (((DateTime)newEmp.EMP_STARTDATE).Year - ((DateTime)newEmp.EMP_BIRTHDAY).Year < 16)
+                    {
+                        return (false, "Đảm bảo nhân viên vào làm trên 16 tuổi");
+                    }
+
                     bool IsExistUsername = await context.EMPLOYEEs.AnyAsync(p => p.EMP_ID != newEmp.EMP_ID && p.EMP_USERNAME == newEmp.EMP_USERNAME && p.IS_DELETED == false);
                     if (IsExistUsername)
                     {
@@ -201,7 +236,7 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
 
                     if (employee == null)
                     {
-                        throw new Exception("Employee not found");
+                        throw new Exception("Không tìm thấy nhân viên nào");
                     }
 
                     // Lọc ra các ca làm việc chưa bị xóa
@@ -269,9 +304,11 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                     var totalSalary = context.EMPLOYEE_SHIFT
                         .Where(es => es.EMP_ID == employee.EMP_ID
                                      && es.IS_DELETED == false
-                                     && es.WORK_SHIFT.IS_DELETED == false)
+                                     && es.WORK_SHIFT != null)
                         .Select(es => es.WORK_SHIFT.WAGE)
-                        .Sum(wage => wage ?? 0);
+                        .ToList()
+                        .Sum(wage => wage ?? 0); // Kiểm tra null sau khi dữ liệu đã ở bộ nhớ
+
 
                     employee.EMP_SALARY = totalSalary;
                 }
@@ -279,7 +316,30 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 context.SaveChanges();
             }
         }
-
+        public async Task<(bool, string, string)> UpdatePassword(string email, string newPass)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var emp = await context.EMPLOYEEs.Where(p => p.EMP_EMAIL == email).FirstOrDefaultAsync();
+                    if (emp != null && emp.IS_DELETED == false)
+                    {
+                        emp.EMP_PASSWORD = PasswordHelper.MD5Hash(newPass);
+                    }
+                    else
+                    {
+                        return (false, "Không tồn tại email này", null);
+                    }
+                    await context.SaveChangesAsync();
+                    return (true, "Update mật khẩu thành công", emp.EMP_USERNAME);
+                }
+            }
+            catch 
+            {
+                return (false, "Xảy ra lỗi", null);
+            }
+        }
 
         // tìm theo email
         //public async Task<(EMPLOYEE, bool, string)> findEmpbyEmail(string email)

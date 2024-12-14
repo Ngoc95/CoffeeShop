@@ -164,10 +164,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\Admin\CaLamViecManagement\DieuChinhNgayLamViecWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MVVM\View\Admin\CaLamViecManagement\DonXinNghiWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -257,6 +253,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Login\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Message\ConfirmLogOut.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -454,6 +454,7 @@
     <Compile Include="DTOs\EmployeeDTO.cs" />
     <Compile Include="DTOs\EmployeeShiftDTO.cs" />
     <Compile Include="DTOs\ErrorDTO.cs" />
+    <Compile Include="DTOs\RequestDTO.cs" />
     <Compile Include="DTOs\GenreProductDTO.cs" />
     <Compile Include="DTOs\GenreTableDTO.cs" />
     <Compile Include="DTOs\ProductDTO.cs" />
@@ -462,6 +463,7 @@
     <Compile Include="DTOs\ShiftScheduleDTO.cs" />
     <Compile Include="DTOs\WorkshiftDTO.cs" />
     <Compile Include="Helpers\DataGridExtensions.cs" />
+    <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="MVVM\Model\BILL.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -518,6 +520,8 @@
     <Compile Include="MVVM\Model\Services\CustomerService.cs" />
     <Compile Include="MVVM\Model\Services\EmployeeService.cs" />
     <Compile Include="MVVM\Model\Services\ErrorService.cs" />
+    <Compile Include="MVVM\Model\Services\LoginService.cs" />
+    <Compile Include="MVVM\Model\Services\RequestService.cs" />
     <Compile Include="MVVM\Model\Services\GenreProService.cs" />
     <Compile Include="MVVM\Model\Services\GenreTableService.cs" />
     <Compile Include="MVVM\Model\Services\ProductService.cs" />
@@ -535,6 +539,7 @@
     <Compile Include="MVVM\ViewModel\Admin\CustomerViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\EmployeeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\MainViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Login\LoginViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MessageBox\MessageBoxViewModel.cs" />
     <Compile Include="MVVM\ViewModel\ProductCardVM\ProCardViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\CustomerViewModel.cs" />
@@ -548,9 +553,6 @@
     </Compile>
     <Compile Include="MVVM\View\Admin\CaLamViecManagement\DieuChinhCaLamViecWindow.xaml.cs">
       <DependentUpon>DieuChinhCaLamViecWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MVVM\View\Admin\CaLamViecManagement\DieuChinhNgayLamViecWindow.xaml.cs">
-      <DependentUpon>DieuChinhNgayLamViecWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Admin\CaLamViecManagement\DonXinNghiWindow.xaml.cs">
       <DependentUpon>DonXinNghiWindow.xaml</DependentUpon>
@@ -620,6 +622,9 @@
     </Compile>
     <Compile Include="MVVM\View\Login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Message\ConfirmLogOut.xaml.cs">
+      <DependentUpon>ConfirmLogOut.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Message\DeleteMessage.xaml.cs">
       <DependentUpon>DeleteMessage.xaml</DependentUpon>
@@ -770,6 +775,9 @@
     <Resource Include="Images\ControlBarImg\MaxiMouseOver.png" />
     <Resource Include="favicon.ico" />
     <Resource Include="Images\addBtn.png" />
+    <Resource Include="Images\Message\logOut.png" />
+    <Resource Include="Images\DeleteBtn.png" />
+    <Resource Include="Images\EditBtn.png" />
     <Content Include="MVVM\Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

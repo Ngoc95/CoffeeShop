@@ -29,9 +29,12 @@ namespace QuanLiCoffeeShop.MVVM.View.Staff.StaffCaLamViec
             Close();
         }
 
-        private void btnCapNhat_Click(object sender, RoutedEventArgs e)
+        private void requestWd_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
         }
     }
 }

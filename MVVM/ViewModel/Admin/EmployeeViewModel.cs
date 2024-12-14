@@ -19,6 +19,7 @@ using System.IO;
 using GalaSoft.MvvmLight.Messaging;
 using static QuanLiCoffeeShop.MVVM.ViewModel.Admin.WorkshiftViewModel;
 using GalaSoft.MvvmLight.Helpers;
+using QuanLiCoffeeShop.Helpers;
 
 namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 {
@@ -77,7 +78,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 if (password != value)
                 {
                     password = value;
-                    OnPropertyChanged(nameof(Password));  
+                    OnPropertyChanged(nameof(Password));
                 }
             }
         }
@@ -171,7 +172,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                         EMP_BIRTHDAY = _selectedItem.EMP_BIRTHDAY,
                         EMP_EMAIL = _selectedItem.EMP_EMAIL,
                         EMP_GENDER = _selectedItem.EMP_GENDER,
-                        EMP_PASSWORD = _selectedItem.EMP_PASSWORD,
                         EMP_PHONE = _selectedItem.EMP_PHONE,
                         EMP_ROLE = _selectedItem.EMP_ROLE,
                         EMP_SALARY = _selectedItem.EMP_SALARY,
@@ -277,12 +277,21 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
             EditEmpCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
-                if(string.IsNullOrEmpty(EditEmp.EMP_NAME) || string.IsNullOrEmpty(EditEmp.EMP_EMAIL) || string.IsNullOrEmpty(EditEmp.EMP_PHONE))
+                if (string.IsNullOrEmpty(EditEmp.EMP_NAME) || string.IsNullOrEmpty(EditEmp.EMP_EMAIL) || string.IsNullOrEmpty(EditEmp.EMP_PHONE))
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn đang nhập thiếu hoặc sai thông tin");
                     return;
                 }
                 int empID = SelectedItem.EMP_ID;
+                string pass;
+                if (string.IsNullOrEmpty(EditEmp.EMP_PASSWORD))
+                {
+                    var employee = await EmployeeService.Ins.GetEmployeeById(empID);
+                    EditEmp.EMP_PASSWORD = employee.EMP_PASSWORD;
+                    pass = EditEmp.EMP_PASSWORD;
+                }
+                else
+                    pass = PasswordHelper.MD5Hash(EditEmp.EMP_PASSWORD);
                 EMPLOYEE newEmp = new EMPLOYEE
                 {
                     EMP_ID = SelectedItem.EMP_ID,
@@ -292,7 +301,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     EMP_CCCD = EditEmp.EMP_CCCD,
                     EMP_BIRTHDAY = EditEmp.EMP_BIRTHDAY,
                     EMP_GENDER = EditEmp.EMP_GENDER,
-                    EMP_PASSWORD = EditEmp.EMP_PASSWORD,
+                    EMP_PASSWORD = pass,
                     EMP_ROLE = EditEmp.EMP_ROLE,
                     EMP_SALARY = EditEmp.EMP_SALARY,
                     EMP_STARTDATE = EditEmp.EMP_STARTDATE,
@@ -322,6 +331,13 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
             AddEmpListCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
+                if (string.IsNullOrEmpty(Password))
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn nhập thiếu thông tin");
+                    return;
+                }
+                string pass = PasswordHelper.MD5Hash(this.Password);
+
                 EMPLOYEE newEmp = new EMPLOYEE
                 {
                     EMP_NAME = this.Name,
@@ -329,7 +345,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     EMP_EMAIL = this.Email,
                     EMP_CCCD = this.Cccd,
                     EMP_BIRTHDAY = this.Bday,
-                    EMP_PASSWORD = this.Password,
+                    EMP_PASSWORD = pass,
                     EMP_PHONE = this.Phone,
                     EMP_ROLE = this.Role,
                     EMP_SALARY = this.Salary,
@@ -438,7 +454,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                         worksheet.Cells["A1"].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
 
                         // Thêm tiêu đề cột
-                        string[] headers = new string[] { "Mã nhân viên", "Họ tên", "Ngày sinh", "Giới tính", "CCCD", "SĐT", "Email", 
+                        string[] headers = new string[] { "Mã nhân viên", "Họ tên", "Ngày sinh", "Giới tính", "CCCD", "SĐT", "Email",
                                                         "Ngày bắt đầu", "Chức vụ", "Tổng ca làm trong tuần", "Lương tuần" };
 
                         for (int i = 0; i < headers.Length; i++)
@@ -483,7 +499,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     MessageBoxCustom.Show(MessageBoxCustom.Success, "Xuất file excel thành công");
                 }
             }
-            catch 
+            catch
             {
                 MessageBoxCustom.Show(MessageBoxCustom.Error, "Xuất file excel thất bại");
             }
@@ -492,6 +508,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         }
         private async Task LoadEmpListAsync()
         {
+            EmployeeService.Ins.UpdateEmployeeSalaries();
+
             var employees = await Task.Run(() => EmployeeService.Ins.GetAllEmp());
             //cập nhật tổng số ca làm việc của mỗi nhân viên
             foreach (var employee in employees)
@@ -502,6 +520,9 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             EmpList = new ObservableCollection<EmployeeDTO>(employees);
             if (EmpList != null)
                 empList = new List<EmployeeDTO>(EmpList);
+
+            SearchText = SearchEmp?.Text;
+            await ApplyFilterAndSearch(SearchText, SelectedRole);
         }
         #region methods
         void resetData()

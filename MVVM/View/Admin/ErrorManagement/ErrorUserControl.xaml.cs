@@ -23,6 +23,7 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.ErrorManagement
         public ErrorUserControl()
         {
             InitializeComponent();
+            cbFilter.SelectedIndex = 0;
         }
 
         private void PART_ToggleButton_Click(object sender, RoutedEventArgs e)

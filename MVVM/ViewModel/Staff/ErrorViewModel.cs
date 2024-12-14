@@ -29,13 +29,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             set { name = value; }
         }
 
-        private string status;
-        public string Status
-        {
-            get { return status; }
-            set { status = value; }
-        }
-
         private string description;
         public string Description
         {
@@ -43,7 +36,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             set { description = value; }
         }
         #endregion
-        public static List<ErrorDTO> erList;
         private ObservableCollection<ErrorDTO> _errorList;
         public ObservableCollection<ErrorDTO> ErrorList
         {
@@ -75,8 +67,19 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 OnPropertyChanged(nameof(SelectedItem));
             }
         }
+        private ErrorDTO _editError;
+        public ErrorDTO EditError
+        {
+            get => _editError;
+            set
+            {
+                _editError = value;
+                OnPropertyChanged(nameof(EditError));
+            }
+        }
         public ObservableCollection<string> StatusList { get; set; } = new ObservableCollection<string>
         {
+            "Tất cả",
             "Chưa khắc phục",
             "Đã khắc phục"
         };
@@ -88,21 +91,25 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             {
                 _selectedStatus = value;
                 OnPropertyChanged();
-                CommandManager.InvalidateRequerySuggested(); 
+
+                SearchText = null;
+
+                CommandManager.InvalidateRequerySuggested();
                 if (FilterErrorCM.CanExecute(null))
                     FilterErrorCM.Execute(null);
             }
         }
-        private ErrorDTO _editError;
-        public ErrorDTO EditError
+        private string _searchText;
+        public string SearchText
         {
-            get => _editError;
+            get => _searchText;
             set
             {
-                _editError = value;
-                OnPropertyChanged(nameof(EditError));
+                _searchText = value;
+                OnPropertyChanged();
             }
         }
+        public TextBox SearchErr { get; set; }
         public ICommand FirstLoadCM { get; set; }
         public ICommand SearchErrorCM { get; set; }
         public ICommand FilterErrorCM { get; set; }
@@ -115,21 +122,18 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             FirstLoadCM = new RelayCommand<UserControl>((p) => { return true; }, async (p) =>
             {
                 ErrorList = new ObservableCollection<ErrorDTO>(await Task.Run(() => ErrorService.Ins.GetAllError()));
-                if (ErrorList != null)
-                    erList = new List<ErrorDTO>(ErrorList);
             });
             SearchErrorCM = new RelayCommand<TextBox>(p => true, async (p) =>
             {
                 string searchText = p?.Text ?? string.Empty;
-                await SearchAndFilterErrors(searchText, SelectedStatus);
+                await ApplyFilterAndSearch(searchText, SelectedStatus);
             });
 
 
             FilterErrorCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
-                await FilterErrorList(SelectedStatus);
+                await ApplyFilterAndSearch(SearchErr?.Text, SelectedStatus);
             });
-
             AddErrorWdCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 AddErrorWindow wd = new AddErrorWindow();
@@ -156,7 +160,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                     p.Close();
                     resetData();
                     ErrorList = new ObservableCollection<ErrorDTO>(await ErrorService.Ins.GetAllError());
-                    await FilterErrorList(SelectedStatus);
+                    SearchText = SearchErr?.Text;
+                    await ApplyFilterAndSearch(SearchText, SelectedStatus);
                     MessageBoxCustom.Show(MessageBoxCustom.Success, messageAdd);
                 }
                 else
@@ -184,7 +189,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 if (success)
                 {
                     ErrorList = new ObservableCollection<ErrorDTO>(await ErrorService.Ins.GetAllError());
-                    await FilterErrorList(SelectedStatus);
+                    SearchText = SearchErr?.Text;
+                    await ApplyFilterAndSearch(SearchText, SelectedStatus);
                     MessageBoxCustom.Show(MessageBoxCustom.Success, messageEdit);
                 }
                 else
@@ -193,7 +199,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 }
             });
         }
-
 
         private async Task SearchAndFilterErrors(string searchText, string filterStatus)
         {
@@ -223,20 +228,26 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             );
         }
 
-        private async Task FilterErrorList(string selectedStatus)
+        private async Task ApplyFilterAndSearch(string searchText, string filterStatus)
         {
-            if (string.IsNullOrWhiteSpace(selectedStatus))
+            filterStatus = filterStatus?.ToLower() ?? string.Empty;
+            searchText = searchText?.ToLower() ?? string.Empty;
+            var allErrors = await ErrorService.Ins.GetAllError();
+
+            // Nếu cả filter và search text đều trống
+            if (string.IsNullOrWhiteSpace(searchText) && string.IsNullOrWhiteSpace(filterStatus))
             {
-                ErrorList = new ObservableCollection<ErrorDTO>(await ErrorService.Ins.GetAllError());
+                ErrorList = new ObservableCollection<ErrorDTO>(allErrors);
                 return;
             }
-
-            string searchText = selectedStatus.ToLower();
-
-            ErrorList = new ObservableCollection<ErrorDTO>(
-                (await ErrorService.Ins.GetAllError()).FindAll(x =>
-                    (x.ER_STATUS?.ToLower().Contains(searchText) ?? false)
-                ));
+            // Lọc và tìm kiếm
+            ErrorList = new ObservableCollection<ErrorDTO>(allErrors.FindAll(x =>
+                (string.IsNullOrEmpty(filterStatus) || filterStatus == "tất cả" ||
+                 (x.ER_STATUS?.ToLower().Contains(filterStatus) ?? false)) &&
+                (string.IsNullOrEmpty(searchText) ||
+                 ($"er{x.ER_ID:D3}".ToLower().Contains(searchText)) ||
+                 (x.ER_NAME?.ToLower().Contains(searchText) ?? false)
+            )));
         }
 
         #region methods

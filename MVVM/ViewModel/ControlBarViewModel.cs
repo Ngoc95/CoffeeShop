@@ -26,7 +26,10 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 FrameworkElement parent = GetParent(p);
                 Window w = parent as Window;
                 if (w != null)
+                {
+                    w.Owner?.Close(); //đóng wd owner (loginwd)
                     w.Close();
+                }
             });
             MinimizeWindowCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {

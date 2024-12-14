@@ -21,15 +21,6 @@ namespace QuanLiCoffeeShop.MVVM.View.Login
             InitializeComponent();
         }
 
-        private void tbEmail_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            btnSendmail.IsEnabled = !string.IsNullOrWhiteSpace(tbEmail.Text);
-        }
-        private void tbNewPassword_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            btnOk.IsEnabled = !string.IsNullOrWhiteSpace(tbNewPassword.Text);
-        }
-
         private void moveWin_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)

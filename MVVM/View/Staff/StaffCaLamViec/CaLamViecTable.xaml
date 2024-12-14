@@ -4,143 +4,172 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffCaLamViec"
-             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:staff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff" 
+             d:DataContext="{d:DesignInstance Type=staff:WorkshiftViewModel}"
+             mc:Ignorable="d" x:Name="workshiftWd"
              FontFamily="Fonts/Roboto-Light.ttf #Roboto"
-             d:DesignHeight="740" d:DesignWidth="930">
+             d:DesignHeight="740" d:DesignWidth="930"
+             DataContext="{StaticResource WorkshiftStaffVM}">
     <Grid>
         <Grid Background="White">
             <Grid.RowDefinitions>
-                <RowDefinition Height="70"/>
-                <RowDefinition Height="660"/>
-                <RowDefinition/>
+                <RowDefinition />
+                <RowDefinition Height="222"/>
             </Grid.RowDefinitions>
-            <Border Grid.Row="1" Background="#FFC3A1" CornerRadius="10" Margin="15,15,15,0">
+            <Border Background="#FFC3A1" CornerRadius="10" Margin="15,25,15,0" >
                 <Border
-             Margin="18"
-             Background="White"
-             CornerRadius="10">
+                     Margin="18"
+                     Background="White"
+                     CornerRadius="10">
                     <DataGrid 
-                 x:Name="dataGridCaLamViec"
-                LoadingRow="DataGridCa_LoadingRow"
-                Margin="15,15,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                AutoGenerateColumns="False"
-                Background="White"
-                CanUserReorderColumns="False"
-                CanUserResizeColumns="False"
-                ColumnWidth="SizeToCells"
-                IsReadOnly="True"
-                HeadersVisibility="All"
-                RowHeaderWidth="100" 
-                RowHeight="30"
-                SelectionMode="Single"
-                SelectionUnit="Cell"
-                SelectedItem="{Binding SelectedItem}" Width="839">
+                         x:Name="dataGridCaLamViec"
+                         Margin="15,5,15,15"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                         AutoGenerateColumns="False"
+                         Background="White"
+                         CanUserReorderColumns="False"
+                         CanUserResizeColumns="False"
+                         CanUserSortColumns="False"
+                         ColumnWidth="SizeToCells"
+                         IsReadOnly="True"
+                         SelectionMode="Single"
+                         SelectionUnit="Cell"
+                        ItemsSource="{Binding Schedules}">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="FontWeight" Value="DemiBold"/>
+                                <Setter Property="FontSize" Value="18"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
                         <DataGrid.RowStyle>
-                            <Style TargetType="DataGridRow">
-                                <Setter Property="Background" Value="White" />
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridRow}" TargetType="DataGridRow">
+                                <Setter Property="MinHeight" Value="70"/>
+                                <Setter Property="BorderThickness" Value="0" />
+
                             </Style>
                         </DataGrid.RowStyle>
-                        <DataGrid.RowHeaderStyle>
-                            <Style TargetType="DataGridRowHeader">
-                                <Setter Property="Content" Value="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Header}"/>
-                                <Setter Property="Width" Value="100"/>
-                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            </Style>
-                        </DataGrid.RowHeaderStyle>
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
-                                <Setter Property="BorderThickness" Value="0.5" />
-                                <Setter Property="BorderBrush" Value="Gray" />
+                                <Setter Property="BorderThickness" Value="0" />
                                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                             </Style>
                         </DataGrid.CellStyle>
 
                         <DataGrid.Columns>
-
-
-                            <DataGridTemplateColumn Width="auto" Header="Thứ 2">
+                            <DataGridTemplateColumn Width="auto" Header="Ca làm việc">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
-                             FontSize="22"  
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             Text="{Binding Thu2}" />
+                                         FontSize="17"  
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Text="{Binding DisplayName}" FontWeight="DemiBold" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Thứ 3">
+                            <DataGridTemplateColumn Width="*" Header="Thứ 2" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock
-                             FontSize="22"       
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             Text="{Binding Thu3}" />
+                                        <ItemsControl ItemsSource="{Binding EmployeeNamesByDay[1]}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Thứ 4">
+                            <DataGridTemplateColumn Width="*" Header="Thứ 3">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock
-                             FontSize="22"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             Text="{Binding Thu4}" />
+                                        <ItemsControl ItemsSource="{Binding EmployeeNamesByDay[2]}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}" FontSize="30" HorizontalAlignment="Center" />
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="*" Header="Thứ 4">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ItemsControl ItemsSource="{Binding EmployeeNamesByDay[3]}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}" FontSize="30" HorizontalAlignment="Center"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
 
-                            <DataGridTemplateColumn Width="auto" Header="Thứ 5">
+                            <DataGridTemplateColumn Width="*" Header="Thứ 5">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock
-                             FontSize="22"                
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             Text="{Binding Thu5}" />
+                                        <ItemsControl ItemsSource="{Binding EmployeeNamesByDay[4]}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}" FontSize="30" HorizontalAlignment="Center"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Thứ 6">
+                            <DataGridTemplateColumn Width="*" Header="Thứ 6">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock
-                             FontSize="22"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             Text="{Binding Thu6}" />
+                                        <ItemsControl ItemsSource="{Binding EmployeeNamesByDay[5]}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}" FontSize="30" HorizontalAlignment="Center"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Thứ 7">
+                            <DataGridTemplateColumn Width="*" Header="Thứ 7">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock
-                             FontSize="22"     
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             Text="{Binding Thu7}" />
+                                        <ItemsControl ItemsSource="{Binding EmployeeNamesByDay[6]}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}" FontSize="30" HorizontalAlignment="Center"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Width="auto" Header="Chủ Nhật">
+                            <DataGridTemplateColumn Width="auto" Header="Chủ nhật">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock
-                             FontSize="22"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             Text="{Binding ChuNhat}" />
+                                        <ItemsControl ItemsSource="{Binding EmployeeNamesByDay[7]}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}" FontSize="30" HorizontalAlignment="Center"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -149,15 +178,13 @@
                     </DataGrid>
                 </Border>
             </Border>
-            <Border Grid.Row="0">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Style="{StaticResource btnCa_style}" BorderThickness="0"
-                                Content="Xin nghỉ phép/ Đổi ca" VerticalAlignment="Bottom" 
-                                Foreground="Black" FontWeight="DemiBold"
-                                FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="17" Width="302" Height="42"
-                                Background="#F0997D"
-                                Margin="0,10,20,0" Click="btnXinNghiPhepDoiCa_Click"/>
-                </StackPanel>
+            <Border Grid.Row="1">
+                <Button HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Width="272" Height="55" Margin="0,40,20,0" FontWeight="Normal"
+                        materialDesign:ButtonAssist.CornerRadius="15"
+                        BorderThickness="0" Foreground="Black" FontSize="22"
+                        Content="Xin nghỉ phép/ Đổi ca" Background="#ffc3a1" 
+                        Command="{Binding RequestWdCM}" CommandParameter="{Binding ElementName=workshiftWd}"/>
             </Border>
         </Grid>
     </Grid>

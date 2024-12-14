@@ -4,25 +4,294 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement"
-        mc:Ignorable="d"
-        Title="Đơn xin phép" Height="450" Width="800">
-    <Grid>
-        <StackPanel Margin="20">
-            <TextBlock Text="Tên nhân viên:" FontSize="24"/>
-            <TextBox x:Name="txtHoTen" IsReadOnly="True" FontSize="24" Margin="0,5,0,10"/>
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:admin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin" d:DataContext="{d:DesignInstance Type=admin:WorkshiftViewModel}"
+        mc:Ignorable="d" x:Name="requestWd"
+        WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
+        Background="Transparent"
+        FontFamily="Fonts/Roboto-Light.ttf #Roboto"
+        WindowState="Normal"
+        WindowStartupLocation="CenterScreen"
+        Title="RequestWd" Height="550" Width="1100"  
+        MouseDown="requestWd_MouseDown"
+        DataContext="{StaticResource WorkshiftAdminVM}">
+    <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="400"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <TextBlock 
+                    Margin="15" FontWeight="DemiBold"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource Header1Style}"
+                    Text="Đơn xin nghỉ phép / đổi ca"></TextBlock>
+            </Grid>
 
-            <TextBlock Text="Loại đơn:" FontSize="24"/>
-            <TextBox x:Name="txtLoaiDon" IsReadOnly="True" FontSize="24" Margin="0,5,0,10"/>
+            <Border 
+                Grid.Row="1"
+                Margin="15,0,15,0"
+                Background="#ffc3a1"
+                CornerRadius="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-            <TextBlock Text="Lý do:" FontSize="24"/>
-            <TextBox x:Name="txtLyDo" FontSize="24" Margin="0,5,0,10" Height="80" TextWrapping="Wrap"/>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                 Grid.Column="0"
+                                 Margin="25,0,0,0"
+                                 Style="{DynamicResource Header2Style}"
+                                 Text="Mã nhân viên" Width="135"/>
+                            <Border Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    CornerRadius="20" Height="50" Width="200" 
+                                    Margin="10,3,0,0" Background="#E4E4E4"
+                                    BorderBrush="#B9B9B9" BorderThickness="1">
+                                <TextBox Height="50" Width="185"
+                                         HorizontalAlignment="Left" Background="Transparent"
+                                         FontSize="22" Margin="10,0,0,10"
+                                         IsReadOnly="True"
+                                         Text="{Binding EditReq.EMP_ID, StringFormat = 'NV{0:D3}'}"/>
+                            </Border>
+                        </Grid>
 
-        </StackPanel>
-        <Button x:Name="btnTuChoi" Style="{StaticResource btn_style}" BorderThickness="0"
-           Content="Từ chối" Foreground="#603127" Margin="0,336,45,48" HorizontalAlignment="Right"
-           FontSize="22" Width="170" Height="50" Background="#FF0055" Click="btnTuChoi_Click"/>
-        <Button x:Name="btnXoa" Style="{StaticResource btn_style}" BorderThickness="0"
-          Content="Chấp nhận" Foreground="#603127"  Margin="66,336,0,48" HorizontalAlignment="Left"
-          FontSize="22" Width="170" Height="50" Background="#FFC3A1" Click="btnChapNhan_Click"/>
-    </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                 Grid.Column="0"
+                                 Margin="21,0,0,0"
+                                 Style="{DynamicResource Header2Style}"
+                                 Text="Tên nhân viên" Width="139"/>
+                            <Border Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    CornerRadius="20" Height="50" Width="310" 
+                                    Margin="10,3,0,0" Background="#E4E4E4"
+                                    BorderBrush="#B9B9B9" BorderThickness="1">
+                                <TextBox Height="50" Width="285"
+                                         HorizontalAlignment="Left" Background="Transparent"
+                                         FontSize="22" Margin="10,0,0,10"
+                                         IsReadOnly="True"
+                                         Text="{Binding EditReq.EMPLOYEE.EMP_NAME}"/>
+                            </Border>
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                 Grid.Column="0"
+                                 Margin="69,0,0,0"
+                                 Style="{DynamicResource Header2Style}"
+                                 Text="Loại đơn" Width="91"/>
+                            <Border Grid.Column="1"
+                                    HorizontalAlignment="Left"
+                                    CornerRadius="20" Height="50" Width="200" 
+                                    Margin="10,3,0,0" Background="#E4E4E4"
+                                    BorderBrush="#B9B9B9" BorderThickness="1">
+                                <TextBox Height="50" Width="185"
+                                         HorizontalAlignment="Left" Background="Transparent"
+                                         FontSize="22" Margin="10,0,0,10"
+                                         IsReadOnly="True"
+                                         Text="{Binding EditReq.REQ_TYPE}"/>
+                            </Border>
+                        </Grid>
+
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Top"
+                                        Grid.Column="0"
+                                        Margin="68,15,0,0"
+                                        Style="{DynamicResource Header2Style}"
+                                        Text="Nội dung" Grid.ColumnSpan="2" Width="100"/>
+                            <TextBox Grid.Column="1"
+                                    Width="310"
+                                    Height="auto"
+                                    Margin="10,10,0,21"
+                                    Padding="12"
+                                    HorizontalAlignment="Left"
+                                    VerticalContentAlignment="Top"
+                                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                    BorderBrush="#B9B9B9" 
+                                    Background="#E4E4E4"
+                                    BorderThickness="1"
+                                    FontSize="22"
+                                    MaxLines="100"
+                                    MinLines="1"
+                                    Text="{Binding EditReq.EMP_COMMENT}" 
+                                    TextWrapping="Wrap"
+                                    IsReadOnly="True">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="TextBox">
+                                                    <Border
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                                        CornerRadius="10">
+                                                        <ScrollViewer x:Name="PART_ContentHost"
+                                                                      HorizontalScrollBarVisibility="Hidden"
+                                                                      VerticalScrollBarVisibility="Hidden" />
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="BorderBrush" Value="#B9B9B9" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderBrush" Value="#B9B9B9" />
+                                            </Trigger>
+                                            <Trigger Property="IsFocused" Value="True">
+                                                <Setter Property="BorderBrush" Value="#B9B9B9" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.RowSpan="2"
+                                CornerRadius="10" HorizontalAlignment="Left"
+                                Width="1" Background="#603127"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                 Grid.Column="0"
+                                 Margin="47,0,0,0"
+                                 Style="{DynamicResource Header2Style}"
+                                 Text="Trạng thái" Width="113"/>
+                            <ComboBox x:Name="cbStatus"
+                                      Grid.Column="1"
+                                      HorizontalAlignment="Left"
+                                      FocusVisualStyle="{x:Null}" 
+                                      Height="50" 
+                                      Background="White" 
+                                      FontSize="22" 
+                                      VerticalAlignment="Center" 
+                                      Width="230" 
+                                      SelectedValue="{Binding EditReq.REQ_STATUS}" 
+                                      SelectedValuePath="Content" 
+                                      IsEditable="False">
+                                <ComboBoxItem Content="Đã duyệt" />
+                                <ComboBoxItem Content="Từ chối" />
+                                <ComboBox.Style>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ComboBox">
+                                                    <Grid>
+                                                        <Border x:Name="Border"
+                                                                Background="{TemplateBinding Background}"
+                                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                                BorderThickness="1"
+                                                                CornerRadius="10">
+                                                            <DockPanel>
+                                                                <!-- ContentPresenter để hiển thị item được chọn -->
+                                                                <ContentPresenter HorizontalAlignment="Left"
+                                                                                  VerticalAlignment="Center"
+                                                                                  Margin="10"
+                                                                                  Content="{TemplateBinding SelectionBoxItem}" />
+                                                                <!-- ToggleButton -->
+                                                                <ToggleButton x:Name="PART_ToggleButton"
+                                                                              DockPanel.Dock="Right" HorizontalAlignment="Right"
+                                                                              Background="Transparent"
+                                                                              BorderThickness="0"
+                                                                              Margin="5"
+                                                                              Content="🔄"
+                                                                              Click="PART_ToggleButton_Click" />
+                                                            </DockPanel>
+                                                        </Border>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ComboBox.Style>
+                            </ComboBox>
+                        </Grid>
+                        
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Top"
+                                        Grid.Column="0"
+                                       HorizontalAlignment="Right"
+                                        Margin="0,13,0,0"
+                                        Style="{DynamicResource Header2Style}"
+                                        Text="Phản hồi"  Width="100"/>
+                            <TextBox 
+                                    Text="{Binding EditReq.APPROVER_COMMENT}"
+                                    Height="auto"
+                                    Grid.Column="1"
+                                    Margin="0,13,57,21"
+                                    Style="{DynamicResource InputTextBoxStyle}"/>
+                        </Grid>
+                        
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Button 
+                Grid.Row="2"
+                Margin="20,0,0,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left" 
+                Background="#F6E8D0" Foreground="Black"
+                materialDesign:ButtonAssist.CornerRadius="15.36"
+                Content="Bỏ qua" Click="Button_Click" Height="46" Width="131"
+                BorderBrush="Black" BorderThickness="1" FontSize="20" FontWeight="DemiBold">
+            </Button>
+
+            <Button 
+                Grid.Row="2"
+                Margin="950,0,0,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left" 
+                materialDesign:ButtonAssist.CornerRadius="15.36"
+                Background="#F0997D" Foreground="Black"
+                Content="Lưu" Height="48" Width="131"
+                BorderBrush="Black" BorderThickness="1" FontSize="20" FontWeight="DemiBold"
+                Command="{Binding EditReqCM}" CommandParameter="{Binding ElementName=requestWd}">
+            </Button>
+        </Grid>
+    </Border>
 </Window>

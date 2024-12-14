@@ -19,21 +19,42 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement
     /// </summary>
     public partial class DonXinNghiWindow : Window
     {
-
-        public DonXinNghiWindow(string hoTen)
+        private string _originalStatus;
+        public DonXinNghiWindow()
         {
             InitializeComponent();
 
+            Loaded += (s, e) =>
+            {
+                _originalStatus = cbStatus.Text; // Lưu giá trị hiện tại của ComboBox
+            };
         }
 
-        private void btnChapNhan_Click(object sender, RoutedEventArgs e)
+        private void requestWd_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
         }
 
-        private void btnTuChoi_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
+            // Đặt lại trạng thái ban đầu của combobox trước khi đóng
+            cbStatus.Text = _originalStatus;
             Close();
+        }
+
+        private void PART_ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbStatus.Items.Count >= 2)
+            {
+                // Lấy index của item hiện tại
+                int currentIndex = cbStatus.SelectedIndex;
+
+                // Chuyển đổi index
+                cbStatus.SelectedIndex = currentIndex == 0 ? 1 : 0;
+            }
         }
     }
 }
