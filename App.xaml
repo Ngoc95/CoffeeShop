@@ -17,7 +17,7 @@
              xmlns:viewStaffCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement"
              xmlns:viewStaffErr="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement"
              xmlns:viewStaffWorkshift="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffCaLamViec"
-             StartupUri="/MVVM/View/Staff/MainStaffWindow.xaml">
+             StartupUri="/MVVM/View/Login/LoginWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

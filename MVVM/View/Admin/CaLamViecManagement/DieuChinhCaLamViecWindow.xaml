@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement" xmlns:admin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin" d:DataContext="{d:DesignInstance Type=admin:WorkshiftViewModel}"
@@ -29,9 +28,6 @@
                 <RowDefinition Height="190"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid HorizontalAlignment="Right" Margin="0,10,30,0" Width="80" VerticalAlignment="Top" Grid.Column="1" Height="40" Grid.RowSpan="2">
-                <uc:ControlBarUserControl></uc:ControlBarUserControl>
-            </Grid>
             <Label Content="Điều chỉnh ca làm việc" FontSize="30" Foreground="#603127"
                   FontWeight="Medium" Margin="0,7,0,0"
                   HorizontalAlignment="Center" VerticalAlignment="Center"/>

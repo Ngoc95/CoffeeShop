@@ -45,17 +45,13 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 Window w = parent as Window;
                 if (w != null)
                 {
-                    if (w.Width != SystemParameters.WorkArea.Width)
+                    if(w.WindowState != WindowState.Maximized)
                     {
-                        w.Width = SystemParameters.WorkArea.Width;
-                        w.Height = SystemParameters.WorkArea.Height;
-                        w.Left = SystemParameters.WorkArea.Left;
-                        w.Top = SystemParameters.WorkArea.Top;
+                        w.WindowState = WindowState.Maximized;
                     }
                     else
                     {
-                        w.Width = 1200;
-                        w.Height = 800;
+                        w.WindowState = WindowState.Normal;
                     }
                 }
             });

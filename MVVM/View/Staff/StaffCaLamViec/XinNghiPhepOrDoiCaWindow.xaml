@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffCaLamViec"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-        xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX" 
         xmlns:staff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff" d:DataContext="{d:DesignInstance Type=staff:WorkshiftViewModel}"
         mc:Ignorable="d" x:Name="requestWd"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
@@ -29,12 +28,6 @@
                     VerticalAlignment="Center"
                     Style="{DynamicResource Header1Style}"
                     Text="Đơn xin nghỉ phép / đổi ca"></TextBlock>
-                <Grid 
-                    Margin="25,0"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right">
-                    <uc:ControlBarUserControl></uc:ControlBarUserControl>
-                </Grid>
             </Grid>
 
             <Border 

@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:uc="clr-namespace:QuanLiCoffeeShop.MVVM.View.ControlBarX"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement" 
         xmlns:staff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
         d:DataContext="{d:DesignInstance Type=staff:ErrorViewModel}"
@@ -19,7 +18,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
-                <RowDefinition Height="318"/>
+                <RowDefinition Height="340"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
@@ -30,17 +29,11 @@
                     VerticalAlignment="Center"
                     Style="{DynamicResource Header1Style}"
                     Text="Báo cáo sự cố"></TextBlock>
-                <Grid 
-                    Margin="25,0"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right">
-                    <uc:ControlBarUserControl></uc:ControlBarUserControl>
-                </Grid>
             </Grid>
 
             <Border 
                 Grid.Row="1"
-                Margin="15, 0"
+                Margin="15,0,15,0"
                 Background="#ffc3a1"
                 CornerRadius="20">
                 <Grid>
@@ -95,25 +88,25 @@
 
             <Button x:Name="passErrWd"
                 Grid.Row="2"
-                Margin="20"
+                Margin="20,0,0,0"
                 FontSize="22"
-                VerticalAlignment="Bottom"
+                VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 Style="{DynamicResource ButtonCancel_WD}"
                 Content="Bỏ qua"
-                Click="passErrWd_Click">
+                Click="passErrWd_Click" Height="40" Width="131">
             </Button>
 
 
             <Button 
                 Grid.Row="2"
-                Margin="20"
+                Margin="512,0,0,0"
                 FontSize="22"
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
                 Command="{Binding AddErrorListCM}" CommandParameter="{Binding ElementName=AddErrPage}"
                 Style="{DynamicResource ButtonAdd_WD}"
-                Content="Cập nhật">
+                Content="Cập nhật" Height="40" Width="131">
             </Button>
         </Grid>
     </Border>
