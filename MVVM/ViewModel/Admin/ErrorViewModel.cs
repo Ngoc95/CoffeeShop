@@ -42,7 +42,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             set { description = value; }
         }
         #endregion
-        public static List<ErrorDTO> erList;
         private ObservableCollection<ErrorDTO> _errorList;
         public ObservableCollection<ErrorDTO> ErrorList
         {
@@ -130,8 +129,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             FirstLoadCM = new RelayCommand<UserControl>((p) => { return true; }, async (p) =>
             {
                 ErrorList = new ObservableCollection<ErrorDTO>(await Task.Run(() => ErrorService.Ins.GetAllError()));
-                if (ErrorList != null)
-                    erList = new List<ErrorDTO>(ErrorList);
             });
             SearchErrorCM = new RelayCommand<TextBox>(p => true, async (p) =>
             {

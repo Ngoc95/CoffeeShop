@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using OfficeOpenXml;
 using QuanLiCoffeeShop.Core;
 using QuanLiCoffeeShop.DTOs;
+using QuanLiCoffeeShop.Helpers;
 using QuanLiCoffeeShop.MVVM.Model;
 using QuanLiCoffeeShop.MVVM.Model.Services;
 using QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement;
@@ -13,9 +14,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.Entity;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -349,9 +353,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         }
         #endregion         //điều chỉnh ca làm việc
 
-
         #region Request Information
-        public static List<RequestDTO> reqList;
         private ObservableCollection<RequestDTO> _reqList;
         public ObservableCollection<RequestDTO> ReqList
         {
@@ -399,6 +401,27 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 OnPropertyChanged(nameof(EditReq));
             }
         }
+        public ObservableCollection<string> StatusList { get; set; } = new ObservableCollection<string>
+        {
+            "Tất cả",
+            "Chờ duyệt",
+            "Đã duyệt",
+            "Từ chối"
+        };
+        private string _selectedStatus;
+        public string SelectedStatus
+        {
+            get => _selectedStatus;
+            set
+            {
+                _selectedStatus = value;
+                OnPropertyChanged();
+
+                CommandManager.InvalidateRequerySuggested();
+                if (FilterReqStatusCM.CanExecute(null))
+                    FilterReqStatusCM.Execute(null);
+            }
+        }
 
         #endregion
         public ICommand EditEmpWdCM { get; set; }
@@ -413,14 +436,92 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public ICommand SaveShiftChangesCM { get; set; }
 
         public ICommand ExportExcelCM { get; set; }
+
+        public ICommand FirstLoadRequestCM { get; set; }
+        public ICommand FilterReqStatusCM { get; set; }
+        public ICommand OpenReqWdCM { get; set; }
+        public ICommand EditReqCM { get; set; }
+        public ICommand DeleteReqCM { get; set; }
+
         public WorkshiftViewModel()
         {
             LoadData();
+            FirstLoadRequestCM = new RelayCommand<UserControl>((p) => { return true; }, async (p) =>
+            {
+                await ApplyFilter(SelectedStatus);
+            });
+            FilterReqStatusCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
+            {
+                await ApplyFilter(SelectedStatus);
+            });
+            OpenReqWdCM = new RelayCommand<object>((p) => { return SelectedItem != null; }, (p) =>
+            {
+                DonXinNghiWindow wd = new DonXinNghiWindow();
+                wd.ShowDialog();
+            });
+            EditReqCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            {
+                if (string.IsNullOrEmpty(EditReq.APPROVER_COMMENT) || string.IsNullOrEmpty(EditReq.REQ_STATUS))
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn đang nhập thiếu thông tin");
+                    return;
+                }
+                REQUEST newReq = new REQUEST
+                {
+                    REQ_ID = SelectedItem.REQ_ID,
+                    REQ_STATUS = EditReq.REQ_STATUS,
+                    REQ_DATE = EditReq.REQ_DATE,
+                    REQ_TYPE = EditReq.REQ_TYPE,
+                    APPROVED_BY = MainViewModel.currentEmp.EMP_ID,
+                    APPROVED_DATE = DateTime.Now,
+                    APPROVER_COMMENT = EditReq.APPROVER_COMMENT,
+                    EMPLOYEE = EditReq.EMPLOYEE,
+                    EMP_COMMENT = EditReq.EMP_COMMENT,
+                    EMP_ID = EditReq.EMP_ID,
+                    IS_DELETED = false,
+                };
+                (bool success, string messageEdit) = await RequestService.Ins.EditRequest(newReq, SelectedItem.REQ_ID);
+                if (success)
+                {
+                    await ApplyFilter(SelectedStatus);
+                    await sendEmail(newReq.EMPLOYEE.EMP_EMAIL, newReq);
+                    p.Close();
+                }
+                else
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, messageEdit);
+                }
+            });
+            DeleteReqCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                if (SelectedItem == null)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn chưa chọn sự cố để xóa");
+                    return;
+                }
+                DeleteMessage wd = new DeleteMessage();
+                wd.ShowDialog();
+                if (wd.DialogResult == true)
+                {
+                    (bool sucess, string messageDelete) = await RequestService.Ins.DeleteRequest(SelectedItem.REQ_ID);
+                    if (sucess)
+                    {
+                        ReqList.Remove(SelectedItem);
+                        MessageBoxCustom.Show(MessageBoxCustom.Success, messageDelete);
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, messageDelete);
+                    }
+                }
+            });
+
 
             //thông báo loaddata lại khi chỉnh sửa tên NV
-            Messenger.Default.Register<EmployeeUpdatedMessage>(this, (msg) =>
+            Messenger.Default.Register<EmployeeUpdatedMessage>(this, async (msg) =>
             {
                 LoadData();
+                await ApplyFilter(SelectedStatus);
             });
 
             EditEmpWdCM = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -786,8 +887,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 MessageBoxCustom.Show(MessageBoxCustom.Error, "Xuất file excel thất bại");
             }
         }
-
-        public void LoadData()
+        #region Method
+        private void LoadData()
         {
             try
             {
@@ -825,11 +926,62 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
                     Schedules = new ObservableCollection<ShiftScheduleDTO>(groupedData);
                 }
+
             }
             catch
             {
                 return;
             }
         }
+        private async Task ApplyFilter(string filterStatus)
+        {
+            filterStatus = filterStatus?.ToLower() ?? string.Empty;
+            var allReq = await RequestService.Ins.GetAllRequest();
+
+            if (string.IsNullOrWhiteSpace(filterStatus))
+            {
+                ReqList = new ObservableCollection<RequestDTO>(allReq);
+                return;
+            }
+            // Lọc 
+            ReqList = new ObservableCollection<RequestDTO>(allReq.FindAll(x =>
+                (string.IsNullOrEmpty(filterStatus) || filterStatus == "tất cả" ||
+                 (x.REQ_STATUS?.ToLower().Contains(filterStatus) ?? false))
+            ));
+        }
+        private async Task sendEmail(string email, REQUEST rEQUEST)
+        {
+            try
+            {
+                var approver = await EmployeeService.Ins.GetEmployeeById(rEQUEST.APPROVED_BY ?? 0);
+                string approver_name = approver.EMP_NAME;
+
+                string body = "Mã đơn xin phép: " + $"REQ{rEQUEST.REQ_ID.ToString("D3")}" + "\nNgày gửi đơn: " + rEQUEST.REQ_DATE
+                    + "\nNgày phê duyệt: " + rEQUEST.APPROVED_DATE + "\nNgười phê duyệt: " + approver_name
+                    + "\nTrạng thái: " + rEQUEST.REQ_STATUS + "\nPhản hồi: " + rEQUEST.APPROVER_COMMENT;
+
+                var smtpClient = new SmtpClient("smtp.gmail.com");
+                smtpClient.EnableSsl = true;
+                smtpClient.Port = 587;
+                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Credentials = new NetworkCredential("coffeeshophello@gmail.com", "klciusqavysaiorf");
+
+                MailMessage mail = new MailMessage();
+                mail.IsBodyHtml = true;
+                mail.From = new MailAddress("coffeeshophello@gmail.com");
+                mail.To.Add(email);
+                mail.Subject = "Coffee Shop - Phản hồi đơn xin phép";
+                mail.IsBodyHtml = false;
+                mail.Body = body;
+                await smtpClient.SendMailAsync(mail);
+                MessageBoxCustom.Show(MessageBoxCustom.Success, "Đã gửi email thành công");
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra, vui lòng nhập lại!");
+            }
+        }
+        #endregion
     }
 }

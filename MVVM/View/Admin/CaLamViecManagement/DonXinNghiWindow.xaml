@@ -4,14 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:admin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin" d:DataContext="{d:DesignInstance Type=admin:WorkshiftViewModel}"
         mc:Ignorable="d" x:Name="requestWd"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         Background="Transparent"
+        FontFamily="Fonts/Roboto-Light.ttf #Roboto"
         WindowState="Normal"
         WindowStartupLocation="CenterScreen"
         Title="RequestWd" Height="550" Width="1100"  
-        MouseDown="requestWd_MouseDown">
+        MouseDown="requestWd_MouseDown"
+        DataContext="{StaticResource WorkshiftAdminVM}">
     <Border BorderBrush="#603127" BorderThickness="2" CornerRadius="15" Background="White">
         <Grid>
             <Grid.RowDefinitions>
@@ -66,7 +68,7 @@
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10"
                                          IsReadOnly="True"
-                                         Text="{Binding Username}"/>
+                                         Text="{Binding EditReq.EMP_ID, StringFormat = 'NV{0:D3}'}"/>
                             </Border>
                         </Grid>
 
@@ -89,7 +91,7 @@
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10"
                                          IsReadOnly="True"
-                                         Text="{Binding Username}"/>
+                                         Text="{Binding EditReq.EMPLOYEE.EMP_NAME}"/>
                             </Border>
                         </Grid>
 
@@ -112,7 +114,7 @@
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10"
                                          IsReadOnly="True"
-                                         Text="{Binding Username}"/>
+                                         Text="{Binding EditReq.REQ_TYPE}"/>
                             </Border>
                         </Grid>
 
@@ -123,13 +125,13 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock VerticalAlignment="Top"
                                         Grid.Column="0"
-                                        Margin="68,10,0,0"
+                                        Margin="68,15,0,0"
                                         Style="{DynamicResource Header2Style}"
                                         Text="Nội dung" Grid.ColumnSpan="2" Width="100"/>
                             <TextBox Grid.Column="1"
                                     Width="310"
                                     Height="auto"
-                                    Margin="10,18,0,21"
+                                    Margin="10,10,0,21"
                                     Padding="12"
                                     HorizontalAlignment="Left"
                                     VerticalContentAlignment="Top"
@@ -140,7 +142,7 @@
                                     FontSize="22"
                                     MaxLines="100"
                                     MinLines="1"
-                                    Text="{Binding EditError.ER_DESCRIPTION}" 
+                                    Text="{Binding EditReq.EMP_COMMENT}" 
                                     TextWrapping="Wrap"
                                     IsReadOnly="True">
                                 <TextBox.Style>
@@ -204,8 +206,11 @@
                                       FontSize="22" 
                                       VerticalAlignment="Center" 
                                       Width="230" 
-                                      Text="{Binding EditError.ER_STATUS}" 
+                                      SelectedValue="{Binding EditReq.REQ_STATUS}" 
+                                      SelectedValuePath="Content" 
                                       IsEditable="False">
+                                <ComboBoxItem Content="Đã duyệt" />
+                                <ComboBoxItem Content="Từ chối" />
                                 <ComboBox.Style>
                                     <Style TargetType="ComboBox">
                                         <Setter Property="Template">
@@ -239,8 +244,6 @@
                                         </Setter>
                                     </Style>
                                 </ComboBox.Style>
-                                <ComboBoxItem Content="Đã duyệt" />
-                                <ComboBoxItem Content="Từ chối" />
                             </ComboBox>
                         </Grid>
                         
@@ -256,10 +259,10 @@
                                         Style="{DynamicResource Header2Style}"
                                         Text="Phản hồi"  Width="100"/>
                             <TextBox 
-                                    Text="{Binding EmployeeComment}"
+                                    Text="{Binding EditReq.APPROVER_COMMENT}"
                                     Height="auto"
                                     Grid.Column="1"
-                                    Margin="0,18,57,21"
+                                    Margin="0,13,57,21"
                                     Style="{DynamicResource InputTextBoxStyle}"/>
                         </Grid>
                         
@@ -287,7 +290,7 @@
                 Background="#F0997D" Foreground="Black"
                 Content="Lưu" Height="48" Width="131"
                 BorderBrush="Black" BorderThickness="1" FontSize="20" FontWeight="DemiBold"
-                Command="{Binding SendRequestCM}" CommandParameter="{Binding ElementName=requestWd}">
+                Command="{Binding EditReqCM}" CommandParameter="{Binding ElementName=requestWd}">
             </Button>
         </Grid>
     </Border>

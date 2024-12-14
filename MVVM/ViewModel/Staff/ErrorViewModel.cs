@@ -29,13 +29,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             set { name = value; }
         }
 
-        private string status;
-        public string Status
-        {
-            get { return status; }
-            set { status = value; }
-        }
-
         private string description;
         public string Description
         {
@@ -43,7 +36,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             set { description = value; }
         }
         #endregion
-        public static List<ErrorDTO> erList;
         private ObservableCollection<ErrorDTO> _errorList;
         public ObservableCollection<ErrorDTO> ErrorList
         {
@@ -130,8 +122,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             FirstLoadCM = new RelayCommand<UserControl>((p) => { return true; }, async (p) =>
             {
                 ErrorList = new ObservableCollection<ErrorDTO>(await Task.Run(() => ErrorService.Ins.GetAllError()));
-                if (ErrorList != null)
-                    erList = new List<ErrorDTO>(ErrorList);
             });
             SearchErrorCM = new RelayCommand<TextBox>(p => true, async (p) =>
             {
@@ -209,7 +199,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 }
             });
         }
-
 
         private async Task SearchAndFilterErrors(string searchText, string filterStatus)
         {

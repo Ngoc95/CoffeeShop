@@ -163,32 +163,5 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 return;
             }
         }
-        private async Task SubmitRequest()
-        {
-            if (MainViewModel.currentEmp == null)
-            {
-                MessageBoxCustom.Show(MessageBoxCustom.Error, "Không thể gửi yêu cầu vì chưa đăng nhập");
-                return;
-            }
-
-            var requestDto = new RequestDTO
-            {
-                EMP_ID = MainViewModel.currentEmp.EMP_ID,
-                REQ_TYPE = SelectedRequestType, 
-                EMP_COMMENT = EmployeeComment
-            };
-
-            (bool isAdded, string message) = await RequestService.Ins.AddRequest(requestDto);
-
-            if (isAdded)
-            {
-                MessageBoxCustom.Show(MessageBoxCustom.Success, message);
-            }
-            else
-            {
-                MessageBoxCustom.Show(MessageBoxCustom.Error, message);
-            }
-        }
-
     }
 }

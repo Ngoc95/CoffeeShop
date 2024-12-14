@@ -11,6 +11,12 @@
              FontFamily="Fonts/Roboto-Light.ttf #Roboto"
              d:DesignHeight="740" d:DesignWidth="930"
              DataContext="{StaticResource WorkshiftAdminVM}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadRequestCM}" 
+                                   CommandParameter="{Binding ElementName=workshiftUC}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -245,9 +251,22 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Label Content="Bảng thông báo" FontSize="20" Foreground="#603127"
-                           FontWeight="Medium" Margin="15,0,0,0"
-                           HorizontalAlignment="Left" VerticalAlignment="Center" Height="32" Width="154"/>
+                <Grid Margin="15 0 15 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label HorizontalAlignment="Left"
+                           Content="Bảng thông báo" FontSize="20" Foreground="#603127"
+                           FontWeight="Medium" Height="32" Width="154"/>
+                    <ComboBox x:Name="cbFilter" HorizontalAlignment="Right"
+                              Style="{StaticResource filterCombobox_style}" 
+                              Height="50" Background="#FDB2B2" Grid.Column="1" 
+                              FontSize="22" Foreground="Black" VerticalAlignment="Top"  Text="Lọc trạng thái"
+                              ItemsSource="{Binding StatusList}"
+                              SelectedItem="{Binding SelectedStatus, Mode=TwoWay}" Width="188">
+                    </ComboBox>
+                </Grid>
                 <Border Grid.Row="1" CornerRadius="10"
                         Margin="10,6,10,5" Background="#FFC3A1">
                     <Border
@@ -268,13 +287,13 @@
                             IsReadOnly="True"
                             SelectionMode="Single"
                             SelectionUnit="FullRow"
-                            ItemsSource="{Binding EmpList, UpdateSourceTrigger=PropertyChanged}"
-                            SelectedItem="{Binding SelectedItem}" >
+                            ItemsSource="{Binding ReqList, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
                             <DataGrid.ColumnHeaderStyle>
                                 <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
                                     <Setter Property="BorderThickness" Value="0" />
                                     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
                                     <Setter Property="FontWeight" Value="DemiBold"/>
                                     <Setter Property="FontSize" Value="18"/>
                                     <Setter Property="VerticalAlignment" Value="Center"/>
@@ -315,14 +334,14 @@
                                 </DataGridTemplateColumn>
 
 
-                                <DataGridTemplateColumn Width="auto" Header="Họ tên" SortMemberPath="EMP_NAME">
+                                <DataGridTemplateColumn Width="auto" MinWidth="200" Header="Họ tên" SortMemberPath="EMP_NAME">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock
                                                 FontSize="15"      
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
-                                                Text="{Binding EMP_NAME}" />
+                                                Text="{Binding EMPLOYEE.EMP_NAME}" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -351,7 +370,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="auto" Header="Thao tác" >
+                                <DataGridTemplateColumn Width="*" Header="Thao tác" >
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
@@ -362,10 +381,10 @@
                                                     Background="Transparent"
                                                     BorderThickness="0"
                                                     Cursor="Hand">
-                                                    <Image Source="/Images/AddBtn.png" />
+                                                    <Image Source="/Images/EditBtn.png" />
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                            <i:InvokeCommandAction Command="{Binding ElementName=dataGridRequest, Path=DataContext.OpenEditWdCM}" />
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=dataGridRequest, Path=DataContext.OpenReqWdCM}" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Border>
@@ -379,7 +398,7 @@
                                                     <Image Source="/Images/DeleteBtn.png" />
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                            <i:InvokeCommandAction Command="{Binding ElementName=dataGridRequest, Path=DataContext.DeleteCusListCM}" />
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=dataGridRequest, Path=DataContext.DeleteReqCM}" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Border>

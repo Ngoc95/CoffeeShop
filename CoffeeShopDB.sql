@@ -202,4 +202,4 @@ VALUES
 	(1, 2, 5),
 	(1, 3, 3),
 	(2, 3, 3);
-INSERT INTO REQUEST(EMP_ID, REQ_TYPE, EMP_COMMENT) VALUES (1,N'Đổi ca',N'Xin đổi sang ca sáng thứ 2')
+INSERT INTO REQUEST(EMP_ID, REQ_TYPE, EMP_COMMENT) VALUES (2,N'Đổi ca',N'Xin đổi sang ca sáng thứ 2')

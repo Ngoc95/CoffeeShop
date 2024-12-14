@@ -19,9 +19,15 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement
     /// </summary>
     public partial class DonXinNghiWindow : Window
     {
-        public DonXinNghiWindow(string hoTen)
+        private string _originalStatus;
+        public DonXinNghiWindow()
         {
             InitializeComponent();
+
+            Loaded += (s, e) =>
+            {
+                _originalStatus = cbStatus.Text; // Lưu giá trị hiện tại của ComboBox
+            };
         }
 
         private void requestWd_MouseDown(object sender, MouseButtonEventArgs e)
@@ -34,6 +40,8 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            // Đặt lại trạng thái ban đầu của combobox trước khi đóng
+            cbStatus.Text = _originalStatus;
             Close();
         }
 
