@@ -114,21 +114,6 @@
           <Property Name="PRO_PRICE" Type="money" />
           <Property Name="IS_DELETED" Type="bit" />
         </EntityType>
-        <EntityType Name="RESERVATION">
-          <Key>
-            <PropertyRef Name="RES_ID" />
-          </Key>
-          <Property Name="RES_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CUS_ID" Type="int" Nullable="false" />
-          <Property Name="TABLE_ID" Type="int" Nullable="false" />
-          <Property Name="RES_DATE" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="RES_TIME" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="NUM_OF_PEOPLE" Type="int" Nullable="false" />
-          <Property Name="RES_STATUS" Type="nvarchar" MaxLength="100" />
-          <Property Name="SPECIAL_REQUEST" Type="nvarchar(max)" />
-          <Property Name="CREATE_AT" Type="smalldatetime" />
-          <Property Name="IS_DELETED" Type="bit" />
-        </EntityType>
         <EntityType Name="REQUEST">
           <Key>
             <PropertyRef Name="REQ_ID" />
@@ -142,6 +127,21 @@
           <Property Name="APPROVER_COMMENT" Type="nvarchar(max)" />
           <Property Name="APPROVED_BY" Type="int" />
           <Property Name="APPROVED_DATE" Type="smalldatetime" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="RESERVATION">
+          <Key>
+            <PropertyRef Name="RES_ID" />
+          </Key>
+          <Property Name="RES_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CUS_ID" Type="int" Nullable="false" />
+          <Property Name="TABLE_ID" Type="int" Nullable="false" />
+          <Property Name="RES_DATE" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="RES_TIME" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="NUM_OF_PEOPLE" Type="int" Nullable="false" />
+          <Property Name="RES_STATUS" Type="nvarchar" MaxLength="100" />
+          <Property Name="SPECIAL_REQUEST" Type="nvarchar(max)" />
+          <Property Name="CREATE_AT" Type="smalldatetime" />
           <Property Name="IS_DELETED" Type="bit" />
         </EntityType>
         <EntityType Name="WORK_SHIFT">
@@ -251,18 +251,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_TABLE">
-          <End Role="_TABLE" Type="Self._TABLE" Multiplicity="1" />
-          <End Role="RESERVATION" Type="Self.RESERVATION" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="_TABLE">
-              <PropertyRef Name="TB_ID" />
-            </Principal>
-            <Dependent Role="RESERVATION">
-              <PropertyRef Name="TABLE_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_REQ_EMP">
           <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1" />
           <End Role="REQUEST" Type="Self.REQUEST" Multiplicity="*" />
@@ -272,6 +260,18 @@
             </Principal>
             <Dependent Role="REQUEST">
               <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TABLE">
+          <End Role="_TABLE" Type="Self._TABLE" Multiplicity="1" />
+          <End Role="RESERVATION" Type="Self.RESERVATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_TABLE">
+              <PropertyRef Name="TB_ID" />
+            </Principal>
+            <Dependent Role="RESERVATION">
+              <PropertyRef Name="TABLE_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -298,8 +298,8 @@
           <EntitySet Name="GENRE_PRODUCT" EntityType="Self.GENRE_PRODUCT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GENRE_TABLE" EntityType="Self.GENRE_TABLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RESERVATION" EntityType="Self.RESERVATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REQUEST" EntityType="Self.REQUEST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RESERVATION" EntityType="Self.RESERVATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WORK_SHIFT" EntityType="Self.WORK_SHIFT" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="fk_BILL_CUS" Association="Self.fk_BILL_CUS">
             <End Role="CUSTOMER" EntitySet="CUSTOMER" />
@@ -333,13 +333,13 @@
             <End Role="GENRE_PRODUCT" EntitySet="GENRE_PRODUCT" />
             <End Role="PRODUCT" EntitySet="PRODUCT" />
           </AssociationSet>
-          <AssociationSet Name="fk_TABLE" Association="Self.fk_TABLE">
-            <End Role="_TABLE" EntitySet="_TABLE" />
-            <End Role="RESERVATION" EntitySet="RESERVATION" />
-          </AssociationSet>
           <AssociationSet Name="fk_REQ_EMP" Association="Self.fk_REQ_EMP">
             <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
             <End Role="REQUEST" EntitySet="REQUEST" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TABLE" Association="Self.fk_TABLE">
+            <End Role="_TABLE" EntitySet="_TABLE" />
+            <End Role="RESERVATION" EntitySet="RESERVATION" />
           </AssociationSet>
           <AssociationSet Name="fk_TABLE_GENRE" Association="Self.fk_TABLE_GENRE">
             <End Role="GENRE_TABLE" EntitySet="GENRE_TABLE" />
@@ -361,8 +361,8 @@
           <EntitySet Name="GENRE_PRODUCT" EntityType="CoffeeShopDBModel.GENRE_PRODUCT" />
           <EntitySet Name="GENRE_TABLE" EntityType="CoffeeShopDBModel.GENRE_TABLE" />
           <EntitySet Name="PRODUCTs" EntityType="CoffeeShopDBModel.PRODUCT" />
-          <EntitySet Name="RESERVATIONs" EntityType="CoffeeShopDBModel.RESERVATION" />
           <EntitySet Name="REQUESTs" EntityType="CoffeeShopDBModel.REQUEST" />
+          <EntitySet Name="RESERVATIONs" EntityType="CoffeeShopDBModel.RESERVATION" />
           <EntitySet Name="WORK_SHIFT" EntityType="CoffeeShopDBModel.WORK_SHIFT" />
           <AssociationSet Name="fk_TABLE" Association="CoffeeShopDBModel.fk_TABLE">
             <End Role="C_TABLE" EntitySet="C_TABLE" />
@@ -536,6 +536,22 @@
           <NavigationProperty Name="BILL_INFO" Relationship="CoffeeShopDBModel.fk_BillInfo_PRO" FromRole="PRODUCT" ToRole="BILL_INFO" />
           <NavigationProperty Name="GENRE_PRODUCT" Relationship="CoffeeShopDBModel.fk_PRO_GENRE_v1" FromRole="PRODUCT" ToRole="GENRE_PRODUCT" />
         </EntityType>
+        <EntityType Name="REQUEST">
+          <Key>
+            <PropertyRef Name="REQ_ID" />
+          </Key>
+          <Property Name="REQ_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMP_ID" Type="Int32" />
+          <Property Name="REQ_TYPE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="REQ_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="REQ_STATUS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_COMMENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="APPROVER_COMMENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="APPROVED_BY" Type="Int32" />
+          <Property Name="APPROVED_DATE" Type="DateTime" Precision="0" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="EMPLOYEE" Relationship="CoffeeShopDBModel.fk_REQ_EMP" FromRole="REQUEST" ToRole="EMPLOYEE" />
+        </EntityType>
         <EntityType Name="RESERVATION">
           <Key>
             <PropertyRef Name="RES_ID" />
@@ -552,22 +568,6 @@
           <Property Name="IS_DELETED" Type="Boolean" />
           <NavigationProperty Name="C_TABLE" Relationship="CoffeeShopDBModel.fk_TABLE" FromRole="RESERVATION" ToRole="C_TABLE" />
           <NavigationProperty Name="CUSTOMER" Relationship="CoffeeShopDBModel.fk_CUS" FromRole="RESERVATION" ToRole="CUSTOMER" />
-        </EntityType>
-        <EntityType Name="REQUEST">
-          <Key>
-            <PropertyRef Name="REQ_ID" />
-          </Key>
-          <Property Name="REQ_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EMP_ID" Type="Int32" />
-          <Property Name="REQ_TYPE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="REQ_DATE" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="REQ_STATUS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EMP_COMMENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="APPROVER_COMMENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="APPROVED_BY" Type="Int32" />
-          <Property Name="APPROVED_DATE" Type="DateTime" Precision="0" />
-          <Property Name="IS_DELETED" Type="Boolean" />
-          <NavigationProperty Name="EMPLOYEE" Relationship="CoffeeShopDBModel.fk_REQ_EMP" FromRole="REQUEST" ToRole="EMPLOYEE" />
         </EntityType>
         <EntityType Name="WORK_SHIFT">
           <Key>
@@ -835,22 +835,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RESERVATIONs">
-            <EntityTypeMapping TypeName="CoffeeShopDBModel.RESERVATION">
-              <MappingFragment StoreEntitySet="RESERVATION">
-                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
-                <ScalarProperty Name="CREATE_AT" ColumnName="CREATE_AT" />
-                <ScalarProperty Name="SPECIAL_REQUEST" ColumnName="SPECIAL_REQUEST" />
-                <ScalarProperty Name="RES_STATUS" ColumnName="RES_STATUS" />
-                <ScalarProperty Name="NUM_OF_PEOPLE" ColumnName="NUM_OF_PEOPLE" />
-                <ScalarProperty Name="RES_TIME" ColumnName="RES_TIME" />
-                <ScalarProperty Name="RES_DATE" ColumnName="RES_DATE" />
-                <ScalarProperty Name="TABLE_ID" ColumnName="TABLE_ID" />
-                <ScalarProperty Name="CUS_ID" ColumnName="CUS_ID" />
-                <ScalarProperty Name="RES_ID" ColumnName="RES_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="REQUESTs">
             <EntityTypeMapping TypeName="CoffeeShopDBModel.REQUEST">
               <MappingFragment StoreEntitySet="REQUEST">
@@ -864,6 +848,22 @@
                 <ScalarProperty Name="REQ_TYPE" ColumnName="REQ_TYPE" />
                 <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
                 <ScalarProperty Name="REQ_ID" ColumnName="REQ_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RESERVATIONs">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.RESERVATION">
+              <MappingFragment StoreEntitySet="RESERVATION">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="CREATE_AT" ColumnName="CREATE_AT" />
+                <ScalarProperty Name="SPECIAL_REQUEST" ColumnName="SPECIAL_REQUEST" />
+                <ScalarProperty Name="RES_STATUS" ColumnName="RES_STATUS" />
+                <ScalarProperty Name="NUM_OF_PEOPLE" ColumnName="NUM_OF_PEOPLE" />
+                <ScalarProperty Name="RES_TIME" ColumnName="RES_TIME" />
+                <ScalarProperty Name="RES_DATE" ColumnName="RES_DATE" />
+                <ScalarProperty Name="TABLE_ID" ColumnName="TABLE_ID" />
+                <ScalarProperty Name="CUS_ID" ColumnName="CUS_ID" />
+                <ScalarProperty Name="RES_ID" ColumnName="RES_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
