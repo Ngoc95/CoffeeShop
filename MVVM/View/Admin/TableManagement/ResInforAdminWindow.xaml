@@ -160,6 +160,7 @@
             </Border>
             <Button
                 Grid.Row="2"
+                KeyDown="Button_KeyDown"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Left"
                 Margin="20,10"

@@ -83,8 +83,7 @@
 
                 <Button Grid.Column="0" 
                         Content="Bỏ qua"
-                        Command="{Binding btnCloseTableCommand}"
-                        CommandParameter="{Binding ElementName=AddTableWD}"
+                        Click="Button_Click"
                         Style="{DynamicResource ButtonCancel_WD}">
                 </Button>
                 <Button Grid.Column="1" 

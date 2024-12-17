@@ -159,6 +159,7 @@
                 </Border>
             <Button
                 Grid.Row="2"
+                Click="Button_Click"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Left"
                 Margin="20,10"

@@ -16,13 +16,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using static MaterialDesignThemes.Wpf.Theme;
+using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 {
     class MenuOrderViewModel : ObservableObject
     {
+        private EmployeeDTO currentEmp;
+
         #region DeclareForProduct
         private ObservableCollection<GenreProductDTO> _GenreProductList;
         public ObservableCollection<GenreProductDTO> GenreProductList
@@ -127,7 +132,12 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         #endregion
 
         #region DeclareForBill
-
+        private BillDTO _CurrentBill;
+        public BillDTO CurrentBill
+        {
+            get { return _CurrentBill; }
+            set { _CurrentBill = value; OnPropertyChanged(); }
+        }
         private int _QuantityOfSelectedProduct;
         public int QuantityOfSelectedProduct
         {
@@ -141,11 +151,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             get { return _Today; }
             set { _Today = value; OnPropertyChanged(); }
         }
-        private int _IdOfNextBill;
-        public int IdOfNextBill
+        private int _IdOfGenerateBill;
+        public int IdOfGenerateBill
         {
-            get { return _IdOfNextBill; }
-            set { _IdOfNextBill = value; OnPropertyChanged(); }
+            get { return _IdOfGenerateBill; }
+            set { _IdOfGenerateBill = value; OnPropertyChanged(); }
         }
 
         private ProductDTO _SelectedBillPrd;
@@ -185,15 +195,24 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             get { return _UsePointBtnChecked; }
             set { _UsePointBtnChecked = value; OnPropertyChanged(nameof(UsePointBtnChecked)); }
         }
-
-        //diem dang dung
-        private Nullable<decimal> _PointHaveUsed;
-        public Nullable<decimal> PointHaveUsed
+        private Nullable<decimal> _Discount_Bill;
+        public Nullable<decimal> Discount_Bill
         {
-            get { return _PointHaveUsed; } 
-            set { _PointHaveUsed = value; OnPropertyChanged(); }
+            get { return _Discount_Bill; }
+            set { _Discount_Bill = value; OnPropertyChanged(); }
         }
-
+        private Nullable<decimal> _SUBTotal_Bill;
+        public Nullable<decimal> SUBTotal_Bill
+        {
+            get { return _SUBTotal_Bill; }
+            set { _SUBTotal_Bill= value; OnPropertyChanged(); }
+        }
+        private Nullable<decimal> _AddPoint = 0;
+        public Nullable<decimal> AddPoint
+        {
+            get { return _AddPoint; }
+            set { _AddPoint = value; OnPropertyChanged(); }
+        }
         #endregion
 
 
@@ -201,11 +220,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         public ICommand FirstLoadCM { get; set; }  
         public ICommand FilterCommand { get; set; }
         public ICommand OpenInfoProWDCommand { get; set; }
-        public ICommand CloseWDCommand { get; set; }
         public ICommand OpenSearchCusWDCommand { get; set; }
         public ICommand CustomerFilterCommand { get; set; }
         public ICommand btnSelectCustomerCommand { get; set; }
         public ICommand btnSetDefaultCustomerCommand { get; set; }
+        public ICommand ReloadCustomerCommand { get; set; }
 
         //Command use to order
         public ICommand AddPrdToBillCommand { get; set; }
@@ -214,6 +233,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         public ICommand ToggerBtnUsePointCommand { get; set; }
         public ICommand DeleteCurrentBillCommand { get; set; }
         public ICommand SaveCurrAndGenNewBillCommand { get; set; }
+        public ICommand SaveAndPrintBillCommand { get; set; }
 
         #endregion
 
@@ -256,12 +276,16 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                     SelectedCustomer.Point = 0;
                     SelectedCustomer.Name = "Vãng lai";
                 }
+                if(currentEmp == null)
+                    currentEmp = MainViewModel.currentEmp;
                 FilterGnereID = 0;
                 SearchText = "";
                 QuantityOfSelectedProduct = 1;
                 Today = DateTime.Now;
                 FilterProduct(FilterGnereID, SearchText);
-                IdOfNextBill = await BillService.Ins.NumOfBill() + 1;                
+                if(IdOfGenerateBill == 0)
+                    IdOfGenerateBill = await BillService.Ins.NumOfBill() + 1;
+                SetNewBill();
             });
 
             FilterCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
@@ -279,11 +303,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 wd.ShowDialog();
             });
 
-            CloseWDCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
-            {
-                p.Close();
-            });
-
             OpenSearchCusWDCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
                 UsePointBtnChecked = false;
@@ -294,8 +313,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 if(CoreCustomerList == null)
                 {
                     CoreCustomerList = new ObservableCollection<CustomerDTO>(await Task.Run(() => CustomerService.Ins.GetAllCus()));
-                    CustomerList = new ObservableCollection<CustomerDTO>(CoreCustomerList); 
                 }
+                CustomerList = new ObservableCollection<CustomerDTO>(CoreCustomerList); 
                 SearchCustomerWindow wd = new SearchCustomerWindow();
                 wd.ShowDialog();
             });
@@ -311,8 +330,17 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             btnSelectCustomerCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 if(SearchingCustomer != null)
-                SelectedCustomer = SearchingCustomer;
+                SelectedCustomer = new CustomerDTO(SearchingCustomer);
+                caculateAddPoint();
                 p.Close();
+            });
+
+            ReloadCustomerCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                CustomerList = new ObservableCollection<CustomerDTO>(CoreCustomerList);
+                SearchCustomerPhone = "";
+                SearchCustomerName = "";
+                SearchCustomerIDstring = "";
             });
 
 
@@ -326,6 +354,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 UsePointBtnChecked = false;
                 CaculatePoint();
                 SelectedCustomer = new CustomerDTO() { ID = 0, Point = 0, Name = "Vãng lai" };
+                caculateAddPoint();
             });
 
 
@@ -333,17 +362,25 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             {
                 if(Bill_InforList == null)
                     Bill_InforList = new ObservableCollection<Bill_InfoDTO>();
-                if (SelectedBillPrd != null && QuantityOfSelectedProduct != 0 && IdOfNextBill != 0)
+                if (SelectedBillPrd != null && QuantityOfSelectedProduct != 0 && IdOfGenerateBill != 0)
                 {
                     if(CanAddToBillInforList())
-                        Bill_InforList.Add(new Bill_InfoDTO(SelectedBillPrd, QuantityOfSelectedProduct, IdOfNextBill));
+                    {
+                        Bill_InforList.Add(new Bill_InfoDTO(SelectedBillPrd, QuantityOfSelectedProduct, IdOfGenerateBill));
+                        CaculateSubTotalBill();
+                        CaculatePoint();
+                        if (SUBTotal_Bill != 0)
+                        {
+                            Total_Bill = SUBTotal_Bill - Discount_Bill;
+                            caculateAddPoint();
+                        }
+                    }
                     else
                     {
                         MessageBoxCustom.Show(MessageBoxCustom.Error, "Sản phẩm đã được thêm vào Bill trước đó");
                         return;
                     }
                 }
-                CaculateTotalBill();
                 SelectedBillPrd = null;
                 QuantityOfSelectedProduct = 1;
             });
@@ -353,7 +390,13 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 if (p != null && Bill_InforList.Contains(p))
                 {
                     Bill_InforList.Remove(p);
-                    CaculateTotalBill();
+                    CaculateSubTotalBill();
+                    CaculatePoint();
+                    if (SUBTotal_Bill != 0)
+                    {
+                        Total_Bill = SUBTotal_Bill - Discount_Bill;
+                        caculateAddPoint();
+                    }
                 }
             });
 
@@ -364,8 +407,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 if(SelectedCustomer.ID != 0)
                 {
                     CaculatePoint();
-                    Total_Bill -= PointHaveUsed;
-                    SelectedCustomer = new CustomerDTO(SelectedCustomer);
+                    Total_Bill = SUBTotal_Bill - Discount_Bill;
+                    caculateAddPoint();
                 }
             });
 
@@ -373,15 +416,295 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             {
                 UsePointBtnChecked = false;
                 CaculatePoint();
-                SelectedCustomer = new CustomerDTO(SelectedCustomer);
                 Bill_InforList = new ObservableCollection<Bill_InfoDTO>();
-                CaculateTotalBill();
+                CaculateSubTotalBill();
+                Total_Bill = 0;
+                caculateAddPoint();
             });
 
-            SaveCurrAndGenNewBillCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            SaveCurrAndGenNewBillCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                if(GenerateCurrentBill())
+                {
+                    (bool res, string mess) = await BillService.Ins.AddBill(CurrentBill);
+                    if(res)
+                    {
+                        if(SelectedCustomer.ID != 0)
+                        {
+                            SelectedCustomer.Point += AddPoint;
+                            updateCoreCustomerList(SelectedCustomer);
+                            (bool a, string b) = await CustomerService.Ins.EditCusPoint(SelectedCustomer, SelectedCustomer.ID);
+                            if(!a)
+                            {
+                                MessageBoxCustom.Show(MessageBoxCustom.Error, b);
+                                return;
+                            }
+                        }
+                        bool temp = await GenerateBillInforAndSaveToDB();
+                        IdOfGenerateBill++;
+                        UsePointBtnChecked = false;
+                        Bill_InforList = new ObservableCollection<Bill_InfoDTO>();
+                        CaculateSubTotalBill();
+                        CaculatePoint();
+                        Total_Bill = 0;
+                        caculateAddPoint();
+                        SelectedCustomer = new CustomerDTO() { ID = 0, Point = 0, Name = "Vãng lai" };
+                        if (temp)
+                        {
+                            MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm hóa đơn thành công");
+                        }
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, mess);
+                    }
+                }
+            });
+
+            SaveAndPrintBillCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                if (GenerateCurrentBill())
+                {
+                    (bool res, string mess) = await BillService.Ins.AddBill(CurrentBill);
+                    if (res)
+                    {
+                    if (SelectedCustomer.ID != 0)
+                    {
+                        SelectedCustomer.Point += AddPoint;
+                        updateCoreCustomerList(SelectedCustomer);
+                        (bool a, string b) = await CustomerService.Ins.EditCusPoint(SelectedCustomer, SelectedCustomer.ID);
+                        if (!a)
+                        {
+                            MessageBoxCustom.Show(MessageBoxCustom.Error, b);
+                            return;
+                        }
+                    }
+                        bool temp = await GenerateBillInforAndSaveToDB();
+                        if (temp)
+                        {
+                            PrintReceipt();
+                        }
+                        else
+                        {
+                            MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra khi lưu vào Database");
+                            return;
+                        }
+                        IdOfGenerateBill++;
+                        UsePointBtnChecked = false;
+                        Bill_InforList = new ObservableCollection<Bill_InfoDTO>();
+                        CaculateSubTotalBill();
+                        CaculatePoint();
+                        Total_Bill = 0;
+                        caculateAddPoint();
+                        SelectedCustomer = new CustomerDTO() { ID = 0, Point = 0, Name = "Vãng lai" };
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, mess);
+                    }
+                }
+            });
+        }
+
+        private void PrintReceipt()
+        {
+            FlowDocument document = CreateDocument();
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)  
+            {
+                printDialog.PrintDocument(((IDocumentPaginatorSource)document).DocumentPaginator, "Hóa đơn bán hàng");
+            }
+        }
+
+        private FlowDocument CreateDocument()
+        {
+            FlowDocument doc = new FlowDocument
+            {
+                FontFamily = new System.Windows.Media.FontFamily("Tahoma"),
+                FontSize = 12,
+                PagePadding = new Thickness(10), 
+                ColumnWidth = 300, 
+                PageWidth = 300
+            };
+
+            doc.Blocks.Add(new Paragraph(new Run("CoffeeShop"))
+            {
+                TextAlignment = TextAlignment.Center
+            });
+            doc.Blocks.Add(new Paragraph(new Run("Khu phố 6, P.Linh Trung, Tp.Thủ Đức, Tp.HCM\n----------------------"))
+            {
+                TextAlignment = TextAlignment.Center
+            });
+
+            doc.Blocks.Add(new Paragraph(new Run("HÓA ĐƠN BÁN HÀNG"))
+            {
+                FontSize = 20,
+                FontWeight = FontWeights.Bold,
+                TextAlignment = TextAlignment.Center
+            });
+            doc.Blocks.Add(new Paragraph(new Run($"Mã hóa đơn: {IdOfGenerateBill:00000}               {CurrentBill.CREATE_AT:dd/MM/yyyy HH:mm:ss}"))
+            {
+                Margin = new Thickness(0),
+                TextAlignment = TextAlignment.Left,
+            });
+            doc.Blocks.Add(new Paragraph(new Run($"Mã nhân viên: {currentEmp.EMP_ID:000}" ) )
+            {
+                Margin = new Thickness(0),
+                TextAlignment = TextAlignment.Left,
+            });
+            if(SelectedCustomer.ID != 0)
+            {
+                doc.Blocks.Add(new Paragraph(new Run($"Mã khách hàng: {SelectedCustomer.ID:000}\n{SelectedCustomer.Name}"))
+                {
+                    Margin = new Thickness(0),
+                    FontSize = 13,
+                    TextAlignment = TextAlignment.Left,
+                });
+            }
+
+            doc.Blocks.Add(new Paragraph(new Run("----------------------------------------------------------------"))
+            {
+                Margin = new Thickness(0),
+                TextAlignment = TextAlignment.Center,
+            });
+
+            Table table = new Table()
+            {
+                Margin = new Thickness(0),
+            };
+            table.Columns.Add(new TableColumn { Width = new GridLength(110) });
+            table.Columns.Add(new TableColumn { Width = new GridLength(20) });
+            table.Columns.Add(new TableColumn { Width = new GridLength(60) });
+            table.Columns.Add(new TableColumn { Width = new GridLength(80) });
+            table.RowGroups.Add(new TableRowGroup());
+
+            TableRow header = new TableRow();
+            header.Cells.Add(new TableCell(new Paragraph(new Run("Tên món"))) { FontWeight = FontWeights.Bold });
+            header.Cells.Add(new TableCell(new Paragraph(new Run("SL"))) { FontWeight = FontWeights.Bold });
+            header.Cells.Add(new TableCell(new Paragraph(new Run("Đ.giá"))) { FontWeight = FontWeights.Bold, TextAlignment = TextAlignment.Right });
+            header.Cells.Add(new TableCell(new Paragraph(new Run("T.tiền"))) { FontWeight = FontWeights.Bold, TextAlignment = TextAlignment.Right });
+            table.RowGroups[0].Rows.Add(header);
+
+            foreach (var item in Bill_InforList)  
+            {
+                TableRow row = new TableRow();
+                row.Cells.Add(new TableCell(new Paragraph(new Run(item.PRO_Name))));
+                row.Cells.Add(new TableCell(new Paragraph(new Run(item.QUANTITY.ToString()))));
+                row.Cells.Add(new TableCell(new Paragraph(new Run($"{item.PRICE_ITEM:C0}")) { TextAlignment = TextAlignment.Right}));
+                row.Cells.Add(new TableCell(new Paragraph(new Run($"{item.Total_PRICE_ITEM:C0}")) { TextAlignment = TextAlignment.Right}));
+                table.RowGroups[0].Rows.Add(row);
+            }
+
+            doc.Blocks.Add(table);
+            doc.Blocks.Add(new Paragraph(new Run("-----------------------------"))
+            {
+                Margin = new Thickness(0),
+                TextAlignment = TextAlignment.Right,
+            });
+
+            doc.Blocks.Add(new Paragraph(new Run($"Tổng giá trị: {SUBTotal_Bill:C0}"))
+            {
+                Margin= new Thickness(0),
+                TextAlignment = TextAlignment.Right
+            });
+            doc.Blocks.Add(new Paragraph(new Run($"Giảm giá: {Discount_Bill:C0}"))
+            {   
+                Margin = new Thickness(0),
+                TextAlignment = TextAlignment.Right
+            });
+            doc.Blocks.Add(new Paragraph(new Run($"Tổng: {Total_Bill:C0}"))
+            {
+                FontSize = 16,
+                FontWeight = FontWeights.Bold,
+                TextAlignment = TextAlignment.Right
+            });
+
+            doc.Blocks.Add(new Paragraph(new Run("******************************************"))
+            {
+                TextAlignment = TextAlignment.Center,
+            });
+
+            if (SelectedCustomer.ID != 0)
+            {
+                doc.Blocks.Add(new Paragraph(new Run($"Bạn tích được thêm {AddPoint:,0} điểm"))
+                {
+                    Margin = new Thickness(0),
+                    FontSize = 15,
+                    TextAlignment = TextAlignment.Center,
+                });
+                doc.Blocks.Add(new Paragraph(new Run($"Tổng điểm tích lũy được: {SelectedCustomer.Point:0} điểm"))
+                {
+                    Margin = new Thickness(0),
+                    FontSize = 15,
+                    TextAlignment = TextAlignment.Center,
+                });
+            }
+            else
             {
 
+                doc.Blocks.Add(new Paragraph(new Run($"Bạn tích được thêm 0 điểm"))
+                {   
+                    Margin = new Thickness(0),
+                    FontSize = 15,
+                    TextAlignment = TextAlignment.Center,
+                });
+                doc.Blocks.Add(new Paragraph(new Run("Đăng kí tài khoản khách hàng để được tham gia chương trình tích điểm giảm giá!!!"))
+                {
+                    FontSize = 12,
+                    Margin = new Thickness(0),
+                    TextAlignment = TextAlignment.Center,
+                });
+            }
+
+            doc.Blocks.Add(new Paragraph(new Run("CoffeeShop xin cảm ơn và hẹn gặp lại"))
+            {
+                FontSize = 15,
+                TextAlignment = TextAlignment.Center,
             });
+            doc.Blocks.Add(new Paragraph(new Run("----------------------------------------------------------------"))
+            {
+                Margin = new Thickness(0),
+                TextAlignment = TextAlignment.Center,
+            });
+            
+            return doc;  // Trả về tài liệu để in
+        }
+
+
+        private void updateCoreCustomerList(CustomerDTO selectedCustomer)
+        {
+            foreach(CustomerDTO item in CoreCustomerList)
+            {
+                if(item.ID == selectedCustomer.ID)
+                {
+                    item.Point = selectedCustomer.Point;
+                    return;
+                }
+            }
+        }
+
+        private void caculateAddPoint()
+        {
+            if (SelectedCustomer.ID != 0)
+            {
+                AddPoint = Total_Bill / 20;
+            }
+            else AddPoint = null;
+        }
+
+        private void SetNewBill()
+        {
+            CurrentBill = new BillDTO();
+            CurrentBill.EMP_ID = currentEmp.EMP_ID;
+            CurrentBill.TOTAL_COST = 0;
+            CurrentBill.DISCOUNT = 0;
+            CurrentBill.SUBTOTAL = 0;
+            CurrentBill.CUS_ID = null;
+        }
+
+        private async Task<bool> GenerateBillInforAndSaveToDB()
+        {
+            return await Bill_InfoService.Ins.AddBillInfor(Bill_InforList);
         }
 
         private void FilterProduct(int filterGenID, string searchtxt)
@@ -421,9 +744,26 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             }
         }
 
-        private void saveBill()
+        private bool GenerateCurrentBill()
         {
-
+            if(Bill_InforList.Count == 0)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Chưa chọn sản phẩm nào!!");
+                return false;
+            }
+            CurrentBill = new BillDTO();
+            if(currentEmp == null)
+                currentEmp = MainViewModel.currentEmp;
+            CurrentBill.EMP_ID = currentEmp.EMP_ID;
+            if (SelectedCustomer.ID == 0)
+                CurrentBill.CUS_ID = null;
+            else
+                CurrentBill.CUS_ID = SelectedCustomer.ID;
+            CurrentBill.TOTAL_COST = Total_Bill;
+            CurrentBill.SUBTOTAL = SUBTotal_Bill;
+            CurrentBill.DISCOUNT = Discount_Bill;
+            CurrentBill.CREATE_AT = DateTime.Now;
+            return true;
         }
 
 
@@ -454,52 +794,46 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             return true;
         }
 
-        private void CaculateTotalBill()
+        private void CaculateSubTotalBill()
         {
             if (Bill_InforList == null)
-                Total_Bill = 0;
+                SUBTotal_Bill = 0;
             else
             {
-                Total_Bill = 0;
+                SUBTotal_Bill = 0;
                 foreach(var item in Bill_InforList)
                 {
-                    Total_Bill += item.Total_PRICE_ITEM;
-                }
-                if(Total_Bill != 0)
-                {
-                    CaculatePoint();
-                    Total_Bill -= PointHaveUsed;
+                    SUBTotal_Bill+= item.Total_PRICE_ITEM;
                 }
             }
         }
 
         private void CaculatePoint()
         {
-            if (PointHaveUsed == null)
-                PointHaveUsed = new decimal();
-            
+            SelectedCustomer.Point += Discount_Bill;
             if(UsePointBtnChecked)
             {
-                if(Total_Bill >= SelectedCustomer.Point)
+                if(SUBTotal_Bill > SelectedCustomer.Point)
                 {
-                    PointHaveUsed = SelectedCustomer.Point;
+                    Discount_Bill = SelectedCustomer.Point;
                     SelectedCustomer.Point = 0;
                 }
                 else
                 {
-                    PointHaveUsed = SelectedCustomer.Point - Total_Bill;
-                    SelectedCustomer.Point -= PointHaveUsed;
+                    Discount_Bill = SUBTotal_Bill;
+                    SelectedCustomer.Point -= Discount_Bill;
                 }
+                SelectedCustomer = new CustomerDTO(SelectedCustomer);
             }
             else
             {
-                if(PointHaveUsed != 0)
+                if(Discount_Bill != 0)
                 {
-                    Total_Bill += PointHaveUsed;
-                    SelectedCustomer.Point += PointHaveUsed;
+                    Total_Bill += Discount_Bill;
+                    caculateAddPoint();
                 }
-                //Total_Bill += PointHaveUsed;
-                PointHaveUsed = 0;
+                Discount_Bill = 0;
+                SelectedCustomer = new CustomerDTO(SelectedCustomer);
             }
         }
 
@@ -523,7 +857,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             {
                 foreach (CustomerDTO item in CoreCustomerList)
                 {
-                    if (item.Name.Contains(Name) && item.Phone.Contains(Phone))
+                    if (item.Name.ToLower().Contains(Name.ToLower()) && item.Phone.Contains(Phone))
                         CustomerList.Add(item);
                 }
             }
@@ -539,7 +873,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             {
                 foreach (CustomerDTO item in CoreCustomerList)
                 {
-                    if (item.Name.Contains(Name))
+                    if (item.Name.ToLower().Contains(Name.ToLower()))
                         CustomerList.Add(item);
                 }
             }

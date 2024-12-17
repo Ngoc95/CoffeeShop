@@ -23,6 +23,8 @@ namespace QuanLiCoffeeShop.MVVM.Model
         public int BILL_ID { get; set; }
         public Nullable<int> CUS_ID { get; set; }
         public Nullable<int> EMP_ID { get; set; }
+        public Nullable<decimal> SUBTOTAL { get; set; }
+        public Nullable<decimal> DISCOUNT { get; set; }
         public Nullable<decimal> TOTAL_COST { get; set; }
         public Nullable<System.DateTime> CREATE_AT { get; set; }
         public Nullable<bool> IS_DELETED { get; set; }

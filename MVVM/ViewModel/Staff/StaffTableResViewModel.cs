@@ -204,16 +204,13 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         public ICommand SaveReservationChangeCommand {  get; set; }
         public ICommand OpenSearchCusWDCommand {  get; set; }
         public ICommand btnSelectCustomerCommand { get; set; }
+        public ICommand ReloadCustomerCommand { get; set; }
         public ICommand CustomerFilterCommand { get; set; }
-        public ICommand CloseWDCommand { get; set; }
         public ICommand btnSaveReservationCommand { get; set; }
         public ICommand btnDeleteResWithoutSaveCommand { get; set; }
         public ICommand SelectTableCommand { get; set; }
         public ICommand FilterReservationCommand { get; set; }
         public ICommand SetDateFilterCommand { get; set; }
-
-
-
         #endregion
 
         public StaffTableResViewModel()
@@ -265,6 +262,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 }
 
                 FilterTableList();
+                UseDateFilter = false;
             });
 
             FilterCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -369,7 +367,14 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 CusForReservationWindow wd = new CusForReservationWindow();
                 wd.ShowDialog();
             });
-            
+            ReloadCustomerCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                CustomerList = new ObservableCollection<CustomerDTO>(CoreCustomerList);
+                SearchCustomerPhone = "";
+                SearchCustomerName = "";
+                SearchCustomerIDstring = "";
+            });
+
 
             btnSelectCustomerCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -386,12 +391,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                     SearchCustomerID = temp;
                 else SearchCustomerID = 0;
                 FilterCustomer(SearchCustomerID, SearchCustomerName, SearchCustomerPhone);
-            });
-
-            CloseWDCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
-            {
-                SearchingCustomer = null;
-                p.Close();
             });
 
             btnSaveReservationCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
@@ -485,6 +484,12 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 MessageBoxCustom.Show(MessageBoxCustom.Error, "Chưa chọn bàn!!");
                 return false;
             }
+            else if (!SeatEnought(reservation.TABLE_ID, reservation.NUM_OF_PEOPLE))
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Bàn không phù hợp với số lượng khách!");
+                return false;
+            }
+
             if (reservation.CUS_ID == 0)
             {
                 MessageBoxCustom.Show(MessageBoxCustom.Error, "Chưa chọn khách hàng đặt bàn!!");
@@ -552,7 +557,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             {
                 foreach (CustomerDTO item in CoreCustomerList)
                 {
-                    if (item.Name.Contains(Name) && item.Phone.Contains(Phone))
+                    if (item.Name.ToLower().Contains(Name.ToLower()) && item.Phone.Contains(Phone))
                         CustomerList.Add(item);
                 }
             }
@@ -568,7 +573,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             {
                 foreach (CustomerDTO item in CoreCustomerList)
                 {
-                    if (item.Name.Contains(Name))
+                    if (item.Name.ToLower().Contains(Name.ToLower()))
                         CustomerList.Add(item);
                 }
             }
@@ -577,7 +582,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 CustomerList = CoreCustomerList;
             }
         }
-    
+
 
         private bool canSaveReservationChange(ReservationDTO SeleReservation)
         {
@@ -743,6 +748,37 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         {
             CoreReservationList.Add(newReservation);
             ReservationList = CoreReservationList;
+        }
+
+        private bool SeatEnought(int tABLE_ID, int numOfPP)
+        {
+            foreach (TableDTO item in CoreTableList)
+            {
+                if (item.TB_ID == tABLE_ID)
+                {
+                    int s = getGenreTable(item.GT_ID);
+                    if (numOfPP > s)
+                        return false;
+                    else
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        private int getGenreTable(int? gT_ID)
+        {
+            string s = "";
+            foreach (GenreTableDTO item in GenreTableList)
+            {
+                if (item.GT_ID == gT_ID)
+                {
+                    int n = item.GT_NAME.Length;
+                    s = new string(item.GT_NAME[n - 1], 1);
+                    break;
+                }
+            }
+            return int.Parse(s);
         }
 
     }

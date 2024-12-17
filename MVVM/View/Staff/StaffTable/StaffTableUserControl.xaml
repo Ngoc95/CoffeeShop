@@ -142,10 +142,8 @@
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal" 
-                            Margin="0,10"
-                            Grid.Row="0">
-                            <StackPanel 
+                            <StackPanel
+                                Grid.Row="0"
                                 Margin="20,0"
                                 HorizontalAlignment="Left">
                                 <CheckBox
@@ -183,24 +181,24 @@
                                     </i:Interaction.Triggers>
                                 </DatePicker>
                             </StackPanel>
-                            <ComboBox 
-                                Margin="10,0" 
-                                Tag="Trạng thái"
-                                Width="200" 
-                                Height="50"
-                                FontSize="17"
-                                SelectedIndex="{Binding FilterIndexReservation}"
-                                Style="{StaticResource ComboBoxSimpleStyle}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectionChanged">
-                                        <i:InvokeCommandAction Command="{Binding FilterReservationCommand}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                                <ComboBoxItem Content="Tất cả"></ComboBoxItem>
-                                <ComboBoxItem Content="Khách đã nhận bàn"></ComboBoxItem>
-                                <ComboBoxItem Content="Khách chưa nhận bàn"></ComboBoxItem>
-                            </ComboBox>
-                        </StackPanel>
+                        <ComboBox 
+                            HorizontalAlignment="Right"
+                            Margin="10,0" 
+                            Tag="Trạng thái"
+                            Width="200" 
+                            Height="50"
+                            FontSize="17"
+                            SelectedIndex="{Binding FilterIndexReservation}"
+                            Style="{StaticResource ComboBoxSimpleStyle}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding FilterReservationCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <ComboBoxItem Content="Tất cả"></ComboBoxItem>
+                            <ComboBoxItem Content="Khách đã nhận bàn"></ComboBoxItem>
+                            <ComboBoxItem Content="Khách chưa nhận bàn"></ComboBoxItem>
+                        </ComboBox>
 
                         <Border Grid.Row="1" 
                             Background="White" 

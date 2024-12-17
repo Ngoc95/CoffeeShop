@@ -43,12 +43,12 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.7*"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="240"/>
+                            <ColumnDefinition Width="220"/>
                             <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" Margin="15">
+                        <StackPanel Grid.Column="0" Margin="15,15,0,15">
                             <TextBlock Text="Mã khách hàng" Style="{DynamicResource Header6Style}"></TextBlock>
                             <TextBox 
                                 x:Name="searchIDBox"
@@ -57,7 +57,7 @@
                                 Style="{DynamicResource  textBox_styleForSearch}">
                             </TextBox>
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Margin="15">
+                        <StackPanel Grid.Column="1" Margin="15,15,0,15">
                             <TextBlock Text="Tên khách hàng" Style="{DynamicResource Header6Style}"></TextBlock>
                             <TextBox 
                                 x:Name="searchNameBox"
@@ -66,7 +66,7 @@
                                 Style="{DynamicResource  textBox_styleForSearch}">
                             </TextBox>
                         </StackPanel>
-                        <StackPanel Grid.Column="2" Margin="15">
+                        <StackPanel Grid.Column="2" Margin="15,15,0,15">
                             <TextBlock Text="Số điện thoại: " Style="{DynamicResource Header6Style}"></TextBlock>
                             <TextBox 
                                 Height="40"
@@ -75,13 +75,27 @@
                                 Style="{DynamicResource  textBox_styleForSearch}">
                             </TextBox>
                         </StackPanel>
-                        <Button 
-                            Grid.Column="4" 
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Grid.Column="3" 
+                            Margin="0,25,10,0"
+                            Orientation="Horizontal">
+
+                            <Button 
+                                HorizontalAlignment="Right"
+                                Width="80" 
+                                Command="{Binding CustomerFilterCommand}"
+                                Style="{StaticResource ButtonStaffStyle}" 
+                                Content="Tìm"></Button>
+                            <Button 
+                            HorizontalAlignment="Right"
+                            Grid.Column="3" 
                             Width="80" 
-                            Margin="5,25,10,0"
-                            Command="{Binding CustomerFilterCommand}"
-                            Style="{StaticResource ButtonStaffStyle}" 
-                            Content="Tìm"></Button>
+                            Margin="0,0,0,15"
+                            Command="{Binding ReloadCustomerCommand}"
+                            Style="{StaticResource ButtonReloadStyle}" 
+                            Content="Tìm" Height="40" VerticalAlignment="Bottom"></Button>
+                        </StackPanel>
                     </Grid>
 
                     <Grid Grid.Row="1">
@@ -206,8 +220,7 @@
             </Border>
             <Button Grid.Row="2"
                 Style="{DynamicResource ButtonCancel_WD}"
-                Command="{Binding btnCloseTableCommand}"
-                CommandParameter="{Binding ElementName=CusForAdmin}"
+                Click="Button_Click"
                 HorizontalAlignment="Left"
                 Margin="20,0"
                 Content="Bỏ qua">

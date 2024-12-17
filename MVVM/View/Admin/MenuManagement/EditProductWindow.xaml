@@ -128,7 +128,6 @@
 
             <Grid Grid.Row="3">
                 <Button 
-                    Command="{Binding CloseWDnotChangeCommand}"
                     Click="Button_Click"
                     HorizontalAlignment="Left"
                     Margin="20,0,0,0"

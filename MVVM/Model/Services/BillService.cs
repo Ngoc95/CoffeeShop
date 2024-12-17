@@ -50,9 +50,11 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 {
                     BILL bill = new BILL()
                     {
-                        CUS_ID = newBill.CUS_ID,
                         EMP_ID = newBill.EMP_ID,
+                        CUS_ID = newBill.CUS_ID,
                         TOTAL_COST = newBill.TOTAL_COST,
+                        DISCOUNT = newBill.DISCOUNT,
+                        SUBTOTAL = newBill.SUBTOTAL,
                         CREATE_AT = newBill.CREATE_AT,
                         IS_DELETED = false,
                     };

@@ -219,7 +219,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public ICommand OpenDeleteTableWDCommand { get; set; }
         public ICommand OpenAddWDCommand { get; set; }
         public ICommand FilterCommand { get; set; }
-        public ICommand btnCloseTableCommand { get; set; }
         public ICommand btnEditTableCommand { get; set; }
         public ICommand btnAddTableCommand { get; set; }
 
@@ -231,6 +230,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public ICommand SetDateFilterCommand { get; set; }
         public ICommand OpenSearchCusWDCommand { get; set; }
         public ICommand CustomerFilterCommand { get; set; }
+        public ICommand ReloadCustomerCommand { get; set; }
         public ICommand btnSelectCustomerCommand { get; set; }
         public ICommand btnSaveReservationCommand { get; set; }
         public ICommand btnDeleteReservationCommand { get; set; }
@@ -336,12 +336,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     FilterGnereID = temp;
 
                 FilterTableList(FilterGnereID, CbbSelectedIndex);
-            });
-
-            btnCloseTableCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
-            {
-                p.Close();
-                SelectedTable = null; //co the bug
             });
 
             btnEditTableCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
@@ -481,6 +475,14 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 }
                 CusForAdminResWindow wd = new CusForAdminResWindow();
                 wd.ShowDialog();
+            });
+
+            ReloadCustomerCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                CustomerList = new ObservableCollection<CustomerDTO>(CoreCustomerList);
+                SearchCustomerPhone = "";
+                SearchCustomerName = "";
+                SearchCustomerIDstring = "";
             });
 
             CustomerFilterCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -683,7 +685,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             {
                 foreach (CustomerDTO item in CoreCustomerList)
                 {
-                    if (item.Name.Contains(Name) && item.Phone.Contains(Phone))
+                    if (item.Name.ToLower().Contains(Name.ToLower()) && item.Phone.Contains(Phone))
                         CustomerList.Add(item);
                 }
             }
@@ -699,7 +701,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             {
                 foreach (CustomerDTO item in CoreCustomerList)
                 {
-                    if (item.Name.Contains(Name))
+                    if (item.Name.ToLower().Contains(Name.ToLower()))
                         CustomerList.Add(item);
                 }
             }
@@ -829,6 +831,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 MessageBoxCustom.Show(MessageBoxCustom.Error, "Mã bàn không tồn tại");
                 return false;
             }
+            else if (!SeatEnought(reservation.TABLE_ID, reservation.NUM_OF_PEOPLE))
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Bàn không phù hợp với số lượng khách!");
+                return false;
+            }
 
             if (reservation.CUS_ID == 0)
             {
@@ -863,6 +870,37 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 }
             }
             return true;
+        }
+
+        private bool SeatEnought(int tABLE_ID, int numOfPP)
+        {
+            foreach(TableDTO item in CoreTableList)
+            {
+                if(item.TB_ID == tABLE_ID)
+                {
+                    int s = getGenreTable(item.GT_ID);
+                    if(numOfPP > s)
+                        return false;
+                    else
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        private int getGenreTable(int? gT_ID)
+        {
+            string s = "";
+            foreach(GenreTableDTO item in GenreTableList)
+            {
+                if(item.GT_ID == gT_ID)
+                {
+                    int n = item.GT_NAME.Length;
+                    s = new string(item.GT_NAME[n - 1], 1);
+                    break;
+                }
+            }
+            return int.Parse(s);
         }
 
         private bool TableExists(int tABLE_ID)

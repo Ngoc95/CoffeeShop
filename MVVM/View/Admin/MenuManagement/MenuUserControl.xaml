@@ -72,7 +72,7 @@
                 Width="250" Height="55"
                 HorizontalAlignment="Right"
                 Style="{DynamicResource ButtonStyle1}" 
-                Content="In menu"
+                Content="Xuất excel"
                 VerticalAlignment="Bottom">
 
             </Button>
