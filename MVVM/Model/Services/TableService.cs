@@ -89,7 +89,7 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                     if (Table == null) return (false, "Thêm thất bại");
                     context.C_TABLE.Add(Table);
                     await context.SaveChangesAsync();
-                    return (true, "Thêm sản phẩm thành công");
+                    return (true, "Thêm bàn thành công");
                 }
             }
             catch

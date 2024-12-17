@@ -33,6 +33,11 @@ namespace QuanLiCoffeeShop.MVVM.View.Staff.StaffTable
             }
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();   
+        }
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using OfficeOpenXml;
 using QuanLiCoffeeShop.Core;
 using QuanLiCoffeeShop.DTOs;
 using QuanLiCoffeeShop.MVVM.Model;
@@ -10,6 +11,7 @@ using QuanLiCoffeeShop.MVVM.ViewModel.Staff;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
@@ -18,6 +20,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Windows.Shell;
+//using static System.Net.Mime.MediaTypeNames;
 
 namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 {
@@ -83,7 +87,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public ICommand FilterCommand { get; set; }
         public ICommand BtnImageCommand { get; set; }
         public ICommand BtnAddProductDataComand { get; set; }
-        public ICommand CloseWDnotChangeCommand { get; set; }
 
         #endregion
         public MenuViewModel()
@@ -134,11 +137,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 EditProductWindow wd = new EditProductWindow();
                 //wd.DataContext = _SelectedItem;
                 wd.ShowDialog();
-            });
-
-            CloseWDnotChangeCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
-            {
-                p.Close();
             });
 
 
@@ -225,25 +223,147 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             BtnAddProductDataComand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
                 _SelectedItem.GP_ID = GetGenreID();
-                (bool IsAdded, string messageAdd) = await ProductService.Ins.AddPrdList(SelectedItem);
-                if (IsAdded)
+                if(CanAddProduct(SelectedItem))
                 {
-                    p.Close();
-                    MessageBoxCustom.Show(MessageBoxCustom.Success, messageAdd);
-                    AddProductCoreList(SelectedItem);
-                    FilterProduct(FilterGnereID, SearchText);
-                }
-                else
-                {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, messageAdd);
+                    (bool IsAdded, string messageAdd) = await ProductService.Ins.AddPrdList(SelectedItem);
+                    if (IsAdded)
+                    {
+                        p.Close();
+                        MessageBoxCustom.Show(MessageBoxCustom.Success, messageAdd);
+                        AddProductCoreList(SelectedItem);
+                        FilterProduct(FilterGnereID, SearchText);
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, messageAdd);
+                    }
                 }
             });
 
 
             PrintMenuCommand = new RelayCommand<Window>((p) => { return true; },(p) =>
             {
-
+                ExportMenuExcel();
             });
+        }
+
+        private bool CanAddProduct(ProductDTO selectedItem)
+        {
+            foreach(ProductDTO item in CoreProductList)
+            {
+                if(item.PRO_NAME == selectedItem.PRO_NAME)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Đã tồn tại tên sản phẩm này");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void ExportMenuExcel()
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            try
+            {
+                var saveFileDialog = new SaveFileDialog
+                {
+                    Title = "Chọn nơi để lưu file",
+                    Filter = "Excel Files (*.xlsx)|*.xlsx",
+                    FileName = "MenuExport.xlsx"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    string filePath = saveFileDialog.FileName;
+                    using (var package = new ExcelPackage())
+                    {
+                        var worksheet = package.Workbook.Worksheets.Add("Menu");
+
+                        worksheet.Cells["A1:F2"].Merge = true; 
+                        worksheet.Cells["A1"].Value = "Danh sách sản phẩm";
+                        worksheet.Cells["A1"].Style.Font.Size = 16; 
+                        worksheet.Cells["A1"].Style.Font.Bold = true; 
+                        worksheet.Cells["A1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells["A1"].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+
+                        string[] headers = new string[] { "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Hình ảnh", "Mô tả", "Giá sản phẩm (VNĐ)"};
+
+                        for (int i = 0; i < headers.Length; i++)
+                        {
+                            worksheet.Cells[3, i + 1].Value = headers[i];
+                            worksheet.Cells[3, i + 1].Style.Font.Bold = true; // In đậm tiêu đề
+                            worksheet.Cells[3, i + 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            worksheet.Cells[3, i + 1].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                        }
+                        for (int i = 0; i < CoreProductList.Count; i++)
+                        {
+                            worksheet.Cells[i + 4, 1].Value = CoreProductList[i].PRO_ID;
+                            worksheet.Cells[i + 4, 2].Value = CoreProductList[i].PRO_NAME;
+                            worksheet.Cells[i + 4, 3].Value = GetGenrePrdName(CoreProductList[i].GP_ID);
+                            byte[] imageBytes;
+                            try
+                            {
+                                var uri = new Uri(CoreProductList[i].PRO_IMG);
+                                var streamInfo = System.Windows.Application.GetResourceStream(uri);
+
+                                using (var memoryStream = new MemoryStream())
+                                {
+                                    streamInfo.Stream.CopyTo(memoryStream);
+                                    imageBytes = memoryStream.ToArray(); // Chuyển thành byte[]
+                                }
+
+                                // Thêm ảnh vào Excel
+                                using (var imgStream = new MemoryStream(imageBytes))
+                                {
+                                    var excelImage = worksheet.Drawings.AddPicture("Image_" + i, imgStream);
+                                    // Điều chỉnh kích thước ảnh sao cho vừa với ô
+                                    excelImage.SetPosition(i + 3, 3, 3, 4); // Đặt ảnh vào cột 4, dòng i+4
+                                    excelImage.SetSize(100, 100); // Điều chỉnh ảnh theo tỷ lệ
+                                    worksheet.Row(i + 4).Height = 80;
+                                }
+                            }
+                            catch
+                            {
+
+                            }
+                            worksheet.Cells[i + 4, 5].Value = CoreProductList[i].PRO_DESCRIPTION;
+                            worksheet.Cells[i + 4, 6].Value = CoreProductList[i].PRO_PRICE;
+                        }
+                        worksheet.Cells.AutoFitColumns();
+                        worksheet.Column(4).Width = 15;
+
+
+
+                        // Vẽ border cho tất cả các ô chứa dữ liệu
+                        var totalRows = CoreProductList.Count + 3; // Bao gồm header và dữ liệu
+                        var totalColumns = headers.Length;
+                        var dataRange = worksheet.Cells[3, 1, totalRows, totalColumns];
+                        dataRange.Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        dataRange.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        dataRange.Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        dataRange.Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+
+                        // Lưu file Excel
+                        File.WriteAllBytes(filePath, package.GetAsByteArray());
+                    }
+                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Xuất file excel thành công");
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xuất file excel thất bại");
+            }
+            //return Task.CompletedTask;
+        }
+
+        private string GetGenrePrdName(int? gP_ID)
+        {
+            foreach(GenreProductDTO i in GenreProductList)
+            {
+                if(i.GP_ID == gP_ID)
+                    return i.GP_NAME;
+            }
+            return "";
         }
 
         private void AddProductCoreList(ProductDTO selectedItem)

@@ -443,6 +443,30 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ButtonReloadStyle" TargetType="Button">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Border" BorderBrush="#603127" BorderThickness="1" CornerRadius="5" Background="{TemplateBinding Background}">
+                        <Image Margin="5" Source="../../Images/ControlBarImg/reloadIcon.png"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseCaptured" Value="True">
+                            <Setter Property="Opacity" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="ButtonStyleDeleteBillInfor" TargetType="Button">
         <Setter Property="Margin" Value="-10,0,0,0"/>
         <Setter Property="Width" Value="25"/>

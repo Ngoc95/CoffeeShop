@@ -69,7 +69,7 @@
                              Height="65" Cursor="Hand"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding TableViewCommand}"
+                             Command="{Binding MenuViewCommand}"
                              Content="   Menu">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/coffeeMenu.png" />

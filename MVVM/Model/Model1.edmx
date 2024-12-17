@@ -21,6 +21,8 @@
           <Property Name="BILL_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CUS_ID" Type="int" />
           <Property Name="EMP_ID" Type="int" />
+          <Property Name="SUBTOTAL" Type="money" />
+          <Property Name="DISCOUNT" Type="money" />
           <Property Name="TOTAL_COST" Type="money" />
           <Property Name="CREATE_AT" Type="smalldatetime" />
           <Property Name="IS_DELETED" Type="bit" />
@@ -427,6 +429,8 @@
           <Property Name="BILL_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CUS_ID" Type="Int32" />
           <Property Name="EMP_ID" Type="Int32" />
+          <Property Name="SUBTOTAL" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DISCOUNT" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="TOTAL_COST" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CREATE_AT" Type="DateTime" Precision="0" />
           <Property Name="IS_DELETED" Type="Boolean" />
@@ -735,6 +739,8 @@
                 <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
                 <ScalarProperty Name="CREATE_AT" ColumnName="CREATE_AT" />
                 <ScalarProperty Name="TOTAL_COST" ColumnName="TOTAL_COST" />
+                <ScalarProperty Name="DISCOUNT" ColumnName="DISCOUNT" />
+                <ScalarProperty Name="SUBTOTAL" ColumnName="SUBTOTAL" />
                 <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
                 <ScalarProperty Name="CUS_ID" ColumnName="CUS_ID" />
                 <ScalarProperty Name="BILL_ID" ColumnName="BILL_ID" />

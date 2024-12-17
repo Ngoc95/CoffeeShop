@@ -216,6 +216,23 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 return null;
             }
         }
-
+        public async Task<(bool, string)> EditCusPoint(CustomerDTO newCus, int ID)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var cus = await context.CUSTOMERs.Where(p => p.CUS_ID == ID).FirstOrDefaultAsync();
+                    if (cus == null) return (false, "Không tìm thấy ID");
+                    cus.CUS_POINT = newCus.Point;
+                    await context.SaveChangesAsync();
+                    return (true, "Chỉnh sửa thành công");
+                }
+            }
+            catch
+            {
+                return (false, "Xảy ra lỗi khi chỉnh sửa khách hàng");
+            }
+        }
     }
 }

@@ -33,5 +33,9 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement
             }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

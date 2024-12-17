@@ -300,10 +300,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\Staff\StaffTable\AddReservationWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MVVM\View\Staff\StaffTable\CusForReservationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -492,11 +488,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\Model\Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="MVVM\Model\Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -654,9 +645,6 @@
     <Compile Include="MVVM\View\Staff\StaffOrderMenu\StaffMenuOrderUserControl.xaml.cs">
       <DependentUpon>StaffMenuOrderUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\View\Staff\StaffTable\AddReservationWindow.xaml.cs">
-      <DependentUpon>AddReservationWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MVVM\View\Staff\StaffTable\CusForReservationWindow.xaml.cs">
       <DependentUpon>CusForReservationWindow.xaml</DependentUpon>
     </Compile>
@@ -771,6 +759,7 @@
     <Resource Include="Images\Message\logOut.png" />
     <Resource Include="Images\DeleteBtn.png" />
     <Resource Include="Images\EditBtn.png" />
+    <Resource Include="Images\ControlBarImg\reloadIcon.png" />
     <Content Include="MVVM\Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

@@ -118,8 +118,8 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="0,0,10,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.8*"/>
-                    <RowDefinition Height="0.6*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="2.8*"/>
                 </Grid.RowDefinitions>
 
@@ -154,27 +154,23 @@
                                 Content="Tìm khách hàng"
                                 Command="{Binding OpenSearchCusWDCommand}"
                                 Background="Transparent"
-                                Margin="10,10,5,0"
-                                Width="150"
+                                Margin="0,10,5,0"
+                                Width="155"
                                 HorizontalAlignment="Right"></Button>
                             <Button 
                                 Style="{DynamicResource ButtonStaffStyle}"
                                 Command="{Binding btnSetDefaultCustomerCommand}"
                                 Content="Khách vãng lai"
-                                Margin="10,10,5,0"
-                                Width="150"
+                                Margin="0,10,5,0"
+                                Width="155"
                                 Background="#d3756b"
                                 HorizontalAlignment="Right"></Button>
                         </StackPanel>
                     </Grid>
                 </Border>
                 <Border Grid.Row="1" BorderBrush="#603127" BorderThickness="1">
-                    <Grid Grid.Row="2" Background="#ffc3a1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.4*"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0">
+                    <Grid Background="#ffc3a1">
+                        <StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="15,15,0,-10">
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="Tên món: "></TextBlock>
                                 <TextBlock Style="{DynamicResource Header5Style}" Text="{Binding SelectedBillPrd.PRO_NAME}"/>
@@ -194,15 +190,15 @@
                             </StackPanel>
 
                         </StackPanel>
-                        <Button Grid.Column="1"
-                                Style="{DynamicResource ButtonStaffStyle}"
-                                Command="{Binding AddPrdToBillCommand}"
-                                Content="Thêm vào hóa đơn"
-                                VerticalAlignment="Bottom"
-                                Margin="10,10,5,10"
-                                Width="150"
-                                Background="#d3756b"
-                                HorizontalAlignment="Right"></Button>
+                        <Button 
+                            Style="{DynamicResource ButtonStaffStyle}"
+                            Command="{Binding AddPrdToBillCommand}"
+                            Content="Thêm vào hóa đơn"
+                            VerticalAlignment="Bottom"
+                            Margin="0,45,5,10"
+                            Width="155"
+                            Background="#d3756b"
+                            HorizontalAlignment="Right"></Button>
                     </Grid>
                 </Border>
                 <Border 
@@ -214,7 +210,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="1*"/>
-                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Grid>
@@ -242,7 +238,7 @@
                                         </StackPanel>
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="5,5,10,5" HorizontalAlignment="Right">
                                             <TextBlock Style="{DynamicResource Header6Style}" Text="Mã hóa đơn: "></TextBlock>
-                                            <TextBlock Style="{DynamicResource Header6Style}" Text="{Binding IdOfNextBill, StringFormat='00000'}"/>
+                                            <TextBlock Style="{DynamicResource Header6Style}" Text="{Binding IdOfGenerateBill, StringFormat='00000'}"/>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
@@ -273,7 +269,7 @@
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
-                                        <GridViewColumn Width="50" Header="SL"
+                                        <GridViewColumn Width="38" Header="SL"
                                             HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -284,7 +280,7 @@
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
-                                        <GridViewColumn Width="100" Header="Giá"
+                                        <GridViewColumn Width="95" Header="Giá"
                                             HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -295,7 +291,7 @@
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
-                                        <GridViewColumn Width="110" Header="Thành tiền"
+                                        <GridViewColumn Width="100" Header="Thành tiền"
                                             HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -322,7 +318,6 @@
                                 </ListView.View>
                             </ListView>
                         </Grid>
-
                         <ToggleButton 
                             Grid.Row="2" 
                             IsChecked="{Binding UsePointBtnChecked, Mode=TwoWay}"
@@ -341,20 +336,36 @@
                             Opacity="0"
                             Width="180" Height="40" 
                             Margin="5"/>
-
-                        <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
-                            <TextBlock Text="Tổng tiền: " Style="{DynamicResource Header6Style}"></TextBlock>
-                            <TextBlock Text="{Binding Total_Bill,StringFormat={}{0:C0}}" Language="vi-VN" Style="{DynamicResource Header6Style}"></TextBlock>
+                        <Separator Grid.Row="2" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#603127" Margin="5,0"/>
+                        <StackPanel Grid.Row="2">
+                            <StackPanel Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
+                                <TextBlock Text="Giảm giá: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                <TextBlock Text="{Binding Discount_Bill,StringFormat={}{0:C0}}" Language="vi-VN" Style="{DynamicResource Header6Style}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
+                                <TextBlock Text="Cộng tích lũy: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                <TextBlock Text="{Binding AddPoint,StringFormat='0000'}" Style="{DynamicResource Header6Style}"></TextBlock>
+                            </StackPanel>
                         </StackPanel>
-                        <Button Grid.Row="2" 
-                                VerticalAlignment="Bottom"
-                                HorizontalAlignment="Right"
-                                Margin="5"
-                                Command="{Binding DeleteCurrentBillCommand}"
-                                Style="{DynamicResource ButtonStaffStyle}"
-                                Width="200"
-                                Background="#d3756b"
-                                Content="Xóa hóa đơn hiện tại"></Button>
+                        <StackPanel Grid.Row="2" >
+                            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal" Margin="5">
+                            <TextBlock Text="Tổng đơn giá: " Style="{DynamicResource Header6Style}"></TextBlock>
+                            <TextBlock Text="{Binding SUBTotal_Bill,StringFormat={}{0:C0}}" Language="vi-VN" Style="{DynamicResource Header6Style}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal" Margin="5">
+                                <TextBlock Text="Thanh toán: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                <TextBlock Text="{Binding Total_Bill,StringFormat={}{0:C0}}" Language="vi-VN" Style="{DynamicResource Header6Style}"></TextBlock>
+                            </StackPanel>
+                            <Button Grid.Row="2" 
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Right"
+                                    Margin="5"
+                                    Command="{Binding DeleteCurrentBillCommand}"
+                                    Style="{DynamicResource ButtonStaffStyle}"
+                                    Width="200"
+                                    Background="#d3756b"
+                                    Content="Xóa hóa đơn hiện tại"></Button>
+                        </StackPanel>
                     </Grid>
                 </Border>
             </Grid>
@@ -369,6 +380,7 @@
             </Button>
             <Button 
                 Grid.Row="1"
+                Command="{Binding SaveAndPrintBillCommand}"
                 Style="{DynamicResource ButtonStaffStyle}"
                 HorizontalAlignment="Right"
                 Margin="15,10"
