@@ -358,12 +358,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             {
                 SearchCustomerIDstring = null; SearchCustomerName = null; SearchCustomerPhone = null;
                 SearchingCustomer = new CustomerDTO(SelectedCustomer);
-                if(CoreCustomerList == null)
-                {
-                    CoreCustomerList = new ObservableCollection<CustomerDTO>(await Task.Run(() => CustomerService.Ins.GetAllCus()));
-                    CustomerList = new ObservableCollection<CustomerDTO>();
-                    CustomerList = CoreCustomerList;
-                }
+                CoreCustomerList = new ObservableCollection<CustomerDTO>(await Task.Run(() => CustomerService.Ins.GetAllCus()));
+                CustomerList = CoreCustomerList;
                 CusForReservationWindow wd = new CusForReservationWindow();
                 wd.ShowDialog();
             });

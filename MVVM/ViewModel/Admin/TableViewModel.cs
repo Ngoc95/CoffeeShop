@@ -468,11 +468,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             {
                 SearchCustomerIDstring = null; SearchCustomerName = null; SearchCustomerPhone = null;
                 SearchingCustomer = new CustomerDTO(SelectedCustomer);
-                if (CoreCustomerList == null)
-                {
-                    CoreCustomerList = new ObservableCollection<CustomerDTO>(await Task.Run(() => CustomerService.Ins.GetAllCus()));
-                    CustomerList = new ObservableCollection<CustomerDTO>(CoreCustomerList);
-                }
+                CoreCustomerList = new ObservableCollection<CustomerDTO>(await Task.Run(() => CustomerService.Ins.GetAllCus()));
+                CustomerList = new ObservableCollection<CustomerDTO>(CoreCustomerList);
                 CusForAdminResWindow wd = new CusForAdminResWindow();
                 wd.ShowDialog();
             });
