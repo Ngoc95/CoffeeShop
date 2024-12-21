@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiCoffeeShop.MVVM.ViewModel.Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin
         public MainAdminWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainViewModel();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

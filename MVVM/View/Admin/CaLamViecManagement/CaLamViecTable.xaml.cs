@@ -27,6 +27,17 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement
             InitializeComponent();
             cbFilter.SelectedIndex = 1;
         }
+
+        private void editBtn_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as WorkshiftViewModel).OpenReqWdCM.Execute(new object());
+        }
+
+        private void delBtn_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as WorkshiftViewModel).DeleteReqCM.Execute(new object());
+
+        }
     }
 }
 

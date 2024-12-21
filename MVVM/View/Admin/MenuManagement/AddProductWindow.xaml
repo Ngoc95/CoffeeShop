@@ -10,7 +10,7 @@
         x:Name="AddPrdWD"
         d:DataContext="{d:DesignInstance Type=admin:MenuViewModel}"
         DataContext="{StaticResource MenuViewModel}"
-        WindowStyle="None"
+        WindowStyle="None" AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         Title="AddProductWindow" Height="703" Width="668"
         Background="Transparent">

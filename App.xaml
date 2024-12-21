@@ -12,11 +12,13 @@
              xmlns:viewAdminMenu="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.MenuManagement"
              xmlns:viewAdminTable="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagament"
              xmlns:viewAdminWorkshift="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement"
+             xmlns:viewAdminAccount="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.AccountManagement"
              xmlns:converter="clr-namespace:QuanLiCoffeeShop.Converters"
              xmlns:viewModelStaff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
              xmlns:viewStaffCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement"
              xmlns:viewStaffErr="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement"
              xmlns:viewStaffWorkshift="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffCaLamViec"
+             xmlns:viewStaffAccount="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.AccountManagement"
              StartupUri="/MVVM/View/Login/LoginWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -54,8 +56,9 @@
             <converter:GenderConverter x:Key="GenderConverter" />
             <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <converter:PriceConverter x:Key="PriceConverter"/>
-            
-            
+            <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+
+
             <!--Resources-->
             <viewModelLogin:LoginViewModel x:Key="LoginVM"/>
 
@@ -63,13 +66,19 @@
             <viewModelAdmin:EmployeeViewModel x:Key="EmployeeAdminVM"/>
             <viewModelAdmin:WorkshiftViewModel x:Key="WorkshiftAdminVM"/>
             <viewModelAdmin:ErrorViewModel x:Key="ErrorAdminVM"/>
+            <viewModelAdmin:AccountViewModel x:Key="AccountAdminVM"/>
 
             <viewModelStaff:CustomerViewModel x:Key="CustomerStaffVM"/>
             <viewModelStaff:ErrorViewModel x:Key="ErrorStaffVM"/>
-
             <viewModelStaff:WorkshiftViewModel x:Key="WorkshiftStaffVM"/>
+            <viewModelStaff:AccountViewModel x:Key="AccountStaffVM"/>
 
             <!--Change view (Admin)-->
+
+            <DataTemplate DataType="{x:Type viewModelAdmin:AccountViewModel}">
+                <viewAdminAccount:AccountUserControl/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModelAdmin:CustomerViewModel}">
                 <viewAdminCus:CustomerWindow/>
             </DataTemplate>
@@ -93,8 +102,11 @@
             <DataTemplate DataType="{x:Type viewModelAdmin:WorkshiftViewModel}">
                 <viewAdminWorkshift:CaLamViecTable/>
             </DataTemplate>
-            
+
             <!--Change view (Staff)-->
+            <DataTemplate DataType="{x:Type viewModelStaff:AccountViewModel}">
+                <viewStaffAccount:AccountUserControl/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewModelStaff:CustomerViewModel}" >
                 <viewStaffCus:CustomerUserControl/>
             </DataTemplate>

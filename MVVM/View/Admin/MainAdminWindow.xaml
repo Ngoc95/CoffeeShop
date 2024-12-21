@@ -15,16 +15,17 @@
         MouseDown="Window_MouseDown" 
         MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"
         MaxWidth="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Width}">
-
-    <Window.DataContext>
-        <viewModelAdmin:MainViewModel/>
-    </Window.DataContext>
-
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" CommandParameter="{Binding ElementName=AdminWd}" />
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" 
+                                   CommandParameter="{Binding ElementName=AdminWd}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
+    <!--<Window.DataContext>
+        <viewModelAdmin:MainViewModel/>
+    </Window.DataContext>-->
+
     <Grid Background="White">
 
         <Grid.ColumnDefinitions>
@@ -57,9 +58,8 @@
                 <RadioButton Margin="5,0,0,10"
                              Height="65"
                              FontSize="30"
-                             Style="{StaticResource MenuButtonTheme}"
-                             IsChecked="True" 
-                             Command="{Binding WorkshiftCommand}"
+                             Style="{StaticResource MenuButtonTheme}"                             
+                             Command="{Binding HomePageViewCommand}"
                              Content="Trang chủ"
                              Cursor="Hand">
                     <RadioButton.Tag>
@@ -97,7 +97,8 @@
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding CustomerViewCommand}"
                              Content="Khách hàng"
-                             Cursor="Hand">
+                             Cursor="Hand"
+                             IsChecked="{Binding IsAccountSelected, Converter={StaticResource InverseBooleanConverter}}">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/cusMenu.png" />
                     </RadioButton.Tag>
@@ -194,7 +195,8 @@
 
         <Button Grid.Column="1" Cursor="Hand"
                 Margin="30 10 0 0" BorderBrush="Transparent" 
-                FontWeight="DemiBold">
+                FontWeight="DemiBold"
+                Command="{Binding AccountViewCommand}">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Background" Value="Transparent" />
@@ -223,7 +225,7 @@
             </Button.Style>
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Images/ControlbarImg/user.png" Height="45"/>
-                <TextBlock Text="{Binding CurrentName}" FontSize="28" Margin="10,0,0,0"/>
+                <TextBlock Text="{Binding CurrentName, UpdateSourceTrigger=PropertyChanged}" FontSize="28" Margin="10,0,0,0"/>
             </StackPanel>
         </Button>
 

@@ -283,12 +283,12 @@
 
             <Button 
                 Grid.Row="2"
-                Margin="950,0,0,0"
+                Margin="0,0,15,0"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Left" 
+                HorizontalAlignment="Right" 
                 materialDesign:ButtonAssist.CornerRadius="15.36"
                 Background="#F0997D" Foreground="Black"
-                Content="Lưu" Height="48" Width="131"
+                Content="Phản hồi" Height="48" Width="131"
                 BorderBrush="Black" BorderThickness="1" FontSize="20" FontWeight="DemiBold"
                 Command="{Binding EditReqCM}" CommandParameter="{Binding ElementName=requestWd}">
             </Button>

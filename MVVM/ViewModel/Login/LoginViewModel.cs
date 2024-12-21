@@ -69,7 +69,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Login
                     await Login(p);
                     IsLogin = false;
                 }
-
             });
             ForgotPasswordCM = new RelayCommand<TextBlock>((p) => { return true; }, (p) =>
             {
@@ -121,6 +120,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Login
                             EMP_STARTDATE = emp.EMP_STARTDATE,
                             EMP_STATUS = emp.EMP_STATUS,
                             EMP_USERNAME = emp.EMP_USERNAME,
+                            EMP_TotalShifts = await Task.Run(() => EmployeeService.Ins.GetEmployeeTotalShifts(emp.EMP_ID)),
                             IS_DELETED = emp.IS_DELETED,
                         };
                         if (emp.EMP_ROLE == "Quản lý")

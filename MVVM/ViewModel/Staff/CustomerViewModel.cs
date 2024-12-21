@@ -82,7 +82,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         }
         #endregion
 
-        public static List<CustomerDTO> cusList;
         private ObservableCollection<CustomerDTO> _customerList;
         public ObservableCollection<CustomerDTO> CustomerList
         {
@@ -136,8 +135,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             FirstLoadCM = new RelayCommand<UserControl>((p) => { return true; }, async (p) =>
             {
                 CustomerList = new ObservableCollection<CustomerDTO>(await Task.Run(() => CustomerService.Ins.GetAllCus()));
-                if (CustomerList != null)
-                    cusList = new List<CustomerDTO>(CustomerList);
             });
             SearchCusCM = new RelayCommand<System.Windows.Controls.TextBox>((p) => { return true; }, async (p) =>
             {
@@ -150,7 +147,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 
                 // Tìm kiếm dựa trên "KH" + ID hoặc các thông tin khác
                 CustomerList = new ObservableCollection<CustomerDTO>(
-                    cusList.FindAll(x =>
+                    (await CustomerService.Ins.GetAllCus()).FindAll(x =>
                         ($"kh{x.ID:D3}".ToLower().Contains(searchText)) ||
                         x.Name.ToLower().Contains(searchText) ||
                         x.Phone.ToLower().Contains(searchText) ||

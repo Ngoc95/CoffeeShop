@@ -152,10 +152,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\GenderConverter.cs" />
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\PriceConverter.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />
+    <Page Include="MVVM\View\Admin\AccountManagement\AccountUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Admin\CaLamViecManagement\CaLamViecTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -273,6 +278,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\ProductCard\ProductCardStaff.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\AccountManagement\AccountUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -518,6 +527,7 @@
     <Compile Include="MVVM\Model\WORK_SHIFT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\ViewModel\Admin\AccountViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\ErrorViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\MenuViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\TableViewModel.cs" />
@@ -529,12 +539,16 @@
     <Compile Include="MVVM\ViewModel\Login\LoginViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MessageBox\MessageBoxViewModel.cs" />
     <Compile Include="MVVM\ViewModel\ProductCardVM\ProCardViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Staff\AccountViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\CustomerViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\ErrorViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\MainViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\MenuOrderViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\StaffTableResViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\WorkshiftViewModel.cs" />
+    <Compile Include="MVVM\View\Admin\AccountManagement\AccountUserControl.xaml.cs">
+      <DependentUpon>AccountUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Admin\CaLamViecManagement\CaLamViecTable.xaml.cs">
       <DependentUpon>CaLamViecTable.xaml</DependentUpon>
     </Compile>
@@ -626,6 +640,9 @@
     </Compile>
     <Compile Include="MVVM\View\ProductCard\ProductCardStaff.xaml.cs">
       <DependentUpon>ProductCardStaff.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\AccountManagement\AccountUserControl.xaml.cs">
+      <DependentUpon>AccountUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Staff\CustomerManagement\AddCustomerWindow.xaml.cs">
       <DependentUpon>AddCustomerWindow.xaml</DependentUpon>

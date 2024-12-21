@@ -14,6 +14,7 @@ using System.Windows;
 using QuanLiCoffeeShop.MVVM.View.Admin.ErrorManagement;
 using QuanLiCoffeeShop.MVVM.Model;
 using System.Windows.Shell;
+using System.Diagnostics;
 
 namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 {
@@ -88,11 +89,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 _selectedStatus = value;
                 OnPropertyChanged();
 
-                SearchText = null;
-
                 CommandManager.InvalidateRequerySuggested();
-                if (FilterErrorCM.CanExecute(null))
-                    FilterErrorCM.Execute(null);
+                FilterErrorCM.Execute(null);
             }
         }
         private string _searchText;
@@ -115,7 +113,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 OnPropertyChanged(nameof(EditError));
             }
         }
-        public TextBox SearchErr { get; set; }
+       // public TextBox SearchErr { get; set; }
         public ICommand FirstLoadCM { get; set; }
         public ICommand SearchErrorCM { get; set; }
         public ICommand FilterErrorCM { get; set; }
@@ -139,7 +137,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
             FilterErrorCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
-                await ApplyFilterAndSearch(SearchErr?.Text, SelectedStatus);
+                if (p?.SelectedItem == null)
+                {
+                    return;
+                }
+                await ApplyFilterAndSearch(SearchText, SelectedStatus);
             });
 
             AddErrorWdCM = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -168,7 +170,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     p.Close();
                     resetData();
                     ErrorList = new ObservableCollection<ErrorDTO>(await ErrorService.Ins.GetAllError());
-                    SearchText = SearchErr?.Text;
+
                     await ApplyFilterAndSearch(SearchText, SelectedStatus);
                     MessageBoxCustom.Show(MessageBoxCustom.Success, messageAdd);
                 }
@@ -197,7 +199,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 if (success)
                 {
                     ErrorList = new ObservableCollection<ErrorDTO>(await ErrorService.Ins.GetAllError());
-                    SearchText = SearchErr?.Text;
+
                     await ApplyFilterAndSearch(SearchText, SelectedStatus);
                     MessageBoxCustom.Show(MessageBoxCustom.Success, messageEdit);
                 }
@@ -234,9 +236,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
         private async Task ApplyFilterAndSearch(string searchText, string filterStatus)
         {
+            if (ErrorService.Ins == null)
+                return;
             filterStatus = filterStatus?.ToLower() ?? string.Empty;
             searchText = searchText?.ToLower() ?? string.Empty;
-            var allErrors = await ErrorService.Ins.GetAllError();
+            var allErrors = await ErrorService.Ins.GetAllError() ?? new List<ErrorDTO>();
 
             // Nếu cả filter và search text đều trống
             if (string.IsNullOrWhiteSpace(searchText) && string.IsNullOrWhiteSpace(filterStatus))
@@ -250,7 +254,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                  (x.ER_STATUS?.ToLower().Contains(filterStatus) ?? false)) &&
                 (string.IsNullOrEmpty(searchText) ||
                  ($"er{x.ER_ID:D3}".ToLower().Contains(searchText)) ||
-                 (x.ER_NAME?.ToLower().Contains(searchText) ?? false) 
+                 (x.ER_NAME?.ToLower().Contains(searchText) ?? false)
             )));
         }
         #region methods

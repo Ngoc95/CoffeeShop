@@ -15,7 +15,7 @@ namespace QuanLiCoffeeShop.MVVM.View.Message
         {
             if (type == Success)
             {
-                new Success(message).Show();
+                new Success(message).ShowDialog();
             }
             else if (type == Error)
             {
