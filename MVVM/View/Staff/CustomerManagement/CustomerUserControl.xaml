@@ -69,7 +69,7 @@
                     Margin="20,0,0,0"
                     Command="{Binding AddCusWdCM}">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Images/Addbtn.png" />
+                    <ImageBrush ImageSource="/QuanLiCoffeeShop;component/Images/Addbtn.png" />
                 </Button.Background>
             </Button>
         </StackPanel>
@@ -92,21 +92,33 @@
                         Background="White"
                         CornerRadius="10">
                             <DataGrid
-                            x:Name="dataGridKH"
-                            Margin="15"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            AutoGenerateColumns="False"
-                            Background="White"
-                            CanUserReorderColumns="False"
-                            CanUserResizeColumns="False"
-                            CanUserSortColumns="True"
-                            ColumnWidth="SizeToCells"
-                            IsReadOnly="True"
-                            SelectionMode="Single"
-                            SelectionUnit="FullRow"
-                            ItemsSource="{Binding CustomerList, UpdateSourceTrigger=PropertyChanged}"
-                            SelectedItem="{Binding SelectedItem}">
+                                x:Name="dataGridKH"
+                                Margin="15"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                AutoGenerateColumns="False"
+                                Background="White"
+                                CanUserReorderColumns="False"
+                                CanUserResizeColumns="False"
+                                CanUserSortColumns="True"
+                                ColumnWidth="SizeToCells"
+                                IsReadOnly="True"
+                                SelectionMode="Single"
+                                SelectionUnit="FullRow"
+                                ItemsSource="{Binding CustomerList, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding SelectedItem}">
+                                <DataGrid.ColumnHeaderStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="FontWeight" Value="DemiBold"/>
+                                        <Setter Property="FontSize" Value="17"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </Style>
+                                </DataGrid.ColumnHeaderStyle>
+
                                 <DataGrid.CellStyle>
                                     <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                         <Setter Property="BorderThickness" Value="0" />
@@ -116,12 +128,6 @@
 
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Width="auto" Header="Mã KH" SortMemberPath="ID">
-                                        <DataGridTemplateColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.HeaderTemplate>
-
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
@@ -134,12 +140,6 @@
                                     </DataGridTemplateColumn>
 
                                     <DataGridTemplateColumn Width="auto" Header="Tên khách hàng" SortMemberPath="Name">
-                                        <DataGridTemplateColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.HeaderTemplate>
-
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
@@ -152,12 +152,6 @@
                                     </DataGridTemplateColumn>
 
                                     <DataGridTemplateColumn Width="auto" Header="Giới tính" SortMemberPath="Gender" >
-                                        <DataGridTemplateColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.HeaderTemplate>
-
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
@@ -170,12 +164,6 @@
                                     </DataGridTemplateColumn>
 
                                     <DataGridTemplateColumn Width="auto" Header="SĐT" SortMemberPath="Phone">
-                                        <DataGridTemplateColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.HeaderTemplate>
-
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
@@ -188,12 +176,6 @@
                                     </DataGridTemplateColumn>
 
                                     <DataGridTemplateColumn Width="auto" Header="Email" SortMemberPath="Email">
-                                        <DataGridTemplateColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.HeaderTemplate>
-
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
@@ -206,12 +188,6 @@
                                     </DataGridTemplateColumn>
 
                                     <DataGridTemplateColumn Width="auto" Header="Tích điểm" SortMemberPath="Point">
-                                        <DataGridTemplateColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.HeaderTemplate>
-
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
@@ -241,21 +217,33 @@
                         Background="White"
                         CornerRadius="10">
                             <DataGrid
-                            x:Name="dataGridGiaoDichKH"
-                            Margin="10,0,15,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            AutoGenerateColumns="False"
-                            Background="White"
-                            CanUserReorderColumns="False"
-                            CanUserResizeColumns="False"
-                            CanUserSortColumns="True"
-                            ColumnWidth="SizeToCells"
-                            IsReadOnly="True"
-                            SelectionMode="Single"
-                            SelectionUnit="FullRow"
-                            ItemsSource="{Binding StaffObservation, Mode=TwoWay}"
-                            SelectedItem="{Binding SelectedItem}">
+                                x:Name="dataGridGiaoDichKH"
+                                Margin="10,0,15,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                AutoGenerateColumns="False"
+                                Background="White"
+                                CanUserReorderColumns="False"
+                                CanUserResizeColumns="False"
+                                CanUserSortColumns="True"
+                                ColumnWidth="SizeToCells"
+                                IsReadOnly="True"
+                                SelectionMode="Single"
+                                SelectionUnit="FullRow"
+                                ItemsSource="{Binding StaffObservation, Mode=TwoWay}"
+                                SelectedItem="{Binding SelectedItem}">
+                                <DataGrid.ColumnHeaderStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="FontWeight" Value="DemiBold"/>
+                                        <Setter Property="FontSize" Value="17"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </Style>
+                                </DataGrid.ColumnHeaderStyle>
+
                                 <DataGrid.CellStyle>
                                     <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                         <Setter Property="BorderThickness" Value="0" />
@@ -265,12 +253,6 @@
 
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Width="auto" Header="Mã hóa đơn" SortMemberPath="ID">
-                                        <DataGridTemplateColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.HeaderTemplate>
-
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
@@ -283,12 +265,6 @@
                                     </DataGridTemplateColumn>
 
                                     <DataGridTemplateColumn Width="auto" Header="Mã nhân viên" SortMemberPath="CUS_ID">
-                                        <DataGridTemplateColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.HeaderTemplate>
-
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
@@ -301,12 +277,6 @@
                                     </DataGridTemplateColumn>
 
                                     <DataGridTemplateColumn Width="auto" Header="Ngày hóa đơn" SortMemberPath="StartDate">
-                                        <DataGridTemplateColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.HeaderTemplate>
-
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <DatePicker
@@ -320,12 +290,6 @@
                                     </DataGridTemplateColumn>
 
                                     <DataGridTemplateColumn Width="auto" Header="Tổng tiền" SortMemberPath="Cost">
-                                        <DataGridTemplateColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.HeaderTemplate>
-
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
@@ -338,12 +302,6 @@
                                     </DataGridTemplateColumn>
 
                                     <DataGridTemplateColumn Width="auto" Header="Điểm sử dụng" SortMemberPath="Points">
-                                        <DataGridTemplateColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.HeaderTemplate>
-
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock

@@ -295,7 +295,7 @@
                                     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                                     <Setter Property="HorizontalAlignment" Value="Left"/>
                                     <Setter Property="FontWeight" Value="DemiBold"/>
-                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="FontSize" Value="17"/>
                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                     <Setter Property="Foreground" Value="Black"/>
                                 </Style>
@@ -374,34 +374,28 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
-                                                <Border
-                                                    Width="23.3"
-                                                    Height="24.49"
-                                                    Margin="0,0,0,0"
-                                                    Background="Transparent"
-                                                    BorderThickness="0"
-                                                    Cursor="Hand">
-                                                    <Image Source="/Images/EditBtn.png" />
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                            <i:InvokeCommandAction Command="{Binding ElementName=dataGridRequest, Path=DataContext.OpenReqWdCM}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                </Border>
-                                                <Border
-                                                    Width="23.3"
-                                                    Height="24.49"
-                                                    Margin="12,0,0,0"
-                                                    Background="Transparent"
-                                                    BorderThickness="0"
-                                                    Cursor="Hand">
-                                                    <Image Source="/Images/DeleteBtn.png" />
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                            <i:InvokeCommandAction Command="{Binding ElementName=dataGridRequest, Path=DataContext.DeleteReqCM}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                </Border>
+                                                <Button x:Name="editBtn"
+                                                        Width="23.3"
+                                                        Height="24.49"
+                                                        Margin="0,0,0,0"
+                                                        BorderThickness="0"
+                                                        Cursor="Hand"
+                                                        Click="editBtn_Click">
+                                                    <Button.Background>
+                                                        <ImageBrush ImageSource="/Images/EditBtn.png" />
+                                                    </Button.Background>
+                                                </Button>
+                                                <Button x:Name="delBtn"
+                                                        Width="23.3"
+                                                        Height="24.49"
+                                                        Margin="12,0,0,0"
+                                                        BorderThickness="0"
+                                                        Cursor="Hand"
+                                                        Click="delBtn_Click">
+                                                    <Button.Background>
+                                                        <ImageBrush ImageSource="/Images/DeleteBtn.png" />
+                                                    </Button.Background>
+                                                </Button>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>

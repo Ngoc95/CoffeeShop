@@ -10,7 +10,7 @@
         DataContext="{StaticResource TableViewModel}"
         mc:Ignorable="d"
         x:Name="CusForAdmin"
-        Background="Transparent"
+        Background="Transparent" AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Title="CusForAdminResWindow" Height="800" Width="900">

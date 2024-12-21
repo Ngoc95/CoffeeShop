@@ -1,4 +1,5 @@
-﻿using QuanLiCoffeeShop.Core;
+﻿using GalaSoft.MvvmLight.Messaging;
+using QuanLiCoffeeShop.Core;
 using QuanLiCoffeeShop.DTOs;
 using QuanLiCoffeeShop.MVVM.View.Login;
 using QuanLiCoffeeShop.MVVM.View.Message;
@@ -28,12 +29,14 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public ICommand MenuViewCommand { get; set; }
         public ICommand TableViewCommand { get; set; }
         public ICommand WorkshiftViewCommand { get; set; }
+        public ICommand AccountViewCommand { get; set; }
         public CustomerViewModel CustomerVM { get; set; }
         public EmployeeViewModel EmployeeVM { get; set; }
         public ErrorViewModel ErrorVM { get; set; }
         public MenuViewModel MenuVM { get; set; }
         public TableViewModel TableVM { get; set; }
         public WorkshiftViewModel WorkshiftVM { get; set; }
+        public AccountViewModel AccountVM { get; set; }
 
         private object _currentView;
 
@@ -45,13 +48,31 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 _currentView = value;
                 OnPropertyChanged();
             }
-
+        }
+        private bool _isAccountSelected;
+        public bool IsAccountSelected
+        {
+            get => _isAccountSelected;
+            set
+            {
+                _isAccountSelected = value;
+                OnPropertyChanged(nameof(IsAccountSelected));
+            }
         }
         public ICommand FirstLoadCM { get; set; }
         public ICommand LogOutCommand { get; set; }
         public MainViewModel()
         {
+            // Lắng nghe thông báo từ AccountViewModel
+            Messenger.Default.Register<PropertyChangedMessage<string>>(this, message =>
+            {
+                if (message.PropertyName == nameof(CurrentName))
+                {
+                    CurrentName = message.NewValue;
+                }
+            });
             FirstLoadCM = new RelayCommand<Window>((p) => { return true; }, (p) => { CurrentName = currentEmp == null ? "" : currentEmp.EMP_NAME; });
+            AccountVM = new AccountViewModel();
             CustomerVM = new CustomerViewModel();
             EmployeeVM = new EmployeeViewModel();
             ErrorVM = new ErrorViewModel();
@@ -61,7 +82,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
             CurrentView = WorkshiftVM;
 
-            CustomerViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = CustomerVM; });
+            AccountViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CustomerViewCommand.Execute(null); IsAccountSelected = true; CurrentView = AccountVM; });
+            CustomerViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = CustomerVM; IsAccountSelected = false; });
             EmployeeViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = EmployeeVM; });
             ErrorViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = ErrorVM; });
             MenuViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = MenuVM; });

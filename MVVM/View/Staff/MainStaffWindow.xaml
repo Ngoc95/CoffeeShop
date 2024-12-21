@@ -92,7 +92,8 @@
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding CustomerViewCommand}"
-                             Content="Khách hàng">
+                             Content="Khách hàng"
+                             IsChecked="{Binding IsAccountSelected, Converter={StaticResource InverseBooleanConverter}}">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/cusMenu.png" />
                     </RadioButton.Tag>
@@ -160,8 +161,9 @@
 
         </Grid>
         <Button Grid.Column="1" Cursor="Hand"
-                        Margin="40,0,0,0" BorderBrush="Transparent" 
-                        FontWeight="DemiBold">
+                Margin="40,0,0,0" BorderBrush="Transparent" 
+                FontWeight="DemiBold"
+                Command="{Binding AccountViewCommand}">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Background" Value="Transparent" />
@@ -190,7 +192,7 @@
             </Button.Style>
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Images/ControlbarImg/user.png" Height="50"/>
-                <TextBlock Text="{Binding CurrentName}" FontSize="30" Margin="10,5,0,0"/>
+                <TextBlock Text="{Binding CurrentName, UpdateSourceTrigger=PropertyChanged}" FontSize="30" Margin="10,5,0,0"/>
             </StackPanel>
         </Button>
         <Grid HorizontalAlignment="Right" Margin="0 0 20 0" Width="auto" VerticalAlignment="Center" Grid.Column="1" Height="40">

@@ -167,6 +167,12 @@ CREATE TABLE REQUEST (
 --	constraint fk_ImpInfo_IMP foreign key(IMP_ID) references IMPORT(IMP_ID),
 --	constraint fk_ImpInfo_ING foreign key(ING_ID) references INGREDIENT(ING_ID),
 --)
+--EXPORT (EXP_ID, EMP_ID, EXP_DATE, TOTAL_COST, IS_DELETED)
+--Tân từ: EXPORT lưu trữ thông tin xuất nguyên liệu cho nhân viên pha chế bao gồm: mã xuất hàng (EXP_ID), mã nhân viên (EMP_ID), ngày xuất hàng (EXP_DATE), tổng trị giá của lần xuất hàng (TOTAL_COST), và biến để xem đối tượng có đang bị xóa hay không (IS_DELETED)
+
+--EXPORT_INFO (EXP_ID, ING_ID, QUANTITY, PRICE_ITEM, IS_DELETED)
+--Tân từ: EXPORT_INFO lưu trữ thông tin chi tiết cho từng lần xuất hàng bao gồm: mã xuất hàng (EXP_ID), mã nguyên liệu (ING_ID), số lượng nguyên liệu (QUANTITY), giá của nguyên liệu (PRICE_ITEM), và biến để xem đối tượng có đang bị xóa hay không (IS_DELETED)
+
 create table BILL
 (
 	BILL_ID int identity(1,1),
@@ -204,7 +210,7 @@ create table ERROR
 INSERT INTO EMPLOYEE (EMP_NAME, EMP_PHONE, EMP_CCCD, EMP_BIRTHDAY, EMP_USERNAME, EMP_PASSWORD, EMP_EMAIL, EMP_GENDER, EMP_ROLE)
 VALUES 
 (N'Ngọc Nguyên', '0912345678',	'012345678901', '2005-01-01', 'admin', '202cb962ac59075b964b07152d234b70', 'ngocnguyen@example.com', N'Nữ', N'Quản lý'),
-(N'Ngọc', '098',	'01', '2005-01-01', 'ngoc', '202cb962ac59075b964b07152d234b70', 'ngoc', N'Nữ', N'Phục vụ');
+(N'Ngọc', '098',	'01', '2005-01-01', 'ngoc', '202cb962ac59075b964b07152d234b70', 'duongkhanhngoc2005@gmail.com', N'Nữ', N'Phục vụ');
 
 INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Coffee')
 INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Trà sữa')

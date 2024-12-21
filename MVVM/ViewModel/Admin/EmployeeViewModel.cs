@@ -20,6 +20,7 @@ using GalaSoft.MvvmLight.Messaging;
 using static QuanLiCoffeeShop.MVVM.ViewModel.Admin.WorkshiftViewModel;
 using GalaSoft.MvvmLight.Helpers;
 using QuanLiCoffeeShop.Helpers;
+using System.Diagnostics;
 
 namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 {
@@ -143,7 +144,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         #endregion
 
         public int Count => EmpList?.Count ?? 0;
-        public static List<EmployeeDTO> empList;
         private ObservableCollection<EmployeeDTO> _empList;
         public ObservableCollection<EmployeeDTO> EmpList
         {
@@ -212,8 +212,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             {
                 _selectedRole = value;
                 OnPropertyChanged();
-
-                SearchText = null;
 
                 CommandManager.InvalidateRequerySuggested();
                 if (FilterRoleCM.CanExecute(null))
@@ -404,12 +402,27 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         }
         private async Task ApplyFilterAndSearch(string searchText, string filterRole)
         {
+            if (EmployeeService.Ins == null)
+            {
+                return;
+            }
+
             var allEmployees = await EmployeeService.Ins.GetAllEmp();
-            //cập nhật tổng ca làm của mỗi nv
+            if (allEmployees == null || !allEmployees.Any())
+            {
+                return;
+            }
+
+            // Cập nhật tổng ca làm của mỗi nhân viên
             foreach (var employee in allEmployees)
             {
+                if (employee == null)
+                {
+                    continue;
+                }
                 employee.EMP_TotalShifts = await Task.Run(() => EmployeeService.Ins.GetEmployeeTotalShifts(employee.EMP_ID));
             }
+
             filterRole = filterRole?.ToLower() ?? string.Empty;
             searchText = searchText?.ToLower() ?? string.Empty;
 
@@ -426,6 +439,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 )
             ));
         }
+
         private Task ExportToExcel(object o)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -518,8 +532,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             }
 
             EmpList = new ObservableCollection<EmployeeDTO>(employees);
-            if (EmpList != null)
-                empList = new List<EmployeeDTO>(EmpList);
 
             SearchText = SearchEmp?.Text;
             await ApplyFilterAndSearch(SearchText, SelectedRole);
