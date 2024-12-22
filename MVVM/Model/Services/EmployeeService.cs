@@ -63,7 +63,6 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             }
             catch
             {
-                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
                 return null;
             }
 

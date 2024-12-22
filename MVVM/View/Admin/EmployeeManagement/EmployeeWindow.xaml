@@ -40,18 +40,33 @@
                       SelectedItem="{Binding SelectedRole, Mode=TwoWay}">
             </ComboBox>
             <StackPanel Margin="40,10,45,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                <StackPanel.Resources>
+                    <ControlTemplate x:Key="TextSearchEmp" TargetType="TextBox">
+                        <Border CornerRadius="30" 
+                            Background="#FFC3A1"
+                            Width="350" Height="65">
+                            <TextBox
+                                Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                                x:Name="searchBox"
+                                Width="260"
+                                Height="40"
+                                VerticalContentAlignment="Center"
+                                materialDesign:HintAssist.Hint="Tìm kiếm nhân viên"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                BorderThickness="0"
+                                FontSize="22">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction Command="{Binding SearchEmpCM}" CommandParameter="{Binding ElementName=searchBox}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                        </Border>
+                    </ControlTemplate>
+                </StackPanel.Resources>
                 <Grid Width="350" Height="74" Margin="0 0 0 7">
-                    <TextBox x:Name="SearchEmp" 
-                        Style="{StaticResource searchTextbox_style}"
-                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="TextChanged">
-                                <i:InvokeCommandAction Command="{Binding SearchEmpCM}" 
-                                   CommandParameter="{Binding ElementName=SearchEmp}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TextBox>
-                    <Button x:Name="searchBtn"
+                    <TextBox Template="{StaticResource TextSearchEmp}"/>
+                    <Button 
                         Width="65" Height="50"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
@@ -69,7 +84,7 @@
                     Margin="20,0,0,10"
                     Command="{Binding AddEmpWdCM}">
                     <Button.Background>
-                        <ImageBrush ImageSource="/Images/Addbtn.png" />
+                        <ImageBrush ImageSource="/QuanLiCoffeeShop;component/Images/Addbtn.png" />
                     </Button.Background>
                 </Button>
             </StackPanel>
@@ -95,6 +110,18 @@
                     SelectionUnit="FullRow"
                     ItemsSource="{Binding EmpList, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedItem}">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                            <Setter Property="FontWeight" Value="DemiBold"/>
+                            <Setter Property="FontSize" Value="17"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
                     <DataGrid.CellStyle>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                             <Setter Property="BorderThickness" Value="0" />
@@ -104,12 +131,6 @@
 
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Width="auto" Header="ID" SortMemberPath="EMP_ID">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -122,12 +143,6 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="Họ tên" SortMemberPath="EMP_NAME">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -140,12 +155,6 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="Ngày sinh" SortMemberPath="EMP_BIRTHDAY">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <DatePicker
@@ -162,12 +171,6 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="SĐT" SortMemberPath="EMP_PHONE">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -180,12 +183,6 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="Email" SortMemberPath="EMP_EMAIL">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -198,11 +195,6 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="Chức vụ" SortMemberPath="EMP_ROLE">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -214,13 +206,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Width="auto" Header="Tổng ca làm trong tuần" SortMemberPath="EMP_TotalShifts">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-
+                        <DataGridTemplateColumn Width="auto" Header="Tổng ca trong tuần" SortMemberPath="EMP_TotalShifts">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -233,12 +219,6 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="Lương tuần" SortMemberPath="EMP_SALARY">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock
@@ -251,12 +231,6 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" Header="Trạng thái" SortMemberPath="EMP_STATUS">
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock

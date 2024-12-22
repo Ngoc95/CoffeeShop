@@ -452,6 +452,10 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             });
             FilterReqStatusCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
+                if (p?.SelectedItem == null)
+                {
+                    return;
+                }
                 await ApplyFilter(SelectedStatus);
             });
             OpenReqWdCM = new RelayCommand<object>((p) => { return SelectedItem != null; }, (p) =>
@@ -492,11 +496,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     MessageBoxCustom.Show(MessageBoxCustom.Error, messageEdit);
                 }
             });
-            DeleteReqCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            DeleteReqCM = new RelayCommand<object>((p) => {  return true; }, async (p) =>
             {
-                if (SelectedItem == null)
+                if (SelectedItem.REQ_STATUS == "Chờ duyệt")
                 {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn chưa chọn sự cố để xóa");
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Không thể xóa vì yêu cầu chưa được phản hồi");
                     return;
                 }
                 DeleteMessage wd = new DeleteMessage();
@@ -935,8 +939,12 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         }
         private async Task ApplyFilter(string filterStatus)
         {
+            if (RequestService.Ins == null)
+            {
+                return;
+            }
             filterStatus = filterStatus?.ToLower() ?? string.Empty;
-            var allReq = await RequestService.Ins.GetAllRequest();
+            var allReq = await RequestService.Ins.GetAllRequest() ?? new List<RequestDTO>();
 
             if (string.IsNullOrWhiteSpace(filterStatus))
             {

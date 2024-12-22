@@ -13,12 +13,16 @@
              xmlns:viewAdminThongKe="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.ThongKeManagement"
              xmlns:viewAdminTable="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.TableManagament"
              xmlns:viewAdminWorkshift="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.CaLamViecManagement"
+             xmlns:viewAdminAccount="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.AccountManagement"
              xmlns:converter="clr-namespace:QuanLiCoffeeShop.Converters"
              xmlns:viewModelStaff="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
              xmlns:viewStaffCus="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement"
              xmlns:viewStaffErr="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement"
              xmlns:viewStaffWorkshift="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffCaLamViec"
-             StartupUri="/MVVM/View/Admin/ThongKeManagement/ThongKeTable.xaml">
+
+             xmlns:viewStaffAccount="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.AccountManagement"
+             StartupUri="/MVVM/View/Login/LoginWindow.xaml">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -55,8 +59,12 @@
             <converter:GenderConverter x:Key="GenderConverter" />
             <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <converter:PriceConverter x:Key="PriceConverter"/>
+
             <converter:IndexConverter x:Key="IndexConverter"/>
             <converter:CusNameConverter x:Key="CusNameConverter"/>
+
+            <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+
 
 
             <!--Resources-->
@@ -66,14 +74,22 @@
             <viewModelAdmin:EmployeeViewModel x:Key="EmployeeAdminVM"/>
             <viewModelAdmin:WorkshiftViewModel x:Key="WorkshiftAdminVM"/>
             <viewModelAdmin:ErrorViewModel x:Key="ErrorAdminVM"/>
+
             <viewModelAdmin:ThongKeViewModel x:Key="ThongKeAdminVM"/>
+            <viewModelAdmin:AccountViewModel x:Key="AccountAdminVM"/>
+
 
             <viewModelStaff:CustomerViewModel x:Key="CustomerStaffVM"/>
             <viewModelStaff:ErrorViewModel x:Key="ErrorStaffVM"/>
-
             <viewModelStaff:WorkshiftViewModel x:Key="WorkshiftStaffVM"/>
+            <viewModelStaff:AccountViewModel x:Key="AccountStaffVM"/>
 
             <!--Change view (Admin)-->
+
+            <DataTemplate DataType="{x:Type viewModelAdmin:AccountViewModel}">
+                <viewAdminAccount:AccountUserControl/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModelAdmin:CustomerViewModel}">
                 <viewAdminCus:CustomerWindow/>
             </DataTemplate>
@@ -97,13 +113,18 @@
             <DataTemplate DataType="{x:Type viewModelAdmin:WorkshiftViewModel}">
                 <viewAdminWorkshift:CaLamViecTable/>
             </DataTemplate>
+
             
             <DataTemplate DataType="{x:Type viewModelAdmin:ThongKeViewModel}">
                 <viewAdminThongKe:ThongKeTable/>
             </DataTemplate>
 
 
+
             <!--Change view (Staff)-->
+            <DataTemplate DataType="{x:Type viewModelStaff:AccountViewModel}">
+                <viewStaffAccount:AccountUserControl/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewModelStaff:CustomerViewModel}" >
                 <viewStaffCus:CustomerUserControl/>
             </DataTemplate>

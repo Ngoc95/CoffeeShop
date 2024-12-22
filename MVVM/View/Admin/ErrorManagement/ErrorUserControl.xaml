@@ -22,7 +22,7 @@
     </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition Height="90"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -34,17 +34,33 @@
 
             <Grid Grid.Row="0" Height="74" VerticalAlignment="Top" Margin="4,16,3,0">
                 <StackPanel Orientation="Horizontal">
+                    <StackPanel.Resources>
+                        <ControlTemplate x:Key="TextSearchErr" TargetType="TextBox">
+                            <Border CornerRadius="30" 
+                            Background="#FFC3A1"
+                            Width="350" Height="65">
+                                <TextBox
+                                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                                x:Name="searchBox"
+                                Width="260"
+                                Height="40"
+                                VerticalContentAlignment="Center"
+                                materialDesign:HintAssist.Hint="Tìm kiếm sự cố"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                BorderThickness="0"
+                                FontSize="22">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="TextChanged">
+                                            <i:InvokeCommandAction Command="{Binding SearchErrorCM}" CommandParameter="{Binding ElementName=searchBox}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+                            </Border>
+                        </ControlTemplate>
+                    </StackPanel.Resources>
+                    
                     <Grid Width="350" Height="74" Margin="20,0,0,0">
-                        <TextBox x:Name="SearchErr" 
-                                Style="{StaticResource searchTextbox_style}"
-                                Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="TextChanged">
-                                    <i:InvokeCommandAction Command="{Binding SearchErrorCM}" 
-                                   CommandParameter="{Binding ElementName=SearchErr}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </TextBox>
+                        <TextBox Template="{StaticResource TextSearchErr}"/>
                         <Button 
                                 Width="65" Height="50"
                                 HorizontalAlignment="Right"
@@ -111,6 +127,18 @@
                                 SelectionUnit="FullRow"
                                 ItemsSource="{Binding ErrorList, UpdateSourceTrigger=PropertyChanged}" 
                                 SelectedItem="{Binding SelectedItem}">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="FontWeight" Value="DemiBold"/>
+                                <Setter Property="FontSize" Value="18"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
                         <DataGrid.CellStyle>
                             <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                                 <Setter Property="BorderThickness" Value="0" />
@@ -120,12 +148,6 @@
 
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="auto" Header="ID" SortMemberPath="ER_ID">
-                                <DataGridTemplateColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.HeaderTemplate>
-
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -138,12 +160,6 @@
                             </DataGridTemplateColumn>
 
                             <DataGridTemplateColumn Width="auto" Header="Tên sự cố" SortMemberPath="ER_NAME">
-                                <DataGridTemplateColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.HeaderTemplate>
-
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -156,12 +172,6 @@
                             </DataGridTemplateColumn>
 
                             <DataGridTemplateColumn Width="auto" Header="Tình trạng" SortMemberPath="ER_STATUS">
-                                <DataGridTemplateColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.HeaderTemplate>
-
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock
@@ -174,12 +184,6 @@
                             </DataGridTemplateColumn>
 
                             <DataGridTemplateColumn Width="*" Header="Ghi chú" SortMemberPath="ER_DESCRIPTION">
-                                <DataGridTemplateColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock FontWeight="DemiBold" FontSize="17" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.HeaderTemplate>
-
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock

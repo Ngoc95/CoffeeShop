@@ -92,8 +92,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 _selectedStatus = value;
                 OnPropertyChanged();
 
-                SearchText = null;
-
                 CommandManager.InvalidateRequerySuggested();
                 if (FilterErrorCM.CanExecute(null))
                     FilterErrorCM.Execute(null);
@@ -132,6 +130,10 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
 
             FilterErrorCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
+                if (p?.SelectedItem == null)
+                {
+                    return;
+                }
                 await ApplyFilterAndSearch(SearchErr?.Text, SelectedStatus);
             });
             AddErrorWdCM = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -205,7 +207,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             searchText = searchText?.ToLower() ?? string.Empty;
             filterStatus = filterStatus?.ToLower() ?? string.Empty;
 
-            var allErrors = await ErrorService.Ins.GetAllError();
+            var allErrors = await ErrorService.Ins.GetAllError() ?? new List<ErrorDTO>();
 
             // Nếu cả filter và search text đều trống
             if (string.IsNullOrWhiteSpace(searchText) && string.IsNullOrWhiteSpace(filterStatus))
