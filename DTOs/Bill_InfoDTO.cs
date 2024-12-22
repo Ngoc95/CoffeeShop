@@ -1,4 +1,5 @@
 ﻿using QuanLiCoffeeShop.MVVM.Model;
+using QuanLiCoffeeShop.MVVM.View.ProductCard;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,8 @@ namespace QuanLiCoffeeShop.DTOs
         public Nullable<decimal> PRICE_ITEM { get; set; }
         public Nullable<decimal> Total_PRICE_ITEM { get; set; }
         public Nullable<bool> IS_DELETED { get; set; }
-
+        public BILL BILL { get; set; }
+        public PRODUCT PRODUCT { get; set; }
         public Bill_InfoDTO() { }
         public Bill_InfoDTO(ProductDTO product, int NumOfPrd, int IdOfBill)
         {

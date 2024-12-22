@@ -151,8 +151,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\CusNameConverter.cs" />
     <Compile Include="Converters\GenderConverter.cs" />
+
+    <Compile Include="Converters\IndexConverter.cs" />
+
     <Compile Include="Converters\InverseBooleanConverter.cs" />
+
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\PriceConverter.cs" />
     <Compile Include="Core\ObservableObject.cs" />
@@ -238,6 +243,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Admin\TableManagement\TableUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\ThongKeManagement\DoanhThu\DoanhThuTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\ThongKeManagement\LichSuBan\ChiTietHoaDon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\ThongKeManagement\LichSuBan\LichSuTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\ThongKeManagement\MonUaThich\MonUaThichTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -497,6 +518,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\Model\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\Model\Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -523,6 +549,7 @@
     <Compile Include="MVVM\Model\Services\ProductService.cs" />
     <Compile Include="MVVM\Model\Services\ReservationService.cs" />
     <Compile Include="MVVM\Model\Services\TableService.cs" />
+    <Compile Include="MVVM\Model\Services\ThongKeService.cs" />
     <Compile Include="MVVM\Model\Services\WorkshiftService.cs" />
     <Compile Include="MVVM\Model\WORK_SHIFT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -531,7 +558,12 @@
     <Compile Include="MVVM\ViewModel\Admin\ErrorViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\MenuViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\TableViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\DoanhThu.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\LichSuBan.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\MonUaThich.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\ThongKeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\WorkshiftViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\BaseViewModel.cs" />
     <Compile Include="MVVM\ViewModel\ControlBarViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\CustomerViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\EmployeeViewModel.cs" />
@@ -608,6 +640,18 @@
     </Compile>
     <Compile Include="MVVM\View\Admin\TableManagement\TableUserControl.xaml.cs">
       <DependentUpon>TableUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\ThongKeManagement\DoanhThu\DoanhThuTable.xaml.cs">
+      <DependentUpon>DoanhThuTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\ThongKeManagement\LichSuBan\ChiTietHoaDon.xaml.cs">
+      <DependentUpon>ChiTietHoaDon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\ThongKeManagement\LichSuBan\LichSuTable.xaml.cs">
+      <DependentUpon>LichSuTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\ThongKeManagement\MonUaThich\MonUaThichTable.xaml.cs">
+      <DependentUpon>MonUaThichTable.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Admin\ThongKeManagement\ThongKeTable.xaml.cs">
       <DependentUpon>ThongKeTable.xaml</DependentUpon>
@@ -777,6 +821,7 @@
     <Resource Include="Images\DeleteBtn.png" />
     <Resource Include="Images\EditBtn.png" />
     <Resource Include="Images\ControlBarImg\reloadIcon.png" />
+    <Resource Include="Images\Icon\Money_Icon.png" />
     <Content Include="MVVM\Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -847,6 +892,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
