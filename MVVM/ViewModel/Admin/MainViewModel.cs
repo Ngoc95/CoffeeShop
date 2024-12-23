@@ -31,6 +31,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public ICommand TableViewCommand { get; set; }
         public ICommand WorkshiftViewCommand { get; set; }
         public ICommand IngredientSourceViewCommand { get; set; }
+        public ICommand StatisticsViewCommand { get; set; }
         public ICommand AccountViewCommand { get; set; }
         public CustomerViewModel CustomerVM { get; set; }
         public EmployeeViewModel EmployeeVM { get; set; }
@@ -39,6 +40,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public TableViewModel TableVM { get; set; }
         public WorkshiftViewModel WorkshiftVM { get; set; }
         public IngredientSourceViewModel IngredientSourceVM { get; set; }
+        public ThongKeViewModel ThongKeVM { get; set; }
         public AccountViewModel AccountVM { get; set; }
 
         private object _currentView;
@@ -83,6 +85,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             TableVM = new TableViewModel();
             WorkshiftVM = new WorkshiftViewModel();
             IngredientSourceVM = new IngredientSourceViewModel();
+            ThongKeVM = new ThongKeViewModel();
 
             CurrentView = CustomerVM;
 
@@ -94,6 +97,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             TableViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = TableVM; });
             WorkshiftViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new WorkshiftViewModel(); });
             IngredientSourceViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new IngredientSourceViewModel(); });
+            StatisticsViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new ThongKeViewModel(); });
 
             LogOutCommand = new RelayCommand<Window>(null, (p) =>
             {
