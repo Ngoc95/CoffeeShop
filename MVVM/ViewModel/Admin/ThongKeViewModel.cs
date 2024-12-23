@@ -23,6 +23,7 @@ using LiveCharts.Wpf;
 using LiveCharts;
 using System.Diagnostics;
 using System.Xml.Linq;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 
 
 namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
@@ -89,6 +90,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                         BillList = new ObservableCollection<BillDTO>(billList.FindAll(x => x.CREATE_AT >= SelectedDateFrom && x.CREATE_AT <= SelectedDateTo));
                         p.Content = new LichSuTable();
                     });
+
+                    FavorList = new ObservableCollection<ProductDTO>(await Task.Run(() => ThongKeService.Ins.GetTop10SalerBetween(SelectedDateFrom, SelectedDateTo)));
                 }
                 finally
                 {
@@ -112,26 +115,10 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                         BillList = new ObservableCollection<BillDTO>(billList.FindAll(x => x.CREATE_AT >= SelectedDateFrom && x.CREATE_AT <= SelectedDateTo));
                     });
 
-                    var revenueTasks = Enumerable.Range(0, (SelectedDateTo - SelectedDateFrom).Days + 1)
-                                                 .Select(offset =>
-                                                 {
-                                                     DateTime currentDate = SelectedDateFrom.AddDays(offset);
-                                                     return Task.Run(() => BillService.Ins.getBillByDate(currentDate));
-                                                 });
+                    // Doanh thu
+                    await LoadRevenueDataAsync();
 
-                    var revenues = await Task.WhenAll(revenueTasks);
-
-                    RevenueSeries = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Title = "Doanh thu",
-                            Values = new ChartValues<int>(revenues),
-                        }
-                    };
-                    Labels = Enumerable.Range(0, revenues.Length)
-                                       .Select(offset => SelectedDateFrom.AddDays(offset).ToString("dd/MM/yyyy"))
-                                       .ToArray();
+                    //Món ưa thích
                     FavorList = new ObservableCollection<ProductDTO>(await Task.Run(() => ThongKeService.Ins.GetTop10SalerBetween(SelectedDateFrom, SelectedDateTo)));
                 }
                 finally
@@ -172,36 +159,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             #region DoanhThu
             RevenueCM = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
             {
-                SumBillTotal = 0;
-                p.Content = new DoanhThuTable();
-                List<int> revenueValues = new List<int>();
-                List<DateTime> dates = new List<DateTime>();
-                DateTime currentDate = SelectedDateFrom;
-                DateTime UpDate = SelectedDateTo.AddDays(1);
-                while (currentDate <= UpDate)
-                {
-                    int revenue = await BillService.Ins.getBillByDate(currentDate);
-                    revenueValues.Add(revenue);
-                    SumBillTotal += revenue;
-                    dates.Add(currentDate);
-                    currentDate = currentDate.AddDays(1);
-                }
-
-                string[] dateStrings = dates.Select(date => date.ToString("dd/MM/yyyy")).ToArray();
-                RevenueSeries = new SeriesCollection
-                {
-                    new LineSeries
-                    {
-                        Title = "Doanh thu",
-                        Values = new ChartValues<int>(revenueValues),
-                    }
-                };
-                Labels = dateStrings;
-                YFormatter = value =>
-                {
-                    return value.ToString("N");
-
-                };
+                await LoadRevenueDataAsync(p);
             });
             #endregion
 
@@ -230,6 +188,38 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     wd.ShowDialog();
                 }
             });
+        }
+        private async Task LoadRevenueDataAsync(Frame p = null)
+        {
+            SumBillTotal = 0; // Đặt lại tổng doanh thu về 0
+
+            if (p != null)
+                p.Content = new DoanhThuTable();
+
+            var revenueValues = new List<int>();
+            var dates = new List<DateTime>();
+            var currentDate = SelectedDateFrom;
+            var endDate = SelectedDateTo.AddDays(1);
+
+            while (currentDate <= endDate)
+            {
+                int dailyRevenue = await Task.Run(() => BillService.Ins.getBillByDate(currentDate));
+                revenueValues.Add(dailyRevenue);
+                SumBillTotal += dailyRevenue; // Cộng doanh thu của từng ngày
+                dates.Add(currentDate);
+                currentDate = currentDate.AddDays(1);
+            }
+
+            Labels = dates.Select(date => date.ToString("dd/MM/yyyy")).ToArray();
+            RevenueSeries = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "Doanh thu",
+                    Values = new ChartValues<int>(revenueValues),
+                }
+            };
+            YFormatter = value => value.ToString("N");
         }
 
     }
