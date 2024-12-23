@@ -18,23 +18,22 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
     public partial class ThongKeViewModel : BaseViewModel
     {
 
-
         private static List<BillDTO> billList;
         private ObservableCollection<BillDTO> _billList;
-        internal ObservableCollection<BillDTO> BillList
+        public ObservableCollection<BillDTO> BillList
         {
             get { return _billList; }
             set { _billList = value; OnPropertyChanged(); }
         }
         private ObservableCollection<Bill_InfoDTO> _productList;
 
-        internal ObservableCollection<Bill_InfoDTO> ProductList
+        public ObservableCollection<Bill_InfoDTO> ProductList
         {
             get { return _productList; }
             set { _productList = value; OnPropertyChanged(); }
         }
         private BillDTO _selectedItem;
-        internal BillDTO SelectedItem
+        public BillDTO SelectedItem
         {
             get { return _selectedItem; }
             set { _selectedItem = value; OnPropertyChanged(); }
@@ -68,6 +67,12 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         {
             get { return _billValue; }
             set { _billValue = value; OnPropertyChanged(); }
+        }
+        private decimal _billDiscount;
+        public decimal BillDiscount
+        {
+            get { return _billDiscount; }
+            set { _billDiscount = value; OnPropertyChanged(); }
         }
         private string _soLuong;
         public string SoLuong

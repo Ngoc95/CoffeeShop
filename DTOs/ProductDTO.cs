@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace QuanLiCoffeeShop.DTOs
 {
-    internal class ProductDTO
+    public class ProductDTO
     {
         public int PRO_ID { get; set; }
         public string PRO_NAME { get; set; }

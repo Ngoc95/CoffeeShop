@@ -46,6 +46,7 @@
                     <RowDefinition Height="127"/>
                     <RowDefinition Height="326"/>
                     <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
@@ -168,7 +169,7 @@
                                             </GridViewColumn.HeaderContainerStyle>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Product.PRO_NAME}"
+                                                    <TextBlock Text="{Binding PRODUCT.PRO_NAME}"
                                                                Margin="5 0 0 0"
                                                                             FontSize="17" />
                                                 </DataTemplate>
@@ -206,7 +207,7 @@
                                             </GridViewColumn.HeaderContainerStyle>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Product.PRO_PRICE, Converter={StaticResource PriceConverter}}"
+                                                    <TextBlock Text="{Binding PRODUCT.PRO_PRICE, Converter={StaticResource PriceConverter}}"
                                                                HorizontalAlignment="Center"
                                                                Margin="0 0 10 0"
                                                         FontSize="17" />
@@ -226,7 +227,7 @@
                                             </GridViewColumn.HeaderContainerStyle>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding PriceItem, Converter={StaticResource PriceConverter}}"
+                                                    <TextBlock Text="{Binding Total_priceitem, Converter={StaticResource PriceConverter}}"
                                                                HorizontalAlignment="Center"
                                                                Margin="0 0 10 0"
                                                         FontSize="17" />
@@ -257,11 +258,36 @@
                             VerticalAlignment="Top"/>
                     </StackPanel>
                     <DockPanel                       
+                        Margin="165 0 0 0"
+                        HorizontalAlignment="Left">
+
+                        <TextBlock Style="{DynamicResource TextBlock}" 
+                            Text="Điểm sử dụng:" 
+                            Height="23" 
+                            VerticalAlignment="Top"
+                            Margin="280 0 15 0 "/>
+                        <TextBlock Style="{DynamicResource TextBlock}" 
+                            Text="{Binding BillDiscount, Converter={StaticResource PriceConverter}}" 
+                            Height="23" 
+                            MaxWidth="120"
+                                   Margin="0 0 5 0"
+                            VerticalAlignment="Top"/>
+                        <TextBlock Style="{DynamicResource TextBlock}" 
+                            HorizontalAlignment="Left"
+                            Text="đ"
+                            Height="23"                             
+                            VerticalAlignment="Top"/>
+                    </DockPanel>
+                </Grid>
+
+                <Grid Grid.Row="4">
+
+                    <DockPanel                       
                         Margin="140 0 0 0"
                         HorizontalAlignment="Left">
 
                         <TextBlock Style="{DynamicResource TextBlock}" 
-                            Text="Tổng:" 
+                            Text="Thanh toán:" 
                             Height="23" 
                             VerticalAlignment="Top"
                             Margin="305 0 15 0 "/>
@@ -279,7 +305,8 @@
                     </DockPanel>
                 </Grid>
 
-                <Grid Grid.Row="4">
+
+                <Grid Grid.Row="5">
                     <Button
                         Command="{Binding CloseWdCM}"
                         CommandParameter="{Binding ElementName=BillInfoWd}"

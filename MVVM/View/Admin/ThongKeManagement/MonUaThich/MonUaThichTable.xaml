@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:converters="clr-namespace:QuanLiCoffeeShop.Converters"
-      xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.ThongKeManagement.MonUaThich"
+      xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.ThongKeManagement.MonUaThich" xmlns:admin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin" d:DataContext="{d:DesignInstance Type=admin:ThongKeViewModel}"
       mc:Ignorable="d" 
       DataContext="{StaticResource ThongKeAdminVM}"
       ShowsNavigationUI="False"
@@ -17,8 +17,7 @@
     <Grid>
         <ListView 
          Margin="11"
-         ItemsSource="{Binding FavorList}"
-         SelectedItem="{Binding SelectedItem}" >
+         ItemsSource="{Binding FavorList, UpdateSourceTrigger=PropertyChanged}" >
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem"
                        BasedOn="{StaticResource MaterialDesignGridViewItem}">
@@ -35,6 +34,8 @@
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                                 <Setter Property="Background" Value="Transparent"/>
                                 <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Foreground" Value="#603127" />
                             </Style>
                         </GridViewColumn.HeaderContainerStyle>
                         <GridViewColumn.CellTemplate>
@@ -54,6 +55,8 @@
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                                 <Setter Property="Background" Value="Transparent"/>
                                 <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Foreground" Value="#603127" />
                                 <Setter Property="Height" Value="47"/>
                             </Style>
                         </GridViewColumn.HeaderContainerStyle>
@@ -72,6 +75,8 @@
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                                 <Setter Property="Background" Value="Transparent"/>
                                 <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Foreground" Value="#603127" />
                                 <Setter Property="Height" Value="47"/>
                             </Style>
                         </GridViewColumn.HeaderContainerStyle>
@@ -92,6 +97,8 @@
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                                 <Setter Property="Background" Value="Transparent"/>
                                 <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Foreground" Value="#603127" />
                                 <Setter Property="Height" Value="47"/>
                             </Style>
                         </GridViewColumn.HeaderContainerStyle>

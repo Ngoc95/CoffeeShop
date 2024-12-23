@@ -43,6 +43,8 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                                         EMP_ID = c.EMP_ID,
                                         CREATE_AT = c.CREATE_AT,
                                         TOTAL_COST = c.TOTAL_COST,
+                                        DISCOUNT = c.DISCOUNT,
+                                        SUBTOTAL = c.SUBTOTAL,
                                         CUSTOMER = c.CUSTOMER,
                                         EMPLOYEE = c.EMPLOYEE,
                                         BillInfo = (from x in c.BILL_INFO

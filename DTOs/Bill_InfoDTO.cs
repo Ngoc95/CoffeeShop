@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace QuanLiCoffeeShop.DTOs
 {
-    internal class Bill_InfoDTO
+    public class Bill_InfoDTO
     {
         public int BILL_ID { get; set; }
         public int PRO_ID { get; set; }
@@ -19,6 +19,7 @@ namespace QuanLiCoffeeShop.DTOs
         public Nullable<bool> IS_DELETED { get; set; }
         public BILL BILL { get; set; }
         public PRODUCT PRODUCT { get; set; }
+        public Nullable<decimal> Total_priceitem { get  { return QUANTITY * PRICE_ITEM; } }
         public Bill_InfoDTO() { }
         public Bill_InfoDTO(ProductDTO product, int NumOfPrd, int IdOfBill)
         {

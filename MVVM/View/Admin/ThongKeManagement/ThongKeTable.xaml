@@ -141,13 +141,13 @@
                                    Foreground="#603127"
                                    Margin="10 0 20 0"
                                    Text="Từ" Height="17"/>
-                                        <DatePicker
-                                     SelectedDate="{Binding SelectedDateFrom, Mode=TwoWay, StringFormat=dd/MM/yyyy}"
-                                     x:Name="DatePicker1"
-                                     Width="100"
-                                     SelectedDateFormat="Short"
-                                     materialDesign:CalendarAssist.IsHeaderVisible="False"
-                                     materialDesign:HintAssist.Hint="Ngày">
+                                        <DatePicker Language="vi-VN" 
+                                                    Text="{Binding SelectedDateFrom, StringFormat=dd/MM/yyyy, Mode=TwoWay}"
+                                                     SelectedDate="{Binding SelectedDateFrom, Mode=TwoWay}"
+                                                     x:Name="DatePicker1"
+                                                     Width="106" FontSize="17"
+                                                     materialDesign:CalendarAssist.IsHeaderVisible="False"
+                                                     materialDesign:HintAssist.Hint="Ngày">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="SelectedDateChanged">
                                                     <i:InvokeCommandAction Command="{Binding DateChange}"
@@ -174,10 +174,11 @@
                                        Foreground="#603127"
                                        Margin="10 0 10 0"
                                        Text="Đến" Height="17"/>
-                                        <DatePicker
-                                           SelectedDate="{Binding SelectedDateTo, Mode=TwoWay, StringFormat=dd/MM/yyyy}"
+                                        <DatePicker Language="vi-VN" 
+                                                    Text="{Binding SelectedDateTo, StringFormat=dd/MM/yyyy, Mode=TwoWay}"
+                                           SelectedDate="{Binding SelectedDateTo, Mode=TwoWay}"
                                            x:Name="DatePicker2"                                    
-                                           Width="100"
+                                           Width="106" FontSize="17"
                                            materialDesign:CalendarAssist.IsHeaderVisible="False"
                                            materialDesign:HintAssist.Hint="Ngày">
                                             <i:Interaction.Triggers>
@@ -208,7 +209,7 @@
                Background="White" 
                Margin="24" 
                CornerRadius="32">
-                    <Frame x:Name="TableFrame"></Frame>
+                    <Frame x:Name="TableFrame" NavigationUIVisibility="Hidden"></Frame>
                 </Border>
 
             </Border>

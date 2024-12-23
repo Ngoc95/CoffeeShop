@@ -35,7 +35,7 @@
         </StackPanel>
 
         <StackPanel Margin="15 0 0 5">
-            <Label Margin="0,10,0,0" Content="Giá tiền" FontSize="22" Foreground="Black"
+            <Label Margin="0,10,0,0" Content="Đơn giá" FontSize="22" Foreground="Black"
                     FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontWeight="Medium"/>
             <TextBox Margin="0,7,0,0" Height="50" Width="200" HorizontalAlignment="Left" 
                      Style="{StaticResource textBox_style}"

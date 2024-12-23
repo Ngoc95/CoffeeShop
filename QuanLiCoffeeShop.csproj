@@ -153,11 +153,8 @@
     </Compile>
     <Compile Include="Converters\CusNameConverter.cs" />
     <Compile Include="Converters\GenderConverter.cs" />
-
     <Compile Include="Converters\IndexConverter.cs" />
-
     <Compile Include="Converters\InverseBooleanConverter.cs" />
-
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\PriceConverter.cs" />
     <Compile Include="Core\ObservableObject.cs" />
@@ -971,6 +968,7 @@
     <Resource Include="Images\ControlBarImg\reloadIcon.png" />
     <Resource Include="Images\Menu\ingredientSourceMenu.png" />
     <Resource Include="Images\Icon\Money_Icon.png" />
+    <Resource Include="Images\InfoBtn.png" />
     <Content Include="MVVM\Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

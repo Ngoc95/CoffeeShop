@@ -17,12 +17,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 {
     public partial class ThongKeViewModel : BaseViewModel
     {
-        //private static List<ProductDTO> favorList;
-        private List<ProductDTO> _favorList;
-        internal List<ProductDTO> FavorList
+        private ObservableCollection<ProductDTO> _favorList;
+        public ObservableCollection<ProductDTO> FavorList
         {
             get { return _favorList; }
-            set { _favorList = value; OnPropertyChanged(); }
+            set { _favorList = value; OnPropertyChanged(nameof(FavorList)); }
         }
     }
 }
