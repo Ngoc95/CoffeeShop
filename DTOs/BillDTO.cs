@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace QuanLiCoffeeShop.DTOs
 {
-    internal class BillDTO
+    public class BillDTO
     {
         public int BILL_ID { get; set; }
         public Nullable<int> CUS_ID { get; set; }

@@ -143,7 +143,7 @@
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
                                             
-                                            <DataGridTemplateColumn Width="auto" Header="Giá tiền" SortMemberPath="PriceItem">
+                                            <DataGridTemplateColumn Width="auto" Header="Đơn giá" SortMemberPath="PriceItem">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock FontSize="15"
@@ -165,7 +165,7 @@
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
 
-                                            <DataGridTemplateColumn Width="auto" Header="Tổng tiền" SortMemberPath="TotalCost">
+                                            <DataGridTemplateColumn Width="auto" Header="Thành tiền" SortMemberPath="TotalCost">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock FontSize="15"

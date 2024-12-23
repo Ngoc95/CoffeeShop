@@ -23,6 +23,7 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.ThongKeManagement
         public ThongKeTable()
         {
             InitializeComponent();
+            HistoryBd.Background = new SolidColorBrush(Color.FromArgb(255, 255, 195, 161));
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -48,10 +49,10 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.ThongKeManagement
                     HistoryBd.Background = new SolidColorBrush(Color.FromArgb(255, 255, 195, 161));
                     break;
                 case "RevenueBd":
-                    RevenueBd.Background = new SolidColorBrush(Color.FromArgb(255, 240, 195, 161));
+                    RevenueBd.Background = new SolidColorBrush(Color.FromArgb(255, 255, 195, 161));
                     break;
                 case "FavorBd":
-                    FavorBd.Background = new SolidColorBrush(Color.FromArgb(255, 240, 195, 161));
+                    FavorBd.Background = new SolidColorBrush(Color.FromArgb(255, 255, 195, 161));
                     break;
             }
         }

@@ -29,17 +29,35 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 {
     public partial class ThongKeViewModel : BaseViewModel
     {
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged();
+            }
+        }
         private DateTime _selectedDateFrom;
         public DateTime SelectedDateFrom
         {
             get { return _selectedDateFrom; }
-            set { _selectedDateFrom = value; OnPropertyChanged(); }
+            set 
+            {
+                _selectedDateFrom = value;
+                OnPropertyChanged();
+            }
         }
         private DateTime _selectedDateTo;
         public DateTime SelectedDateTo
         {
             get { return _selectedDateTo; }
-            set { _selectedDateTo = value; OnPropertyChanged(); }
+            set 
+            {
+                _selectedDateTo = value; 
+                OnPropertyChanged();
+            }
         }
         public ICommand FirstLoadCM { get; set; }
         public ICommand CloseWdCM { get; set; }
@@ -52,52 +70,74 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
         public ThongKeViewModel()
         {
+            SelectedDateFrom = SelectedDateFrom = DateTime.Today.AddDays(-2);
+            SelectedDateTo = DateTime.Today;
+
             FirstLoadCM = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
             {
-                BillList = new ObservableCollection<BillDTO>(await Task.Run(() => BillService.Ins.GetAllBill()));
-                if (BillList != null)
-                    billList = new List<BillDTO>(BillList);
-                p.Content = new LichSuTable();
-                SelectedDateTo = DateTime.Now;
-                SelectedDateFrom = DateTime.Now.AddDays(-2);
-                SumBillTotal = 0;
-            });
-            DateChange = new RelayCommand<object>((p) => { return true; }, async (p) =>
-            {
-                //UpdateBillList
-                BillList = new ObservableCollection<BillDTO>(billList.FindAll(x => x.CREATE_AT >= SelectedDateFrom && x.CREATE_AT <= SelectedDateTo));
-
-                //UpdateRevenueSeries
-                List<int> revenueValues = new List<int>();
-                List<DateTime> dates = new List<DateTime>();
-
-                BillService billService = new BillService();
-
-                for (DateTime currentDate = SelectedDateFrom; currentDate <= SelectedDateTo; currentDate = currentDate.AddDays(1))
+                try
                 {
-                    int revenue = await billService.getBillByDate(currentDate);
-                    revenueValues.Add(revenue);
-                    dates.Add(currentDate);
-                }
-
-                string[] dateStrings = dates.Select(date => date.ToString("dd/MM/yyyy")).ToArray();
-                RevenueSeries = new SeriesCollection
-                {
-                    new LineSeries
+                    IsBusy = true; // Thêm trạng thái để báo cho giao diện biết ứng dụng đang xử lý
+                    SelectedDateTo = DateTime.Today;
+                    SelectedDateFrom = DateTime.Today.AddDays(-2);
+                    SumBillTotal = 0;
+                    var bills = await Task.Run(() => BillService.Ins.GetAllBill());
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
-                        Title = "Doanh thu",
-                        Values = new ChartValues<int>(revenueValues),
-                    }
-                };
-                Labels = dateStrings;
-                YFormatter = value =>
+                        BillList = new ObservableCollection<BillDTO>(bills);
+                        billList = new List<BillDTO>(BillList);
+                        BillList = new ObservableCollection<BillDTO>(billList.FindAll(x => x.CREATE_AT >= SelectedDateFrom && x.CREATE_AT <= SelectedDateTo));
+                        p.Content = new LichSuTable();
+                    });
+                }
+                finally
                 {
-                    return value.ToString("N");
+                    IsBusy = false;
+                }
+            });
+            DateChange = new RelayCommand<object>((p) => {
+                if (SelectedDateFrom > SelectedDateTo)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Khoảng thời gian không hợp lệ.");
+                    return false;
+                }
+                return true;
+            }, async (p) =>
+            {
+                try
+                {
+                    IsBusy = true;
+                    await Task.Run(() =>
+                    {
+                        BillList = new ObservableCollection<BillDTO>(billList.FindAll(x => x.CREATE_AT >= SelectedDateFrom && x.CREATE_AT <= SelectedDateTo));
+                    });
 
-                };
+                    var revenueTasks = Enumerable.Range(0, (SelectedDateTo - SelectedDateFrom).Days + 1)
+                                                 .Select(offset =>
+                                                 {
+                                                     DateTime currentDate = SelectedDateFrom.AddDays(offset);
+                                                     return Task.Run(() => BillService.Ins.getBillByDate(currentDate));
+                                                 });
 
-                //Update FavorList
-                FavorList = await Task.Run(() => ThongKeService.Ins.GetTop10SalerBetween(SelectedDateFrom, SelectedDateTo));
+                    var revenues = await Task.WhenAll(revenueTasks);
+
+                    RevenueSeries = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Title = "Doanh thu",
+                            Values = new ChartValues<int>(revenues),
+                        }
+                    };
+                    Labels = Enumerable.Range(0, revenues.Length)
+                                       .Select(offset => SelectedDateFrom.AddDays(offset).ToString("dd/MM/yyyy"))
+                                       .ToArray();
+                    FavorList = new ObservableCollection<ProductDTO>(await Task.Run(() => ThongKeService.Ins.GetTop10SalerBetween(SelectedDateFrom, SelectedDateTo)));
+                }
+                finally
+                {
+                    IsBusy = false;
+                }
             });
             HistoryCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
@@ -168,8 +208,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             FavorCM = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
             {
                 p.Content = new MonUaThichTable();
-                FavorList = await Task.Run(() => ThongKeService.Ins.GetTop10SalerBetween(SelectedDateFrom, SelectedDateTo));
-
+                FavorList = new ObservableCollection<ProductDTO>(await Task.Run(() => ThongKeService.Ins.GetTop10SalerBetween(SelectedDateFrom, SelectedDateTo)));
             });
 
             InfoBillCM = new RelayCommand<BillDTO>((p) => { return true; }, (p) =>
@@ -185,6 +224,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     EmpName = SelectedItem.EMPLOYEE.EMP_NAME;
                     BillDate = SelectedItem.CREATE_AT.ToString();
                     BillValue = SelectedItem.TOTAL_COST ?? 0;
+                    BillDiscount = SelectedItem.DISCOUNT ?? 0;
                     ProductList = new ObservableCollection<Bill_InfoDTO>(SelectedItem.BillInfo);
                     ChiTietHoaDon wd = new ChiTietHoaDon();
                     wd.ShowDialog();
