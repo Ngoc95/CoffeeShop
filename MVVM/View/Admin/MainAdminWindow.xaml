@@ -22,10 +22,6 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <!--<Window.DataContext>
-        <viewModelAdmin:MainViewModel/>
-    </Window.DataContext>-->
-
     <Grid Background="White">
 
         <Grid.ColumnDefinitions>
@@ -155,7 +151,7 @@
                              Height="65"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding HomeViewCommand}"
+                             Command="{Binding StatisticsViewCommand}"
                              Content="Thống kê"
                              Cursor="Hand">
                     <RadioButton.Tag>
