@@ -40,6 +40,7 @@
                                 <Setter Property="Background" Value="Transparent"/>
                                 <Setter Property="BorderBrush" Value="Transparent"/>
                                 <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="FontSize" Value="19" />
                                 <Setter Property="Foreground" Value="#603127" />
                             </Style>
                         </GridViewColumn.HeaderContainerStyle>
@@ -63,6 +64,7 @@
                                 <Setter Property="BorderBrush" Value="Transparent"/>
                                 <Setter Property="FontWeight" Value="Bold" />
                                 <Setter Property="Foreground" Value="#603127" />
+                                <Setter Property="FontSize" Value="19" />
                                 <Setter Property="Height" Value="47"/>
                             </Style>
                         </GridViewColumn.HeaderContainerStyle>
@@ -84,6 +86,7 @@
                                 <Setter Property="BorderBrush" Value="Transparent"/>
                                 <Setter Property="FontWeight" Value="Bold" />
                                 <Setter Property="Foreground" Value="#603127" />
+                                <Setter Property="FontSize" Value="19" />
                                 <Setter Property="Height" Value="47"/>
                             </Style>
                         </GridViewColumn.HeaderContainerStyle>
@@ -98,7 +101,7 @@
 
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Giá trị hóa đơn" Width="150">
+                    <GridViewColumn Header="Giá trị hóa đơn" Width="165">
                         <GridViewColumn.HeaderContainerStyle>
                             <Style TargetType="{x:Type GridViewColumnHeader}">
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -106,6 +109,7 @@
                                 <Setter Property="BorderBrush" Value="Transparent"/>
                                 <Setter Property="FontWeight" Value="Bold" />
                                 <Setter Property="Foreground" Value="#603127" />
+                                <Setter Property="FontSize" Value="19" />
                                 <Setter Property="Height" Value="47"/>
                             </Style>
                         </GridViewColumn.HeaderContainerStyle>
