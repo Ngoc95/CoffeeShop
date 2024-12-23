@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         x:Name="ResInforWD"
         Background="Transparent"
-        WindowStyle="None"
+        WindowStyle="None" AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         Title="ReservationInfor" Height="680" Width="810">
 

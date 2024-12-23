@@ -32,9 +32,5 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.ErrorManagement
             }
         }
 
-        private void passErrWd_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
     }
 }

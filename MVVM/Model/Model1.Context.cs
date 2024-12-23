@@ -32,11 +32,17 @@ namespace QuanLiCoffeeShop.MVVM.Model
         public virtual DbSet<EMPLOYEE> EMPLOYEEs { get; set; }
         public virtual DbSet<EMPLOYEE_SHIFT> EMPLOYEE_SHIFT { get; set; }
         public virtual DbSet<ERROR> ERRORs { get; set; }
+        public virtual DbSet<EXPORT> EXPORTs { get; set; }
+        public virtual DbSet<EXPORT_INFO> EXPORT_INFO { get; set; }
         public virtual DbSet<GENRE_PRODUCT> GENRE_PRODUCT { get; set; }
         public virtual DbSet<GENRE_TABLE> GENRE_TABLE { get; set; }
+        public virtual DbSet<IMPORT> IMPORTs { get; set; }
+        public virtual DbSet<IMPORT_INFO> IMPORT_INFO { get; set; }
+        public virtual DbSet<INGREDIENT> INGREDIENTs { get; set; }
         public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
         public virtual DbSet<REQUEST> REQUESTs { get; set; }
         public virtual DbSet<RESERVATION> RESERVATIONs { get; set; }
+        public virtual DbSet<SUPPLIER> SUPPLIERs { get; set; }
         public virtual DbSet<WORK_SHIFT> WORK_SHIFT { get; set; }
     }
 }

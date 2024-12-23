@@ -113,8 +113,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 OnPropertyChanged(nameof(EditError));
             }
         }
-       // public TextBox SearchErr { get; set; }
         public ICommand FirstLoadCM { get; set; }
+        public ICommand CancelCM { get; set; }
         public ICommand SearchErrorCM { get; set; }
         public ICommand FilterErrorCM { get; set; }
         public ICommand AddErrorWdCM { get; set; }
@@ -128,19 +128,21 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             {
                 ErrorList = new ObservableCollection<ErrorDTO>(await Task.Run(() => ErrorService.Ins.GetAllError()));
             });
+
+            CancelCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                resetData();
+                p.Close();
+            });
+
             SearchErrorCM = new RelayCommand<TextBox>(p => true, async (p) =>
             {
                 string searchText = p?.Text ?? string.Empty;
                 await ApplyFilterAndSearch(searchText, SelectedStatus);
             });
 
-
             FilterErrorCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
-                if (p?.SelectedItem == null)
-                {
-                    return;
-                }
                 await ApplyFilterAndSearch(SearchText, SelectedStatus);
             });
 

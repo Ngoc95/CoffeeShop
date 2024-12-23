@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiCoffeeShop.MVVM.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,6 @@ namespace QuanLiCoffeeShop.DTOs
         public Nullable<decimal> TOTAL_COST { get; set; }
         public Nullable<System.DateTime> CREATE_AT { get; set; }
         public Nullable<bool> IS_DELETED { get; set; }
+        public virtual EMPLOYEE EMPLOYEE { get; set; }
     }
 }

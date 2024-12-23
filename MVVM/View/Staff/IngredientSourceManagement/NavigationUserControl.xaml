@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="QuanLiCoffeeShop.MVVM.View.Staff.IngredientSourceManagement.NavigationUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.IngredientSourceManagement" xmlns:ingredientsourcevm="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff.IngredientSourceVM" d:DataContext="{d:DesignInstance Type=ingredientsourcevm:IngredientSourceViewModel}"
+             mc:Ignorable="d" FontFamily="Fonts/Roboto-Light.ttf #Roboto"
+             d:DesignHeight="692" d:DesignWidth="930" Background="White">
+    <UserControl.Resources>
+        <Style TargetType="RadioButton" x:Key="TabLikeRadioButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                Padding="10,5"
+                                Height="55"
+                                Width="250">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#F0997D"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource MaterialDesignAccent}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource MaterialDesignDivider}"/>
+                                <Setter TargetName="border" Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+            <Setter Property="Background" Value="#FFC3A1"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignDivider}"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Grid.Row="0" >
+            <RadioButton x:Name="source" Content="Nguồn hàng"
+                         IsChecked="True" Margin="25 0 0 0"
+                         Style="{StaticResource TabLikeRadioButton}"
+                         Command="{Binding SwitchToIngredientSourceCommand}"/>
+
+            <RadioButton x:Name="import" Content="Xuất hàng"  Margin="20 0 0 0"
+                         Style="{StaticResource TabLikeRadioButton}"
+                         Command="{Binding SwitchToExportCommand}"/>
+        </StackPanel>
+
+
+        <ContentControl Grid.Row="1" Content="{Binding CurrentView}"/>
+
+    </Grid>
+</UserControl>

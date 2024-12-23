@@ -44,11 +44,6 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.EmployeeManagement
             }
         }
 
-        private void passAddEmp_Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
         private void tbSDT_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextNumeric(e.Text);

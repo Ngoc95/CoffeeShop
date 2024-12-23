@@ -96,7 +96,8 @@
                              materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
                              Background="White"
                              FontSize="20"
-                             Text="{Binding EditEmp.EMP_PHONE}" />
+                             Text="{Binding EditEmp.EMP_PHONE}" 
+                             PreviewTextInput="TextBox_PreviewTextInput"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Right" Margin="0 0 20 0">

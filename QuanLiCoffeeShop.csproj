@@ -205,6 +205,42 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\Admin\IngredientSourceManagement\AddImportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\IngredientSourceManagement\AddIngredientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\IngredientSourceManagement\AddSupplierWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\IngredientSourceManagement\ImportDetailWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\IngredientSourceManagement\ImportInfoCardUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\IngredientSourceManagement\ImportUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\IngredientSourceManagement\IngredientUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\IngredientSourceManagement\NavigationUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\IngredientSourceManagement\SupplierUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Admin\MainAdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -286,6 +322,30 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Staff\CustomerManagement\AddCustomerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\IngredientSourceManagement\AddExportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\IngredientSourceManagement\ExportDetailWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\IngredientSourceManagement\ExportInfoCardUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\IngredientSourceManagement\ExportUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\IngredientSourceManagement\IngredientUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\IngredientSourceManagement\NavigationUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -455,11 +515,17 @@
     <Compile Include="DTOs\EmployeeDTO.cs" />
     <Compile Include="DTOs\EmployeeShiftDTO.cs" />
     <Compile Include="DTOs\ErrorDTO.cs" />
+    <Compile Include="DTOs\ExportDTO.cs" />
+    <Compile Include="DTOs\ExportInfoDTO.cs" />
+    <Compile Include="DTOs\ImportDTO.cs" />
+    <Compile Include="DTOs\ImportInfoDTO.cs" />
+    <Compile Include="DTOs\IngredientDTO.cs" />
     <Compile Include="DTOs\RequestDTO.cs" />
     <Compile Include="DTOs\GenreProductDTO.cs" />
     <Compile Include="DTOs\GenreTableDTO.cs" />
     <Compile Include="DTOs\ProductDTO.cs" />
     <Compile Include="DTOs\ReservationDTO.cs" />
+    <Compile Include="DTOs\SupplierDTO.cs" />
     <Compile Include="DTOs\TableDTO.cs" />
     <Compile Include="DTOs\ShiftScheduleDTO.cs" />
     <Compile Include="DTOs\WorkshiftDTO.cs" />
@@ -486,16 +552,36 @@
     <Compile Include="MVVM\Model\ERROR.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\Model\EXPORT.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\Model\EXPORT_INFO.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\Model\GENRE_PRODUCT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="MVVM\Model\GENRE_TABLE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\Model\IMPORT.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\Model\IMPORT_INFO.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\Model\INGREDIENT.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\Model\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\Model\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="MVVM\Model\Model1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -516,19 +602,35 @@
     <Compile Include="MVVM\Model\Services\CustomerService.cs" />
     <Compile Include="MVVM\Model\Services\EmployeeService.cs" />
     <Compile Include="MVVM\Model\Services\ErrorService.cs" />
+    <Compile Include="MVVM\Model\Services\ExportInfoService.cs" />
+    <Compile Include="MVVM\Model\Services\ExportService.cs" />
+    <Compile Include="MVVM\Model\Services\ImportInfoService.cs" />
+    <Compile Include="MVVM\Model\Services\ImportService.cs" />
+    <Compile Include="MVVM\Model\Services\IngredientService.cs" />
     <Compile Include="MVVM\Model\Services\LoginService.cs" />
     <Compile Include="MVVM\Model\Services\RequestService.cs" />
     <Compile Include="MVVM\Model\Services\GenreProService.cs" />
     <Compile Include="MVVM\Model\Services\GenreTableService.cs" />
     <Compile Include="MVVM\Model\Services\ProductService.cs" />
     <Compile Include="MVVM\Model\Services\ReservationService.cs" />
+    <Compile Include="MVVM\Model\Services\SupplierService.cs" />
     <Compile Include="MVVM\Model\Services\TableService.cs" />
     <Compile Include="MVVM\Model\Services\WorkshiftService.cs" />
+    <Compile Include="MVVM\Model\SUPPLIER.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\Model\WORK_SHIFT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="MVVM\ViewModel\Admin\AccountViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\ErrorViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\IngredientSourceVM\AddImportViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\IngredientSourceVM\ImportDetailViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\IngredientSourceVM\ImportInfoCardViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\IngredientSourceVM\ImportViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\IngredientSourceVM\IngredientSourceViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\IngredientSourceVM\IngredientViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\IngredientSourceVM\SupplierViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\MenuViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\TableViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\WorkshiftViewModel.cs" />
@@ -542,6 +644,12 @@
     <Compile Include="MVVM\ViewModel\Staff\AccountViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\CustomerViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\ErrorViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Staff\IngredientSourceVM\AddExportViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Staff\IngredientSourceVM\ExportDetailViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Staff\IngredientSourceVM\ExportInfoCardViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Staff\IngredientSourceVM\ExportViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Staff\IngredientSourceVM\IngredientSourceViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Staff\IngredientSourceVM\IngredientViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\MainViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\MenuOrderViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\StaffTableResViewModel.cs" />
@@ -581,6 +689,33 @@
     </Compile>
     <Compile Include="MVVM\View\Admin\ErrorManagement\ErrorUserControl.xaml.cs">
       <DependentUpon>ErrorUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\IngredientSourceManagement\AddImportWindow.xaml.cs">
+      <DependentUpon>AddImportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\IngredientSourceManagement\AddIngredientWindow.xaml.cs">
+      <DependentUpon>AddIngredientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\IngredientSourceManagement\AddSupplierWindow.xaml.cs">
+      <DependentUpon>AddSupplierWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\IngredientSourceManagement\ImportDetailWindow.xaml.cs">
+      <DependentUpon>ImportDetailWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\IngredientSourceManagement\ImportInfoCardUserControl.xaml.cs">
+      <DependentUpon>ImportInfoCardUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\IngredientSourceManagement\ImportUserControl.xaml.cs">
+      <DependentUpon>ImportUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\IngredientSourceManagement\IngredientUserControl.xaml.cs">
+      <DependentUpon>IngredientUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\IngredientSourceManagement\NavigationUserControl.xaml.cs">
+      <DependentUpon>NavigationUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\IngredientSourceManagement\SupplierUserControl.xaml.cs">
+      <DependentUpon>SupplierUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>
@@ -646,6 +781,24 @@
     </Compile>
     <Compile Include="MVVM\View\Staff\CustomerManagement\AddCustomerWindow.xaml.cs">
       <DependentUpon>AddCustomerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\IngredientSourceManagement\AddExportWindow.xaml.cs">
+      <DependentUpon>AddExportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\IngredientSourceManagement\ExportDetailWindow.xaml.cs">
+      <DependentUpon>ExportDetailWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\IngredientSourceManagement\ExportInfoCardUserControl.xaml.cs">
+      <DependentUpon>ExportInfoCardUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\IngredientSourceManagement\ExportUserControl.xaml.cs">
+      <DependentUpon>ExportUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\IngredientSourceManagement\IngredientUserControl.xaml.cs">
+      <DependentUpon>IngredientUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\IngredientSourceManagement\NavigationUserControl.xaml.cs">
+      <DependentUpon>NavigationUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Staff\StaffCaLamViec\CaLamViecTable.xaml.cs">
       <DependentUpon>CaLamViecTable.xaml</DependentUpon>
@@ -777,6 +930,7 @@
     <Resource Include="Images\DeleteBtn.png" />
     <Resource Include="Images\EditBtn.png" />
     <Resource Include="Images\ControlBarImg\reloadIcon.png" />
+    <Resource Include="Images\Menu\ingredientSourceMenu.png" />
     <Content Include="MVVM\Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

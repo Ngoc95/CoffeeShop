@@ -220,7 +220,7 @@
                         CornerRadius="10">
                             <DataGrid
                                 x:Name="dataGridGiaoDichKH"
-                                Margin="15,10,0,0"
+                                Margin="15,10,10,0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
                                 AutoGenerateColumns="False"
@@ -232,8 +232,8 @@
                                 IsReadOnly="True"
                                 SelectionMode="Single"
                                 SelectionUnit="FullRow"
-                                ItemsSource="{Binding staff, Mode=TwoWay}"
-                                SelectedItem="{Binding SelectedItem}">
+                                FocusVisualStyle="{x:Null}"
+                                ItemsSource="{Binding TransactionHistory, UpdateSourceTrigger=PropertyChanged}" >
                                 <DataGrid.ColumnHeaderStyle>
                                     <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
                                         <Setter Property="BorderThickness" Value="0" />
@@ -254,63 +254,63 @@
                                 </DataGrid.CellStyle>
 
                                 <DataGrid.Columns>
-                                    <DataGridTemplateColumn Width="auto" Header="Mã hóa đơn" SortMemberPath="ID">
+                                    <DataGridTemplateColumn Width="auto" Header="Mã HĐ" SortMemberPath="BILL_ID">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
-                                                FontSize="22"
-                                                HorizontalAlignment="Left"
+                                                FontSize="15"
+                                                HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                Text="{Binding ID}" />
+                                                Text="{Binding BILL_ID,StringFormat = 'HĐ{0:D3}'}" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
 
-                                    <DataGridTemplateColumn Width="auto" Header="Mã nhân viên" SortMemberPath="CUS_ID">
+                                    <DataGridTemplateColumn Width="auto" Header="Nhân viên" SortMemberPath="EMPLOYEE.EMP_NAME">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
-                                                FontSize="22"
+                                                FontSize="15"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
-                                                Text="{Binding CUS_ID}" />
+                                                Text="{Binding EMPLOYEE.EMP_NAME}" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
 
-                                    <DataGridTemplateColumn Width="auto" Header="Ngày hóa đơn" SortMemberPath="StartDate">
+                                    <DataGridTemplateColumn Width="auto" Header="Ngày hóa đơn" SortMemberPath="CREATE_AT">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <DatePicker
-                                                FontSize="22"     
+                                                FontSize="15"     
                                                 IsHitTestVisible="False"
                                                 IsTodayHighlighted="True"
-                                                SelectedDate="{Binding CREATE_AT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                SelectedDate="{Binding CREATE_AT, Mode=TwoWay, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=PropertyChanged}">
                                                 </DatePicker>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
 
-                                    <DataGridTemplateColumn Width="auto" Header="Tổng tiền" SortMemberPath="Cost">
+                                    <DataGridTemplateColumn Width="auto" Header="Tổng tiền" SortMemberPath="TOTAL_COST">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
-                                                FontSize="22"     
+                                                FontSize="15"     
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
-                                                Text="{Binding Cost, StringFormat={}{0:N0} VNĐ}" />
+                                                Text="{Binding TOTAL_COST, StringFormat={}{0:N0} VNĐ}" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
 
-                                    <DataGridTemplateColumn Width="auto" Header="Điểm sử dụng" SortMemberPath="Point">
+                                    <DataGridTemplateColumn Width="auto" Header="Điểm sử dụng" SortMemberPath="DISCOUNT">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock
-                                                FontSize="22"     
+                                                FontSize="15"     
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
-                                                Text="{Binding Point, StringFormat={}{0:N0} VNĐ}" />
+                                                Text="{Binding DISCOUNT, StringFormat={}{0:N0} VNĐ}" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
