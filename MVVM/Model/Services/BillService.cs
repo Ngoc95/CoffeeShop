@@ -27,6 +27,103 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             private set { _ins = value; }
         }
 
+        // Get All Bill
+        public async Task<List<BillDTO>> GetAllBill()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var billList = (from c in context.BILLs
+                                    where c.IS_DELETED == false
+                                    select new BillDTO
+                                    {
+                                        BILL_ID = c.BILL_ID,
+                                        CUS_ID = c.CUS_ID,
+                                        EMP_ID = c.EMP_ID,
+                                        CREATE_AT = c.CREATE_AT,
+                                        TOTAL_COST = c.TOTAL_COST,
+                                        CUSTOMER = c.CUSTOMER,
+                                        EMPLOYEE = c.EMPLOYEE,
+                                        BillInfo = (from x in c.BILL_INFO
+                                                    where x.IS_DELETED == false
+                                                    select new Bill_InfoDTO
+                                                    {
+                                                        BILL_ID = x.BILL_ID,
+                                                        PRICE_ITEM = x.PRICE_ITEM,
+                                                        PRO_ID = x.PRO_ID,
+                                                        QUANTITY = x.QUANTITY,
+                                                        BILL = x.BILL,
+                                                        PRODUCT = x.PRODUCT,
+                                                    }).ToList(),
+                                        IS_DELETED = c.IS_DELETED
+                                    }).OrderByDescending(m => m.CREATE_AT).ToListAsync();
+
+                    return await billList;
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Lỗi xảy ra!");
+                return null;
+            }
+
+
+        }
+
+        //GET BILL BY DATE
+        public async Task<int> getBillByDate(DateTime date)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var billTotal = await context.BILLs.Where(p => p.CREATE_AT.Value.Day == date.Day
+                                                           && p.CREATE_AT.Value.Month == date.Month
+                                                           && p.CREATE_AT.Value.Year == date.Year
+                                                           && p.IS_DELETED == false).ToListAsync();
+                    int totalPrice = 0;
+                    foreach (var bill in billTotal)
+                    {
+                        totalPrice = totalPrice + (int)bill.TOTAL_COST;
+                    }
+                    return totalPrice;
+
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Lỗi xảy ra!");
+                return -1;
+            }
+        }
+
+        //Delete bill
+        public async Task<(bool, string)> DeleteBill(BillDTO Bill)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var bill = await context.BILLs.Where(p => p.BILL_ID == Bill.BILL_ID).FirstOrDefaultAsync();
+                    if (bill.IS_DELETED == false) bill.IS_DELETED = true;
+                    foreach (var b in Bill.BillInfo)
+                    {
+                        var billInfo = await context.BILL_INFO.Where(p => p.BILL_ID == b.BILL_ID && p.PRO_ID == b.PRO_ID).FirstOrDefaultAsync();
+                        if (billInfo.IS_DELETED == false) billInfo.IS_DELETED = true;
+                    }
+                    await context.SaveChangesAsync();
+                    return (true, "Xoa thanh cong");
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Lỗi xảy ra!");
+                return (false, null);
+
+            }
+
+        }
         public async Task<int> NumOfBill()
         {
             try

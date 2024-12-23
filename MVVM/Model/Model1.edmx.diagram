@@ -24,6 +24,7 @@
         <EntityTypeShape EntityType="CoffeeShopDBModel.RESERVATION" Width="1.5" PointX="3" PointY="12.25" />
         <EntityTypeShape EntityType="CoffeeShopDBModel.SUPPLIER" Width="1.5" PointX="0.75" PointY="3.875" />
         <EntityTypeShape EntityType="CoffeeShopDBModel.WORK_SHIFT" Width="1.5" PointX="3.75" PointY="29.75" />
+
         <AssociationConnector Association="CoffeeShopDBModel.fk_TABLE" />
         <AssociationConnector Association="CoffeeShopDBModel.fk_TABLE_GENRE" />
         <AssociationConnector Association="CoffeeShopDBModel.fk_BILL_CUS" />

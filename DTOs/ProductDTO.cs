@@ -16,6 +16,7 @@ namespace QuanLiCoffeeShop.DTOs
         public string PRO_DESCRIPTION { get; set; }
         public Nullable<decimal> PRO_PRICE { get; set; }
         public Nullable<bool> IS_DELETED { get; set; }
+        public int QUANTITY { get; set; }
 
         public ProductDTO() { }
         public ProductDTO(ProductDTO temp) 
