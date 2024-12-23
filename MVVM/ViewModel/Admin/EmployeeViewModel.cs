@@ -21,6 +21,7 @@ using static QuanLiCoffeeShop.MVVM.ViewModel.Admin.WorkshiftViewModel;
 using GalaSoft.MvvmLight.Helpers;
 using QuanLiCoffeeShop.Helpers;
 using System.Diagnostics;
+using System.Runtime.Remoting.Contexts;
 
 namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 {
@@ -232,6 +233,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         }
         public TextBox SearchEmp { get; set; }
         public ICommand FirstLoadCM { get; set; }
+        public ICommand CancelCM { get; set; }
         public ICommand SearchEmpCM { get; set; }
         public ICommand FilterRoleCM { get; set; }
         public ICommand EditEmpWdCM { get; set; }
@@ -247,6 +249,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             FirstLoadCM = new RelayCommand<UserControl>((p) => { return true; }, async (p) =>
             {
                 await LoadEmpListAsync();
+            });
+            CancelCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                resetData();
+                p.Close();
             });
 
             SearchEmpCM = new RelayCommand<TextBox>((p) => { return true; }, async (p) =>
@@ -275,11 +282,42 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
             EditEmpCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
-                if (string.IsNullOrEmpty(EditEmp.EMP_NAME) || string.IsNullOrEmpty(EditEmp.EMP_EMAIL) || string.IsNullOrEmpty(EditEmp.EMP_PHONE))
+                if (string.IsNullOrEmpty(EditEmp.EMP_CCCD) || string.IsNullOrEmpty(EditEmp.EMP_EMAIL) || string.IsNullOrEmpty(EditEmp.EMP_NAME) ||
+                    string.IsNullOrEmpty(EditEmp.EMP_PHONE) || string.IsNullOrEmpty(EditEmp.EMP_ROLE) ||
+                    string.IsNullOrEmpty(EditEmp.EMP_USERNAME) || string.IsNullOrEmpty(EditEmp.EMP_GENDER))
                 {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn đang nhập thiếu hoặc sai thông tin");
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn nhập thiếu thông tin");
                     return;
                 }
+                if (DateTime.Compare((DateTime)EditEmp.EMP_BIRTHDAY, new DateTime(1900, 1, 1)) < 0 || DateTime.Compare((DateTime)EditEmp.EMP_BIRTHDAY, DateTime.Now) > 0)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày sinh không hợp lệ");
+                    return;
+                }
+
+                if (DateTime.Compare((DateTime)EditEmp.EMP_STARTDATE, new DateTime(1900, 1, 1)) < 0 || DateTime.Compare((DateTime)EditEmp.EMP_STARTDATE, DateTime.Now) > 0)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày bắt đầu không hợp lệ");
+                    return;
+                }
+
+                if (((DateTime)EditEmp.EMP_STARTDATE).Year - ((DateTime)EditEmp.EMP_BIRTHDAY).Year < 16)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Nhân viên phải trên 16 tuổi");
+                    return;
+                }
+
+                var employees = await EmployeeService.Ins.GetAllEmp();
+                // Kiểm tra nếu tên tài khoản đã tồn tại
+                bool IsExistUsername = employees
+                    .Where(emp => emp.EMP_ID != EditEmp.EMP_ID && emp.EMP_USERNAME == EditEmp.EMP_USERNAME && emp.IS_DELETED == false)
+                    .Any();
+                if (IsExistUsername)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Tài khoản đã tồn tại");
+                    return;
+                }
+
                 int empID = SelectedItem.EMP_ID;
                 string pass;
                 if (string.IsNullOrEmpty(EditEmp.EMP_PASSWORD))

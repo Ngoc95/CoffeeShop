@@ -21,5 +21,6 @@ namespace QuanLiCoffeeShop.DTOs
         public List<Bill_InfoDTO> BillInfo { get; set; }
         public Nullable<System.DateTime> CREATE_AT { get; set; }
         public Nullable<bool> IS_DELETED { get; set; }
+        public virtual EMPLOYEE EMPLOYEE { get; set; }
     }
 }

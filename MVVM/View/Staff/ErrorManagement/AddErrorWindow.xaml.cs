@@ -23,12 +23,6 @@ namespace QuanLiCoffeeShop.MVVM.View.Staff.ErrorManagement
         {
             InitializeComponent();
         }
-
-        private void passErrWd_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)

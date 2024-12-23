@@ -67,7 +67,8 @@
                 <Button  Margin="15,0,0,0" materialDesign:ButtonAssist.CornerRadius="15.36" BorderBrush="Black" BorderThickness="1"
                          Content="Bỏ qua" Foreground="Black" FontWeight="DemiBold"
                          FontFamily="Fonts/Roboto-Light.ttf #Roboto" Background="#F6E8D0"
-                         FontSize="22" Width="150" Height="55" Click="pass_Click">
+                         FontSize="22" Width="150" Height="55" 
+                         Command="{Binding CancelCM}" CommandParameter="{Binding ElementName=AddCusPage}">
                 </Button>
                 <Button  Margin="70,0,0,0" materialDesign:ButtonAssist.CornerRadius="15.36"  BorderBrush="Black" BorderThickness="1"
                          Content="Thêm" Foreground="Black" FontWeight="DemiBold"

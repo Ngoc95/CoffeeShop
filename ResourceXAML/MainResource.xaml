@@ -5,13 +5,55 @@
                     xmlns:StaffViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
                     xmlns:StaffMenuOrderView="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu"
                     xmlns:StaffTableResView="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffTable"
-                    xmlns:TableCard="clr-namespace:QuanLiCoffeeShop.MVVM.View.TableCard">
+                    xmlns:TableCard="clr-namespace:QuanLiCoffeeShop.MVVM.View.TableCard"
+                    xmlns:viewAdminIng="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.IngredientSourceManagement"
+                    xmlns:IngAdminViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin.IngredientSourceVM"
+                    xmlns:viewStaffIng="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.IngredientSourceManagement"
+                    xmlns:IngStaffViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff.IngredientSourceVM">
     <AdminViewModel:MenuViewModel x:Key="MenuViewModel"/>
     <AdminViewModel:TableViewModel x:Key="TableViewModel"/>
+    <IngAdminViewModel:IngredientSourceViewModel x:Key="IngSourceViewModel"/>
+    <IngAdminViewModel:SupplierViewModel x:Key="SupplierViewModel"/>
+    <IngAdminViewModel:ImportViewModel x:Key="ImportViewModel"/>
+    <IngAdminViewModel:IngredientViewModel x:Key="IngredientViewModel"/>
+    <IngAdminViewModel:AddImportViewModel x:Key="AddImportViewModel"/>
+    <IngAdminViewModel:ImportDetailViewModel x:Key="ImportDetailViewModel"/>
+
     <StaffViewModel:MenuOrderViewModel x:Key="MenuOrderViewModel"/>
     <StaffViewModel:StaffTableResViewModel x:Key="StaffTableResViewModel"/>
+    <IngStaffViewModel:IngredientSourceViewModel x:Key="IngSourceStaffViewModel"/>
+    <IngStaffViewModel:IngredientViewModel x:Key="IngStaffViewModel"/>
+    <IngStaffViewModel:ExportViewModel x:Key="ExportViewModel"/>
+    <IngStaffViewModel:AddExportViewModel x:Key="AddExportViewModel"/>
 
+    <!--IngSourceforAdmin-->
+    <DataTemplate DataType="{x:Type IngAdminViewModel:IngredientSourceViewModel}">
+        <viewAdminIng:NavigationUserControl/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type IngAdminViewModel:SupplierViewModel}">
+        <viewAdminIng:SupplierUserControl/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type IngAdminViewModel:ImportViewModel}">
+        <viewAdminIng:ImportUserControl/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type IngAdminViewModel:IngredientViewModel}">
+        <viewAdminIng:IngredientUserControl/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type IngAdminViewModel:ImportInfoCardViewModel}">
+        <viewAdminIng:ImportInfoCardUserControl/>
+    </DataTemplate>
 
+    <!--IngSourceforStaff-->
+    <DataTemplate DataType="{x:Type IngStaffViewModel:IngredientSourceViewModel}">
+        <viewStaffIng:NavigationUserControl/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type IngStaffViewModel:IngredientViewModel}">
+        <viewStaffIng:IngredientUserControl/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type IngStaffViewModel:ExportViewModel}">
+        <viewStaffIng:ExportUserControl/>
+    </DataTemplate>
+    
     <!--TableCardforAdmin-->
     <DataTemplate x:Key="Table2">
         <TableCard:Table2Card Width="157" Height="240" Margin="10"/>

@@ -28,11 +28,6 @@ namespace QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement
                 this.DragMove();
             }
         }
-
-        private void pass_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
         private void tbSDT_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextNumeric(e.Text);

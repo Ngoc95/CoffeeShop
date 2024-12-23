@@ -109,6 +109,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                         Gender = _selectedItem.Gender,
                         Point = _selectedItem.Point
                     };
+                    LoadTransactionHistory(_selectedItem.ID);
                 }
                 OnPropertyChanged(nameof(SelectedItem));
             }
@@ -123,7 +124,24 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 OnPropertyChanged(nameof(EditCustomer));
             }
         }
+
+        // transactions
+        private ObservableCollection<BillDTO> _transactionHistory;
+
+        public ObservableCollection<BillDTO> TransactionHistory
+        {
+            get { return _transactionHistory; }
+            set { _transactionHistory = value; OnPropertyChanged(nameof(TransactionHistory)); }
+        }
+
+        private async void LoadTransactionHistory(int cusID)
+        {
+            var transactions = await BillService.Ins.GetBillsByCustomerID(cusID);
+            TransactionHistory = new ObservableCollection<BillDTO>(transactions);
+        }
+
         public ICommand FirstLoadCM { get; set; }
+        public ICommand CancelCM { get; set; }
         public ICommand SearchCusCM { get; set; }
         public ICommand EditCusCM { get; }
         public ICommand AddCusWdCM { get; set; }
@@ -134,6 +152,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             FirstLoadCM = new RelayCommand<UserControl>((p) => { return true; }, async (p) =>
             {
                 CustomerList = new ObservableCollection<CustomerDTO>(await Task.Run(() => CustomerService.Ins.GetAllCus()));
+            });
+            CancelCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                resetData();
+                p.Close();
             });
             SearchCusCM = new RelayCommand<TextBox>((p) => { return true; }, async (p) =>
             {
@@ -245,6 +268,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             Name = null;
             Email = null;
             Phone = null;
+            Gender = null;
         }
         #endregion
 

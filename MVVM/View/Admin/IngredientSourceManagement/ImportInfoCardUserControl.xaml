@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="QuanLiCoffeeShop.MVVM.View.Admin.IngredientSourceManagement.ImportInfoCardUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.IngredientSourceManagement" 
+             xmlns:ingredientsourcevm="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin.IngredientSourceVM" 
+             mc:Ignorable="d" 
+             Background="#FFC3A1">
+    <StackPanel Orientation="Horizontal">
+        <StackPanel Margin="15 0 0 5">
+            <Label Margin="0,10,0,0" Content="Tên nguyên liệu" FontSize="22" Foreground="Black"
+                FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontWeight="Medium"/>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Margin="0,7,0,0" Height="50" Width="270" HorizontalAlignment="Left"
+                          Style="{StaticResource MaterialDesignFilledComboBox}" 
+                          Background="White" FontSize="19"
+                          ItemsSource="{Binding Ingredients}"
+                            SelectedItem="{Binding SelectedIngredient}"
+                            DisplayMemberPath="Name"
+                            SelectedValue="{Binding SelectedIngredient.ID}"
+                            SelectedValuePath="ID"/>
+
+                <Button Margin="15,5,0,0"
+                        materialDesign:ButtonAssist.CornerRadius="15"
+                        Width="auto" Height="47" Background="White"
+                        Command="{Binding OpenAddIngCommand}"
+                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Content="+" VerticalContentAlignment="Center"
+                        BorderBrush="Black" BorderThickness="0.5"
+                        Foreground="Black" FontSize="20" FontWeight="Bold"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Margin="15 0 0 5">
+            <Label Margin="0,10,0,0" Content="Giá tiền" FontSize="22" Foreground="Black"
+                    FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontWeight="Medium"/>
+            <TextBox Margin="0,7,0,0" Height="50" Width="200" HorizontalAlignment="Left" 
+                     Style="{StaticResource textBox_style}"
+                     Text="{Binding Cost}" PreviewTextInput="TextBox_PreviewTextInput"/>
+        </StackPanel>
+
+        <StackPanel Margin="15 0 0 5">
+            <Label Margin="0,10,0,0" Content="Đơn vị tính" FontSize="22" Foreground="Black"
+                    FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontWeight="Medium"/>
+            <TextBox Margin="0,7,0,0" Height="50" MinWidth="120" Width="auto" HorizontalAlignment="Left" 
+                     Style="{StaticResource textBox_style}" IsReadOnly="True" 
+                     Text="{Binding SelectedIngredient.Unit}"
+                     IsHitTestVisible="False"/>
+        </StackPanel> 
+
+        <StackPanel Margin="15 0 0 5">
+            <Label Margin="0,10,0,0" Content="Số lượng" FontSize="22" Foreground="Black"
+                 FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontWeight="Medium"/>
+
+            <TextBox Margin="0,7,0,0" Height="50" Width="100" HorizontalAlignment="Left" 
+                     Style="{StaticResource textBox_style}"
+                     Text="{Binding Quantity}"/>
+        </StackPanel>
+        
+        <Button x:Name="delBtn"
+                VerticalAlignment="Bottom"
+                Height="50"
+                Width="50"
+                Margin="15,0,5,5"
+                BorderThickness="0"
+                Cursor="Hand"
+                Command="{Binding DeleteCommand}"
+                CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+            <Button.Background>
+                <ImageBrush ImageSource="/QuanLiCoffeeShop;component/Images/DeleteBtn.png" />
+            </Button.Background>
+        </Button>
+
+    </StackPanel>
+</UserControl>

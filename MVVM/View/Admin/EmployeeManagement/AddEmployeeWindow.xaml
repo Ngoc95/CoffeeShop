@@ -217,7 +217,7 @@
                 <Button  Margin="15,0,0,0" materialDesign:ButtonAssist.CornerRadius="15.36" 
                          Content="Bỏ qua" Foreground="Black" FontWeight="DemiBold"
                          Background="#F6E8D0" FontSize="22" Width="150" Height="55"
-                         Click="passAddEmp_Button_Click"/>
+                         Command="{Binding CancelCM}" CommandParameter="{Binding ElementName=AddEmpPage}"/>
 
                 <Button  
                          materialDesign:ButtonAssist.CornerRadius="15.36"  HorizontalAlignment="Right"
