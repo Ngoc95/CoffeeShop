@@ -96,9 +96,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff.IngredientSourceVM
                         MessageBoxCustom.Show(MessageBoxCustom.Error, exportMessage);
                         return;
                     }
-                    int newExportId = (await ExportService.Ins.GetAllExports())
-                        .OrderByDescending(i => i.ExpDate)
-                        .FirstOrDefault()?.ExpId ?? 0;
+                    var newExportId = (await ExportService.Ins.GetAllExports()).Last().ExpId;
 
                     foreach (var item in ExportInfo)
                     {
