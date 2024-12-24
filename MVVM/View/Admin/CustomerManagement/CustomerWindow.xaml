@@ -233,7 +233,8 @@
                                 SelectionMode="Single"
                                 SelectionUnit="FullRow"
                                 FocusVisualStyle="{x:Null}"
-                                ItemsSource="{Binding TransactionHistory, UpdateSourceTrigger=PropertyChanged}" >
+                                ItemsSource="{Binding TransactionHistory, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding SelectedBill}">
                                 <DataGrid.ColumnHeaderStyle>
                                     <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
                                         <Setter Property="BorderThickness" Value="0" />
@@ -315,6 +316,37 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
 
+                                    <DataGridTemplateColumn Width="auto" Header="Thao tác" >
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button x:Name="infoBtn"
+                                                        Width="23.3"
+                                                        Height="24.49"
+                                                        Margin="0,0,0,0"
+                                                        BorderThickness="0"
+                                                        Cursor="Hand"
+                                                       Click="infoBtn_Click">
+                                                        <Button.Background>
+                                                            <ImageBrush ImageSource="/QuanLiCoffeeShop;component/Images/InfoBtn.png" />
+                                                        </Button.Background>
+                                                    </Button>
+                                                    <Button x:Name="delBtn"
+                                                        Width="23.3"
+                                                        Height="24.49"
+                                                        Margin="12,0,0,0"
+                                                        BorderThickness="0"
+                                                        Cursor="Hand"
+                                                        Click="delBtn_Click">
+                                                        <Button.Background>
+                                                            <ImageBrush ImageSource="/Images/DeleteBtn.png" />
+                                                        </Button.Background>
+                                                    </Button>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Border>
@@ -366,7 +398,8 @@
                                    FontWeight="Medium"/>
                             <TextBox Margin="-20,7,0,0" Height="50" Width="270" 
                                      Style="{StaticResource textBox_style}"
-                                     Text="{Binding EditCustomer.Phone}">
+                                     Text="{Binding EditCustomer.Phone}"
+                                     PreviewTextInput="TextBox_PreviewTextInput">
 
                             </TextBox>
 
