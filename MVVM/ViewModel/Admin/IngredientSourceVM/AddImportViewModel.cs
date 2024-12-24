@@ -114,9 +114,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin.IngredientSourceVM
                         MessageBoxCustom.Show(MessageBoxCustom.Error, importMessage);
                         return;
                     }
-                    int newImportId = (await ImportService.Ins.GetAllImports())
-                        .OrderByDescending(i => i.ImpDate)
-                        .FirstOrDefault()?.ImpId ?? 0;
+                    var newImportId = (await ImportService.Ins.GetAllImports()).Last().ImpId;
 
                     foreach (var item in ImportInfo)
                     {
@@ -127,6 +125,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin.IngredientSourceVM
                             Quantity = item.Quantity,
                             PriceItem = decimal.Parse(item.Cost),
                         };
+
 
                         bool isImportInfoAdded = await ImportInfoService.Ins.AddImportInfo(newImportInfo);
                         if (!isImportInfoAdded)

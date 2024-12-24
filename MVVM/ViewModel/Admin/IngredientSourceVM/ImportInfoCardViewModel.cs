@@ -46,7 +46,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin.IngredientSourceVM
         public AddImportViewModel ParentViewModel { get; set; }
         public ImportInfoCardViewModel(AddImportViewModel parentViewModel)
         {
-            
             LoadIngredient();
             ParentViewModel = parentViewModel;
 
