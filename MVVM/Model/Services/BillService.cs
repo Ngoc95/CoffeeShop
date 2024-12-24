@@ -156,6 +156,7 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                         DISCOUNT = newBill.DISCOUNT,
                         SUBTOTAL = newBill.SUBTOTAL,
                         CREATE_AT = newBill.CREATE_AT,
+                        CUSTOMER = newBill.CUSTOMER,
                         IS_DELETED = false,
                     };
                     if (bill == null) return (false, "Thêm thất bại");
@@ -184,10 +185,22 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                             EMPLOYEE = x.EMPLOYEE,
                             SUBTOTAL = x.SUBTOTAL,
                             DISCOUNT = x.DISCOUNT,
+                            CUSTOMER = x.CUSTOMER,
+                            BillInfo = (from b in x.BILL_INFO
+                                        where b.IS_DELETED == false
+                                        select new Bill_InfoDTO
+                                        {
+                                            BILL_ID = b.BILL_ID,
+                                            PRICE_ITEM = b.PRICE_ITEM,
+                                            PRO_ID = b.PRO_ID,
+                                            QUANTITY = b.QUANTITY,
+                                            BILL = b.BILL,
+                                            PRODUCT = b.PRODUCT,
+                                        }).ToList(),
                             TOTAL_COST = x.TOTAL_COST,
                             CREATE_AT = x.CREATE_AT,
                             IS_DELETED = x.IS_DELETED,
-                        }).ToListAsync();
+                        }).OrderByDescending(m => m.CREATE_AT).ToListAsync();
                     return bills;
                 }
             }

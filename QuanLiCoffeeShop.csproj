@@ -183,6 +183,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\Admin\CustomerManagement\BillDetailWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Admin\CustomerManagement\CustomerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -340,6 +344,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Staff\CustomerManagement\AddCustomerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Staff\CustomerManagement\BillDetailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -696,6 +704,9 @@
     <Compile Include="MVVM\View\Admin\CustomerManagement\AddCustomerWindow.xaml.cs">
       <DependentUpon>AddCustomerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\Admin\CustomerManagement\BillDetailWindow.xaml.cs">
+      <DependentUpon>BillDetailWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Admin\CustomerManagement\CustomerWindow.xaml.cs">
       <DependentUpon>CustomerWindow.xaml</DependentUpon>
     </Compile>
@@ -817,6 +828,9 @@
     </Compile>
     <Compile Include="MVVM\View\Staff\CustomerManagement\AddCustomerWindow.xaml.cs">
       <DependentUpon>AddCustomerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Staff\CustomerManagement\BillDetailWindow.xaml.cs">
+      <DependentUpon>BillDetailWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Staff\IngredientSourceManagement\AddExportWindow.xaml.cs">
       <DependentUpon>AddExportWindow.xaml</DependentUpon>

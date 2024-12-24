@@ -1,19 +1,19 @@
-﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Admin.ThongKeManagement.LichSuBan.ChiTietHoaDon"
+﻿<Window x:Class="QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement.BillDetailWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.ThongKeManagement.LichSuBan"
+        xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:converters="clr-namespace:QuanLiCoffeeShop.Converters"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="ChiTietHoaDon" Height="700" Width="720"
+        Title="BillDetailWindow" Height="700" Width="720"
         x:Name="BillInfoWd"
         WindowStyle="None"
         AllowsTransparency="True"
         ResizeMode="NoResize"
-        DataContext="{StaticResource ThongKeAdminVM}"
+        DataContext="{StaticResource CustomerStaffVM}"
         WindowStartupLocation="CenterScreen"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -22,7 +22,7 @@
         BorderThickness="0"
         Background="Transparent"
         FontFamily="Fonts/Roboto-Light.ttf #Roboto"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        MouseLeftButtonDown="BillInfoWd_MouseLeftButtonDown">
     <Window.Resources>
         <Style x:Key="TextBlock" TargetType="TextBlock">
             <Setter Property="Foreground" Value="Black"/>
@@ -71,7 +71,7 @@
                                     Height="23" 
                                     VerticalAlignment="Top"/>
                             <TextBox 
-                                    Text="{Binding CusName}"
+                                    Text="{Binding SelectedBill.CUSTOMER.CUS_NAME}"
                                     Width="231.6" 
                                     IsReadOnly="True"
                                     Height="50" 
@@ -94,7 +94,7 @@
                                     Height="23" 
                                     VerticalAlignment="Top"/>
                             <TextBox 
-                                Text="{Binding EmpName}"
+                                Text="{Binding SelectedBill.EMPLOYEE.EMP_NAME}"
                                     Width="231.6" 
                                     IsReadOnly="True"
                                     Height="50" 
@@ -128,7 +128,7 @@
                             <ListView
                                 Margin="10 0 0 0"
                                 Width="600"
-                                ItemsSource="{Binding ProductList}">
+                                ItemsSource="{Binding BillInfoList}">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem"
                                         BasedOn="{StaticResource MaterialDesignGridViewItem}">
@@ -268,7 +268,7 @@
                             VerticalAlignment="Top"
                             Margin="50 0 15 0 "/>
                         <TextBlock Style="{DynamicResource TextBlock}" 
-                            Text="{Binding BillDate, StringFormat='dd/MM/yyyy HH:mm:ss'}" 
+                            Text="{Binding SelectedBill.CREATE_AT, StringFormat='dd/MM/yyyy HH:mm:ss'}" 
                             Height="23" 
                             VerticalAlignment="Top"/>
                     </StackPanel>
@@ -282,7 +282,7 @@
                             VerticalAlignment="Top"
                             Margin="280 0 15 0 "/>
                         <TextBlock Style="{DynamicResource TextBlock}" 
-                            Text="{Binding BillDiscount, Converter={StaticResource PriceConverter}}" 
+                            Text="{Binding SelectedBill.DISCOUNT, Converter={StaticResource PriceConverter}}" 
                             Height="23" 
                             MaxWidth="120"
                                    Margin="0 0 5 0"
@@ -307,7 +307,7 @@
                             VerticalAlignment="Top"
                             Margin="305 0 15 0 "/>
                         <TextBlock Style="{DynamicResource TextBlock}" 
-                            Text="{Binding BillValue,  Converter={StaticResource PriceConverter}}" 
+                            Text="{Binding SelectedBill.TOTAL_COST,  Converter={StaticResource PriceConverter}}" 
                             Height="23" 
                             MaxWidth="120"
                                    Margin="0 0 5 0"
@@ -323,8 +323,7 @@
 
                 <Grid Grid.Row="5">
                     <Button
-                        Command="{Binding CloseWdCM}"
-                        CommandParameter="{Binding ElementName=BillInfoWd}"
+                        Click="Button_Click"
                         Width="130"
                         Height="62"
                         materialDesign:ButtonAssist.CornerRadius="24"

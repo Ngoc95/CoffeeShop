@@ -33,5 +33,21 @@ namespace QuanLiCoffeeShop.MVVM.View.Staff.CustomerManagement
             return Regex.IsMatch(text, @"^[0-9]+$");
         }
 
+        private void infoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as CustomerViewModel;
+            if (viewModel != null)
+            {
+                viewModel.InfoBillCM.Execute(viewModel.SelectedBill);
+            }
+        }
+        private void delBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as CustomerViewModel;
+            if (viewModel != null)
+            {
+                viewModel.DeleteBillCM.Execute(viewModel.SelectedBill);
+            }
+        }
     }
 }
