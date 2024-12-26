@@ -8,7 +8,7 @@
         xmlns:admin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
         d:DataContext="{d:DesignInstance Type=admin:EmployeeViewModel}"
         mc:Ignorable="d" x:Name="EditEmpPage"
-        Title="EditEmployeeWindow"  Height="960" Width="800"
+        Title="EditEmployeeWindow"  Height="800" Width="800"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         WindowStartupLocation="CenterScreen" Background="Transparent"
         FontFamily="Fonts/Roboto-Light.ttf #Roboto"
@@ -17,10 +17,10 @@
             MouseDown="moveAddEmpWin_MouseDown" >
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="646"/>
-                <RowDefinition Height="182"/>
-                <RowDefinition/>
+                <RowDefinition Height="43"/>
+                <RowDefinition Height="549*"/>
+                <RowDefinition Height="153*"/>
+                <RowDefinition Height="53*"/>
             </Grid.RowDefinitions>
 
             <Label Content="Thông tin nhân viên" FontSize="30" Foreground="Black"
@@ -31,17 +31,17 @@
                     Margin="34,0,34,16" Background="#FFC3A1">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Label Content="Thông tin cá nhân" FontSize="22" Foreground="Black"
+                    <Label Content="Thông tin cá nhân" FontSize="21" Foreground="Black"
                            Margin="5,0,0,0"  FontWeight="Medium" VerticalAlignment="Center"/>
                     <StackPanel Orientation="Vertical" Grid.Row="1" Margin="15,-20,0,0">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel Orientation="Vertical">
                                 <Label Margin="0,10,0,0" Content="Mã nhân viên:" 
-                                       FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                                <Border CornerRadius="10" Height="50" Width="305" 
+                                       FontSize="20" Foreground="Black" FontWeight="DemiBold"/>
+                                <!--<Border CornerRadius="10" Height="50" Width="305" 
                                         BorderBrush="Black" BorderThickness="0.3"
                                         Margin="0,7,0,0" Background="#E0DEDE">
                                     <TextBox x:Name="tbName" Height="50" Width="285"
@@ -49,20 +49,41 @@
                                              FontSize="22" Margin="10,0,0,10"
                                              BorderBrush="White" IsReadOnly="True"
                                              Text="{Binding EditEmp.EMP_ID, StringFormat = 'NV{0:D3}'}"/>
-                                </Border>
+                                </Border>-->
+                                <TextBox Width="305"
+                                         Height="45"
+                                         Padding="12,2.4"
+                                         Margin="0,0,0,0"
+                                         VerticalContentAlignment="Center"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                         Background="White"
+                                         FontSize="20" IsReadOnly="True"
+                                         Text="{Binding EditEmp.EMP_ID, StringFormat = 'NV{0:D3}'}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Vertical" Margin="70,0,0,0">
                                 <Label Margin="0,10,0,0" Content="Tên nhân viên:" 
-                                       FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                                <Border CornerRadius="10" Height="50" Width="305" 
+                                       FontSize="20" Foreground="Black" FontWeight="DemiBold"/>
+                                <!--<Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="0,7,0,0" Background="White">
                                     <TextBox x:Name="tbID" Height="50" Width="285"
                                              HorizontalAlignment="Left" Background="Transparent"
                                              FontSize="22" Margin="10,0,0,10"
                                              BorderBrush="White"
                                              Text="{Binding EditEmp.EMP_NAME}"/>
-                                </Border>
+                                </Border>-->
+                                <TextBox Width="305"
+                                         Height="45"
+                                         Padding="12,2.4"
+                                         Margin="0,0,0,0"
+                                         VerticalContentAlignment="Center"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                         Background="White"
+                                         FontSize="20"
+                                         Text="{Binding EditEmp.EMP_NAME}" />
+
                             </StackPanel>
 
                         </StackPanel>
@@ -70,8 +91,8 @@
                         <StackPanel Orientation="Horizontal" >
                             <StackPanel Orientation="Vertical">
                                 <Label Margin="0,10,0,0" Content="CCCD:" 
-                                       FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                                <Border CornerRadius="10" Height="50" Width="305" 
+                                       FontSize="20" Foreground="Black" FontWeight="DemiBold"/>
+                                <!--<Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="0,7,0,0" Background="White">
                                     <TextBox x:Name="tbCCCD" Height="50" Width="285"
                                              HorizontalAlignment="Left" Background="Transparent"
@@ -79,50 +100,85 @@
                                              BorderBrush="White"
                                              PreviewTextInput="tbCCCD_PreviewTextInput"
                                              Text="{Binding EditEmp.EMP_CCCD}"/>
-                                </Border>
+                                </Border>-->
+                                <TextBox Width="305"
+                                         Height="45"
+                                         Padding="12,2.4"
+                                         Margin="0,0,0,0"
+                                         VerticalContentAlignment="Center"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                         Background="White"
+                                         FontSize="20" PreviewTextInput="tbCCCD_PreviewTextInput"
+                                         Text="{Binding EditEmp.EMP_CCCD}" />
+
                             </StackPanel>
                             <StackPanel Orientation="Vertical" Margin="70,0,0,0">
                                 <Label Margin="0,10,0,0" Content="Giới tính:" 
-                                       FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
+                                       FontSize="20" Foreground="Black" FontWeight="DemiBold"/>
                                 <ToggleButton Style="{StaticResource genderToggleButton_style}"
                                           IsChecked="{Binding EditEmp.EMP_GENDER, Mode=TwoWay, Converter={StaticResource GenderConverter}}"
-                                          Margin="0,7,0,0" FontSize="22" Height="50" Width="305"/>
+                                          Margin="0,0,0,0" FontSize="22" Height="40" Width="305"/>
                             </StackPanel>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" >
                             <StackPanel Orientation="Vertical">
                                 <Label Margin="0,10,0,0" Content="Email:" 
-                                       FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                                <Border CornerRadius="10" Height="50" Width="305" 
+                                       FontSize="20" Foreground="Black" FontWeight="DemiBold"/>
+                                <!--<Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="0,7,0,0" Background="White">
                                     <TextBox x:Name="tbEmail" Height="50" Width="285"
                                              HorizontalAlignment="Left" Background="Transparent"
                                              FontSize="22" Margin="10,0,0,10"
                                              BorderBrush="White"
                                              Text="{Binding EditEmp.EMP_EMAIL}"/>
-                                </Border>
+                                </Border>-->
+                                <TextBox Width="305"
+                                         Height="45"
+                                         Padding="12,2.4"
+                                         Margin="0,0,0,0"
+                                         VerticalContentAlignment="Center"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                         Background="White"
+                                         FontSize="20" 
+                                         Text="{Binding EditEmp.EMP_EMAIL}"/>
+
+
                             </StackPanel>
                             <StackPanel Orientation="Vertical" Margin="70,0,0,0">
                                 <Label Margin="0,10,0,0" Content="Số điện thoại:" 
-                                       FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                                <Border CornerRadius="10" Height="50" Width="305" 
+                                       FontSize="20" Foreground="Black" FontWeight="DemiBold"/>
+                                <!--<Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="0,7,0,0" Background="White">
                                     <TextBox x:Name="tbSDT" Height="50" Width="285"
                                              HorizontalAlignment="Left" Background="Transparent"
                                              FontSize="22" Margin="10,0,0,10" BorderBrush="White"
                                              PreviewTextInput="tbSDT_PreviewTextInput"
                                              Text="{Binding EditEmp.EMP_PHONE}"/>
-                                </Border>
+                                </Border>-->
+                                <TextBox Width="305"
+                                         Height="45"
+                                         Padding="12,2.4"
+                                         Margin="0,0,0,0"
+                                         VerticalContentAlignment="Center"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                         Background="White"
+                                         FontSize="20" 
+                                         PreviewTextInput="tbSDT_PreviewTextInput"
+                                         Text="{Binding EditEmp.EMP_PHONE}"/>
+
                             </StackPanel>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" >
                             <StackPanel Orientation="Vertical">
                                 <Label Margin="0,10,0,0" Content="Ngày sinh:" 
-                                       FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                                <Border Margin="0,7,0,0" Width="305" Height="50" Background="White" CornerRadius="10">
-                                    <DatePicker x:Name="dpBDay" Height="50" FontSize="22" BorderBrush="White" Foreground="#49454F"
+                                       FontSize="20" Foreground="Black" FontWeight="DemiBold"/>
+                                <Border Margin="0,7,0,0" Width="305" Height="40" Background="White" CornerRadius="10">
+                                    <DatePicker x:Name="dpBDay" Height="40" FontSize="20" BorderBrush="White" Foreground="#49454F"
                                                 Language="vi-VN"
                                                 SelectedDate="{Binding EditEmp.EMP_BIRTHDAY, Mode=TwoWay}" 
                                                 Text="{Binding EditEmp.EMP_BIRTHDAY, StringFormat=dd/MM/yyyy, Mode=OneWay}"
@@ -133,9 +189,9 @@
 
                             <StackPanel Orientation="Vertical" Margin="70,0,0,0">
                                 <Label Margin="0,10,0,0" Content="Ngày bắt đầu:" 
-                                       FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                                <Border Margin="0,7,0,0" Width="305" Height="50" Background="White" CornerRadius="10">
-                                    <DatePicker x:Name="dpStartDate" Height="50" FontSize="22" BorderBrush="White" Foreground="#49454F"
+                                       FontSize="20" Foreground="Black" FontWeight="DemiBold"/>
+                                <Border Margin="0,7,0,0" Width="305" Height="40" Background="White" CornerRadius="10">
+                                    <DatePicker x:Name="dpStartDate" Height="40" FontSize="20" BorderBrush="White" Foreground="#49454F"
                                                 Language="vi-VN" 
                                                 SelectedDate="{Binding EditEmp.EMP_STARTDATE, Mode=TwoWay}" VerticalAlignment="Center"
                                                 Text="{Binding EditEmp.EMP_STARTDATE, StringFormat=dd/MM/yyyy, Mode=OneWay}"
@@ -147,28 +203,52 @@
                         <StackPanel Orientation="Horizontal" >
                             <StackPanel Orientation="Vertical">
                                 <Label Margin="0,10,0,0" Content="Tổng ca trong tuần:" 
-                                       FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                                <Border CornerRadius="10" Height="50" Width="305" 
+                                       FontSize="20" Foreground="Black" FontWeight="DemiBold"/>
+                                <!--<Border CornerRadius="10" Height="50" Width="305" 
                                         BorderBrush="Black" BorderThickness="0.3"
                                         Margin="0,7,0,0" Background="#E0DEDE">
                                     <TextBox x:Name="tbTongca" Height="50" Width="285"
                                              HorizontalAlignment="Left" Background="Transparent"
-                                             FontSize="22" Margin="10,0,0,10"
+                                             FontSize="20" Margin="10,0,0,10"
                                              BorderBrush="White" IsReadOnly="True"
                                              Text="{Binding EditEmp.EMP_TotalShifts}"/>
-                                </Border>
+                                </Border>-->
+                                <TextBox Width="305"
+                                         Height="45"
+                                         Padding="12,2.4"
+                                         Margin="0,0,0,0"
+                                         VerticalContentAlignment="Center"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                         Background="#E0DEDE"
+                                         FontSize="20" 
+                                         IsReadOnly="True"
+                                         Text="{Binding EditEmp.EMP_TotalShifts}"/>
+
                             </StackPanel>
                             <StackPanel Orientation="Vertical" Margin="70,0,0,0">
                                 <Label Margin="0,10,0,0" Content="Lương tuần:" 
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                                <Border CornerRadius="10" Height="50" Width="305" BorderThickness="0.3"
+                                <!--<Border CornerRadius="10" Height="50" Width="305" BorderThickness="0.3"
                                         Margin="0,7,0,0" Background="#E0DEDE" BorderBrush="Black">
                                     <TextBox x:Name="tbSalary" Height="50" Width="285"
                                              HorizontalAlignment="Left" Background="Transparent"
                                              FontSize="22" Margin="10,0,0,10"
                                              BorderBrush="Transparent" IsReadOnly="True"
                                              Text="{Binding EditEmp.EMP_SALARY, Converter={StaticResource PriceConverter}}"/>
-                                </Border>
+                                </Border>-->
+                                <TextBox Width="305"
+                                         Height="45"
+                                         Padding="12,2.4"
+                                         Margin="0,0,0,0"
+                                         VerticalContentAlignment="Center"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                         Background="#E0DEDE"
+                                         FontSize="20" 
+                                         IsReadOnly="True"
+                                         Text="{Binding EditEmp.EMP_SALARY, Converter={StaticResource PriceConverter}}"/>
+
                             </StackPanel>
                         </StackPanel>
 
@@ -176,11 +256,11 @@
                         <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                             <StackPanel Orientation="Horizontal">
                                 <Label Margin="0,10,0,0" Content="Chức vụ:" VerticalAlignment="Center"
-                                       FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
+                                       FontSize="20" Foreground="Black" FontWeight="DemiBold"/>
                                 <ComboBox x:Name="cbRole"
-                                          Style="{StaticResource filterCombobox_style}" Margin="20,7,0,0" Height="50"
+                                          Style="{StaticResource filterCombobox_style}" Margin="20,7,0,0" Height="40"
                                           Background="White" Text="{Binding EditEmp.EMP_ROLE}" 
-                                          FontSize="22" Foreground="Black" VerticalAlignment="Center" Width="190">
+                                          FontSize="20" Foreground="Black" VerticalAlignment="Center" Width="190">
                                     <ComboBoxItem Content="Quản lý"/>
                                     <ComboBoxItem Content="Pha chế"/>
                                     <ComboBoxItem Content="Phục vụ"/>
@@ -189,11 +269,11 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="70,0,0,0">
                                 <Label Margin="0,10,0,0" Content="Trạng thái:" VerticalAlignment="Center"
-                                       FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
+                                       FontSize="20" Foreground="Black" FontWeight="DemiBold"/>
                                 <ComboBox x:Name="cbStatus"
-                                          Style="{StaticResource filterCombobox_style}" Margin="5,7,0,0" Height="50"
+                                          Style="{StaticResource filterCombobox_style}" Margin="5,7,0,0" Height="40"
                                           Background="White" Text="{Binding EditEmp.EMP_STATUS}" SelectedIndex="0"
-                                          FontSize="22" Foreground="Black" VerticalAlignment="Center" Width="189">
+                                          FontSize="20" Foreground="Black" VerticalAlignment="Center" Width="189">
                                     <ComboBoxItem Content="Đang làm"/>
                                     <ComboBoxItem Content="Xin nghỉ"/>
                                 </ComboBox>
@@ -208,31 +288,43 @@
                     VerticalAlignment="Top" Background="#603127" Margin="49,0,49,0"/>
 
             <Border Grid.Row="2" CornerRadius="10"
-                    Margin="34,5,34,1" Background="#FFC3A1">
-                <StackPanel Margin="0,10,0,0">
-                    <Label Content="Thông tin đăng nhập" FontSize="22" Foreground="Black"
+                    Margin="34,5,34,0" Background="#FFC3A1">
+                <StackPanel Margin="0,0,0,0">
+                    <Label Content="Thông tin đăng nhập" FontSize="21" Foreground="Black"
                                Margin="5,0,0,0"  FontWeight="Medium" VerticalAlignment="Center"/>
                     <StackPanel Margin="0,3,0,0" Orientation="Horizontal">
                         <Label Margin="15,10,0,0" Content="Tên đăng nhập:" 
-                               FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                        <Border CornerRadius="10" Height="50" Width="305" 
+                               FontSize="20" Foreground="Black" FontWeight="DemiBold"/>
+                        <!--<Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="20,3,0,0" Background="White">
                             <TextBox x:Name="tbUsername" Height="50" Width="285"
                                          HorizontalAlignment="Left" Background="Transparent"
                                          FontSize="22" Margin="10,0,0,10"
                                          BorderBrush="White"
                                      Text="{Binding EditEmp.EMP_USERNAME}"/>
-                        </Border>
+                        </Border>-->
+                        <TextBox Width="305"
+                                         Height="45"
+                                         Padding="12,2.4"
+                                         Margin="20,3,0,0"
+                                         VerticalContentAlignment="Center"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
+                                         Background="White"
+                                         FontSize="20" 
+                                         Text="{Binding EditEmp.EMP_USERNAME}"/>
+
+
 
                     </StackPanel>
                     <StackPanel Margin="0,13,0,0" Orientation="Horizontal">
                         <Label Margin="15,10,0,0" Content="Mật khẩu:" 
-                                       FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                        <Border CornerRadius="10" Height="50" Width="305" 
-                                        Margin="73,0,0,0" Background="White">
-                            <PasswordBox x:Name="pbPassword" Height="45" Width="285" Foreground="#401409"
+                                       FontSize="20" Foreground="Black" FontWeight="DemiBold"/>
+                        <Border CornerRadius="10" Height="40" Width="305" 
+                                        Margin="70,0,0,0" Background="White">
+                            <PasswordBox x:Name="pbPassword" Height="35" Width="285" Foreground="#401409"
                                          HorizontalAlignment="Center" Background="Transparent" 
-                                         FontSize="22" Margin="0,1,0,4" BorderBrush="Transparent"
+                                         FontSize="20" Margin="0,1,0,4" BorderBrush="Transparent"
                                          Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
                                          PasswordChanged="pbPassword_PasswordChanged"
                                          materialDesign:TextFieldAssist.DecorationVisibility="Hidden"/>
@@ -245,14 +337,14 @@
             <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="20,0,0,0">
                 <Button  Margin="15,0,0,0" materialDesign:ButtonAssist.CornerRadius="15.36" 
                          Content="Bỏ qua" Foreground="Black" FontWeight="DemiBold"
-                         Background="#F6E8D0" FontSize="22" Width="150" Height="55"
+                         Background="#F6E8D0" FontSize="20" Width="150" Height="40"
                          Click="passAddEmp_Button_Click"/>
 
                 <Button  x:Name="btnEditEmp"
                          materialDesign:ButtonAssist.CornerRadius="15.36"
                          Content="Lưu thay đổi" Foreground="Black" FontWeight="DemiBold"
                          Background="#F0997D" Margin="420,0,0,0" 
-                         FontSize="22" Width="159" Height="56"
+                         FontSize="20" Width="159" Height="40"
                          Command="{Binding EditEmpCM}"
                          CommandParameter="{Binding ElementName=EditEmpPage}"/>
 

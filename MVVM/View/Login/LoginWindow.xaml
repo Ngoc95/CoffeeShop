@@ -54,7 +54,7 @@
                     </TextBlock>
                 </Label>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <Button x:Name="btnLogin" Cursor="Hand" 
+                    <Button x:Name="btnLogin" Cursor="Hand" IsDefault="True"
                             Width="123" Margin="0,0,45,30" Content="Đăng nhập"
                             Height="50" BorderBrush="Transparent" FontSize="20" 
                             Command="{Binding LoginCommand}" 
