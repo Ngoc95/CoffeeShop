@@ -110,6 +110,7 @@ CREATE TABLE EMPLOYEE_SHIFT (
     constraint fk_EMPSHIFT_SHIFT foreign key (SHIFT_ID) references WORK_SHIFT(SHIFT_ID),
 	constraint chk_WORK_DAY check (WORK_DAY BETWEEN 1 AND 7)
 );
+
 CREATE TABLE REQUEST (
     REQ_ID int identity(1,1), 
     EMP_ID int, 

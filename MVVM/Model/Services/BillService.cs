@@ -70,5 +70,22 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             }
         }
 
+        public async Task<(int vanglai, int dadk)> BillToday()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    int vanglai = await context.BILLs.CountAsync(t => t.CUS_ID == null && t.CREATE_AT.Value.Date == DateTime.Now.Date);
+                    int dadk = await context.BILLs.CountAsync(t => t.CUS_ID != null && t.CREATE_AT.Value.Date == DateTime.Now.Date);
+                    return (vanglai, dadk);
+                }
+            }
+            catch
+            {
+                return (0, 0);
+            }
+        }
+
     }
 }

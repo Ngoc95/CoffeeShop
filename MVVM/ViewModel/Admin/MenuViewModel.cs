@@ -118,7 +118,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 SearchText = "";
                 FilterProduct(FilterGnereID, SearchText);
                 if (IDOfNextProduct == 0)
-                    IDOfNextProduct = await ProductService.Ins.NumOfProduct() + 1;
+                    IDOfNextProduct = await ProductService.Ins.IDOfProduct() + 1;
             });
 
             OpenAddProWDCommand = new RelayCommand<object>((p) => { return true; }, (p) =>

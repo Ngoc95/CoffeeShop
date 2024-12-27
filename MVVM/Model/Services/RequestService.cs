@@ -127,5 +127,22 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             }
 
         }
+
+        public async Task<(int xinnghi, int doica)> RequestStatus()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    int xinnghi = await context.REQUESTs.CountAsync(t => t.REQ_TYPE == "Xin nghỉ" && t.REQ_STATUS == "Chờ duyệt");
+                    int doica = await context.REQUESTs.CountAsync(t => t.REQ_TYPE == "Đổi ca" && t.REQ_STATUS == "Chờ duyệt");
+                    return (xinnghi, doica);
+                }
+            }
+            catch
+            {
+                return (0, 0);
+            }
+        }
     }
 }

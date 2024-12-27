@@ -10,6 +10,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Shell;
 
 namespace QuanLiCoffeeShop.MVVM.Model.Services
@@ -337,6 +338,51 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             catch 
             {
                 return (false, "Xảy ra lỗi", null);
+            }
+        }
+
+        public async Task<string> NumOfEmployee()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    int res = await Task.Run(() => context.EMPLOYEEs.CountAsync(t => t.IS_DELETED == false));
+                    return res.ToString();
+                }
+            }
+            catch 
+            {
+                return "0";
+            }
+        }
+
+        internal List<Tuple<string, int>> GetEmployee()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    List<Tuple<string, int>> list;
+                    var templist = context.EMPLOYEEs
+                        .Where(e => e.IS_DELETED == false)
+                        .GroupBy(b => b.EMP_ROLE)
+                        .Select(g => new
+                        {
+                            role = g.Key,
+                            NumOfEmp = g.Count()
+                        })
+                        .ToList();
+                    list = templist
+                            .Select(x => new Tuple<string, int>(x.role, x.NumOfEmp))
+                            .ToList();
+                    return list;
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Lỗi kết nối DataBase");
+                return null;
             }
         }
 

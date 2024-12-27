@@ -23,6 +23,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             get { return _currentName; }
             set { _currentName = value; OnPropertyChanged(); }
         }
+        public ICommand HomePageViewCommand { get; set; }
         public ICommand CustomerViewCommand { get; set; }
         public ICommand EmployeeViewCommand { get; set; }
         public ICommand ErrorViewCommand { get; set; }
@@ -30,6 +31,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public ICommand TableViewCommand { get; set; }
         public ICommand WorkshiftViewCommand { get; set; }
         public ICommand AccountViewCommand { get; set; }
+        public AdminHomeViewModel AdminHomeViewModel {  get; set; }
         public CustomerViewModel CustomerVM { get; set; }
         public EmployeeViewModel EmployeeVM { get; set; }
         public ErrorViewModel ErrorVM { get; set; }
@@ -79,9 +81,11 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             MenuVM = new MenuViewModel();
             TableVM = new TableViewModel();
             WorkshiftVM = new WorkshiftViewModel();
+            AdminHomeViewModel = new AdminHomeViewModel();
 
             CurrentView = WorkshiftVM;
 
+            HomePageViewCommand = new RelayCommand<ContentControl>((p)=> { return true; }, (p)=> { CurrentView = AdminHomeViewModel; });
             AccountViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CustomerViewCommand.Execute(null); IsAccountSelected = true; CurrentView = AccountVM; });
             CustomerViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = CustomerVM; IsAccountSelected = false; });
             EmployeeViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = EmployeeVM; });

@@ -124,7 +124,39 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             }
         }
 
+        public async Task<List<string>> EmployeeWorkToday()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    int a;
+                    switch (DateTime.Now.DayOfWeek)
+                    {
+                        case DayOfWeek.Monday: a = 1; break;
+                        case DayOfWeek.Tuesday: a = 2; break;
+                        case DayOfWeek.Wednesday: a = 3; break;
+                        case DayOfWeek.Thursday: a = 4; break; 
+                        case DayOfWeek.Friday: a = 5; break;
+                        case DayOfWeek.Saturday: a = 6; break;
+                        case DayOfWeek.Sunday: a = 7; break;
+                        default: return new List<string>();
+                    }
+                    var employees = await (from emp in context.EMPLOYEEs
+                                           join shift in context.EMPLOYEE_SHIFT
+                                           on emp.EMP_ID equals shift.EMP_ID
+                                           where shift.WORK_DAY == a
+                                           select emp.EMP_NAME).Distinct().ToListAsync();
 
+                    return employees;
+                }
+            }
+            catch
+            {
+                // Trả về danh sách rỗng nếu xảy ra lỗi
+                return new List<string>();
+            }
+        }
 
     }
 }

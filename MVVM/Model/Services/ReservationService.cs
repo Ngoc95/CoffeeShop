@@ -133,6 +133,24 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             }
         }
 
+        public async Task<(int, int)> GetResStatusToday()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    int _checked = 0, _unchecked = 0;
+                    _checked = await context.RESERVATIONs.CountAsync(r => r.RES_DATE.Date == DateTime.Now.Date && r.RES_STATUS == "Khách chưa nhận bàn");
+                    _unchecked = await context.RESERVATIONs.CountAsync(r => r.RES_DATE.Date == DateTime.Now.Date && r.RES_STATUS == "Khách đã nhận bàn");
+                    return (_checked, _unchecked);
+                }
+            }
+            catch
+            {
+                return (0,0);
+            }
+        }
+
         public async Task<bool> AddNewReservation(ReservationDTO reservation)
         {
             try
@@ -162,6 +180,22 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             {
                 Console.WriteLine($"Lỗi: {ex.Message}");
                 throw;
+            }
+        }
+
+        internal async Task<string> ReservationGenaral()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    int n = await context.RESERVATIONs.CountAsync(t => t.IS_DELETED == false && t.RES_STATUS == "Khách chưa nhận bàn");
+                    return n.ToString() + " (chưa nhận bàn)";
+                }
+            }
+            catch
+            {
+                return "0";
             }
         }
     }
