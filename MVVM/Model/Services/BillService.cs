@@ -76,9 +76,15 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             {
                 using (var context = new CoffeeShopDBEntities())
                 {
-                    int vanglai = await context.BILLs.CountAsync(t => t.CUS_ID == null && t.CREATE_AT.Value.Date == DateTime.Now.Date);
-                    int dadk = await context.BILLs.CountAsync(t => t.CUS_ID != null && t.CREATE_AT.Value.Date == DateTime.Now.Date);
-                    return (vanglai, dadk);
+                    var today = DateTime.Now.Date;
+
+                    int Vanglai = await context.BILLs.CountAsync(t =>
+                        t.CUS_ID == null && DbFunctions.TruncateTime(t.CREATE_AT) == today);
+
+                    int dadk = await context.BILLs.CountAsync(t =>
+                        t.CUS_ID != null && DbFunctions.TruncateTime(t.CREATE_AT) == today);
+
+                    return (Vanglai, dadk);
                 }
             }
             catch
@@ -87,5 +93,30 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             }
         }
 
+        internal async Task<List<BillDTO>> GetBillByEmp(int eMP_ID)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    return await context.BILLs.Where(g => g.EMP_ID == eMP_ID && g.IS_DELETED == false)
+                        .Select(g => new BillDTO
+                        {
+                            BILL_ID = g.BILL_ID,
+                            CUS_ID = g.CUS_ID,
+                            CREATE_AT = g.CREATE_AT,
+                            TOTAL_COST = g.TOTAL_COST,
+                            SUBTOTAL = g.SUBTOTAL,
+                            DISCOUNT = g.DISCOUNT,
+                            IS_DELETED = g.IS_DELETED,
+                        })
+                        .ToListAsync();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

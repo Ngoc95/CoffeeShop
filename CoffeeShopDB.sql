@@ -210,10 +210,21 @@ create table ERROR
 	constraint chk_ER check(ER_STATUS in (N'Chưa khắc phục', N'Đã khắc phục')),
 )
 
+set dateformat ymd
 INSERT INTO EMPLOYEE (EMP_NAME, EMP_PHONE, EMP_CCCD, EMP_BIRTHDAY, EMP_USERNAME, EMP_PASSWORD, EMP_EMAIL, EMP_GENDER, EMP_ROLE)
 VALUES 
+
 (N'Ngọc Nguyên', '0912345678',	'012345678901', '2005-01-01', 'admin', '202cb962ac59075b964b07152d234b70', 'ngocnguyen@example.com', N'Nữ', N'Quản lý'),
-(N'Ngọc', '098',	'01', '2005-01-01', 'ngoc', '202cb962ac59075b964b07152d234b70', 'duongkhanhngoc2005@gmail.com', N'Nữ', N'Phục vụ');
+(N'Ngọc', '098',	'01', '2005-01-01', 'ngoc', '202cb962ac59075b964b07152d234b70', 'duongkhanhngoc2005@gmail.com', N'Nữ', N'Phục vụ'),
+(N'Trần Tuấn Khang', '0324567211',	'012345678901', '2004-01-20', 'tuankhang', '202cb962ac59075b964b07152d234b70', 'khang@gmail.com', N'Nam', N'Phục vụ'),
+(N'Trần Anh Khôi', '0344567211',	'012345678901', '2004-7-20', 'anhkhoi', '202cb962ac59075b964b07152d234b70', 'anhkhoi227@gmail.com', N'Nam', N'Phục vụ'),
+(N'Đào Thị Bích Thảo', '0253758744',	'012345678901', '2004-4-20', 'bichthao', '202cb962ac59075b964b07152d234b70', 'bichthao21@gmail.com', N'Nữ', N'Phục vụ'),
+(N'Lê Bảo Khanh', '0912345678',	'012345678901', '2003-10-31', 'baokhanh', '202cb962ac59075b964b07152d234b70', 'baokhanh@gmail.com', N'Nữ', N'Thu ngân'),
+(N'Khánh Ngọc', '0912345678',	'012345678901', '2003-9-24', 'khanhngoc', '202cb962ac59075b964b07152d234b70', 'khanhngoc@gmail.com', N'Nữ', N'Thu ngân'),
+(N'Lê Thế An', '0912345678',	'012345678901', '2003-8-24', 'thean', '202cb962ac59075b964b07152d234b70', 'thean@gmail.com', N'Nam', N'Thu ngân'),
+(N'Trương Thảo Vân', '0912345678',	'0824456789', '2005-10-31', 'thaovan', '202cb962ac59075b964b07152d234b70', 'thaovan@gmail.com', N'Nữ', N'Pha chế'),
+(N'Nguyễn Khoa', '0912345678',	'0824456789', '2003-1-10', 'khoanguyen', '202cb962ac59075b964b07152d234b70', 'khoanguyen@gmail.com', N'Nam', N'Pha chế'),
+(N'Trần Thị Huệ Nguyên', '0912345678',	'0824456789', '2005-10-31', 'nguyen', '202cb962ac59075b964b07152d234b70', 'huenguyentran3110@gmail.com', N'Nữ', N'Pha chế');
 
 INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Coffee')
 INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Trà sữa')
@@ -228,7 +239,10 @@ INSERT INTO GENRE_TABLE (GT_NAME) VALUES (N'Bàn 6')
 
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Còn trống')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Đang bận')
-INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang sửa chữa')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang bận')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Đang bận')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Còn trống')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang bận')
@@ -242,6 +256,14 @@ INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Đang sửa chữa')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (3, N'Đang bận')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (3, N'Đang sửa chữa')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang bận')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Đang bận')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang bận')
 
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà đào', 3, 'pack://application:,,,/DemoDataPrdImg/tradao.jpg', 15000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Cacao sữa xay', 1, 'pack://application:,,,/DemoDataPrdImg/cacaoSua.jpg', 20000)
@@ -280,16 +302,19 @@ set dateformat dmy
 
 INSERT INTO RESERVATION (CUS_ID, TABLE_ID, RES_DATE, RES_TIME, NUM_OF_PEOPLE, RES_STATUS, SPECIAL_REQUEST)
 VALUES
+(6, 16, '28-12-2024', '8:00:00', 5, N'Khách chưa nhận bàn', NULL),
 (1, 1, '31-12-2024', '15:00:00', 2, N'Khách đã nhận bàn', N'Chỗ gần cửa sổ'),
-(2, 3, '2-1-2025', '13:30:00', 3, N'Khách chưa nhận bàn', NULL),
-(3, 6, '2-1-2025', '8:00:00', 4, N'Khách chưa nhận bàn', N'Yêu cầu yên tĩnh'),
-(4, 15, '09-1-2025', '19:00:00', 5, N'Khách chưa nhận bàn', NULL),
 (5, 1, '30-12-2024', '12:00:00', 2, N'Khách đã nhận bàn', N'Không dùng thức uống lạnh'),
+(2, 3, '2-1-2025', '13:30:00', 3, N'Khách chưa nhận bàn', NULL),
+(3, 6, '3-1-2025', '8:00:00', 4, N'Khách chưa nhận bàn', N'Yêu cầu yên tĩnh'),
 (6, 9, '3-1-2025', '8:00:00', 6, N'Khách chưa nhận bàn', N'Chỗ gần máy lạnh'),
-(7, 13, '1-1-2025', '15:00:00', 4, N'Khách chưa nhận bàn', N'Thích đồ uống ít đường'),
-(8, 1, '2-1-2025', '17:00:00', 2, N'Khách chưa nhận bàn', NULL),
-(1, 4, '2-1-2025', '13:00:00', 3, N'Khách chưa nhận bàn', NULL),
-(2, 16, '2-1-2024', '8:00:00', 5, N'Khách chưa nhận bàn', NULL);
+(7, 13, '1-1-2025', '15:00:00', 4, N'Khách chưa nhận bàn', NULL),
+(8, 1, '3-1-2025', '17:00:00', 2, N'Khách chưa nhận bàn', NULL),
+(1, 4, '3-1-2025', '13:00:00', 3, N'Khách chưa nhận bàn', NULL),
+(8, 1, '1-1-2025', '17:00:00', 2, N'Khách đã nhận bàn', NULL),
+(4, 16, '3-1-2024', '8:00:00', 5, N'Khách chưa nhận bàn', N'Yêu cầu background'),
+(3, 4, '2-1-2025', '8:00:00', 3, N'Khách chưa nhận bàn', NULL),
+(4, 15, '09-1-2025', '19:00:00', 5, N'Khách chưa nhận bàn', NULL);
 
 
 -- Insert sample data for WORK_SHIFT
@@ -298,19 +323,30 @@ VALUES
     (1, N'Ca sáng', 230000, '06:00:00', '14:00:00'),
     (2, N'Ca chiều', 200000, '14:00:00', '17:30:00'),
     (3, N'Ca tối', 250000, '17:30:00', '22:00:00');
+
 INSERT INTO EMPLOYEE_SHIFT (EMP_ID, SHIFT_ID, WORK_DAY)
 VALUES 
-    (1, 1, 1), -- Thứ Hai
-    (1, 1, 2), -- Thứ Ba
-    (1, 1, 3), -- Thứ Tư
-    (1, 1, 4), -- Thứ Năm
-    (1, 1, 5), -- Thứ Sáu
-    (1, 1, 6), -- Thứ Bảy
-    (1, 1, 7), -- Chủ nhật
-	(1, 2, 5),
-	(1, 3, 3),
-	(2, 3, 3);
+	-- Thứ Hai
+    (1, 1, 1), (2, 1, 1), (6, 1, 1), (9, 1, 1),   (1, 2, 1), (2, 2, 1), (6, 2, 1), (10, 2, 1),   (1, 3, 1), (10, 3, 1),
+	-- Thứ Ba
+	(1, 1, 2), (3, 1, 2), (7, 1, 2), (11, 1, 2),   (1, 2, 2), (4, 2, 2), (8, 2, 2), (9, 2, 2),   (1, 3, 2), (9, 3, 2), 
+	-- Thứ Tư
+    (1, 1, 3), (3, 1, 3), (7, 1, 3), (11, 1, 3),   (1, 2, 3), (2, 2, 3), (6, 2, 3), (10, 2, 3),   (1, 3, 3), (11, 3, 3), 
+	-- Thứ Năm
+    (1, 1, 4), (5, 1, 4), (6, 1, 4), (9, 1, 4),    (1, 2, 4), (5, 2, 4), (8, 2, 4), (9, 2, 4),   (1, 3, 4), (10, 3, 4), 
+	-- Thứ Sáu
+    (1, 1, 5), (2, 1, 5), (7, 1, 5), (11, 1, 5),   (1, 2, 5), (4, 2, 5), (7, 2, 5), (10, 2, 5),   (1, 3, 5), (10, 3, 5), 
+	-- Thứ Bảy
+    (1, 1, 6), (3, 1, 6), (6, 1, 6), (9, 1, 6),   (1, 2, 6), (5, 2, 6), (8, 2, 6), (10, 2, 6),  
+	-- Chủ nhật
+    (1, 1, 7), (2, 1, 7), (7, 1, 7), (11, 1, 7),  (1, 2, 7), (4, 2, 7), (8, 2, 7), (11, 2, 7);
+
+set dateformat dmy
+
 INSERT INTO REQUEST(EMP_ID, REQ_TYPE, EMP_COMMENT) VALUES (2,N'Đổi ca',N'Xin đổi sang ca sáng thứ 2')
+INSERT INTO REQUEST(EMP_ID, REQ_TYPE, EMP_COMMENT, REQ_DATE) VALUES 
+(2,N'Xin nghỉ',N'Xin nghỉ sáng ngày 6/1', '31-12-2025'),
+(2,N'Đổi ca',N'Xin đổi ca sáng ngày 29/12', '25-12-2025');
 
 set dateformat dmy
 -- Bill

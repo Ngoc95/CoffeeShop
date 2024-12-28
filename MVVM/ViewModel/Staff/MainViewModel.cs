@@ -34,12 +34,14 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         public ICommand TableViewCommand { get; set; }
         public ICommand WorkshiftViewCommand { get; set; }
         public ICommand AccountViewCommand { get; set; }
+        public ICommand HomeViewCommand { get; set; }
         public CustomerViewModel CustomerVM { get; set; }
         public ErrorViewModel ErrorVM { get; set; }
         public WorkshiftViewModel WorkshiftVM { get; set; }
         public MenuOrderViewModel MenuOrderVM { get; set; }
         public StaffTableResViewModel TableVM { get; set; }
         public AccountViewModel AccountVM { get; set; }
+        public StaffHomeViewModel HomeVM { get; set; }
 
         private object _currentView;
 
@@ -83,6 +85,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             WorkshiftVM = new WorkshiftViewModel();
             MenuOrderVM = new MenuOrderViewModel();
             TableVM = new StaffTableResViewModel();
+            HomeVM = new StaffHomeViewModel();
 
             CurrentView = WorkshiftVM;
 
@@ -92,6 +95,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             MenuViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = MenuOrderVM; });
             TableViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = TableVM; });
             WorkshiftViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = WorkshiftVM; });
+            HomeViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = HomeVM; });
 
             LogOutCommand = new RelayCommand<Window>(null, (p) =>
             {

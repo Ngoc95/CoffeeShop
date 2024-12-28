@@ -13,11 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QuanLiCoffeeShop.MVVM.View.Staff
-{
-    /// <summary>
-    /// Interaction logic for StaffHomeUserControl.xaml
-    /// </summary>
+namespace QuanLiCoffeeShop.MVVM.View.Staff.StaffHomeManagement
+{    
+     /// <summary>
+     /// Interaction logic for StaffTableUserControl.xaml
+     /// </summary>
     public partial class StaffHomeUserControl : UserControl
     {
         public StaffHomeUserControl()

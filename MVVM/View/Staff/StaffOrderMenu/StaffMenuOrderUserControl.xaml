@@ -18,8 +18,8 @@
     </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.23*"/>
             <ColumnDefinition/>
+            <ColumnDefinition Width="465"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
@@ -49,19 +49,19 @@
                 Grid.Row="1" 
                 Margin="10"
                 HorizontalScrollBarVisibility="Auto">
-                    <ItemsControl
+                <ItemsControl
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
                         ItemsSource="{Binding GenreProductList}"
                         Width="auto" Height="auto">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <RadioButton
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton
                                     HorizontalAlignment="Stretch"
                                     Cursor="Hand"
                                     FontSize="25"
@@ -72,26 +72,26 @@
                                     IsChecked="False"
                                     GroupName="ProductTypeGroup"
                                     Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
 
             <ScrollViewer 
                 Grid.Row="2" 
                 VerticalScrollBarVisibility="Auto">
-                    <ItemsControl
+                <ItemsControl
                     Padding="0"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"        
                     ItemsSource="{Binding ProductList}"
                     Width="auto" Height="auto">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
                             <uc:ProductCardStaff
                                     DataContext="{Binding}"
                                     Width="211.68" Height="313.11"
@@ -104,9 +104,9 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </uc:ProductCardStaff>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </ScrollViewer>
 
         </Grid>
@@ -186,7 +186,7 @@
                                     Height="auto"
                                     Value="{Binding QuantityOfSelectedProduct}"
                                     Width="auto"/>
-                                    <!--Value="{x:Null}"-->
+                                <!--Value="{x:Null}"-->
                             </StackPanel>
 
                         </StackPanel>
@@ -233,7 +233,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Top" Margin="5,5,5,0">
-                                                <TextBlock Style="{DynamicResource Header6Style}" Text="Ngày lập: "></TextBlock>
+                                            <TextBlock Style="{DynamicResource Header6Style}" Text="Ngày lập: "></TextBlock>
                                             <TextBlock Style="{DynamicResource Header6Style}" Text="{Binding Today, StringFormat='dd/MM/yyyy'}"/>
                                         </StackPanel>
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="5,5,10,5" HorizontalAlignment="Right">
@@ -258,7 +258,7 @@
                                 </ListView.ItemContainerStyle>
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn Width="120" Header="Tên món" 
+                                        <GridViewColumn Width="140" Header="Tên món" 
                                             HeaderContainerStyle="{StaticResource GridViewHeaderStyle}" >
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -269,7 +269,7 @@
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
-                                        <GridViewColumn Width="38" Header="SL"
+                                        <GridViewColumn Width="40" Header="SL"
                                             HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -291,7 +291,7 @@
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
-                                        <GridViewColumn Width="100" Header="Thành tiền"
+                                        <GridViewColumn Width="110" Header="Thành tiền"
                                             HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -349,8 +349,8 @@
                         </StackPanel>
                         <StackPanel Grid.Row="2" >
                             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal" Margin="5">
-                            <TextBlock Text="Tổng đơn giá: " Style="{DynamicResource Header6Style}"></TextBlock>
-                            <TextBlock Text="{Binding SUBTotal_Bill,StringFormat={}{0:C0}}" Language="vi-VN" Style="{DynamicResource Header6Style}"></TextBlock>
+                                <TextBlock Text="Tổng đơn giá: " Style="{DynamicResource Header6Style}"></TextBlock>
+                                <TextBlock Text="{Binding SUBTotal_Bill,StringFormat={}{0:C0}}" Language="vi-VN" Style="{DynamicResource Header6Style}"></TextBlock>
                             </StackPanel>
                             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal" Margin="5">
                                 <TextBlock Text="Thanh toán: " Style="{DynamicResource Header6Style}"></TextBlock>

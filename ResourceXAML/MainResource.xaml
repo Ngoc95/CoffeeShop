@@ -3,6 +3,7 @@
                     xmlns:AdminViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
                     xmlns:ProCardViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.ProductCardVM"
                     xmlns:AdminHomeView="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.HomePage"
+                    xmlns:StaffHomeView="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffHomeManagement"
                     xmlns:StaffViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
                     xmlns:StaffMenuOrderView="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu"
                     xmlns:StaffTableResView="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffTable"
@@ -12,6 +13,7 @@
     <AdminViewModel:AdminHomeViewModel x:Key="AdminHomeViewModel"/>
     <StaffViewModel:MenuOrderViewModel x:Key="MenuOrderViewModel"/>
     <StaffViewModel:StaffTableResViewModel x:Key="StaffTableResViewModel"/>
+    <StaffViewModel:StaffHomeViewModel x:Key="StaffHomeViewModel"/>
 
     <!--TableCardforAdmin-->
     <DataTemplate x:Key="Table2">
@@ -38,7 +40,10 @@
     <DataTemplate DataType="{x:Type StaffViewModel:StaffTableResViewModel}">
         <StaffTableResView:StaffTableUserControl/>
     </DataTemplate>
-    
+
+    <DataTemplate DataType="{x:Type StaffViewModel:StaffHomeViewModel}">
+        <StaffHomeView:StaffHomeUserControl/>
+    </DataTemplate>
 
     <!--TableCardForStaff-->
     <DataTemplate x:Key="Table2Staff">

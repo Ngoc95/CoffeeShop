@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0"
-                        Margin="10,0,0,0"
+                        Margin="10,5,0,10"
                         VerticalAlignment="Center">
                 <TextBlock FontSize="18" FontWeight="Bold" Text="{Binding [0]}"></TextBlock>
                 <TextBlock FontSize="15" Text="{Binding [1]}"></TextBlock>

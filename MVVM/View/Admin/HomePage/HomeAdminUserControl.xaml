@@ -111,7 +111,7 @@
                                 HorizontalAlignment="Center"
                                 Style="{StaticResource Header4Style}"
                                 Text="Top 5 bán chạy"/>
-                            <lvc:PieChart 
+                            <lvc:PieChart
                                 Series="{Binding TopSellerSeries}"
                                 Margin="5" 
                                 FontSize="16"

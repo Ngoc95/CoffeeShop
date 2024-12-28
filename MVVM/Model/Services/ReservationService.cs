@@ -2,8 +2,10 @@
 using QuanLiCoffeeShop.MVVM.View.Message;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -139,10 +141,12 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             {
                 using (var context = new CoffeeShopDBEntities())
                 {
-                    int _checked = 0, _unchecked = 0;
-                    _checked = await context.RESERVATIONs.CountAsync(r => r.RES_DATE.Date == DateTime.Now.Date && r.RES_STATUS == "Khách chưa nhận bàn");
-                    _unchecked = await context.RESERVATIONs.CountAsync(r => r.RES_DATE.Date == DateTime.Now.Date && r.RES_STATUS == "Khách đã nhận bàn");
-                    return (_checked, _unchecked);
+                    int pendingReservations = await context.RESERVATIONs.CountAsync(r =>
+                        DbFunctions.TruncateTime(r.RES_DATE) == DateTime.Today && r.RES_STATUS == "Khách chưa nhận bàn");
+
+                    int confirmedReservations = await context.RESERVATIONs.CountAsync(r =>
+                        DbFunctions.TruncateTime(r.RES_DATE) == DateTime.Today && r.RES_STATUS == "Khách đã nhận bàn");
+                    return (pendingReservations, confirmedReservations);
                 }
             }
             catch
@@ -196,6 +200,33 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             catch
             {
                 return "0";
+            }
+        }
+
+        internal async Task<List<List<String>>> GetGenralResList()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    List<List<string>> res = new List<List<string>>();
+                    var temp = await context.RESERVATIONs
+                                    .Where(g => DbFunctions.TruncateTime(g.RES_DATE) == DateTime.Today && g.IS_DELETED == false)
+                                    .ToListAsync();
+                    foreach(var item in temp)
+                    {
+                        res.Add(new List<string>()
+                        {
+                            $"Mã bàn: {item.TABLE_ID:000}, " + $"Thời gian: {item.RES_TIME.ToString("HH:mm")}",
+                            item.RES_STATUS + ((item.SPECIAL_REQUEST != null || item.SPECIAL_REQUEST.Length != 0 ) ? "\nCó yêu cầu đặc biệt" : ""),
+                        });
+                    }
+                    return res;
+                }
+            }
+            catch
+            {
+                return null;
             }
         }
     }

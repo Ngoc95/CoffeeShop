@@ -309,7 +309,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVVM\View\Staff\StaffHomeUserControl.xaml">
+    <Page Include="MVVM\View\Staff\StaffHomeManagement\StaffHomeUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -546,7 +546,6 @@
     <Compile Include="MVVM\ViewModel\Admin\AccountViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminHomeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\ErrorViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\Admin\HomeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\MenuViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\TableViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\WorkshiftViewModel.cs" />
@@ -562,6 +561,7 @@
     <Compile Include="MVVM\ViewModel\Staff\ErrorViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\MainViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\MenuOrderViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Staff\StaffHomeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\StaffTableResViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Staff\WorkshiftViewModel.cs" />
     <Compile Include="MVVM\View\Admin\AccountManagement\AccountUserControl.xaml.cs">
@@ -680,7 +680,7 @@
     <Compile Include="MVVM\View\Staff\StaffCaLamViec\XinNghiPhepOrDoiCaWindow.xaml.cs">
       <DependentUpon>XinNghiPhepOrDoiCaWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\View\Staff\StaffHomeUserControl.xaml.cs">
+    <Compile Include="MVVM\View\Staff\StaffHomeManagement\StaffHomeUserControl.xaml.cs">
       <DependentUpon>StaffHomeUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Staff\StaffOrderMenu\SearchCustomerWindow.xaml.cs">
@@ -814,6 +814,7 @@
     <Resource Include="Images\Home\table.png" />
     <Resource Include="Images\Home\typeProduct.png" />
     <Resource Include="Images\Home\Reservation.png" />
+    <Resource Include="Images\Home\staffbgr.png" />
     <Content Include="MVVM\Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -884,9 +885,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MVVM\View\Staff\StaffHomeManagement\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
