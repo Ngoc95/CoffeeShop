@@ -35,7 +35,7 @@
         </Grid.ColumnDefinitions>
 
         <ScrollViewer Grid.Column="0" 
-            Margin="5"
+            Margin="5,0"
             VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3">
             <ItemsControl
                 VerticalAlignment="Top"
@@ -78,7 +78,7 @@
             <ComboBox 
                 Grid.Row="0"
                 HorizontalAlignment="Left"
-                Margin="5,10"
+                Margin="5,0,0,10"
                 Tag="Lọc theo trạng thái"
                 FontSize="22"
                 SelectedIndex="{Binding CbbSelectedIndex, Mode=TwoWay}"

@@ -113,6 +113,14 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             GeneralList.Add(item);
             item = await GetResGeneral();
             GeneralList.Add(item);
+            item = await GetSupplierGeneral();
+            GeneralList.Add(item);
+        }
+
+        private async Task<List<string>> GetSupplierGeneral()
+        {
+            string t = await SupplierService.Ins.GetSupplierGeneral();
+            return new List<string>() { "Nhà cung cấp", t, "pack://application:,,,/Images/Home/supplier.png" };
         }
 
         private async Task<List<string>> GetResGeneral()

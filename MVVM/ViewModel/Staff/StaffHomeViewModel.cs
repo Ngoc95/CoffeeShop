@@ -109,7 +109,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             if (temp == null) return;
             foreach(List<string> i in temp)
             {
-                i.Add("pack://application:,,,/Images/Home/Reservation.png");
+                i.Add("pack://application:,,,/Images/Home/request.png");
                 GeneralRequestList.Add(i);
             }
         }

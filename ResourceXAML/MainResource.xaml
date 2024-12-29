@@ -26,8 +26,6 @@
     <IngAdminViewModel:AddImportViewModel x:Key="AddImportViewModel"/>
     <IngAdminViewModel:ImportDetailViewModel x:Key="ImportDetailViewModel"/>
 
-    <StaffViewModel:MenuOrderViewModel x:Key="MenuOrderViewModel"/>
-    <StaffViewModel:StaffTableResViewModel x:Key="StaffTableResViewModel"/>
     <IngStaffViewModel:IngredientSourceViewModel x:Key="IngSourceStaffViewModel"/>
     <IngStaffViewModel:IngredientViewModel x:Key="IngStaffViewModel"/>
     <IngStaffViewModel:ExportViewModel x:Key="ExportViewModel"/>

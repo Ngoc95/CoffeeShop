@@ -194,7 +194,7 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 using (var context = new CoffeeShopDBEntities())
                 {
                     int n = await context.RESERVATIONs.CountAsync(t => t.IS_DELETED == false && t.RES_STATUS == "Khách chưa nhận bàn");
-                    return n.ToString() + " (chưa nhận bàn)";
+                    return n.ToString() + "(chưa nhận bàn)";
                 }
             }
             catch
@@ -218,7 +218,7 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                         res.Add(new List<string>()
                         {
                             $"Mã bàn: {item.TABLE_ID:000}, " + $"Thời gian: {item.RES_TIME.ToString("HH:mm")}",
-                            item.RES_STATUS + ((item.SPECIAL_REQUEST != null || item.SPECIAL_REQUEST.Length != 0 ) ? "\nCó yêu cầu đặc biệt" : ""),
+                            item.RES_STATUS + ((item.SPECIAL_REQUEST == null || item.SPECIAL_REQUEST.Length == 0 ) ? "" : "\nCó yêu cầu đặc biệt" ),
                         });
                     }
                     return res;

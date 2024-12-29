@@ -233,7 +233,6 @@ create table ERROR
 )
 set dateformat dmy
 
-set dateformat ymd
 INSERT INTO EMPLOYEE (EMP_NAME, EMP_PHONE, EMP_CCCD, EMP_BIRTHDAY, EMP_USERNAME, EMP_PASSWORD, EMP_EMAIL, EMP_GENDER, EMP_ROLE)
 VALUES 
 (N'Ngọc Nguyên', '0912345678',	'012345678901', '01-01-2005', 'admin', '202cb962ac59075b964b07152d234b70', 'ngocnguyen@example.com', N'Nữ', N'Quản lý'),

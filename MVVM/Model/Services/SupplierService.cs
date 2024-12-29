@@ -144,5 +144,21 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 return (false, "Xóa nhà cung cấp thất bại");
             }
         }
+
+        internal async Task<string> GetSupplierGeneral()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    int n = await context.SUPPLIERs.CountAsync(t => t.IS_DELETED == false);
+                    return n.ToString();
+                }
+            }
+            catch
+            {
+                return "0";
+            }
+        }
     }
 }
