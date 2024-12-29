@@ -111,10 +111,34 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                         Gender = _selectedItem.Gender,
                         Point = _selectedItem.Point
                     };
+                    LoadTransactionHistory(_selectedItem.ID);
+                }
+                else
+                {
+                    TransactionHistory = new ObservableCollection<BillDTO>();
                 }
                 OnPropertyChanged(nameof(SelectedItem));
             }
         }
+        private ObservableCollection<Bill_InfoDTO> _billInfoList;
+
+        public ObservableCollection<Bill_InfoDTO> BillInfoList
+        {
+            get { return _billInfoList; }
+            set { _billInfoList = value; OnPropertyChanged(); }
+        }
+
+        private BillDTO _selectedBill;
+        public BillDTO SelectedBill
+        {
+            get => _selectedBill;
+            set
+            {
+                _selectedBill = value;
+                OnPropertyChanged(nameof(SelectedBill));
+            }
+        }
+
         private CustomerDTO _editCustomer;
         public CustomerDTO EditCustomer
         {
@@ -125,16 +149,39 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 OnPropertyChanged(nameof(EditCustomer));
             }
         }
+        // transactions
+        private ObservableCollection<BillDTO> _transactionHistory;
+
+        public ObservableCollection<BillDTO> TransactionHistory
+        {
+            get { return _transactionHistory; }
+            set { _transactionHistory = value; OnPropertyChanged(nameof(TransactionHistory)); }
+        }
+
+        private async void LoadTransactionHistory(int cusID)
+        {
+            var transactions = await BillService.Ins.GetBillsByCustomerID(cusID);
+            TransactionHistory = new ObservableCollection<BillDTO>(transactions);
+        }
+
         public ICommand FirstLoadCM { get; set; }
+        public ICommand CancelCM { get; set; }
         public ICommand SearchCusCM { get; set; }
         public ICommand EditCusCM { get; }
         public ICommand AddCusWdCM { get; set; }
         public ICommand AddCusListCM { get; set; }
+        public ICommand InfoBillCM { get; set; }
+        public ICommand DeleteBillCM { get; set; }
         public CustomerViewModel()
         {
             FirstLoadCM = new RelayCommand<UserControl>((p) => { return true; }, async (p) =>
             {
                 CustomerList = new ObservableCollection<CustomerDTO>(await Task.Run(() => CustomerService.Ins.GetAllCus()));
+            });
+            CancelCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                resetData();
+                p.Close();
             });
             SearchCusCM = new RelayCommand<System.Windows.Controls.TextBox>((p) => { return true; }, async (p) =>
             {
@@ -217,6 +264,31 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                     MessageBoxCustom.Show(MessageBoxCustom.Error, messageAdd);
                 }
             });
+            InfoBillCM = new RelayCommand<BillDTO>((p) => { return true; }, (p) =>
+            {
+                BillInfoList = new ObservableCollection<Bill_InfoDTO>(SelectedBill.BillInfo);
+                BillDetailWindow wd = new BillDetailWindow();
+                wd.ShowDialog();
+
+            });
+            DeleteBillCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                DeleteMessage wd = new DeleteMessage();
+                wd.ShowDialog();
+                if (wd.DialogResult == true)
+                {
+                    (bool sucess, string messageDelete) = await BillService.Ins.DeleteBill(SelectedBill);
+                    if (sucess)
+                    {
+                        TransactionHistory.Remove(SelectedBill);
+                        MessageBoxCustom.Show(MessageBoxCustom.Success, "Xóa thành công");
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, messageDelete);
+                    }
+                }
+            });
         }
         #region methods
         void resetData()
@@ -224,6 +296,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             Name = null;
             Email = null;
             Phone = null;
+            Gender = null;
         }
         #endregion
     }

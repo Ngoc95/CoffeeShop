@@ -19,6 +19,8 @@ namespace QuanLiCoffeeShop.MVVM.Model
         {
             this.BILLs = new HashSet<BILL>();
             this.EMPLOYEE_SHIFT = new HashSet<EMPLOYEE_SHIFT>();
+            this.EXPORTs = new HashSet<EXPORT>();
+            this.IMPORTs = new HashSet<IMPORT>();
             this.REQUESTs = new HashSet<REQUEST>();
         }
     
@@ -41,6 +43,10 @@ namespace QuanLiCoffeeShop.MVVM.Model
         public virtual ICollection<BILL> BILLs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EMPLOYEE_SHIFT> EMPLOYEE_SHIFT { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EXPORT> EXPORTs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IMPORT> IMPORTs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REQUEST> REQUESTs { get; set; }
     }

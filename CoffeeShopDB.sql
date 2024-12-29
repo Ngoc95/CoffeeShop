@@ -132,51 +132,69 @@ CREATE TABLE REQUEST (
 	constraint chk_REQ_TYPE check (REQ_TYPE in (N'Xin nghỉ', N'Đổi ca')),
 )
 
+create table INGREDIENT
+(
+	ING_ID int identity(1,1),
+	ING_NAME nvarchar(max),
+	ING_UNIT nvarchar(100),
+	IS_DELETED bit default 0,
+	constraint pk_ING primary key(ING_ID),
+)
+create table SUPPLIER
+(
+	SUP_ID int identity(1,1),
+	SUP_NAME nvarchar(max),
+	SUP_PHONE varchar(20),
+	SUP_ADDR nvarchar(max),
+	IS_DELETED bit default 0,
+	constraint pk_SUP primary key(SUP_ID),
+)
+create table IMPORT
+(
+	IMP_ID int identity(1,1),
+	SUP_ID int,
+	EMP_ID int,
+	IMP_DATE smalldatetime default getdate(),
+	TOTAL_COST money,
+	IS_DELETED bit default 0,
+	constraint pk_IMP primary key(IMP_ID),
+	constraint fk_IMP_SUP foreign key(SUP_ID) references SUPPLIER(SUP_ID),
+	constraint fk_IMP_EMP foreign key(EMP_ID) references EMPLOYEE(EMP_ID),
+)
+create table IMPORT_INFO
+(
+	IMP_ID int,
+	ING_ID int,
+	QUANTITY int default 1,
+	PRICE_ITEM money,
+	IS_DELETED bit default 0,
+	constraint pk_ImpInfo primary key(IMP_ID, ING_ID),
+	constraint fk_ImpInfo_IMP foreign key(IMP_ID) references IMPORT(IMP_ID),
+	constraint fk_ImpInfo_ING foreign key(ING_ID) references INGREDIENT(ING_ID),
+)
 
---create table INGREDIENT
---(
---	ING_ID int identity(1,1),
---	ING_NAME nvarchar(max),
---	ING_UNIT nvarchar(100),
---	IS_DELETED bit default 0,
---	constraint pk_ING primary key(ING_ID),
---)
---create table SUPPLIER
---(
---	SUP_ID int identity(1,1),
---	SUP_NAME nvarchar(max),
---	SUP_PHONE varchar(20),
---	IS_DELETED bit default 0,
---	constraint pk_SUP primary key(SUP_ID),
---)
---create table IMPORT
---(
---	IMP_ID int identity(1,1),
---	SUP_ID int,
---	EMP_ID int,
---	IMP_DATE smalldatetime default getdate(),
---	TOTAL_COST money,
---	IS_DELETED bit default 0,
---	constraint pk_IMP primary key(IMP_ID),
---	constraint fk_IMP_SUP foreign key(SUP_ID) references SUPPLIER(SUP_ID),
---	constraint fk_IMP_EMP foreign key(EMP_ID) references EMPLOYEE(EMP_ID),
---)
---create table IMPORT_INFO
---(
---	IMP_ID int,
---	ING_ID int,
---	QUANTITY int default 1,
---	PRICE_ITEM money,
---	IS_DELETED bit default 0,
---	constraint pk_ImpInfo primary key(IMP_ID, ING_ID),
---	constraint fk_ImpInfo_IMP foreign key(IMP_ID) references IMPORT(IMP_ID),
---	constraint fk_ImpInfo_ING foreign key(ING_ID) references INGREDIENT(ING_ID),
---)
---EXPORT (EXP_ID, EMP_ID, EXP_DATE, TOTAL_COST, IS_DELETED)
---Tân từ: EXPORT lưu trữ thông tin xuất nguyên liệu cho nhân viên pha chế bao gồm: mã xuất hàng (EXP_ID), mã nhân viên (EMP_ID), ngày xuất hàng (EXP_DATE), tổng trị giá của lần xuất hàng (TOTAL_COST), và biến để xem đối tượng có đang bị xóa hay không (IS_DELETED)
+create table EXPORT
+(
+	EXP_ID int identity(1,1),
+	EMP_ID int,
+	EXP_DATE smalldatetime default getdate(),
+	TOTAL_COST money,
+	IS_DELETED bit default 0,
+	constraint pk_EXP primary key(EXP_ID),
+	constraint fk_EXP_EMP foreign key(EMP_ID) references EMPLOYEE(EMP_ID),
+)
 
---EXPORT_INFO (EXP_ID, ING_ID, QUANTITY, PRICE_ITEM, IS_DELETED)
---Tân từ: EXPORT_INFO lưu trữ thông tin chi tiết cho từng lần xuất hàng bao gồm: mã xuất hàng (EXP_ID), mã nguyên liệu (ING_ID), số lượng nguyên liệu (QUANTITY), giá của nguyên liệu (PRICE_ITEM), và biến để xem đối tượng có đang bị xóa hay không (IS_DELETED)
+create table EXPORT_INFO
+(
+	EXP_ID int,
+	ING_ID int,
+	QUANTITY int default 1,
+	PRICE_ITEM money,
+	IS_DELETED bit default 0,
+	constraint pk_ExpInfo primary key(EXP_ID, ING_ID),
+	constraint fk_ExpInfo_EXP foreign key(EXP_ID) references EXPORT(EXP_ID),
+	constraint fk_ExpInfo_PRO foreign key(ING_ID) references INGREDIENT(ING_ID),
+)
 
 create table BILL
 (
@@ -213,22 +231,19 @@ create table ERROR
 	constraint pk_ER primary key(ER_ID),
 	constraint chk_ER check(ER_STATUS in (N'Chưa khắc phục', N'Đã khắc phục')),
 )
+set dateformat dmy
 
 set dateformat ymd
 INSERT INTO EMPLOYEE (EMP_NAME, EMP_PHONE, EMP_CCCD, EMP_BIRTHDAY, EMP_USERNAME, EMP_PASSWORD, EMP_EMAIL, EMP_GENDER, EMP_ROLE)
 VALUES 
-
-(N'Ngọc Nguyên', '0912345678',	'012345678901', '2005-01-01', 'admin', '202cb962ac59075b964b07152d234b70', 'ngocnguyen@example.com', N'Nữ', N'Quản lý'),
-(N'Ngọc', '098',	'01', '2005-01-01', 'ngoc', '202cb962ac59075b964b07152d234b70', 'duongkhanhngoc2005@gmail.com', N'Nữ', N'Phục vụ'),
-(N'Trần Tuấn Khang', '0324567211',	'012345678901', '2004-01-20', 'tuankhang', '202cb962ac59075b964b07152d234b70', 'khang@gmail.com', N'Nam', N'Phục vụ'),
-(N'Trần Anh Khôi', '0344567211',	'012345678901', '2004-7-20', 'anhkhoi', '202cb962ac59075b964b07152d234b70', 'anhkhoi227@gmail.com', N'Nam', N'Phục vụ'),
-(N'Đào Thị Bích Thảo', '0253758744',	'012345678901', '2004-4-20', 'bichthao', '202cb962ac59075b964b07152d234b70', 'bichthao21@gmail.com', N'Nữ', N'Phục vụ'),
-(N'Lê Bảo Khanh', '0912345678',	'012345678901', '2003-10-31', 'baokhanh', '202cb962ac59075b964b07152d234b70', 'baokhanh@gmail.com', N'Nữ', N'Thu ngân'),
-(N'Khánh Ngọc', '0912345678',	'012345678901', '2003-9-24', 'khanhngoc', '202cb962ac59075b964b07152d234b70', 'khanhngoc@gmail.com', N'Nữ', N'Thu ngân'),
-(N'Lê Thế An', '0912345678',	'012345678901', '2003-8-24', 'thean', '202cb962ac59075b964b07152d234b70', 'thean@gmail.com', N'Nam', N'Thu ngân'),
-(N'Trương Thảo Vân', '0912345678',	'0824456789', '2005-10-31', 'thaovan', '202cb962ac59075b964b07152d234b70', 'thaovan@gmail.com', N'Nữ', N'Pha chế'),
-(N'Nguyễn Khoa', '0912345678',	'0824456789', '2003-1-10', 'khoanguyen', '202cb962ac59075b964b07152d234b70', 'khoanguyen@gmail.com', N'Nam', N'Pha chế'),
-(N'Trần Thị Huệ Nguyên', '0912345678',	'0824456789', '2005-10-31', 'nguyen', '202cb962ac59075b964b07152d234b70', 'huenguyentran3110@gmail.com', N'Nữ', N'Pha chế');
+(N'Ngọc Nguyên', '0912345678',	'012345678901', '01-01-2005', 'admin', '202cb962ac59075b964b07152d234b70', 'ngocnguyen@example.com', N'Nữ', N'Quản lý'),
+(N'Khánh Ngọc', '0704768077',	'079358699603', '09-05-2005', 'ngoc', '202cb962ac59075b964b07152d234b70', 'duongkhanhngoc2005@gmail.com', N'Nữ', N'Pha chế'),
+(N'Bảo Ngọc', '0704768088',	'079578699803', '22-02-2005', 'baongoc', '202cb962ac59075b964b07152d234b70', 'daolebaongoc@gmail.com', N'Nữ', N'Pha chế'),
+(N'Huệ Nguyên', '0954768088',	'079658699803', '31-10-2005', 'nguyen', '202cb962ac59075b964b07152d234b70', 'huenguyen@gmail.com', N'Nữ', N'Quản lý'),
+(N'Phong Linh', '0934567890', '123456789012', '15-02-2005', 'phonglinh', '202cb962ac59075b964b07152d234b70', 'phonglinh@example.com', N'Nữ', N'Phục vụ'),
+(N'Quốc Bảo', '0912345679', '012345678902', '10-03-2005', 'quocbao', '202cb962ac59075b964b07152d234b70', 'quocbao@example.com', N'Nam', N'Pha chế'),
+(N'Lan Anh', '0934768099', '079578699804', '20-06-2005', 'lananh', '202cb962ac59075b964b07152d234b70', 'lananh@gmail.com', N'Nữ', N'Phục vụ'),
+(N'Tiến Dũng', '0904768099', '079678699804', '25-07-2005', 'tiendung', '202cb962ac59075b964b07152d234b70', 'tiendung@example.com', N'Nam', N'Thu ngân');
 
 INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Coffee')
 INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Trà sữa')
@@ -302,8 +317,6 @@ INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VAL
 INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Khánh', N'Nữ', '092459869', 'KhanhNgoc@gmail.com', 5000)
 INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VALUES (N'Quốc Anh', N'Nam', '0000555440', 'quocanh22@gmail.com', 7000)
 
-set dateformat dmy
-
 INSERT INTO RESERVATION (CUS_ID, TABLE_ID, RES_DATE, RES_TIME, NUM_OF_PEOPLE, RES_STATUS, SPECIAL_REQUEST)
 VALUES
 (6, 16, '28-12-2024', '8:00:00', 5, N'Khách chưa nhận bàn', NULL),
@@ -321,7 +334,7 @@ VALUES
 (4, 15, '09-1-2025', '19:00:00', 5, N'Khách chưa nhận bàn', NULL);
 
 
--- Insert sample data for WORK_SHIFT
+-- WORK_SHIFT
 INSERT INTO WORK_SHIFT (SHIFT_ID, SHIFT_NAME, WAGE, START_TIME, END_TIME)
 VALUES 
     (1, N'Ca sáng', 230000, '06:00:00', '14:00:00'),
@@ -330,29 +343,26 @@ VALUES
 
 INSERT INTO EMPLOYEE_SHIFT (EMP_ID, SHIFT_ID, WORK_DAY)
 VALUES 
-	-- Thứ Hai
-    (1, 1, 1), (2, 1, 1), (6, 1, 1), (9, 1, 1),   (1, 2, 1), (2, 2, 1), (6, 2, 1), (10, 2, 1),   (1, 3, 1), (10, 3, 1),
-	-- Thứ Ba
-	(1, 1, 2), (3, 1, 2), (7, 1, 2), (11, 1, 2),   (1, 2, 2), (4, 2, 2), (8, 2, 2), (9, 2, 2),   (1, 3, 2), (9, 3, 2), 
-	-- Thứ Tư
-    (1, 1, 3), (3, 1, 3), (7, 1, 3), (11, 1, 3),   (1, 2, 3), (2, 2, 3), (6, 2, 3), (10, 2, 3),   (1, 3, 3), (11, 3, 3), 
-	-- Thứ Năm
-    (1, 1, 4), (5, 1, 4), (6, 1, 4), (9, 1, 4),    (1, 2, 4), (5, 2, 4), (8, 2, 4), (9, 2, 4),   (1, 3, 4), (10, 3, 4), 
-	-- Thứ Sáu
-    (1, 1, 5), (2, 1, 5), (7, 1, 5), (11, 1, 5),   (1, 2, 5), (4, 2, 5), (7, 2, 5), (10, 2, 5),   (1, 3, 5), (10, 3, 5), 
-	-- Thứ Bảy
-    (1, 1, 6), (3, 1, 6), (6, 1, 6), (9, 1, 6),   (1, 2, 6), (5, 2, 6), (8, 2, 6), (10, 2, 6),  
-	-- Chủ nhật
-    (1, 1, 7), (2, 1, 7), (7, 1, 7), (11, 1, 7),  (1, 2, 7), (4, 2, 7), (8, 2, 7), (11, 2, 7);
+    (1, 1, 1), -- Thứ Hai
+    (1, 1, 2), -- Thứ Ba
+    (1, 1, 3), -- Thứ Tư
+    (1, 1, 4), -- Thứ Năm
+    (1, 1, 5), -- Thứ Sáu
+    (1, 1, 6), -- Thứ Bảy
+    (1, 1, 7), -- Chủ nhật
+	(1, 2, 5), (1, 3, 3), (1, 2, 6), (1, 2, 7),
+	(2, 3, 3), (2,1,2), (2,2,4), (2,1,5), (2, 3, 1), (2, 1, 7), (2, 2, 6),
+	(3, 1, 1), (3, 2, 3), (3, 3, 6), (3, 3, 4), (3, 1, 7), (3, 3, 2),
+	(4, 2, 1), (4, 2, 5), (4, 1, 3), (4, 3, 7), (4, 3, 6), (4, 2, 7), (4, 1, 4), (4, 1, 1), (4, 3, 1), (4, 3, 2),
+	(5, 1, 1), (5, 1, 2), (5, 2, 3), (5, 2, 4), (5, 3, 5), (5, 3, 2), (5, 2, 7),
+    (6, 2, 2), (6, 2, 4), (6, 3, 5), (6, 1, 7), (6, 1, 4), (6, 2, 6), 
+    (7, 3, 1), (7, 1, 3), (7, 2, 5), (7, 3, 7), (7, 2, 2), (7, 3, 2), (7, 2, 6),
+    (8, 1, 2), (8, 2, 4), (8, 3, 6), (8, 1, 7), (8, 3, 5), (8, 2, 1), (8, 2, 6);
 
-set dateformat dmy
+INSERT INTO REQUEST(EMP_ID, REQ_TYPE, EMP_COMMENT) VALUES 
+(2,N'Đổi ca',N'Xin đổi ca tối thứ 4 sang thứ 5'),
+(4,N'Xin nghỉ',N'Xin nghỉ phép vào ca tối thứ 5 vì nhà có việc ạ.');
 
-INSERT INTO REQUEST(EMP_ID, REQ_TYPE, EMP_COMMENT) VALUES (2,N'Đổi ca',N'Xin đổi sang ca sáng thứ 2')
-INSERT INTO REQUEST(EMP_ID, REQ_TYPE, EMP_COMMENT, REQ_DATE) VALUES 
-(2,N'Xin nghỉ',N'Xin nghỉ sáng ngày 6/1', '31-12-2025'),
-(2,N'Đổi ca',N'Xin đổi ca sáng ngày 29/12', '25-12-2025');
-
-set dateformat dmy
 -- Bill
 INSERT INTO Bill (CUS_ID, EMP_ID, SUBTOTAL, DISCOUNT, TOTAL_COST, CREATE_AT) VALUES (1, 2, 56000, 0, 56000, '10-12-2024 7:40:00');
 INSERT INTO BILL_INFO (BILL_ID, PRO_ID, QUANTITY, PRICE_ITEM) VALUES (1, 1, 1, 15000);
@@ -383,3 +393,81 @@ INSERT INTO Bill (CUS_ID, EMP_ID, SUBTOTAL, DISCOUNT, TOTAL_COST, CREATE_AT) VAL
 INSERT INTO BILL_INFO (BILL_ID, PRO_ID, QUANTITY, PRICE_ITEM) VALUES (6, 3, 1, 18000);
 INSERT INTO BILL_INFO (BILL_ID, PRO_ID, QUANTITY, PRICE_ITEM) VALUES (6, 4, 1, 23000);
 INSERT INTO BILL_INFO (BILL_ID, PRO_ID, QUANTITY, PRICE_ITEM) VALUES (6, 8, 1, 18000);
+
+-- Thêm dữ liệu mẫu vào bảng INGREDIENT
+INSERT INTO INGREDIENT (ING_NAME, ING_UNIT) 
+VALUES 
+(N'Bột mì', 'Kg'),
+(N'Đường', 'Kg'),
+(N'Muối', 'Kg'),
+(N'Sữa', N'Lít'),
+(N'Trứng', N'Chục'),
+(N'Cà phê','Kg'),
+(N'Sữa đặc','Lon'),
+(N'Siro','Lít');
+
+-- Thêm dữ liệu mẫu vào bảng SUPPLIER
+-- Thêm dữ liệu mẫu vào bảng SUPPLIER
+INSERT INTO SUPPLIER (SUP_NAME, SUP_PHONE, SUP_ADDR) 
+VALUES 
+(N'Công ty TNHH thực phẩm A', '123456789', N'123 Đường Thống Nhất'),
+(N'Nhà máy sản xuất B', '987654321', N'456 Đường Linh Trung, Thủ Đức'),
+(N'Công ty lương thực C', '555555555', N'789 Đường Võ Văn Ngân'),
+(N'Công ty Cà phê D', '0912345679', N'123 Đường Quang Trung, TP.HCM'),
+(N'Công ty Sản xuất E', '0987654321', N'10 Đường Nguyễn Thái Học, Q1'),
+(N'Công ty Nước giải khát F', '0123456789', N'987 Đường Lê Quang Định, Bình Thạnh');
+
+-- Thêm dữ liệu mẫu vào bảng IMPORT
+INSERT INTO IMPORT (SUP_ID, EMP_ID, TOTAL_COST) 
+VALUES 
+(1, 1, 20 * 50000.00 + 15 * 60000.00), -- Nhập từ nhà cung cấp A (Bột mì và Đường)
+(2, 4, 25 * 20000.00 + 30 * 45000.00), -- Nhập từ nhà cung cấp B (Muối và Sữa)
+(3, 1, 12 * 70000.00), -- Nhập từ nhà cung cấp C (Trứng) 
+(4, 4, 10 * 40000.00 + 15 * 35000.00), -- Nhập từ nhà cung cấp D (Cà phê và Sữa đặc) 
+(5, 1, 30 * 80000.00); -- Nhập từ nhà cung cấp E (Siro) 
+
+-- Thêm dữ liệu mẫu vào bảng IMPORT_INFO
+INSERT INTO IMPORT_INFO (IMP_ID, ING_ID, QUANTITY, PRICE_ITEM) 
+VALUES 
+(1, 1, 20, 50000.00), -- Bột mì nhập từ nhà cung cấp A
+(1, 2, 15, 60000.00), -- Đường nhập từ nhà cung cấp A
+(2, 3, 25, 20000.00), -- Muối nhập từ nhà cung cấp B
+(2, 4, 30, 45000.00), -- Sữa nhập từ nhà cung cấp B
+(3, 5, 12, 70000.00), -- Trứng nhập từ nhà cung cấp C
+(4, 6, 10, 40000.00), -- Cà phê nhập từ nhà cung cấp D
+(4, 7, 15, 35000.00), -- Sữa đặc nhập từ nhà cung cấp D
+(5, 8, 30, 80000.00); -- Siro nhập từ nhà cung cấp E
+
+-- Thêm dữ liệu mẫu vào bảng EXPORT
+INSERT INTO EXPORT (EMP_ID, TOTAL_COST) 
+VALUES 
+(2, 15 * 60000.00 + 10 * 60000.00),  -- Xuất Bột mì và Đường 
+(2, 13 * 25000.00 + 14 * 55000.00),  -- Xuất Muối và Sữa
+(3, 5 * 75000.00),  -- Xuất Trứng 
+(2, 10 * 40000.00 + 12 * 35000.00),  -- Xuất Cà phê và Sữa đặc 
+(4, 6 * 80000.00);  -- Xuất Siro 
+
+-- Thêm dữ liệu mẫu vào bảng EXPORT_INFO
+INSERT INTO EXPORT_INFO (EXP_ID, ING_ID, QUANTITY, PRICE_ITEM) 
+VALUES 
+(1, 1, 15, 60000.00),  -- Bột mì xuất
+(1, 2, 10, 60000.00),  -- Đường xuất
+(2, 3, 13, 25000.00),  -- Muối xuất
+(2, 4, 14, 55000.00),  -- Sữa xuất
+(3, 5, 5, 75000.00),  -- Trứng xuất
+(4, 6, 10, 40000.00),  -- Cà phê xuất
+(4, 7, 12, 35000.00),  -- Sữa đặc xuất
+(5, 8, 6, 80000.00);  -- Siro xuất
+
+
+
+-- Thêm dữ liệu mẫu về sự cố trong quán cà phê vào bảng ERROR
+INSERT INTO ERROR (ER_NAME, ER_DESCRIPTION, ER_STATUS) 
+VALUES 
+(N'Hư máy xay cà phê', N'Máy xay cà phê không hoạt động, cần kiểm tra hoặc thay thế.', N'Đã khắc phục'),
+(N'Hỏng đèn chiếu sáng', N'Đèn trong khu vực khách ngồi bị cháy, gây thiếu sáng.',N'Chưa khắc phục'),
+(N'Sự cố đường ống nước', N'Đường ống nước bị rò rỉ, cần sửa chữa ngay.',N'Chưa khắc phục'),
+(N'Hết giấy in hóa đơn', N'Máy in hóa đơn không hoạt động vì hết giấy, cần bổ sung giấy.',N'Đã khắc phục'),
+(N'Lỗi kết nối Wi-Fi', N'Mạng Wi-Fi không ổn định, gây khó chịu cho khách hàng.',N'Đã khắc phục'),
+(N'Hư khóa cửa', N'Khóa cửa chính bị kẹt, không thể đóng hoặc mở.',N'Chưa khắc phục'),
+(N'Sự cố quạt trần', N'Quạt trần kêu to hoặc không quay, cần sửa chữa.',N'Chưa khắc phục');

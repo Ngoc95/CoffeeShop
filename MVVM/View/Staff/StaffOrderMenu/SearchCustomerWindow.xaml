@@ -11,7 +11,7 @@
         x:Name="SearchCusWDinStaffMenu"
         mc:Ignorable="d"
         WindowStyle="None"
-        Background="Transparent"
+        Background="Transparent" AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         Title="SearchCustomerWindow" Height="800" Width="900">
     <Border BorderBrush="#603127" BorderThickness="1" CornerRadius="15" 

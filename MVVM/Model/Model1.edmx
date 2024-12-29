@@ -90,6 +90,27 @@
           <Property Name="ER_DESCRIPTION" Type="nvarchar(max)" />
           <Property Name="IS_DELETED" Type="bit" />
         </EntityType>
+        <EntityType Name="EXPORT">
+          <Key>
+            <PropertyRef Name="EXP_ID" />
+          </Key>
+          <Property Name="EXP_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMP_ID" Type="int" />
+          <Property Name="EXP_DATE" Type="smalldatetime" />
+          <Property Name="TOTAL_COST" Type="money" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="EXPORT_INFO">
+          <Key>
+            <PropertyRef Name="EXP_ID" />
+            <PropertyRef Name="ING_ID" />
+          </Key>
+          <Property Name="EXP_ID" Type="int" Nullable="false" />
+          <Property Name="ING_ID" Type="int" Nullable="false" />
+          <Property Name="QUANTITY" Type="int" />
+          <Property Name="PRICE_ITEM" Type="money" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
         <EntityType Name="GENRE_PRODUCT">
           <Key>
             <PropertyRef Name="GP_ID" />
@@ -104,6 +125,37 @@
           </Key>
           <Property Name="GT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GT_NAME" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IMPORT">
+          <Key>
+            <PropertyRef Name="IMP_ID" />
+          </Key>
+          <Property Name="IMP_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SUP_ID" Type="int" />
+          <Property Name="EMP_ID" Type="int" />
+          <Property Name="IMP_DATE" Type="smalldatetime" />
+          <Property Name="TOTAL_COST" Type="money" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="IMPORT_INFO">
+          <Key>
+            <PropertyRef Name="IMP_ID" />
+            <PropertyRef Name="ING_ID" />
+          </Key>
+          <Property Name="IMP_ID" Type="int" Nullable="false" />
+          <Property Name="ING_ID" Type="int" Nullable="false" />
+          <Property Name="QUANTITY" Type="int" />
+          <Property Name="PRICE_ITEM" Type="money" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="INGREDIENT">
+          <Key>
+            <PropertyRef Name="ING_ID" />
+          </Key>
+          <Property Name="ING_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ING_NAME" Type="nvarchar(max)" />
+          <Property Name="ING_UNIT" Type="nvarchar" MaxLength="100" />
+          <Property Name="IS_DELETED" Type="bit" />
         </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
@@ -145,6 +197,16 @@
           <Property Name="RES_STATUS" Type="nvarchar" MaxLength="100" />
           <Property Name="SPECIAL_REQUEST" Type="nvarchar(max)" />
           <Property Name="CREATE_AT" Type="smalldatetime" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="SUPPLIER">
+          <Key>
+            <PropertyRef Name="SUP_ID" />
+          </Key>
+          <Property Name="SUP_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SUP_NAME" Type="nvarchar(max)" />
+          <Property Name="SUP_PHONE" Type="varchar" MaxLength="20" />
+          <Property Name="SUP_ADDR" Type="nvarchar(max)" />
           <Property Name="IS_DELETED" Type="bit" />
         </EntityType>
         <EntityType Name="WORK_SHIFT">
@@ -242,6 +304,90 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_EXP_EMP">
+          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1" />
+          <End Role="EXPORT" Type="Self.EXPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="EXPORT">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ExpInfo_EXP">
+          <End Role="EXPORT" Type="Self.EXPORT" Multiplicity="1" />
+          <End Role="EXPORT_INFO" Type="Self.EXPORT_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EXPORT">
+              <PropertyRef Name="EXP_ID" />
+            </Principal>
+            <Dependent Role="EXPORT_INFO">
+              <PropertyRef Name="EXP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ExpInfo_PRO">
+          <End Role="INGREDIENT" Type="Self.INGREDIENT" Multiplicity="1" />
+          <End Role="EXPORT_INFO" Type="Self.EXPORT_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INGREDIENT">
+              <PropertyRef Name="ING_ID" />
+            </Principal>
+            <Dependent Role="EXPORT_INFO">
+              <PropertyRef Name="ING_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_IMP_EMP">
+          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1" />
+          <End Role="IMPORT" Type="Self.IMPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="IMPORT">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_IMP_SUP">
+          <End Role="SUPPLIER" Type="Self.SUPPLIER" Multiplicity="0..1" />
+          <End Role="IMPORT" Type="Self.IMPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUPPLIER">
+              <PropertyRef Name="SUP_ID" />
+            </Principal>
+            <Dependent Role="IMPORT">
+              <PropertyRef Name="SUP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ImpInfo_IMP">
+          <End Role="IMPORT" Type="Self.IMPORT" Multiplicity="1" />
+          <End Role="IMPORT_INFO" Type="Self.IMPORT_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IMPORT">
+              <PropertyRef Name="IMP_ID" />
+            </Principal>
+            <Dependent Role="IMPORT_INFO">
+              <PropertyRef Name="IMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ImpInfo_ING">
+          <End Role="INGREDIENT" Type="Self.INGREDIENT" Multiplicity="1" />
+          <End Role="IMPORT_INFO" Type="Self.IMPORT_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INGREDIENT">
+              <PropertyRef Name="ING_ID" />
+            </Principal>
+            <Dependent Role="IMPORT_INFO">
+              <PropertyRef Name="ING_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_PRO_GENRE_v1">
           <End Role="GENRE_PRODUCT" Type="Self.GENRE_PRODUCT" Multiplicity="0..1" />
           <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
@@ -298,11 +444,17 @@
           <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMPLOYEE_SHIFT" EntityType="Self.EMPLOYEE_SHIFT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ERROR" EntityType="Self.ERROR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EXPORT" EntityType="Self.EXPORT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EXPORT_INFO" EntityType="Self.EXPORT_INFO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GENRE_PRODUCT" EntityType="Self.GENRE_PRODUCT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GENRE_TABLE" EntityType="Self.GENRE_TABLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IMPORT" EntityType="Self.IMPORT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IMPORT_INFO" EntityType="Self.IMPORT_INFO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INGREDIENT" EntityType="Self.INGREDIENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REQUEST" EntityType="Self.REQUEST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RESERVATION" EntityType="Self.RESERVATION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SUPPLIER" EntityType="Self.SUPPLIER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WORK_SHIFT" EntityType="Self.WORK_SHIFT" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="fk_BILL_CUS" Association="Self.fk_BILL_CUS">
             <End Role="CUSTOMER" EntitySet="CUSTOMER" />
@@ -331,6 +483,34 @@
           <AssociationSet Name="fk_EMPSHIFT_SHIFT" Association="Self.fk_EMPSHIFT_SHIFT">
             <End Role="WORK_SHIFT" EntitySet="WORK_SHIFT" />
             <End Role="EMPLOYEE_SHIFT" EntitySet="EMPLOYEE_SHIFT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EXP_EMP" Association="Self.fk_EXP_EMP">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+            <End Role="EXPORT" EntitySet="EXPORT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ExpInfo_EXP" Association="Self.fk_ExpInfo_EXP">
+            <End Role="EXPORT" EntitySet="EXPORT" />
+            <End Role="EXPORT_INFO" EntitySet="EXPORT_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ExpInfo_PRO" Association="Self.fk_ExpInfo_PRO">
+            <End Role="INGREDIENT" EntitySet="INGREDIENT" />
+            <End Role="EXPORT_INFO" EntitySet="EXPORT_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IMP_EMP" Association="Self.fk_IMP_EMP">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+            <End Role="IMPORT" EntitySet="IMPORT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IMP_SUP" Association="Self.fk_IMP_SUP">
+            <End Role="SUPPLIER" EntitySet="SUPPLIER" />
+            <End Role="IMPORT" EntitySet="IMPORT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ImpInfo_IMP" Association="Self.fk_ImpInfo_IMP">
+            <End Role="IMPORT" EntitySet="IMPORT" />
+            <End Role="IMPORT_INFO" EntitySet="IMPORT_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ImpInfo_ING" Association="Self.fk_ImpInfo_ING">
+            <End Role="INGREDIENT" EntitySet="INGREDIENT" />
+            <End Role="IMPORT_INFO" EntitySet="IMPORT_INFO" />
           </AssociationSet>
           <AssociationSet Name="fk_PRO_GENRE_v1" Association="Self.fk_PRO_GENRE_v1">
             <End Role="GENRE_PRODUCT" EntitySet="GENRE_PRODUCT" />
@@ -361,11 +541,17 @@
           <EntitySet Name="EMPLOYEEs" EntityType="CoffeeShopDBModel.EMPLOYEE" />
           <EntitySet Name="EMPLOYEE_SHIFT" EntityType="CoffeeShopDBModel.EMPLOYEE_SHIFT" />
           <EntitySet Name="ERRORs" EntityType="CoffeeShopDBModel.ERROR" />
+          <EntitySet Name="EXPORTs" EntityType="CoffeeShopDBModel.EXPORT" />
+          <EntitySet Name="EXPORT_INFO" EntityType="CoffeeShopDBModel.EXPORT_INFO" />
           <EntitySet Name="GENRE_PRODUCT" EntityType="CoffeeShopDBModel.GENRE_PRODUCT" />
           <EntitySet Name="GENRE_TABLE" EntityType="CoffeeShopDBModel.GENRE_TABLE" />
+          <EntitySet Name="IMPORTs" EntityType="CoffeeShopDBModel.IMPORT" />
+          <EntitySet Name="IMPORT_INFO" EntityType="CoffeeShopDBModel.IMPORT_INFO" />
+          <EntitySet Name="INGREDIENTs" EntityType="CoffeeShopDBModel.INGREDIENT" />
           <EntitySet Name="PRODUCTs" EntityType="CoffeeShopDBModel.PRODUCT" />
           <EntitySet Name="REQUESTs" EntityType="CoffeeShopDBModel.REQUEST" />
           <EntitySet Name="RESERVATIONs" EntityType="CoffeeShopDBModel.RESERVATION" />
+          <EntitySet Name="SUPPLIERs" EntityType="CoffeeShopDBModel.SUPPLIER" />
           <EntitySet Name="WORK_SHIFT" EntityType="CoffeeShopDBModel.WORK_SHIFT" />
           <AssociationSet Name="fk_TABLE" Association="CoffeeShopDBModel.fk_TABLE">
             <End Role="C_TABLE" EntitySet="C_TABLE" />
@@ -399,6 +585,14 @@
             <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
             <End Role="EMPLOYEE_SHIFT" EntitySet="EMPLOYEE_SHIFT" />
           </AssociationSet>
+          <AssociationSet Name="fk_EXP_EMP" Association="CoffeeShopDBModel.fk_EXP_EMP">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
+            <End Role="EXPORT" EntitySet="EXPORTs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IMP_EMP" Association="CoffeeShopDBModel.fk_IMP_EMP">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
+            <End Role="IMPORT" EntitySet="IMPORTs" />
+          </AssociationSet>
           <AssociationSet Name="fk_REQ_EMP" Association="CoffeeShopDBModel.fk_REQ_EMP">
             <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
             <End Role="REQUEST" EntitySet="REQUESTs" />
@@ -407,9 +601,29 @@
             <End Role="WORK_SHIFT" EntitySet="WORK_SHIFT" />
             <End Role="EMPLOYEE_SHIFT" EntitySet="EMPLOYEE_SHIFT" />
           </AssociationSet>
+          <AssociationSet Name="fk_ExpInfo_EXP" Association="CoffeeShopDBModel.fk_ExpInfo_EXP">
+            <End Role="EXPORT" EntitySet="EXPORTs" />
+            <End Role="EXPORT_INFO" EntitySet="EXPORT_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ExpInfo_PRO" Association="CoffeeShopDBModel.fk_ExpInfo_PRO">
+            <End Role="INGREDIENT" EntitySet="INGREDIENTs" />
+            <End Role="EXPORT_INFO" EntitySet="EXPORT_INFO" />
+          </AssociationSet>
           <AssociationSet Name="fk_PRO_GENRE_v1" Association="CoffeeShopDBModel.fk_PRO_GENRE_v1">
             <End Role="GENRE_PRODUCT" EntitySet="GENRE_PRODUCT" />
             <End Role="PRODUCT" EntitySet="PRODUCTs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IMP_SUP" Association="CoffeeShopDBModel.fk_IMP_SUP">
+            <End Role="SUPPLIER" EntitySet="SUPPLIERs" />
+            <End Role="IMPORT" EntitySet="IMPORTs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ImpInfo_IMP" Association="CoffeeShopDBModel.fk_ImpInfo_IMP">
+            <End Role="IMPORT" EntitySet="IMPORTs" />
+            <End Role="IMPORT_INFO" EntitySet="IMPORT_INFO" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ImpInfo_ING" Association="CoffeeShopDBModel.fk_ImpInfo_ING">
+            <End Role="INGREDIENT" EntitySet="INGREDIENTs" />
+            <End Role="IMPORT_INFO" EntitySet="IMPORT_INFO" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C_TABLE">
@@ -486,6 +700,8 @@
           <Property Name="IS_DELETED" Type="Boolean" />
           <NavigationProperty Name="BILLs" Relationship="CoffeeShopDBModel.fk_BILL_EMP" FromRole="EMPLOYEE" ToRole="BILL" />
           <NavigationProperty Name="EMPLOYEE_SHIFT" Relationship="CoffeeShopDBModel.fk_EMPSHIFT_EMP" FromRole="EMPLOYEE" ToRole="EMPLOYEE_SHIFT" />
+          <NavigationProperty Name="EXPORTs" Relationship="CoffeeShopDBModel.fk_EXP_EMP" FromRole="EMPLOYEE" ToRole="EXPORT" />
+          <NavigationProperty Name="IMPORTs" Relationship="CoffeeShopDBModel.fk_IMP_EMP" FromRole="EMPLOYEE" ToRole="IMPORT" />
           <NavigationProperty Name="REQUESTs" Relationship="CoffeeShopDBModel.fk_REQ_EMP" FromRole="EMPLOYEE" ToRole="REQUEST" />
         </EntityType>
         <EntityType Name="EMPLOYEE_SHIFT">
@@ -511,6 +727,31 @@
           <Property Name="ER_DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IS_DELETED" Type="Boolean" />
         </EntityType>
+        <EntityType Name="EXPORT">
+          <Key>
+            <PropertyRef Name="EXP_ID" />
+          </Key>
+          <Property Name="EXP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMP_ID" Type="Int32" />
+          <Property Name="EXP_DATE" Type="DateTime" Precision="0" />
+          <Property Name="TOTAL_COST" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="EMPLOYEE" Relationship="CoffeeShopDBModel.fk_EXP_EMP" FromRole="EXPORT" ToRole="EMPLOYEE" />
+          <NavigationProperty Name="EXPORT_INFO" Relationship="CoffeeShopDBModel.fk_ExpInfo_EXP" FromRole="EXPORT" ToRole="EXPORT_INFO" />
+        </EntityType>
+        <EntityType Name="EXPORT_INFO">
+          <Key>
+            <PropertyRef Name="EXP_ID" />
+            <PropertyRef Name="ING_ID" />
+          </Key>
+          <Property Name="EXP_ID" Type="Int32" Nullable="false" />
+          <Property Name="ING_ID" Type="Int32" Nullable="false" />
+          <Property Name="QUANTITY" Type="Int32" />
+          <Property Name="PRICE_ITEM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="EXPORT" Relationship="CoffeeShopDBModel.fk_ExpInfo_EXP" FromRole="EXPORT_INFO" ToRole="EXPORT" />
+          <NavigationProperty Name="INGREDIENT" Relationship="CoffeeShopDBModel.fk_ExpInfo_PRO" FromRole="EXPORT_INFO" ToRole="INGREDIENT" />
+        </EntityType>
         <EntityType Name="GENRE_PRODUCT">
           <Key>
             <PropertyRef Name="GP_ID" />
@@ -527,6 +768,44 @@
           <Property Name="GT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GT_NAME" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="C_TABLE" Relationship="CoffeeShopDBModel.fk_TABLE_GENRE" FromRole="GENRE_TABLE" ToRole="C_TABLE" />
+        </EntityType>
+        <EntityType Name="IMPORT">
+          <Key>
+            <PropertyRef Name="IMP_ID" />
+          </Key>
+          <Property Name="IMP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SUP_ID" Type="Int32" />
+          <Property Name="EMP_ID" Type="Int32" />
+          <Property Name="IMP_DATE" Type="DateTime" Precision="0" />
+          <Property Name="TOTAL_COST" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="EMPLOYEE" Relationship="CoffeeShopDBModel.fk_IMP_EMP" FromRole="IMPORT" ToRole="EMPLOYEE" />
+          <NavigationProperty Name="SUPPLIER" Relationship="CoffeeShopDBModel.fk_IMP_SUP" FromRole="IMPORT" ToRole="SUPPLIER" />
+          <NavigationProperty Name="IMPORT_INFO" Relationship="CoffeeShopDBModel.fk_ImpInfo_IMP" FromRole="IMPORT" ToRole="IMPORT_INFO" />
+        </EntityType>
+        <EntityType Name="IMPORT_INFO">
+          <Key>
+            <PropertyRef Name="IMP_ID" />
+            <PropertyRef Name="ING_ID" />
+          </Key>
+          <Property Name="IMP_ID" Type="Int32" Nullable="false" />
+          <Property Name="ING_ID" Type="Int32" Nullable="false" />
+          <Property Name="QUANTITY" Type="Int32" />
+          <Property Name="PRICE_ITEM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="IMPORT" Relationship="CoffeeShopDBModel.fk_ImpInfo_IMP" FromRole="IMPORT_INFO" ToRole="IMPORT" />
+          <NavigationProperty Name="INGREDIENT" Relationship="CoffeeShopDBModel.fk_ImpInfo_ING" FromRole="IMPORT_INFO" ToRole="INGREDIENT" />
+        </EntityType>
+        <EntityType Name="INGREDIENT">
+          <Key>
+            <PropertyRef Name="ING_ID" />
+          </Key>
+          <Property Name="ING_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ING_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ING_UNIT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="EXPORT_INFO" Relationship="CoffeeShopDBModel.fk_ExpInfo_PRO" FromRole="INGREDIENT" ToRole="EXPORT_INFO" />
+          <NavigationProperty Name="IMPORT_INFO" Relationship="CoffeeShopDBModel.fk_ImpInfo_ING" FromRole="INGREDIENT" ToRole="IMPORT_INFO" />
         </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
@@ -574,6 +853,17 @@
           <Property Name="IS_DELETED" Type="Boolean" />
           <NavigationProperty Name="C_TABLE" Relationship="CoffeeShopDBModel.fk_TABLE" FromRole="RESERVATION" ToRole="C_TABLE" />
           <NavigationProperty Name="CUSTOMER" Relationship="CoffeeShopDBModel.fk_CUS" FromRole="RESERVATION" ToRole="CUSTOMER" />
+        </EntityType>
+        <EntityType Name="SUPPLIER">
+          <Key>
+            <PropertyRef Name="SUP_ID" />
+          </Key>
+          <Property Name="SUP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SUP_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SUP_PHONE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SUP_ADDR" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="IMPORTs" Relationship="CoffeeShopDBModel.fk_IMP_SUP" FromRole="SUPPLIER" ToRole="IMPORT" />
         </EntityType>
         <EntityType Name="WORK_SHIFT">
           <Key>
@@ -683,6 +973,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_EXP_EMP">
+          <End Type="CoffeeShopDBModel.EMPLOYEE" Role="EMPLOYEE" Multiplicity="0..1" />
+          <End Type="CoffeeShopDBModel.EXPORT" Role="EXPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="EXPORT">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_IMP_EMP">
+          <End Type="CoffeeShopDBModel.EMPLOYEE" Role="EMPLOYEE" Multiplicity="0..1" />
+          <End Type="CoffeeShopDBModel.IMPORT" Role="IMPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="IMPORT">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_REQ_EMP">
           <End Type="CoffeeShopDBModel.EMPLOYEE" Role="EMPLOYEE" Multiplicity="0..1" />
           <End Type="CoffeeShopDBModel.REQUEST" Role="REQUEST" Multiplicity="*" />
@@ -707,6 +1021,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_ExpInfo_EXP">
+          <End Type="CoffeeShopDBModel.EXPORT" Role="EXPORT" Multiplicity="1" />
+          <End Type="CoffeeShopDBModel.EXPORT_INFO" Role="EXPORT_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EXPORT">
+              <PropertyRef Name="EXP_ID" />
+            </Principal>
+            <Dependent Role="EXPORT_INFO">
+              <PropertyRef Name="EXP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ExpInfo_PRO">
+          <End Type="CoffeeShopDBModel.INGREDIENT" Role="INGREDIENT" Multiplicity="1" />
+          <End Type="CoffeeShopDBModel.EXPORT_INFO" Role="EXPORT_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INGREDIENT">
+              <PropertyRef Name="ING_ID" />
+            </Principal>
+            <Dependent Role="EXPORT_INFO">
+              <PropertyRef Name="ING_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_PRO_GENRE_v1">
           <End Type="CoffeeShopDBModel.GENRE_PRODUCT" Role="GENRE_PRODUCT" Multiplicity="0..1" />
           <End Type="CoffeeShopDBModel.PRODUCT" Role="PRODUCT" Multiplicity="*" />
@@ -716,6 +1054,42 @@
             </Principal>
             <Dependent Role="PRODUCT">
               <PropertyRef Name="GP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_IMP_SUP">
+          <End Type="CoffeeShopDBModel.SUPPLIER" Role="SUPPLIER" Multiplicity="0..1" />
+          <End Type="CoffeeShopDBModel.IMPORT" Role="IMPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUPPLIER">
+              <PropertyRef Name="SUP_ID" />
+            </Principal>
+            <Dependent Role="IMPORT">
+              <PropertyRef Name="SUP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ImpInfo_IMP">
+          <End Type="CoffeeShopDBModel.IMPORT" Role="IMPORT" Multiplicity="1" />
+          <End Type="CoffeeShopDBModel.IMPORT_INFO" Role="IMPORT_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IMPORT">
+              <PropertyRef Name="IMP_ID" />
+            </Principal>
+            <Dependent Role="IMPORT_INFO">
+              <PropertyRef Name="IMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ImpInfo_ING">
+          <End Type="CoffeeShopDBModel.INGREDIENT" Role="INGREDIENT" Multiplicity="1" />
+          <End Type="CoffeeShopDBModel.IMPORT_INFO" Role="IMPORT_INFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INGREDIENT">
+              <PropertyRef Name="ING_ID" />
+            </Principal>
+            <Dependent Role="IMPORT_INFO">
+              <PropertyRef Name="ING_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -814,6 +1188,28 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="EXPORTs">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.EXPORT">
+              <MappingFragment StoreEntitySet="EXPORT">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="TOTAL_COST" ColumnName="TOTAL_COST" />
+                <ScalarProperty Name="EXP_DATE" ColumnName="EXP_DATE" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="EXP_ID" ColumnName="EXP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EXPORT_INFO">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.EXPORT_INFO">
+              <MappingFragment StoreEntitySet="EXPORT_INFO">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="PRICE_ITEM" ColumnName="PRICE_ITEM" />
+                <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+                <ScalarProperty Name="ING_ID" ColumnName="ING_ID" />
+                <ScalarProperty Name="EXP_ID" ColumnName="EXP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="GENRE_PRODUCT">
             <EntityTypeMapping TypeName="CoffeeShopDBModel.GENRE_PRODUCT">
               <MappingFragment StoreEntitySet="GENRE_PRODUCT">
@@ -828,6 +1224,39 @@
               <MappingFragment StoreEntitySet="GENRE_TABLE">
                 <ScalarProperty Name="GT_NAME" ColumnName="GT_NAME" />
                 <ScalarProperty Name="GT_ID" ColumnName="GT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IMPORTs">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.IMPORT">
+              <MappingFragment StoreEntitySet="IMPORT">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="TOTAL_COST" ColumnName="TOTAL_COST" />
+                <ScalarProperty Name="IMP_DATE" ColumnName="IMP_DATE" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="SUP_ID" ColumnName="SUP_ID" />
+                <ScalarProperty Name="IMP_ID" ColumnName="IMP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IMPORT_INFO">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.IMPORT_INFO">
+              <MappingFragment StoreEntitySet="IMPORT_INFO">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="PRICE_ITEM" ColumnName="PRICE_ITEM" />
+                <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+                <ScalarProperty Name="ING_ID" ColumnName="ING_ID" />
+                <ScalarProperty Name="IMP_ID" ColumnName="IMP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INGREDIENTs">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.INGREDIENT">
+              <MappingFragment StoreEntitySet="INGREDIENT">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="ING_UNIT" ColumnName="ING_UNIT" />
+                <ScalarProperty Name="ING_NAME" ColumnName="ING_NAME" />
+                <ScalarProperty Name="ING_ID" ColumnName="ING_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -873,6 +1302,17 @@
                 <ScalarProperty Name="TABLE_ID" ColumnName="TABLE_ID" />
                 <ScalarProperty Name="CUS_ID" ColumnName="CUS_ID" />
                 <ScalarProperty Name="RES_ID" ColumnName="RES_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUPPLIERs">
+            <EntityTypeMapping TypeName="CoffeeShopDBModel.SUPPLIER">
+              <MappingFragment StoreEntitySet="SUPPLIER">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="SUP_ADDR" ColumnName="SUP_ADDR" />
+                <ScalarProperty Name="SUP_PHONE" ColumnName="SUP_PHONE" />
+                <ScalarProperty Name="SUP_NAME" ColumnName="SUP_NAME" />
+                <ScalarProperty Name="SUP_ID" ColumnName="SUP_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

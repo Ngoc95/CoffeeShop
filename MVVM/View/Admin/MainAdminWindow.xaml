@@ -21,10 +21,6 @@
                                    CommandParameter="{Binding ElementName=AdminWd}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
-    <!--<Window.DataContext>
-        <viewModelAdmin:MainViewModel/>
-    </Window.DataContext>-->
 
     <Grid Background="White">
 
@@ -51,11 +47,11 @@
 
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="636*" />
+                <RowDefinition Height="95*"/>
             </Grid.RowDefinitions>
-            <StackPanel  Margin="0,10,0,0">
-                <RadioButton Margin="5,0,0,10"
+            <StackPanel Margin="0,10,0,0">
+                <RadioButton Margin="5,0,0,5"
                              Height="65"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"                             
@@ -67,7 +63,7 @@
                     </RadioButton.Tag>
                 </RadioButton>
 
-                <RadioButton Margin="5,0,0,10"
+                <RadioButton Margin="5,0,0,5"
                              Height="65"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
@@ -79,7 +75,7 @@
                     </RadioButton.Tag>
                 </RadioButton>
 
-                <RadioButton Margin="5,0,0,10"
+                <RadioButton Margin="5,0,0,5"
                              Height="65"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
@@ -91,7 +87,7 @@
                     </RadioButton.Tag>
                 </RadioButton>
 
-                <RadioButton Margin="5,0,0,10"
+                <RadioButton Margin="5,0,0,5"
                              Height="65"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
@@ -104,7 +100,7 @@
                     </RadioButton.Tag>
                 </RadioButton>
 
-                <RadioButton Margin="5,0,0,10"
+                <RadioButton Margin="5,0,0,5"
                              Height="65"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
@@ -116,7 +112,7 @@
                     </RadioButton.Tag>
                 </RadioButton>
 
-                <RadioButton Margin="5,0,0,10"
+                <RadioButton Margin="5,0,0,5"
                              Height="65"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
@@ -128,7 +124,18 @@
                     </RadioButton.Tag>
                 </RadioButton>
 
-                <RadioButton Margin="5,0,0,10"
+                <RadioButton Margin="5,0,0,5"
+                             Height="65"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding IngredientSourceViewCommand}"
+                             Content="Nguồn hàng"
+                             Cursor="Hand">
+                    <RadioButton.Tag>
+                        <BitmapImage UriSource="/QuanLiCoffeeShop;component/Images/Menu/ingredientSourceMenu.png" />
+                    </RadioButton.Tag>
+                </RadioButton>
+
+                <RadioButton Margin="5,0,0,5"
                              Height="65"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
@@ -140,11 +147,11 @@
                     </RadioButton.Tag>
                 </RadioButton>
 
-                <RadioButton Margin="5,0,0,10"
+                <RadioButton Margin="5,0,0,5"
                              Height="65"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding HomeViewCommand}"
+                             Command="{Binding StatisticsViewCommand}"
                              Content="Thống kê"
                              Cursor="Hand">
                     <RadioButton.Tag>
@@ -153,9 +160,9 @@
                 </RadioButton>
 
             </StackPanel>
-            <Button Grid.Row="1"
-                        Margin="10,25,0,0" BorderBrush="Transparent"
-                        Height="57" Cursor="Hand"
+            <Button Grid.Row="1" VerticalAlignment="Center"
+                        Margin="10,0,0,0" BorderBrush="Transparent"
+                        Height="58" Cursor="Hand"
                         FontWeight="DemiBold" 
                         Command="{Binding LogOutCommand}"
                         CommandParameter="{Binding ElementName=AdminWd}">

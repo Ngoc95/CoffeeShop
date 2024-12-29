@@ -2,542 +2,217 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.ThongKeManagement"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:lvc ="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              FontFamily="Fonts/Roboto-Light.ttf #Roboto"
+             DataContext="{StaticResource ThongKeAdminVM}"
+             mc:Ignorable="d" 
              d:DesignHeight="740" d:DesignWidth="930">
-    <UserControl.Resources>
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#FFC3A1"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="40"/>
-        </Style>
-    </UserControl.Resources>
-
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" CommandParameter="{Binding ElementName=TableFrame}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="200"/>
-            <RowDefinition/>
+            <RowDefinition Height="120" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Margin="-27,0,27,30">
-            <Button x:Name="btnThongKeNgay" Style="{StaticResource btnThongKe_style}" BorderThickness="1" BorderBrush="Black"
-                    Content="Thống kê theo ngày" Foreground="Black" FontWeight="DemiBold"
-                    FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="15" Width="179" Height="46"
-                    Background="White" Margin="35,0,0,0" Click="ThongKeDay_Button_Click"/>
-            <Button x:Name="btnThongKeThang" Style="{StaticResource btnThongKe_style}" BorderThickness="1" BorderBrush="Black"
-                    Content="Thống kê theo tháng" Foreground="Black" FontWeight="DemiBold"
-                    FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="15" Width="179" Height="46"
-                    Background="White" Margin="15,0,0,0" Click="ThongKeThang_Button_Click"/>
-        </StackPanel>
-
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="0" Background="Transparent">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4.8"/>
-                <ColumnDefinition Width="60.761"/>
-                <ColumnDefinition Width="234.439"/>
-                <ColumnDefinition Width="334.429"/>
-                <ColumnDefinition Width="83.571"/>
-                <ColumnDefinition Width="212"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="562" />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0"
+            Margin="10,10,10,10">
+                <StackPanel Orientation="Horizontal">
+                    <Border
+                    x:Name="HistoryBd" 
+                    Width="180"
+                    Height="46"
+                    Background="#FFF4F4"
+                    CornerRadius="16">
+                        <Button   Command="{Binding HistoryCM}"
+                            CommandParameter="{Binding ElementName=TableFrame}"
+                            Background="{x:Null}" 
+                            BorderBrush="{x:Null}" 
+                            Foreground="{x:Null}"
+                            Width="180"
+                            Height="46"
+                            Padding="0"  
+                            HorizontalContentAlignment="Left" 
+                            Click="Button_Click" Tag="HistoryBd">
+                            <TextBlock
+                             Text="Lịch sử bán"
+                             FontFamily="Roboto Condensed"
+                             FontSize="17"
+                             Foreground="#603127"
+                             FontWeight="DemiBold"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Left"
+                             Margin="40 0 0 0" />
+                        </Button>
+                    </Border>
+                    <Border x:Name="RevenueBd"
+                          Width="180"
+                          Height="46"
+                          Background="#FFFFFF"
+                          CornerRadius="16">
+                        <Button
+                            Command="{Binding RevenueCM}"
+                            CommandParameter="{Binding ElementName=TableFrame}"
+                            Click="Button_Click" Tag="RevenueBd"
+                            Background="{x:Null}" 
+                            BorderBrush="{x:Null}" 
+                            Foreground="{x:Null}"
+                            Width="180"
+                            Height="46"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Left">
+                            <TextBlock
+                           Text="Doanh thu"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            Foreground="#603127"
+                            FontWeight="DemiBold"
+                            VerticalAlignment="Center"
+                            Margin="40 0 0 0"/>
+                        </Button>
+                    </Border>
+                    <Border x:Name="FavorBd"
+                          Width="180"
+                          Height="46"
+                          Background="#FFFFFF"
+                          CornerRadius="16">
+                        <Button Command="{Binding FavorCM}"
+                           CommandParameter="{Binding ElementName=TableFrame}"
+                           Click="Button_Click" Tag="FavorBd"
+                           Background="{x:Null}" 
+                           BorderBrush="{x:Null}" 
+                           Foreground="{x:Null}"
+                           Width="180"
+                           Height="46"
+                           Padding="0"
+                           VerticalAlignment="Center"
+                           HorizontalContentAlignment="Left">
+                            <TextBlock Text="Món ưa thích"
+                                   FontFamily="Roboto Condensed"
+                                   FontSize="17"
+                                   Foreground="#603127"
+                                   FontWeight="DemiBold"
+                                   VerticalAlignment="Center"
+                                   Margin="40 0 0 0"></TextBlock>
 
-            <StackPanel Orientation="Vertical" Margin="10,0,0,-470" Grid.ColumnSpan="4" Grid.Column="1" >
-                <Border Width="700" Height="100" Background="White" CornerRadius="10" Margin="0,0,0,0">
-                    <Grid Margin="0,10,-24,20">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                        </Button>
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+                    <Border  Background="#FFC3A1"
+                       Height="107"
+                       Width="348"
+                       CornerRadius="16">
+                        <StackPanel HorizontalAlignment="Left" Width="348">
+                            <TextBlock
+                          Text="Thời gian"
+                          FontSize="18"
+                          FontWeight="Bold"
+                          Foreground="#603127"
+                          FontFamily="Roboto Condensed"
+                          Margin="20 10 0 10"/>
+                            <StackPanel Orientation="Horizontal">
 
-                        <StackPanel Grid.Column="0" Margin="10,0" >
-                            <TextBlock Text="Từ ngày" FontSize="16" FontWeight="Bold"/>
-                            <DatePicker x:Name="datePickerFrom" 
-                                        SelectedDate="{Binding SelectedFromDate, Mode=TwoWay}" 
-                                        Width="150" Height="30"
-                                        DisplayDateStart="1/1/2020"
-                                        DisplayDateEnd="{x:Static sys:DateTime.Now}"/>
+                                <Border  Background="White"
+                               Margin="5 0 0 8"
+                               Height="46.4"
+                               Width="168.5"
+                               CornerRadius="16">
+                                    <StackPanel 
+                                   Orientation="Horizontal"
+                                   VerticalAlignment="Center">
+                                        <TextBlock
+                                   FontFamily="Roboto"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="#603127"
+                                   Margin="10 0 20 0"
+                                   Text="Từ" Height="17"/>
+                                        <DatePicker Language="vi-VN" 
+                                                    Text="{Binding SelectedDateFrom, StringFormat=dd/MM/yyyy, Mode=TwoWay}"
+                                                     SelectedDate="{Binding SelectedDateFrom, Mode=TwoWay}"
+                                                     x:Name="DatePicker1"
+                                                     Width="106" FontSize="17"
+                                                     materialDesign:CalendarAssist.IsHeaderVisible="False"
+                                                     materialDesign:HintAssist.Hint="Ngày">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="SelectedDateChanged">
+                                                    <i:InvokeCommandAction Command="{Binding DateChange}"
+                                                                 CommandParameter="{Binding ElementName=DatePicker1}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                            <!-- SelectedDateChanged="{Binding DateChange}" dd -->
+                                        </DatePicker>
+                                    </StackPanel>
+                                </Border>
+                                <Border
+                              Background="White"
+                              Height="46"
+                              Width="168"
+                              CornerRadius="16"
+                              Margin="5,0,0,8">
+                                    <StackPanel
+                               Orientation="Horizontal"
+                               VerticalAlignment="Center">
+                                        <TextBlock
+                                       FontFamily="Roboto"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Foreground="#603127"
+                                       Margin="10 0 10 0"
+                                       Text="Đến" Height="17"/>
+                                        <DatePicker Language="vi-VN" 
+                                                    Text="{Binding SelectedDateTo, StringFormat=dd/MM/yyyy, Mode=TwoWay}"
+                                           SelectedDate="{Binding SelectedDateTo, Mode=TwoWay}"
+                                           x:Name="DatePicker2"                                    
+                                           Width="106" FontSize="17"
+                                           materialDesign:CalendarAssist.IsHeaderVisible="False"
+                                           materialDesign:HintAssist.Hint="Ngày">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="SelectedDateChanged">
+                                                    <i:InvokeCommandAction Command="{Binding DateChange}"
+                                                                     CommandParameter="{Binding ElementName=DatePicker1}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </DatePicker>
+                                    </StackPanel>
+
+                                </Border>
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Margin="10,0">
-                            <TextBlock Text="Đến ngày" FontSize="16" FontWeight="Bold"/>
-                            <DatePicker x:Name="datePickerTo" 
-                                        SelectedDate="{Binding SelectedToDate, Mode=TwoWay}" 
-                                        Width="150" Height="30"
-                                        DisplayDateStart="{Binding SelectedDate, ElementName=datePickerFrom}"
-                                        DisplayDateEnd="{x:Static sys:DateTime.Now}"/>
-                        </StackPanel>
-                        <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Height="100" >
-                            <Button x:Name="btnBieuDo" Style="{StaticResource btn_style}" BorderThickness="0"
-                                 Content="Biểu Đồ" Foreground="Black" FontWeight="DemiBold"
-                                 FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="17" Width="174" Height="42"
-                                 Background="#F0997D"
-                                 Margin="0,0,0,35" Click="btnBieuDo_Click"/>
-                            <Button x:Name="btnDanhSach" Style="{StaticResource btn_style}" BorderThickness="0"
-                                  Content="Danh Sách " Foreground="Black" FontWeight="DemiBold"
-                                  FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="17" Width="174" Height="42"
-                                  Background="#F0997D" Margin="15,0,0,35" Click="btnDanhSach_Click"/>
-                        </StackPanel>
-                    </Grid>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Border
+              Margin="10,45,10,0"
+              Background="#FFC3A1"
+              Opacity="0.58"
+              Height="550"
+              VerticalAlignment="Top"
+              CornerRadius="55.29">
+                <Border           
+               Background="White" 
+               Margin="24" 
+               CornerRadius="32">
+                    <Frame x:Name="TableFrame" NavigationUIVisibility="Hidden"></Frame>
                 </Border>
-                <Border Margin="0,-20,0,0">
-                    <GroupBox Header="Số liệu thống kê" Width="700" Background="White" Style="{StaticResource groupBox_style}" Height="74">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                            <RadioButton x:Name="RabtnSoLuong" Content="Số lượt khách" Margin="10,0" FontSize="14" />
-                            <RadioButton x:Name="RabtnDoanhThu" Content="Doanh thu" Margin="10,0" FontSize="14" />
-                            <RadioButton x:Name="RabtnUaThich" Content="Ưa thích nhất" Margin="10,0" FontSize="14"/>
-                            <RadioButton x:Name="RabtnLuong" Content="Lương nhân viên" Margin="10,0" FontSize="14"/>
-                        </StackPanel>
-                    </GroupBox>
-                </Border>
-                <Grid x:Name="OverlayGridDSSoLuongNgay" Background="White" Visibility="Collapsed"  Grid.Row="2" >
-                    <Border Background="White" Padding="10" CornerRadius="8" Width="700" Height="400" 
-                            HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0">
-                        <StackPanel>
-                            <TextBlock Text="Danh sách thống kê lượt khách trong ngày" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                            <ListView x:Name="listViewSoLuongNgay" Width="700" Height="300">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="STT" Width="50" DisplayMemberBinding="{Binding STT}"/>
-                                        <GridViewColumn Header="Ngày thống kê" Width="170" DisplayMemberBinding="{Binding NgayThongKe}"/>
-                                        <GridViewColumn Header="Số lượng" Width="150" DisplayMemberBinding="{Binding SoLuong}"/>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Style="{StaticResource btn_style}" BorderThickness="0"
-                                Content="Xuất excel" VerticalAlignment="Bottom"
-                                Foreground="Black" FontWeight="DemiBold"
-                                FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="17" Width="142" Height="42"
-                                Background="#F0997D"
-                                Margin="0,10,0,0" Click="btnXuatExcelOverlay_Click"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-                <Grid x:Name="OverlayGridDSDoanhThuNgay" Background="White" Visibility="Collapsed"  Grid.Row="2" >
-                    <Border Background="White" Padding="10" CornerRadius="8" Width="700" Height="400" 
-                             HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0">
-                        <StackPanel>
-                            <TextBlock Text="Danh sách thống kê Doanh Thu trong ngày" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                            <ListView x:Name="listViewDoanhThuNgay" Width="700" Height="300">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="STT" Width="50" DisplayMemberBinding="{Binding STT}"/>
-                                        <GridViewColumn Header="Ngày thống kê" Width="170" DisplayMemberBinding="{Binding NgayThongKe}"/>
-                                        <GridViewColumn Header="Số lượng" Width="150" DisplayMemberBinding="{Binding SoLuong}"/>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Style="{StaticResource btn_style}" BorderThickness="0"
-                                         Content="Xuất excel" VerticalAlignment="Bottom"
-                                         Foreground="Black" FontWeight="DemiBold"
-                                         FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="17" Width="142" Height="42"
-                                         Background="#F0997D"
-                                         Margin="0,10,0,0" Click="btnXuatExcelOverlay_Click"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-                <Grid x:Name="OverlayGridDSUaThichNgay" Background="White" Visibility="Collapsed"  Grid.Row="2" >
-                    <Border Background="White" Padding="10" CornerRadius="8" Width="700" Height="400" 
-                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0">
-                        <StackPanel>
-                            <TextBlock Text="Danh sách thống kê món ưa thích nhất trong ngày" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                            <ListView x:Name="listViewUaThichNgay" Width="700" Height="300">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="STT" Width="50" DisplayMemberBinding="{Binding STT}"/>
-                                        <GridViewColumn Header="Ngày thống kê" Width="170" DisplayMemberBinding="{Binding NgayThongKe}"/>
-                                        <GridViewColumn Header="Số lượng" Width="150" DisplayMemberBinding="{Binding SoLuong}"/>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Style="{StaticResource btn_style}" BorderThickness="0"
-                            Content="Xuất excel" VerticalAlignment="Bottom"
-                            Foreground="Black" FontWeight="DemiBold"
-                            FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="17" Width="142" Height="42"
-                            Background="#F0997D"
-                            Margin="0,10,0,0" Click="btnXuatExcelOverlay_Click"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-                <Grid x:Name="OverlayGridDSLuongNgay" Background="White" Visibility="Collapsed"  Grid.Row="2" >
-                    <Border Background="White" Padding="10" CornerRadius="8" Width="700" Height="400" 
-                             HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0">
-                        <StackPanel>
-                            <TextBlock Text="Danh sách thống kê lương nhân viên trong ngày" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                            <ListView x:Name="listViewLuongNgay" Width="700" Height="300">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="STT" Width="50" DisplayMemberBinding="{Binding STT}"/>
-                                        <GridViewColumn Header="Ngày thống kê" Width="170" DisplayMemberBinding="{Binding NgayThongKe}"/>
-                                        <GridViewColumn Header="Số lượng" Width="150" DisplayMemberBinding="{Binding SoLuong}"/>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Style="{StaticResource btn_style}" BorderThickness="0"
-                                         Content="Xuất excel" VerticalAlignment="Bottom"
-                                         Foreground="Black" FontWeight="DemiBold"
-                                         FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="17" Width="142" Height="42"
-                                         Background="#F0997D"
-                                         Margin="0,10,0,0" Click="btnXuatExcelOverlay_Click"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-                <Grid x:Name="OverlayGridDSSoLuongThang" Background="White" Visibility="Collapsed"  Grid.Row="2" >
-                    <Border Background="White" Padding="10" CornerRadius="8" Width="700" Height="400" 
-                            HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0">
-                        <StackPanel>
-                            <TextBlock Text="Danh sách thống kê lượt khách trong tháng" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                            <ListView x:Name="listViewSoLuongThang" Width="700" Height="300">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="STT" Width="50" DisplayMemberBinding="{Binding STT}"/>
-                                        <GridViewColumn Header="Ngày thống kê" Width="170" DisplayMemberBinding="{Binding NgayThongKe}"/>
-                                        <GridViewColumn Header="Số lượng" Width="150" DisplayMemberBinding="{Binding SoLuong}"/>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Style="{StaticResource btn_style}" BorderThickness="0"
-                                         Content="Xuất excel" VerticalAlignment="Bottom"
-                                         Foreground="Black" FontWeight="DemiBold"
-                                         FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="17" Width="142" Height="42"
-                                         Background="#F0997D"
-                                         Margin="0,10,0,0" Click="btnXuatExcelOverlay_Click"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-                <Grid x:Name="OverlayGridDSDoanhThuThang" Background="White" Visibility="Collapsed"  Grid.Row="2" >
-                    <Border Background="White" Padding="10" CornerRadius="8" Width="700" Height="400" 
-                            HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0">
-                        <StackPanel>
-                            <TextBlock Text="Danh sách thống kê Doanh Thu trong tháng" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                            <ListView x:Name="listViewDoanhThuThang" Width="700" Height="300">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="STT" Width="50" DisplayMemberBinding="{Binding STT}"/>
-                                        <GridViewColumn Header="Ngày thống kê" Width="170" DisplayMemberBinding="{Binding NgayThongKe}"/>
-                                        <GridViewColumn Header="Số lượng" Width="150" DisplayMemberBinding="{Binding SoLuong}"/>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Style="{StaticResource btn_style}" BorderThickness="0"
-                                          Content="Xuất excel" VerticalAlignment="Bottom"
-                                          Foreground="Black" FontWeight="DemiBold"
-                                          FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="17" Width="142" Height="42"
-                                          Background="#F0997D"
-                                          Margin="0,10,0,0" Click="btnXuatExcelOverlay_Click"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-                <Grid x:Name="OverlayGridDSUaThichThang" Background="White" Visibility="Collapsed"  Grid.Row="2" >
-                    <Border Background="White" Padding="10" CornerRadius="8" Width="700" Height="400" 
-                            HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0">
-                        <StackPanel>
-                            <TextBlock Text="Danh sách thống kê món ưa thích nhất trong tháng" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                            <ListView x:Name="listViewUaThichThang" Width="700" Height="300">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="STT" Width="50" DisplayMemberBinding="{Binding STT}"/>
-                                        <GridViewColumn Header="Ngày thống kê" Width="170" DisplayMemberBinding="{Binding NgayThongKe}"/>
-                                        <GridViewColumn Header="Số lượng" Width="150" DisplayMemberBinding="{Binding SoLuong}"/>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Style="{StaticResource btn_style}" BorderThickness="0"
-                                         Content="Xuất excel" VerticalAlignment="Bottom"
-                                         Foreground="Black" FontWeight="DemiBold"
-                                         FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="17" Width="142" Height="42"
-                                         Background="#F0997D"
-                                         Margin="0,10,0,0" Click="btnXuatExcelOverlay_Click"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-                <Grid x:Name="OverlayGridDSLuongThang" Background="White" Visibility="Collapsed"  Grid.Row="2" >
-                    <Border Background="White" Padding="10" CornerRadius="8" Width="700" Height="400" 
-                            HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0">
-                        <StackPanel>
-                            <TextBlock Text="Danh sách thống kê lương nhân viên trong tháng" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                            <ListView x:Name="listViewLuongThang" Width="700" Height="300">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="STT" Width="50" DisplayMemberBinding="{Binding STT}"/>
-                                        <GridViewColumn Header="Ngày thống kê" Width="170" DisplayMemberBinding="{Binding NgayThongKe}"/>
-                                        <GridViewColumn Header="Số lượng" Width="150" DisplayMemberBinding="{Binding SoLuong}"/>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Style="{StaticResource btn_style}" BorderThickness="0"
-                                          Content="Xuất excel" VerticalAlignment="Bottom"
-                                          Foreground="Black" FontWeight="DemiBold"
-                                          FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontSize="17" Width="142" Height="42"
-                                          Background="#F0997D"
-                                          Margin="0,10,0,0" Click="btnXuatExcelOverlay_Click"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-                <lvc:CartesianChart x:Name="OverlayChartSoLuongNgay" Height="280" Margin="5,40,0,60" LegendLocation="None" Visibility="Collapsed" >
-                    <lvc:CartesianChart.DataTooltip>
-                        <lvc:DefaultTooltip Background="#F0997D" Foreground="White" BulletSize="10"/>
-                    </lvc:CartesianChart.DataTooltip>
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Foreground="#a79fd1" FontSize="14" ShowLabels="True" Labels="Thứ 2,Thứ 3,Thứ 4,Thứ 5,Thứ 6,Thứ 7,Chủ Nhật">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0" Step="1"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis ShowLabels="False" MaxValue="170">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisY>
-                    <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Fill="White" StrokeThickness="4" PointGeometrySize="0" Values="10,15,100,10,100,10,50">
-                            <lvc:LineSeries.Stroke>
-                                <LinearGradientBrush>
-                                    <GradientStop Color="Transparent" Offset="0"/>
-                                    <GradientStop Color="#f782a3" Offset="0.23"/>
-                                    <GradientStop Color="Transparent" Offset="2.5"/>
-                                </LinearGradientBrush>
-                            </lvc:LineSeries.Stroke>
-                        </lvc:LineSeries>
-                    </lvc:CartesianChart.Series>
-                </lvc:CartesianChart>
-                <lvc:CartesianChart x:Name="OverlayChartDoanhThuNgay" Height="280" Margin="5,40,0,60" LegendLocation="None" Visibility="Collapsed"  >
-                    <lvc:CartesianChart.DataTooltip>
-                        <lvc:DefaultTooltip Background="#F0997D" Foreground="White" BulletSize="10"/>
-                    </lvc:CartesianChart.DataTooltip>
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Foreground="#a79fd1" FontSize="14" ShowLabels="True" Labels="Thứ 2,Thứ 3,Thứ 4,Thứ 5,Thứ 6,Thứ 7,Chủ Nhật">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0" Step="1"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis ShowLabels="False" MaxValue="170">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisY>
-                    <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Fill="White" StrokeThickness="4" PointGeometrySize="0" Values="10,15,100,30,100,35,15">
-                            <lvc:LineSeries.Stroke>
-                                <LinearGradientBrush>
-                                    <GradientStop Color="Transparent" Offset="0"/>
-                                    <GradientStop Color="#f782a3" Offset="0.23"/>
-                                    <GradientStop Color="Transparent" Offset="2.5"/>
-                                </LinearGradientBrush>
-                            </lvc:LineSeries.Stroke>
-                        </lvc:LineSeries>
-                    </lvc:CartesianChart.Series>
-                </lvc:CartesianChart>
-                <lvc:CartesianChart x:Name="OverlayChartUaThichNgay" Height="280" Margin="5,40,0,60" LegendLocation="None" Visibility="Collapsed"  >
-                    <lvc:CartesianChart.DataTooltip>
-                        <lvc:DefaultTooltip Background="#F0997D" Foreground="White" BulletSize="10"/>
-                    </lvc:CartesianChart.DataTooltip>
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Foreground="#a79fd1" FontSize="14" ShowLabels="True" Labels="Thứ 2,Thứ 3,Thứ 4,Thứ 5,Thứ 6,Thứ 7,Chủ Nhật">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0" Step="1"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis ShowLabels="False" MaxValue="170">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisY>
-                    <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Fill="White" StrokeThickness="4" PointGeometrySize="0" Values="10,15,100,30,100,35,100">
-                            <lvc:LineSeries.Stroke>
-                                <LinearGradientBrush>
-                                    <GradientStop Color="Transparent" Offset="0"/>
-                                    <GradientStop Color="#f782a3" Offset="0.23"/>
-                                    <GradientStop Color="Transparent" Offset="2.5"/>
-                                </LinearGradientBrush>
-                            </lvc:LineSeries.Stroke>
-                        </lvc:LineSeries>
-                    </lvc:CartesianChart.Series>
-                </lvc:CartesianChart>
-                <lvc:CartesianChart x:Name="OverlayChartLuongNgay" Height="280" Margin="5,40,0,60" LegendLocation="None" Visibility="Collapsed"  >
-                    <lvc:CartesianChart.DataTooltip>
-                        <lvc:DefaultTooltip Background="#F0997D" Foreground="White" BulletSize="10"/>
-                    </lvc:CartesianChart.DataTooltip>
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Foreground="#a79fd1" FontSize="14" ShowLabels="True" Labels="Thứ 2,Thứ 3,Thứ 4,Thứ 5,Thứ 6,Thứ 7,Chủ Nhật">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0" Step="1"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis ShowLabels="False" MaxValue="170">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisY>
-                    <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Fill="White" StrokeThickness="4" PointGeometrySize="0" Values="10,15,100,30,100,35,50">
-                            <lvc:LineSeries.Stroke>
-                                <LinearGradientBrush>
-                                    <GradientStop Color="Transparent" Offset="0"/>
-                                    <GradientStop Color="#f782a3" Offset="0.23"/>
-                                    <GradientStop Color="Transparent" Offset="2.5"/>
-                                </LinearGradientBrush>
-                            </lvc:LineSeries.Stroke>
-                        </lvc:LineSeries>
-                    </lvc:CartesianChart.Series>
-                </lvc:CartesianChart>
-                <lvc:CartesianChart x:Name="OverlayChartSoLuongThang" Height="280" Margin="5,40,0,60" LegendLocation="None" Visibility="Collapsed" >
-                    <lvc:CartesianChart.DataTooltip>
-                        <lvc:DefaultTooltip Background="#F0997D" Foreground="White" BulletSize="10"/>
-                    </lvc:CartesianChart.DataTooltip>
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Foreground="#a79fd1" FontSize="14" ShowLabels="True" Labels="Thứ 2,Thứ 3,Thứ 4,Thứ 5,Thứ 6,Thứ 7,Chủ Nhật">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0" Step="1"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis ShowLabels="False" MaxValue="170">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisY>
-                    <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Fill="White" StrokeThickness="4" PointGeometrySize="0" Values="10,15,100,10,100,10,50">
-                            <lvc:LineSeries.Stroke>
-                                <LinearGradientBrush>
-                                    <GradientStop Color="Transparent" Offset="0"/>
-                                    <GradientStop Color="#69bf64" Offset="0.23"/>
-                                    <GradientStop Color="Transparent" Offset="2.5"/>
-                                </LinearGradientBrush>
-                            </lvc:LineSeries.Stroke>
-                        </lvc:LineSeries>
-                    </lvc:CartesianChart.Series>
-                </lvc:CartesianChart>
-                <lvc:CartesianChart x:Name="OverlayChartDoanhThuThang" Height="280" Margin="5,40,0,60" LegendLocation="None" Visibility="Collapsed"  >
-                    <lvc:CartesianChart.DataTooltip>
-                        <lvc:DefaultTooltip Background="#F0997D" Foreground="White" BulletSize="10"/>
-                    </lvc:CartesianChart.DataTooltip>
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Foreground="#a79fd1" FontSize="14" ShowLabels="True" Labels="Thứ 2,Thứ 3,Thứ 4,Thứ 5,Thứ 6,Thứ 7,Chủ Nhật">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0" Step="1"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis ShowLabels="False" MaxValue="170">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisY>
-                    <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Fill="White" StrokeThickness="4" PointGeometrySize="0" Values="10,15,100,30,100,35,15">
-                            <lvc:LineSeries.Stroke>
-                                <LinearGradientBrush>
-                                    <GradientStop Color="Transparent" Offset="0"/>
-                                    <GradientStop Color="#69bf64" Offset="0.23"/>
-                                    <GradientStop Color="Transparent" Offset="2.5"/>
-                                </LinearGradientBrush>
-                            </lvc:LineSeries.Stroke>
-                        </lvc:LineSeries>
-                    </lvc:CartesianChart.Series>
-                </lvc:CartesianChart>
-                <lvc:CartesianChart x:Name="OverlayChartUaThichThang" Height="280" Margin="5,40,0,60" LegendLocation="None" Visibility="Collapsed"  >
-                    <lvc:CartesianChart.DataTooltip>
-                        <lvc:DefaultTooltip Background="#F0997D" Foreground="White" BulletSize="10"/>
-                    </lvc:CartesianChart.DataTooltip>
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Foreground="#a79fd1" FontSize="14" ShowLabels="True" Labels="Thứ 2,Thứ 3,Thứ 4,Thứ 5,Thứ 6,Thứ 7,Chủ Nhật">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0" Step="1"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis ShowLabels="False" MaxValue="170">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisY>
-                    <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Fill="White" StrokeThickness="4" PointGeometrySize="0" Values="10,15,100,30,100,35,100">
-                            <lvc:LineSeries.Stroke>
-                                <LinearGradientBrush>
-                                    <GradientStop Color="Transparent" Offset="0"/>
-                                    <GradientStop Color="#69bf64" Offset="0.23"/>
-                                    <GradientStop Color="Transparent" Offset="2.5"/>
-                                </LinearGradientBrush>
-                            </lvc:LineSeries.Stroke>
-                        </lvc:LineSeries>
-                    </lvc:CartesianChart.Series>
-                </lvc:CartesianChart>
-                <lvc:CartesianChart x:Name="OverlayChartLuongThang" Height="280" Margin="5,40,0,60" LegendLocation="None" Visibility="Collapsed"  >
-                    <lvc:CartesianChart.DataTooltip>
-                        <lvc:DefaultTooltip Background="#F0997D" Foreground="White" BulletSize="10"/>
-                    </lvc:CartesianChart.DataTooltip>
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Foreground="#a79fd1" FontSize="14" ShowLabels="True" Labels="Thứ 2,Thứ 3,Thứ 4,Thứ 5,Thứ 6,Thứ 7,Chủ Nhật">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0" Step="1"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis ShowLabels="False" MaxValue="170">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisY>
-                    <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Fill="White" StrokeThickness="4" PointGeometrySize="0" Values="10,15,100,30,100,35,100">
-                            <lvc:LineSeries.Stroke>
-                                <LinearGradientBrush>
-                                    <GradientStop Color="Transparent" Offset="0"/>
-                                    <GradientStop Color="#69bf64" Offset="0.23"/>
-                                    <GradientStop Color="Transparent" Offset="2.5"/>
-                                </LinearGradientBrush>
-                            </lvc:LineSeries.Stroke>
-                        </lvc:LineSeries>
-                    </lvc:CartesianChart.Series>
-                </lvc:CartesianChart>
-            </StackPanel>
+
+            </Border>
         </Grid>
     </Grid>
 </UserControl>

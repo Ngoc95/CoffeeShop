@@ -452,10 +452,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             });
             FilterReqStatusCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
-                if (p?.SelectedItem == null)
-                {
-                    return;
-                }
                 await ApplyFilter(SelectedStatus);
             });
             OpenReqWdCM = new RelayCommand<object>((p) => { return SelectedItem != null; }, (p) =>

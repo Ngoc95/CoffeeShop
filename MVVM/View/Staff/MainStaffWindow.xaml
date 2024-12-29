@@ -110,6 +110,18 @@
                     </RadioButton.Tag>
                 </RadioButton>
 
+                <RadioButton Visibility="{Binding IngredientSourceVisibility}" 
+                            Margin="5,0,0,10" 
+                             Height="65"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding IngredientSourceViewCommand}"
+                             Content="Nguồn hàng"
+                             Cursor="Hand">
+                    <RadioButton.Tag>
+                        <BitmapImage UriSource="/QuanLiCoffeeShop;component/Images/Menu/ingredientSourceMenu.png" />
+                    </RadioButton.Tag>
+                </RadioButton>
+
                 <RadioButton Margin="5,0,0,10"
                              Height="65" Cursor="Hand"
                              FontSize="30"

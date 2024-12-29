@@ -13,6 +13,7 @@ using QuanLiCoffeeShop.MVVM.View.Login;
 using QuanLiCoffeeShop.MVVM.View.Message;
 using QuanLiCoffeeShop.MVVM.ViewModel.Admin;
 using QuanLiCoffeeShop.MVVM.ViewModel.Login;
+using QuanLiCoffeeShop.MVVM.ViewModel.Staff.IngredientSourceVM;
 using static QuanLiCoffeeShop.MVVM.ViewModel.Staff.WorkshiftViewModel;
 
 namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
@@ -28,11 +29,18 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             set { _currentName = value; OnPropertyChanged(); }
         }
 
+        private Visibility _IngredientSourceVisibility;
+        public Visibility IngredientSourceVisibility
+        {
+            get => _IngredientSourceVisibility;
+            set { _IngredientSourceVisibility = value; OnPropertyChanged(nameof(IngredientSourceVisibility)); }
+        }
         public ICommand CustomerViewCommand { get; set; }
         public ICommand ErrorViewCommand { get; set; }
         public ICommand MenuViewCommand { get; set; }
         public ICommand TableViewCommand { get; set; }
         public ICommand WorkshiftViewCommand { get; set; }
+        public ICommand IngredientSourceViewCommand { get; set; }
         public ICommand AccountViewCommand { get; set; }
         public ICommand HomeViewCommand { get; set; }
         public CustomerViewModel CustomerVM { get; set; }
@@ -40,6 +48,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         public WorkshiftViewModel WorkshiftVM { get; set; }
         public MenuOrderViewModel MenuOrderVM { get; set; }
         public StaffTableResViewModel TableVM { get; set; }
+        public IngredientSourceViewModel IngredientSourceVM { get; set; }
         public AccountViewModel AccountVM { get; set; }
         public StaffHomeViewModel HomeVM { get; set; }
 
@@ -77,7 +86,18 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                     CurrentName = message.NewValue;
                 }
             });
-            FirstLoadCM = new RelayCommand<Window>((p) => { return true; }, (p) => { CurrentName = currentEmp == null ? "" : currentEmp.EMP_NAME; });
+            FirstLoadCM = new RelayCommand<Window>((p) => { return true; }, (p) => 
+            { 
+                CurrentName = currentEmp == null ? "" : currentEmp.EMP_NAME; 
+                if (currentEmp != null && currentEmp.EMP_ROLE != "Pha chế")
+                {
+                    IngredientSourceVisibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    IngredientSourceVisibility= Visibility.Visible;
+                }
+            });
 
             AccountVM = new AccountViewModel();
             CustomerVM = new CustomerViewModel();
@@ -86,16 +106,17 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             MenuOrderVM = new MenuOrderViewModel();
             TableVM = new StaffTableResViewModel();
             HomeVM = new StaffHomeViewModel();
+            IngredientSourceVM = new IngredientSourceViewModel();
+            CurrentView = CustomerVM;
 
-            CurrentView = WorkshiftVM;
-
-            AccountViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CustomerViewCommand.Execute(null); IsAccountSelected = true; CurrentView = AccountVM; });
-            CustomerViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = CustomerVM; IsAccountSelected = false; });
-            ErrorViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = ErrorVM; });
+            AccountViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CustomerViewCommand.Execute(null); IsAccountSelected = true; CurrentView = new AccountViewModel(); });
+            CustomerViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new CustomerViewModel(); IsAccountSelected = false; });
+            ErrorViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new ErrorViewModel(); ; });
             MenuViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = MenuOrderVM; });
             TableViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = TableVM; });
-            WorkshiftViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = WorkshiftVM; });
             HomeViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = HomeVM; });
+            WorkshiftViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new WorkshiftViewModel(); });
+            IngredientSourceViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new IngredientSourceViewModel(); });
 
             LogOutCommand = new RelayCommand<Window>(null, (p) =>
             {

@@ -1,0 +1,167 @@
+﻿<Page x:Class="QuanLiCoffeeShop.MVVM.View.Admin.ThongKeManagement.LichSuBan.LichSuTable"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:converters="clr-namespace:QuanLiCoffeeShop.Converters"
+      xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.ThongKeManagement.LichSuBan" xmlns:admin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin" d:DataContext="{d:DesignInstance Type=admin:ThongKeViewModel}"
+      mc:Ignorable="d" 
+      x:Name="lichSuTable"
+      d:DesignHeight="450" d:DesignWidth="800"
+      DataContext="{StaticResource ThongKeAdminVM}"
+      ShowsNavigationUI="False"
+      Title="LichSuTable">
+    <Page.Resources>
+        <converters:PriceConverter x:Key="PriceConverter"></converters:PriceConverter>
+        <converters:IndexConverter x:Key="IndexConverter"></converters:IndexConverter>
+        <converters:CusNameConverter x:Key="CusNameConverter"></converters:CusNameConverter>
+    </Page.Resources>
+    <Grid>
+        <ListView 
+         x:Name="billTable"
+         Margin="11"
+         ItemsSource="{Binding BillList}"
+         SelectedItem="{Binding SelectedItem}" >
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem"
+                     BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.View>
+                <GridView>
+
+                    <GridViewColumn Header="STT"  Width="50">
+                        <GridViewColumn.HeaderContainerStyle>
+                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="FontSize" Value="19" />
+                                <Setter Property="Foreground" Value="#603127" />
+                            </Style>
+                        </GridViewColumn.HeaderContainerStyle>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                        AncestorType={x:Type ListViewItem}}, 
+                                        Converter={StaticResource IndexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                         FontSize="17" 
+                                       
+                                        HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Tên khách hàng" Width="300">
+                        <GridViewColumn.HeaderContainerStyle>
+                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Foreground" Value="#603127" />
+                                <Setter Property="FontSize" Value="19" />
+                                <Setter Property="Height" Value="47"/>
+                            </Style>
+                        </GridViewColumn.HeaderContainerStyle>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CUSTOMER, Converter={StaticResource CusNameConverter}}"
+                                FontSize="17" 
+                                Margin="20 0 0 0"
+                                />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Thời gian" Width="200" >
+                        <GridViewColumn.HeaderContainerStyle>
+                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Foreground" Value="#603127" />
+                                <Setter Property="FontSize" Value="19" />
+                                <Setter Property="Height" Value="47"/>
+                            </Style>
+                        </GridViewColumn.HeaderContainerStyle>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CREATE_AT, StringFormat='dd/MM/yyyy HH:mm:ss'}"
+                                        HorizontalAlignment="Center"
+                                         FontSize="17" 
+                    />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Giá trị hóa đơn" Width="165">
+                        <GridViewColumn.HeaderContainerStyle>
+                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Foreground" Value="#603127" />
+                                <Setter Property="FontSize" Value="19" />
+                                <Setter Property="Height" Value="47"/>
+                            </Style>
+                        </GridViewColumn.HeaderContainerStyle>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TOTAL_COST, Converter={StaticResource PriceConverter}}"
+                                     FontSize="17"                                           
+                                        HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+
+                    </GridViewColumn>
+
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Border
+                                 Width="auto"
+                                 Height="24.49"
+                                 Margin="12,0,0,0"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 Cursor="Hand">
+                                        <Image Source="/QuanLiCoffeeShop;component/Images/InfoBtn.png" />
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                <i:InvokeCommandAction Command="{Binding ElementName=billTable, Path=DataContext.InfoBillCM}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Border>
+                                    <Border
+                                     Width="23.3"
+                                     Height="24.49"
+                                     Margin="12,0,0,0"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     Cursor="Hand">
+                                        <Image Source="/QuanLiCoffeeShop;component/Images/DeleteBtn.png"/>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                <i:InvokeCommandAction Command="{Binding ElementName=billTable, Path=DataContext.DeleteBillCM}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Border>
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Page>

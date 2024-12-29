@@ -8,32 +8,31 @@
         xmlns:admin="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
         d:DataContext="{d:DesignInstance Type=admin:EmployeeViewModel}"
         mc:Ignorable="d" x:Name="AddEmpPage"
-        Title="AddEmployeeWindow" Height="900" Width="800"
+        Title="AddEmployeeWindow" Height="810" Width="800"
         WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
         WindowStartupLocation="CenterScreen" Background="Transparent"
         FontFamily="Fonts/Roboto-Light.ttf #Roboto"
         DataContext="{StaticResource EmployeeAdminVM}">
-    
+
     <Border Background="White" CornerRadius="30"  BorderBrush="#603127" BorderThickness="1"
             MouseDown="moveAddEmpWin_MouseDown" >
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="580"/>
-                <RowDefinition Height="190"/>
-                <RowDefinition/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="529*"/>
+                <RowDefinition Height="171"/>
+                <RowDefinition Height="58*"/>
             </Grid.RowDefinitions>
 
             <Label Content="Thêm nhân viên" FontSize="30" Foreground="Black"
-                   FontWeight="Medium" Margin="0,7,0,0"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                   FontWeight="Medium"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Height="44" Width="226"/>
 
             <Border Grid.Row="1" CornerRadius="10" 
-                    Width="730" 
                     Margin="34,0,34,16" Background="#FFC3A1">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Label Content="Thông tin cá nhân" FontSize="22" Foreground="Black"
@@ -174,36 +173,46 @@
                 </Grid>
             </Border>
 
-            <Border Grid.Row="1" Width="710" Height="1" Margin="0,0,0,5"
-                    VerticalAlignment="Bottom" Background="#603127"/>
+            <Border Grid.Row="2" Height="1"
+                    VerticalAlignment="Top" Background="#603127" Margin="49,0,49,0"/>
 
-            <Border Grid.Row="2" CornerRadius="10" 
-                    Width="730" Height="180"
-                    Margin="0,0,0,0" Background="#FFC3A1">
+            <Border Grid.Row="2" CornerRadius="10"
+                    Margin="34,5,34,5" Background="#FFC3A1">
                 <StackPanel Margin="0,10,0,0">
-                    <Label Content="Thông tin đăng nhập" FontSize="22" Foreground="Black"
+                    <Label Content="Thông tin đăng nhập" FontSize="20" Foreground="Black"
                                Margin="5,0,0,0"  FontWeight="Medium" VerticalAlignment="Center"/>
                     <StackPanel Margin="0,3,0,0" Orientation="Horizontal">
                         <Label Margin="15,10,0,0" Content="Tên đăng nhập:" 
                                FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                        <Border CornerRadius="10" Height="50" Width="305" 
+                        <!--<Border CornerRadius="10" Height="50" Width="305" 
                                         Margin="20,3,0,0" Background="White">
                             <TextBox x:Name="tbUsername" Height="50" Width="285"
                                      HorizontalAlignment="Left" Background="Transparent"
                                      FontSize="22" Margin="10,0,0,10"
                                      BorderBrush="White"
                                      Text="{Binding Username}"/>
-                        </Border>
+                        </Border>-->
+                        <TextBox Width="305"
+                                         Height="45"
+                                         Padding="12,2.4"
+                                         Margin="20,3,0,0"
+                                         VerticalContentAlignment="Center"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
+                                         Background="White"
+                                         FontSize="20" 
+                                         Text="{Binding Username}"/>
+
 
                     </StackPanel>
                     <StackPanel Margin="0,13,0,0" Orientation="Horizontal">
                         <Label Margin="15,10,0,0" Content="Mật khẩu:" 
                                        FontSize="22" Foreground="Black" FontWeight="DemiBold"/>
-                        <Border CornerRadius="10" Height="50" Width="305" 
+                        <Border CornerRadius="10" Height="40" Width="305" 
                                         Margin="73,0,0,0" Background="White">
-                            <PasswordBox x:Name="pbPassword" Height="45" Width="285" Foreground="#401409"
+                            <PasswordBox x:Name="pbPassword" Height="40" Width="285" Foreground="#401409"
                                          HorizontalAlignment="Center" Background="Transparent" 
-                                         FontSize="22" Margin="0,1,0,4" BorderBrush="Transparent"
+                                         FontSize="20" Margin="0,1,0,4" BorderBrush="Transparent"
                                          Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
                                          PasswordChanged="pbPassword_PasswordChanged"
                                          materialDesign:TextFieldAssist.DecorationVisibility="Hidden"/>
@@ -213,17 +222,17 @@
                 </StackPanel>
             </Border>
 
-            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="20,0,0,0">
+            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="20,5,0,0">
                 <Button  Margin="15,0,0,0" materialDesign:ButtonAssist.CornerRadius="15.36" 
                          Content="Bỏ qua" Foreground="Black" FontWeight="DemiBold"
-                         Background="#F6E8D0" FontSize="22" Width="150" Height="55"
-                         Click="passAddEmp_Button_Click"/>
+                         Background="#F6E8D0" FontSize="22" Width="150" Height="45"
+                         Command="{Binding CancelCM}" CommandParameter="{Binding ElementName=AddEmpPage}"/>
 
                 <Button  
                          materialDesign:ButtonAssist.CornerRadius="15.36"  HorizontalAlignment="Right"
                          Content="Thêm" Foreground="Black" FontWeight="DemiBold"
                          Background="#F0997D" Margin="425,0,0,0" 
-                         FontSize="22" Width="150" Height="55"
+                         FontSize="22" Width="150" Height="45"
                          Command="{Binding AddEmpListCM}"
                          CommandParameter="{Binding ElementName=AddEmpPage}">
                 </Button>

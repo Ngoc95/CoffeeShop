@@ -88,6 +88,16 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn đang nhập thiếu hoặc sai thông tin");
                     return;
                 }
+                var employees = await EmployeeService.Ins.GetAllEmp();
+                // Kiểm tra nếu tên tài khoản đã tồn tại
+                bool IsExistUsername = employees
+                    .Where(emp => emp.EMP_ID != EditEmp.EMP_ID && emp.EMP_USERNAME == EditEmp.EMP_USERNAME && emp.IS_DELETED == false)
+                    .Any();
+                if (IsExistUsername)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Tài khoản đã tồn tại");
+                    return;
+                }
 
                 else
                 {

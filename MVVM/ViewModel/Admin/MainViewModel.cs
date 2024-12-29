@@ -3,6 +3,7 @@ using QuanLiCoffeeShop.Core;
 using QuanLiCoffeeShop.DTOs;
 using QuanLiCoffeeShop.MVVM.View.Login;
 using QuanLiCoffeeShop.MVVM.View.Message;
+using QuanLiCoffeeShop.MVVM.ViewModel.Admin.IngredientSourceVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public ICommand MenuViewCommand { get; set; }
         public ICommand TableViewCommand { get; set; }
         public ICommand WorkshiftViewCommand { get; set; }
+        public ICommand IngredientSourceViewCommand { get; set; }
+        public ICommand StatisticsViewCommand { get; set; }
         public ICommand AccountViewCommand { get; set; }
         public AdminHomeViewModel AdminHomeViewModel {  get; set; }
         public CustomerViewModel CustomerVM { get; set; }
@@ -38,6 +41,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public MenuViewModel MenuVM { get; set; }
         public TableViewModel TableVM { get; set; }
         public WorkshiftViewModel WorkshiftVM { get; set; }
+        public IngredientSourceViewModel IngredientSourceVM { get; set; }
+        public ThongKeViewModel ThongKeVM { get; set; }
         public AccountViewModel AccountVM { get; set; }
 
         private object _currentView;
@@ -82,8 +87,10 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             TableVM = new TableViewModel();
             WorkshiftVM = new WorkshiftViewModel();
             AdminHomeViewModel = new AdminHomeViewModel();
+            IngredientSourceVM = new IngredientSourceViewModel();
+            ThongKeVM = new ThongKeViewModel();
 
-            CurrentView = WorkshiftVM;
+            CurrentView = CustomerVM;
 
             HomePageViewCommand = new RelayCommand<ContentControl>((p)=> { return true; }, (p)=> { CurrentView = AdminHomeViewModel; });
             AccountViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CustomerViewCommand.Execute(null); IsAccountSelected = true; CurrentView = AccountVM; });
@@ -92,7 +99,9 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             ErrorViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = ErrorVM; });
             MenuViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = MenuVM; });
             TableViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = TableVM; });
-            WorkshiftViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = WorkshiftVM; });
+            WorkshiftViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new WorkshiftViewModel(); });
+            IngredientSourceViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new IngredientSourceViewModel(); });
+            StatisticsViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new ThongKeViewModel(); });
 
             LogOutCommand = new RelayCommand<Window>(null, (p) =>
             {

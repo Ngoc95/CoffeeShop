@@ -4,20 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ecf1ad92990e422bacb2807e1727f62f" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="CoffeeShopDBModel.C_TABLE" Width="1.5" PointX="11.75" PointY="4.375" />
-        <EntityTypeShape EntityType="CoffeeShopDBModel.BILL" Width="1.5" PointX="5.125" PointY="2.875" />
-        <EntityTypeShape EntityType="CoffeeShopDBModel.BILL_INFO" Width="1.5" PointX="2.875" PointY="1.75" />
-        <EntityTypeShape EntityType="CoffeeShopDBModel.CUSTOMER" Width="1.5" PointX="7.5" PointY="1.25" />
-        <EntityTypeShape EntityType="CoffeeShopDBModel.EMPLOYEE" Width="1.5" PointX="7.5" PointY="4.5" />
-        <EntityTypeShape EntityType="CoffeeShopDBModel.EMPLOYEE_SHIFT" Width="1.5" PointX="9.75" PointY="5.5" />
-        <EntityTypeShape EntityType="CoffeeShopDBModel.ERROR" Width="1.5" PointX="11.75" PointY="1.375" />
-        <EntityTypeShape EntityType="CoffeeShopDBModel.GENRE_PRODUCT" Width="1.5" PointX="0.5" PointY="4.875" />
-        <EntityTypeShape EntityType="CoffeeShopDBModel.GENRE_TABLE" Width="1.5" PointX="14.25" PointY="4.625" />
-        <EntityTypeShape EntityType="CoffeeShopDBModel.PRODUCT" Width="1.5" PointX="2.75" PointY="4.625" />
-        <EntityTypeShape EntityType="CoffeeShopDBModel.REQUEST" Width="1.5" PointX="5.125" PointY="6.625" />
-        <EntityTypeShape EntityType="CoffeeShopDBModel.RESERVATION" Width="1.5" PointX="9.75" PointY="1.75" />
-        <EntityTypeShape EntityType="CoffeeShopDBModel.WORK_SHIFT" Width="1.5" PointX="11.875" PointY="7" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.C_TABLE" Width="1.5" PointX="0.75" PointY="0.875" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.BILL" Width="1.5" PointX="3" PointY="8.375" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.BILL_INFO" Width="1.5" PointX="5.25" PointY="11.75" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.CUSTOMER" Width="1.5" PointX="0.75" PointY="13.5" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.EMPLOYEE" Width="1.5" PointX="0.75" PointY="7.625" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.EMPLOYEE_SHIFT" Width="1.5" PointX="6" PointY="8.875" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.ERROR" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.EXPORT" Width="1.5" PointX="3" PointY="21" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.EXPORT_INFO" Width="1.5" PointX="5.25" PointY="21" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.GENRE_PRODUCT" Width="1.5" PointX="0.75" PointY="26.125" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.GENRE_TABLE" Width="1.5" PointX="1.5" PointY="29.125" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.IMPORT" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.IMPORT_INFO" Width="1.5" PointX="5.25" PointY="4.75" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.INGREDIENT" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.PRODUCT" Width="1.5" PointX="3" PointY="25.5" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.REQUEST" Width="1.5" PointX="3" PointY="17.125" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.RESERVATION" Width="1.5" PointX="3" PointY="12.25" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.SUPPLIER" Width="1.5" PointX="0.75" PointY="3.875" />
+        <EntityTypeShape EntityType="CoffeeShopDBModel.WORK_SHIFT" Width="1.5" PointX="3.75" PointY="29.75" />
+
         <AssociationConnector Association="CoffeeShopDBModel.fk_TABLE" />
         <AssociationConnector Association="CoffeeShopDBModel.fk_TABLE_GENRE" />
         <AssociationConnector Association="CoffeeShopDBModel.fk_BILL_CUS" />
@@ -26,9 +32,16 @@
         <AssociationConnector Association="CoffeeShopDBModel.fk_BillInfo_PRO" />
         <AssociationConnector Association="CoffeeShopDBModel.fk_CUS" />
         <AssociationConnector Association="CoffeeShopDBModel.fk_EMPSHIFT_EMP" />
+        <AssociationConnector Association="CoffeeShopDBModel.fk_EXP_EMP" />
+        <AssociationConnector Association="CoffeeShopDBModel.fk_IMP_EMP" />
         <AssociationConnector Association="CoffeeShopDBModel.fk_REQ_EMP" />
         <AssociationConnector Association="CoffeeShopDBModel.fk_EMPSHIFT_SHIFT" />
+        <AssociationConnector Association="CoffeeShopDBModel.fk_ExpInfo_EXP" />
+        <AssociationConnector Association="CoffeeShopDBModel.fk_ExpInfo_PRO" />
         <AssociationConnector Association="CoffeeShopDBModel.fk_PRO_GENRE_v1" />
+        <AssociationConnector Association="CoffeeShopDBModel.fk_IMP_SUP" />
+        <AssociationConnector Association="CoffeeShopDBModel.fk_ImpInfo_IMP" />
+        <AssociationConnector Association="CoffeeShopDBModel.fk_ImpInfo_ING" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

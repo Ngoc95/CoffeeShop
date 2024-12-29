@@ -158,25 +158,6 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             {
                 using (var context = new CoffeeShopDBEntities())
                 {
-                    if (string.IsNullOrEmpty(newEmp.EMP_CCCD) || string.IsNullOrEmpty(newEmp.EMP_EMAIL) || string.IsNullOrEmpty(newEmp.EMP_NAME) ||
-                        string.IsNullOrEmpty(newEmp.EMP_PHONE) || string.IsNullOrEmpty(newEmp.EMP_ROLE) ||
-                        string.IsNullOrEmpty(newEmp.EMP_USERNAME) || string.IsNullOrEmpty(newEmp.EMP_GENDER))
-                        return (false, "Bạn nhập thiếu thông tin");
-                    if (DateTime.Compare((DateTime)newEmp.EMP_BIRTHDAY, new DateTime(1900, 1, 1)) < 0 || DateTime.Compare((DateTime)newEmp.EMP_BIRTHDAY, DateTime.Now) > 0)
-                    {
-                        return (false, "Ngày sinh không hợp lệ");
-                    }
-
-                    if (DateTime.Compare((DateTime)newEmp.EMP_STARTDATE, new DateTime(1900, 1, 1)) < 0 || DateTime.Compare((DateTime)newEmp.EMP_STARTDATE, DateTime.Now) > 0)
-                    {
-                        return (false, "Ngày bắt đầu không hợp lệ");
-                    }
-
-                    if (((DateTime)newEmp.EMP_STARTDATE).Year - ((DateTime)newEmp.EMP_BIRTHDAY).Year < 16)
-                    {
-                        return (false, "Đảm bảo nhân viên vào làm trên 16 tuổi");
-                    }
-
                     bool IsExistUsername = await context.EMPLOYEEs.AnyAsync(p => p.EMP_ID != newEmp.EMP_ID && p.EMP_USERNAME == newEmp.EMP_USERNAME && p.IS_DELETED == false);
                     if (IsExistUsername)
                     {

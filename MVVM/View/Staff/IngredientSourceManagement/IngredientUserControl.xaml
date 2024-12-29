@@ -1,0 +1,217 @@
+﻿<UserControl x:Class="QuanLiCoffeeShop.MVVM.View.Staff.IngredientSourceManagement.IngredientUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.IngredientSourceManagement" xmlns:ingredientsourcevm="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff.IngredientSourceVM" d:DataContext="{d:DesignInstance Type=ingredientsourcevm:IngredientViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="622" d:DesignWidth="930" Background="White"
+             DataContext="{StaticResource IngStaffViewModel}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid Grid.Row="1" Background="White">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="88"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" Margin="5,-10,0,0">
+                <StackPanel.Resources>
+                    <ControlTemplate x:Key="TextSearchIng" TargetType="TextBox">
+                        <Border CornerRadius="30" 
+                                Background="#FFC3A1"
+                                Width="300" Height="65">
+                            <TextBox 
+                                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                                    x:Name="searchBox"
+                                    Width="215"
+                                    Height="40"
+                                    VerticalContentAlignment="Center"
+                                    materialDesign:HintAssist.Hint="Tìm kiếm nguyên liệu"
+                                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                    BorderThickness="0"
+                                    FontSize="22" Margin="10,12,42,13">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=searchBox}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                        </Border>
+                    </ControlTemplate>
+                </StackPanel.Resources>
+
+                <Grid Width="300" Height="74" Margin="15,0,0,0">
+                    <TextBox Template="{StaticResource TextSearchIng}"/>
+                    <Button 
+                            Width="65" Height="50"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="0,0,5,0"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            FontSize="30"
+                            Foreground="#49454F">
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE721;"/>
+                    </Button>
+                </Grid>
+                <ComboBox x:Name="cbFilter"
+                      Style="{StaticResource filterCombobox_style}" Margin="15,15,26,0" 
+                      Height="66" Background="#FDB2B2" Grid.Column="1" Width="186"
+                      FontSize="22" Foreground="Black" VerticalAlignment="Top" 
+                      ItemsSource="{Binding StatusList}"
+                      SelectedItem="{Binding SelectedStatus, Mode=TwoWay}">
+                </ComboBox>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="320"/>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid Margin="20,0,0,10">
+                        <Border Grid.Row="0" Background="#FFC3A1" CornerRadius="10">
+                            <Border
+                                    Margin="18"
+                                    Background="White"
+                                    CornerRadius="10">
+                                <DataGrid Margin="15"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            AutoGenerateColumns="False"
+                                            Background="White"
+                                            CanUserReorderColumns="False"
+                                            CanUserResizeColumns="False"
+                                            CanUserSortColumns="True"
+                                            ColumnWidth="SizeToCells"
+                                            IsReadOnly="True"
+                                            SelectionMode="Single"
+                                            SelectionUnit="FullRow"
+                                            ItemsSource="{Binding Ingredients, UpdateSourceTrigger=PropertyChanged}" 
+                                            SelectedItem="{Binding SelectedItem}">
+                                    <DataGrid.ColumnHeaderStyle>
+                                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                                            <Setter Property="BorderThickness" Value="0" />
+                                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                                            <Setter Property="FontWeight" Value="DemiBold"/>
+                                            <Setter Property="FontSize" Value="17"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                        </Style>
+                                    </DataGrid.ColumnHeaderStyle>
+
+                                    <DataGrid.CellStyle>
+                                        <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
+                                            <Setter Property="BorderThickness" Value="0" />
+                                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                        </Style>
+                                    </DataGrid.CellStyle>
+
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Width="auto" MinWidth="80" Header="Mã nguyên liệu" SortMemberPath="ID">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                        <TextBlock  FontSize="15"
+                                                                HorizontalAlignment="Left"
+                                                                VerticalAlignment="Center"
+                                                                Text="{Binding ID, StringFormat = 'NL{0:D3}'}" />
+
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTemplateColumn Width="auto" Header="Tên nguyên liệu" SortMemberPath="Name">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock FontSize="15"  
+                                                                HorizontalAlignment="Left"
+                                                                VerticalAlignment="Center"
+                                                                Text="{Binding Name}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTemplateColumn Width="auto" Header="Đơn vị tính" SortMemberPath="Unit">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <TextBlock FontSize="15"       
+                                                                HorizontalAlignment="Left"
+                                                                VerticalAlignment="Center"
+                                                                Text="{Binding Unit}" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTemplateColumn Width="*" Header="Số lượng" SortMemberPath="Quantity">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                        <TextBlock FontSize="15"
+                                                                   HorizontalAlignment="Left"
+                                                                   VerticalAlignment="Center"
+                                                                   Text="{Binding Quantity}" />
+
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Border>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="1"
+                      Visibility="{Binding SelectedItem, Converter={StaticResource NullToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <Border HorizontalAlignment="Left" Margin="10,-20,0,5" CornerRadius="10"
+                                 Width="1" Background="#603127"/>
+                        <Grid Margin="10,0,0,0" Width="300" Panel.ZIndex="1">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
+                                    <Label Content="Mã nguyên liệu: " FontSize="22" Foreground="Black" FontWeight="Medium"/>
+                                    <TextBlock Text="{Binding SelectedItem.ID, StringFormat = 'NL{0:D3}'}" Width="auto"
+                                           FontSize="22" Foreground="Black" FontWeight="Medium"
+                                           VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Label Margin="0,10,0,0" Content="Tên nguyên liệu" 
+                                       FontSize="22" Foreground="Black"
+                                       FontWeight="Medium"/>
+                                <TextBox Margin="-20,7,0,0" Height="50" Width="270" 
+                                         Style="{StaticResource textBox_style}"
+                                         Text="{Binding SelectedItem.Name}"
+                                         IsHitTestVisible="False"/>
+
+                                <Label Margin="0,15,0,0" Content="Đơn vị tính" 
+                                       FontSize="22" Foreground="Black"
+                                       FontWeight="Medium"/>
+                                <TextBox Margin="-20,7,0,0" Height="50" Width="270" 
+                                         Style="{StaticResource textBox_style}"
+                                         Text="{Binding SelectedItem.Unit}"
+                                         IsHitTestVisible="False"/>
+
+                                <Label Margin="0,15,0,0" Content="Số lượng" 
+                                       FontSize="22" Foreground="Black"
+                                       FontWeight="Medium"/>
+                                <TextBox Margin="-20,7,0,0" Height="50" Width="270" 
+                                         Style="{StaticResource textBox_style}"
+                                         Text="{Binding SelectedItem.Quantity}"
+                                         IsHitTestVisible="False"/>
+
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
