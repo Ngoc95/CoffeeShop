@@ -1026,7 +1026,6 @@
     <Resource Include="Images\Menu\ingredientSourceMenu.png" />
     <Resource Include="Images\Icon\Money_Icon.png" />
     <Resource Include="Images\InfoBtn.png" />
-    <Resource Include="Images\Home\supplier.png" />
     <Resource Include="Images\Home\request.png" />
     <Content Include="MVVM\Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

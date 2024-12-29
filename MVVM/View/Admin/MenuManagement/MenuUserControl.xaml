@@ -22,7 +22,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="90"></RowDefinition>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="90"/>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -99,11 +99,11 @@
                         Style="{StaticResource ToggButtonAddGenMenu}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Checked">
-                                <i:InvokeCommandAction Command="{Binding Add_EditGenCommand}" 
+                                <i:InvokeCommandAction Command="{Binding AddGenCommand}" 
                                                    CommandParameter="{Binding ElementName=addTxtBox}"/>
                             </i:EventTrigger>
                             <i:EventTrigger EventName="Unchecked">
-                                <i:InvokeCommandAction Command="{Binding Add_EditGenCommand}" 
+                                <i:InvokeCommandAction Command="{Binding AddGenCommand}" 
                                                    CommandParameter="{Binding ElementName=addTxtBox}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -135,11 +135,11 @@
                         Style="{StaticResource ToggButtonEditGenMenu}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Checked">
-                                <i:InvokeCommandAction Command="{Binding Add_EditGenCommand}" 
+                                <i:InvokeCommandAction Command="{Binding EditGenCommand}" 
                                                    CommandParameter="{Binding ElementName=editTxtBox}"/>
                             </i:EventTrigger>
                             <i:EventTrigger EventName="Unchecked">
-                                <i:InvokeCommandAction Command="{Binding Add_EditGenCommand}" 
+                                <i:InvokeCommandAction Command="{Binding EditGenCommand}" 
                                                    CommandParameter="{Binding ElementName=editTxtBox}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>

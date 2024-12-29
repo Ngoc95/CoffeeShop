@@ -27,7 +27,7 @@
                         Margin="10,5,0,10"
                         VerticalAlignment="Center">
                 <TextBlock FontSize="18" FontWeight="Bold" Text="{Binding [0]}"></TextBlock>
-                <TextBlock FontSize="15" Text="{Binding [1]}"></TextBlock>
+                <TextBlock TextWrapping="WrapWithOverflow"  FontSize="15" Text="{Binding [1]}"></TextBlock>
             </StackPanel>
             <Image Grid.Column="1" Width="40" Height="40" Source="{Binding [2]}">
                 <Image.Effect>

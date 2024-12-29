@@ -194,7 +194,7 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 using (var context = new CoffeeShopDBEntities())
                 {
                     int n = await context.RESERVATIONs.CountAsync(t => t.IS_DELETED == false && t.RES_STATUS == "Khách chưa nhận bàn");
-                    return n.ToString() + "(chưa nhận bàn)";
+                    return n.ToString() + "(chưa checkin)";
                 }
             }
             catch

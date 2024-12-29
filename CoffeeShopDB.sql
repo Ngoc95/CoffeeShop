@@ -362,6 +362,11 @@ INSERT INTO REQUEST(EMP_ID, REQ_TYPE, EMP_COMMENT) VALUES
 (2,N'Đổi ca',N'Xin đổi ca tối thứ 4 sang thứ 5'),
 (4,N'Xin nghỉ',N'Xin nghỉ phép vào ca tối thứ 5 vì nhà có việc ạ.');
 
+set dateformat dmy;
+INSERT INTO REQUEST(EMP_ID, REQ_TYPE, EMP_COMMENT, APPROVED_BY, REQ_STATUS, APPROVED_DATE, APPROVER_COMMENT) VALUES 
+(2,N'Đổi ca',N'Xin nghỉ ca sáng chủ nhật ngày 22/12/2024', 4, N'Từ chối', '20-12-2024', N'Có thể đổi với ca chiều hoặc vào ngày thứ 2 hôm sau'),
+(2,N'Xin nghỉ',N'Xin nghỉ ca sáng thứ 6 ngày 3/1/2025', 1, N'Đã duyệt', '29-12-2024', '');
+
 -- Bill
 INSERT INTO Bill (CUS_ID, EMP_ID, SUBTOTAL, DISCOUNT, TOTAL_COST, CREATE_AT) VALUES (1, 2, 56000, 0, 56000, '10-12-2024 7:40:00');
 INSERT INTO BILL_INFO (BILL_ID, PRO_ID, QUANTITY, PRICE_ITEM) VALUES (1, 1, 1, 15000);

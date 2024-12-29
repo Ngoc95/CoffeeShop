@@ -117,7 +117,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public ICommand BtnAddProductDataComand { get; set; }
 
 
-        public ICommand Add_EditGenCommand { get; set; }
+        public ICommand EditGenCommand { get; set; }
+        public ICommand AddGenCommand { get; set; }
         public ICommand SaveGenCommand { get; set; }
         public ICommand SaveChangeGenPrdCommand { get; set; }
         public ICommand DeleteGenPrdCommand { get; set; }
@@ -306,7 +307,20 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 ExportMenuExcel();
             });
 
-            Add_EditGenCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            AddGenCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            {
+                if (p.Visibility == Visibility.Collapsed)
+                {
+                    p.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    p.Text = "";
+                    p.Visibility = Visibility.Collapsed;
+                }
+            });
+
+            EditGenCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
             {
                 if (p.Visibility == Visibility.Collapsed)
                 {
@@ -411,6 +425,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             {
                 GenPrdNameList.Add(item.GP_NAME);
             }
+            GenPrdNameList.RemoveAt(0);
         }
 
         private void DeleteFromGenList(GenreProductDTO selectedGenPrd)
