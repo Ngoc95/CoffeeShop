@@ -133,7 +133,7 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 return (false, "Xảy ra lỗi khi chỉnh sửa sản phẩm");
             }
         }
-        public async Task<int> NumOfProduct()
+        public async Task<int> IDOfProduct()
         {
             try
             {
@@ -149,7 +149,19 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             }
         }
 
-
-
+        public async Task<int> NumOfProduct()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    return await Task.Run(() => context.PRODUCTs.CountAsync(t => t.IS_DELETED == false));
+                }
+            }
+            catch 
+            {
+                return 0;
+            }
+        }
     }
 }

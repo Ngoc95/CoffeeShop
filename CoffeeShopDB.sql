@@ -6,8 +6,10 @@ create table GENRE_PRODUCT
 (
 	GP_ID int identity(1,1),
 	GP_NAME nvarchar(max) not null,
+	IS_DELETED bit default 0,
 	constraint pk_GP_ver1 primary key(GP_ID),
 )
+
 
 create table PRODUCT
 (	
@@ -28,6 +30,8 @@ create table GENRE_TABLE
 	GT_NAME nvarchar(max) not null,
 	constraint pk_GT primary key(GT_ID),
 )
+
+
 create table _TABLE
 (	
 	TB_ID int identity(1,1),
@@ -110,6 +114,7 @@ CREATE TABLE EMPLOYEE_SHIFT (
     constraint fk_EMPSHIFT_SHIFT foreign key (SHIFT_ID) references WORK_SHIFT(SHIFT_ID),
 	constraint chk_WORK_DAY check (WORK_DAY BETWEEN 1 AND 7)
 );
+
 CREATE TABLE REQUEST (
     REQ_ID int identity(1,1), 
     EMP_ID int, 
@@ -228,6 +233,7 @@ create table ERROR
 )
 set dateformat dmy
 
+set dateformat ymd
 INSERT INTO EMPLOYEE (EMP_NAME, EMP_PHONE, EMP_CCCD, EMP_BIRTHDAY, EMP_USERNAME, EMP_PASSWORD, EMP_EMAIL, EMP_GENDER, EMP_ROLE)
 VALUES 
 (N'Ngọc Nguyên', '0912345678',	'012345678901', '01-01-2005', 'admin', '202cb962ac59075b964b07152d234b70', 'ngocnguyen@example.com', N'Nữ', N'Quản lý'),
@@ -252,7 +258,10 @@ INSERT INTO GENRE_TABLE (GT_NAME) VALUES (N'Bàn 6')
 
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Còn trống')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Đang bận')
-INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang sửa chữa')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang bận')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Đang bận')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Còn trống')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang bận')
@@ -266,6 +275,14 @@ INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Đang sửa chữa')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (3, N'Đang bận')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (3, N'Đang sửa chữa')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang bận')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (1, N'Đang bận')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
+INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang bận')
 
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà đào', 3, 'pack://application:,,,/DemoDataPrdImg/tradao.jpg', 15000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Cacao sữa xay', 1, 'pack://application:,,,/DemoDataPrdImg/cacaoSua.jpg', 20000)
@@ -302,16 +319,19 @@ INSERT INTO CUSTOMER (CUS_NAME, CUS_GENDER, CUS_PHONE, CUS_EMAIL, CUS_POINT) VAL
 
 INSERT INTO RESERVATION (CUS_ID, TABLE_ID, RES_DATE, RES_TIME, NUM_OF_PEOPLE, RES_STATUS, SPECIAL_REQUEST)
 VALUES
+(6, 16, '28-12-2024', '8:00:00', 5, N'Khách chưa nhận bàn', NULL),
 (1, 1, '31-12-2024', '15:00:00', 2, N'Khách đã nhận bàn', N'Chỗ gần cửa sổ'),
-(2, 3, '2-1-2025', '13:30:00', 3, N'Khách chưa nhận bàn', NULL),
-(3, 6, '2-1-2025', '8:00:00', 4, N'Khách chưa nhận bàn', N'Yêu cầu yên tĩnh'),
-(4, 15, '09-1-2025', '19:00:00', 5, N'Khách chưa nhận bàn', NULL),
 (5, 1, '30-12-2024', '12:00:00', 2, N'Khách đã nhận bàn', N'Không dùng thức uống lạnh'),
+(2, 3, '2-1-2025', '13:30:00', 3, N'Khách chưa nhận bàn', NULL),
+(3, 6, '3-1-2025', '8:00:00', 4, N'Khách chưa nhận bàn', N'Yêu cầu yên tĩnh'),
 (6, 9, '3-1-2025', '8:00:00', 6, N'Khách chưa nhận bàn', N'Chỗ gần máy lạnh'),
-(7, 13, '1-1-2025', '15:00:00', 4, N'Khách chưa nhận bàn', N'Thích đồ uống ít đường'),
-(8, 1, '2-1-2025', '17:00:00', 2, N'Khách chưa nhận bàn', NULL),
-(1, 4, '2-1-2025', '13:00:00', 3, N'Khách chưa nhận bàn', NULL),
-(2, 16, '2-1-2024', '8:00:00', 5, N'Khách chưa nhận bàn', NULL);
+(7, 13, '1-1-2025', '15:00:00', 4, N'Khách chưa nhận bàn', NULL),
+(8, 1, '3-1-2025', '17:00:00', 2, N'Khách chưa nhận bàn', NULL),
+(1, 4, '3-1-2025', '13:00:00', 3, N'Khách chưa nhận bàn', NULL),
+(8, 1, '1-1-2025', '17:00:00', 2, N'Khách đã nhận bàn', NULL),
+(4, 16, '3-1-2024', '8:00:00', 5, N'Khách chưa nhận bàn', N'Yêu cầu background'),
+(3, 4, '2-1-2025', '8:00:00', 3, N'Khách chưa nhận bàn', NULL),
+(4, 15, '09-1-2025', '19:00:00', 5, N'Khách chưa nhận bàn', NULL);
 
 
 -- WORK_SHIFT
@@ -320,6 +340,7 @@ VALUES
     (1, N'Ca sáng', 230000, '06:00:00', '14:00:00'),
     (2, N'Ca chiều', 200000, '14:00:00', '17:30:00'),
     (3, N'Ca tối', 250000, '17:30:00', '22:00:00');
+
 INSERT INTO EMPLOYEE_SHIFT (EMP_ID, SHIFT_ID, WORK_DAY)
 VALUES 
     (1, 1, 1), -- Thứ Hai

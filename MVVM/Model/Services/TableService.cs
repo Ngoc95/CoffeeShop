@@ -113,8 +113,27 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 return 0;
             }
         }
+        public async Task<(int available, int busy, int repairing)> TableStatus()
+        {
+            ///available, busy, repairing
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    int available = await context.C_TABLE.CountAsync(t => t.TB_STATUS == "Còn trống");
+                    int busy = await context.C_TABLE.CountAsync(t => t.TB_STATUS == "Đang bận");
+                    int repairing = await context.C_TABLE.CountAsync(t => t.TB_STATUS != "Còn trống" && t.TB_STATUS != "Đang bận");
 
-        
+                    return (available, busy, repairing);
+                }
+            }
+            catch
+            {
+                return (0, 0, 0);
+            }
+        }
+
+
         public async Task<bool> UpdateATable(TableDTO temp)
         {
             try
@@ -143,5 +162,20 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             }
         }
 
+        public async Task<string> TableGenaral()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    int n = await context.C_TABLE.CountAsync(t => t.IS_DELETED == false);
+                    return n.ToString();
+                }
+            }
+            catch
+            {
+                return "0";
+            }
+        }
     }
 }

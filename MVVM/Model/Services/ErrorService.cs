@@ -111,5 +111,20 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
 
         }
 
+        public async Task<int> NumOfUnSolve()
+        {
+            try
+            {
+                using (var c = new CoffeeShopDBEntities())
+                {
+                    return await c.ERRORs.CountAsync(e => e.ER_STATUS == "Chưa khắc phục");
+                }
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
     }
 }

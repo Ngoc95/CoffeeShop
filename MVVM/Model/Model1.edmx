@@ -117,6 +117,7 @@
           </Key>
           <Property Name="GP_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GP_NAME" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IS_DELETED" Type="bit" />
         </EntityType>
         <EntityType Name="GENRE_TABLE">
           <Key>
@@ -757,6 +758,7 @@
           </Key>
           <Property Name="GP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GP_NAME" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IS_DELETED" Type="Boolean" />
           <NavigationProperty Name="PRODUCTs" Relationship="CoffeeShopDBModel.fk_PRO_GENRE_v1" FromRole="GENRE_PRODUCT" ToRole="PRODUCT" />
         </EntityType>
         <EntityType Name="GENRE_TABLE">
@@ -1211,6 +1213,7 @@
           <EntitySetMapping Name="GENRE_PRODUCT">
             <EntityTypeMapping TypeName="CoffeeShopDBModel.GENRE_PRODUCT">
               <MappingFragment StoreEntitySet="GENRE_PRODUCT">
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
                 <ScalarProperty Name="GP_NAME" ColumnName="GP_NAME" />
                 <ScalarProperty Name="GP_ID" ColumnName="GP_ID" />
               </MappingFragment>

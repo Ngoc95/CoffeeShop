@@ -467,9 +467,20 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             return false;
         }
 
-        private void UpdateCoreReservationList(ReservationDTO newReservation)
+        private void UpdateCoreReservationList(ReservationDTO reservation)
         {
-            CoreReservationList.Add(newReservation);
+            foreach(ReservationDTO i in CoreReservationList)
+            {
+                if(i.RES_ID == reservation.RES_ID)
+                {
+                    i.RES_STATUS = reservation.RES_STATUS;
+                    i.RES_DATE = reservation.RES_DATE;
+                    i.RES_TIME = reservation.RES_TIME;
+                    i.SPECIAL_REQUEST = reservation.SPECIAL_REQUEST;
+                    i.NUM_OF_PEOPLE = reservation.NUM_OF_PEOPLE;
+                    i.TABLE_ID = reservation.TABLE_ID;
+                }
+            }
             ReservationList = CoreReservationList;
         }
 

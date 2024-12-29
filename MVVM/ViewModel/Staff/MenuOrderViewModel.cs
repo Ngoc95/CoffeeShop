@@ -388,12 +388,13 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                 {
                     Bill_InforList.Remove(p);
                     CaculateSubTotalBill();
+                    Total_Bill = SUBTotal_Bill;
                     CaculatePoint();
                     if (SUBTotal_Bill != 0)
                     {
                         Total_Bill = SUBTotal_Bill - Discount_Bill;
-                        caculateAddPoint();
                     }
+                    caculateAddPoint();
                 }
             });
 

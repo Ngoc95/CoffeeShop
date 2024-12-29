@@ -42,6 +42,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         public ICommand WorkshiftViewCommand { get; set; }
         public ICommand IngredientSourceViewCommand { get; set; }
         public ICommand AccountViewCommand { get; set; }
+        public ICommand HomeViewCommand { get; set; }
         public CustomerViewModel CustomerVM { get; set; }
         public ErrorViewModel ErrorVM { get; set; }
         public WorkshiftViewModel WorkshiftVM { get; set; }
@@ -49,6 +50,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         public StaffTableResViewModel TableVM { get; set; }
         public IngredientSourceViewModel IngredientSourceVM { get; set; }
         public AccountViewModel AccountVM { get; set; }
+        public StaffHomeViewModel HomeVM { get; set; }
 
         private object _currentView;
 
@@ -103,8 +105,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             WorkshiftVM = new WorkshiftViewModel();
             MenuOrderVM = new MenuOrderViewModel();
             TableVM = new StaffTableResViewModel();
+            HomeVM = new StaffHomeViewModel();
             IngredientSourceVM = new IngredientSourceViewModel();
-
             CurrentView = CustomerVM;
 
             AccountViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CustomerViewCommand.Execute(null); IsAccountSelected = true; CurrentView = new AccountViewModel(); });
@@ -112,6 +114,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             ErrorViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new ErrorViewModel(); ; });
             MenuViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = MenuOrderVM; });
             TableViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = TableVM; });
+            HomeViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = HomeVM; });
             WorkshiftViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new WorkshiftViewModel(); });
             IngredientSourceViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new IngredientSourceViewModel(); });
 

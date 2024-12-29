@@ -2,6 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:AdminViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Admin"
                     xmlns:ProCardViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.ProductCardVM"
+                    xmlns:AdminHomeView="clr-namespace:QuanLiCoffeeShop.MVVM.View.Admin.HomePage"
+                    xmlns:StaffHomeView="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffHomeManagement"
                     xmlns:StaffViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff"
                     xmlns:StaffMenuOrderView="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu"
                     xmlns:StaffTableResView="clr-namespace:QuanLiCoffeeShop.MVVM.View.Staff.StaffTable"
@@ -12,6 +14,11 @@
                     xmlns:IngStaffViewModel="clr-namespace:QuanLiCoffeeShop.MVVM.ViewModel.Staff.IngredientSourceVM">
     <AdminViewModel:MenuViewModel x:Key="MenuViewModel"/>
     <AdminViewModel:TableViewModel x:Key="TableViewModel"/>
+    <AdminViewModel:AdminHomeViewModel x:Key="AdminHomeViewModel"/>
+    <StaffViewModel:MenuOrderViewModel x:Key="MenuOrderViewModel"/>
+    <StaffViewModel:StaffTableResViewModel x:Key="StaffTableResViewModel"/>
+    <StaffViewModel:StaffHomeViewModel x:Key="StaffHomeViewModel"/>
+
     <IngAdminViewModel:IngredientSourceViewModel x:Key="IngSourceViewModel"/>
     <IngAdminViewModel:SupplierViewModel x:Key="SupplierViewModel"/>
     <IngAdminViewModel:ImportViewModel x:Key="ImportViewModel"/>
@@ -43,6 +50,7 @@
         <viewAdminIng:ImportInfoCardUserControl/>
     </DataTemplate>
 
+
     <!--IngSourceforStaff-->
     <DataTemplate DataType="{x:Type IngStaffViewModel:IngredientSourceViewModel}">
         <viewStaffIng:NavigationUserControl/>
@@ -68,6 +76,9 @@
         <TableCard:Table6Card Width="157" Height="240" Margin="10"/>
     </DataTemplate>
     
+    <DataTemplate DataType="{x:Type AdminViewModel:AdminHomeViewModel}">
+        <AdminHomeView:HomeAdminUserControl/>
+    </DataTemplate>
 
     <DataTemplate DataType="{x:Type StaffViewModel:MenuOrderViewModel}">
         <StaffMenuOrderView:StaffMenuOrderUserControl/>
@@ -76,7 +87,10 @@
     <DataTemplate DataType="{x:Type StaffViewModel:StaffTableResViewModel}">
         <StaffTableResView:StaffTableUserControl/>
     </DataTemplate>
-    
+
+    <DataTemplate DataType="{x:Type StaffViewModel:StaffHomeViewModel}">
+        <StaffHomeView:StaffHomeUserControl/>
+    </DataTemplate>
 
     <!--TableCardForStaff-->
     <DataTemplate x:Key="Table2Staff">

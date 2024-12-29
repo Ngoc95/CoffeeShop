@@ -18,7 +18,7 @@
     </i:Interaction.Triggers>
 
     <UserControl.Resources>
-        
+
         <local:MyTemplateSelector x:Key="MySelector"
                                   Table2Template="{StaticResource Table2Staff}"
                                   Table3Template="{StaticResource Table3Staff}"
@@ -30,8 +30,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="0.88*"/>
             <ColumnDefinition/>
+            <ColumnDefinition Width="475"/>
         </Grid.ColumnDefinitions>
 
         <ScrollViewer Grid.Column="0" 
@@ -78,7 +78,7 @@
             <ComboBox 
                 Grid.Row="0"
                 HorizontalAlignment="Left"
-                Margin="10"
+                Margin="5,10"
                 Tag="Lọc theo trạng thái"
                 FontSize="22"
                 SelectedIndex="{Binding CbbSelectedIndex, Mode=TwoWay}"
@@ -101,7 +101,7 @@
                 <ComboBoxItem 
                         Width="200"  
                         Content="Đang sửa chữa"/>
-            </ComboBox>       
+            </ComboBox>
             <Grid Grid.Row="1">
                 <ScrollViewer 
                     HorizontalAlignment="Left"
@@ -113,7 +113,7 @@
                         Height="auto"
                         ItemsSource="{Binding TableList}" 
                         ItemTemplateSelector="{StaticResource MySelector}">
-                        
+
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal"/>
@@ -137,34 +137,34 @@
                 Style="{StaticResource MaterialDesignFilledTabControl}"
                 materialDesign:ColorZoneAssist.Foreground="#653128">
                 <TabItem Header="Thông tin đặt bàn">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <StackPanel
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel
                                 Grid.Row="0"
                                 Margin="20,0"
                                 HorizontalAlignment="Left">
-                                <CheckBox
+                            <CheckBox
                                     Content="Lọc theo ngày đặt bàn"
                                     FontSize="16"
                                     IsChecked="{Binding UseDateFilter}"
                                     Foreground="black"
                                     Background="#603127"
                                     Style="{StaticResource MaterialDesignDarkCheckBox}">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Checked">
-                                            <i:InvokeCommandAction Command="{Binding SetDateFilterCommand}"
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked">
+                                        <i:InvokeCommandAction Command="{Binding SetDateFilterCommand}"
                                            CommandParameter="{Binding ElementName=DateFilter}"/>
-                                        </i:EventTrigger>
-                                        <i:EventTrigger EventName="Unchecked">
-                                            <i:InvokeCommandAction Command="{Binding SetDateFilterCommand}"
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked">
+                                        <i:InvokeCommandAction Command="{Binding SetDateFilterCommand}"
                                            CommandParameter="{Binding ElementName=DateFilter}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </CheckBox>
-                                <DatePicker
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </CheckBox>
+                            <DatePicker
                                     Visibility="Hidden"
                                     x:Name="DateFilter"
                                     HorizontalAlignment="Right"
@@ -174,13 +174,13 @@
                                     FontSize="16" 
                                     Height="30"
                                     Width="120">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="SelectedDateChanged">
-                                            <i:InvokeCommandAction Command="{Binding FilterReservationCommand}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </DatePicker>
-                            </StackPanel>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectedDateChanged">
+                                        <i:InvokeCommandAction Command="{Binding FilterReservationCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DatePicker>
+                        </StackPanel>
                         <ComboBox 
                             HorizontalAlignment="Right"
                             Margin="10,0" 
@@ -206,27 +206,27 @@
                             Padding="10"
                             CornerRadius="10">
 
-                                <ListView 
+                            <ListView 
                                     x:Name="ResList" 
                                     Background="White"
                                     Margin="0"
                                     FontSize="18"
                                     ItemsSource="{Binding ReservationList}"
                                     SelectedItem="{Binding SelectedReservation}" >
-                                    <ListView.ItemContainerStyle>
-                                        <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
-                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
-                                    <ListView.View>
+                                <ListView.ItemContainerStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.View>
                                     <GridView>
                                         <GridViewColumn Width="52" Header="Mã ĐB"
                                                 HeaderContainerStyle="{StaticResource GridViewTableHeaderStyle}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock
-                                                Style="{StaticResource Header6Style}"
-                                                Text="{Binding RES_ID, StringFormat='0000'}" />
+                                                    Style="{StaticResource Header6Style}"
+                                                    Text="{Binding RES_ID, StringFormat='0000'}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
@@ -240,22 +240,21 @@
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
-                                        <GridViewColumn Width="55" Header="Giờ đặt"
+                                        <GridViewColumn Width="57" Header="Giờ đặt"
                                             HeaderContainerStyle="{StaticResource GridViewTableHeaderStyle}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock
                                                         Style="{StaticResource Header6Style}"
                                                         Text="{Binding RES_TIME, StringFormat={}{0:HH:mm}}"/>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                        <GridViewColumn Width="158" Header="Trạng thái" 
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="auto" Header="Trạng thái" 
                                                 HeaderContainerStyle="{StaticResource GridViewTableHeaderStyle}" >
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock
-                                                        FontSize="15"
                                                         Style="{StaticResource HeaderResStatusStyle}"
                                                         Text="{Binding RES_STATUS}" />
                                                 </DataTemplate>
@@ -263,22 +262,22 @@
                                         </GridViewColumn>
                                         <GridViewColumn Width="20" Header=""
                                                 HeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <Button 
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button 
                                                             Margin="-15,0,0,0" 
                                                             Style="{StaticResource ButtonMoreMenu}"
                                                             Command="{Binding DataContext.OpenResevationDetailCommand,RelativeSource={RelativeSource AncestorType=ListView}}"
                                                             CommandParameter="{Binding }"></Button>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                            </Border>
-                        </Grid>
-                    </TabItem>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Border>
+                    </Grid>
+                </TabItem>
                 <TabItem Header="Thêm lịch đặt bàn" >
                     <Grid>
                         <Grid.RowDefinitions>
@@ -402,7 +401,7 @@
         </Border>
 
 
-            <!--<Button 
+        <!--<Button 
                 Grid.Row="1"
                 Style="{DynamicResource ButtonStaffStyle}" 
                 Margin="0,0,20,0" 

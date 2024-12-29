@@ -234,5 +234,21 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 return (false, "Xảy ra lỗi khi chỉnh sửa khách hàng");
             }
         }
+
+        public async Task<string> NumOfCus()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    int res = await Task.Run(() => context.CUSTOMERs.CountAsync(t => t.IS_DELETED == false));
+                    return res.ToString();
+                }
+            }
+            catch
+            {
+                return "0";
+            }
+        }
     }
 }

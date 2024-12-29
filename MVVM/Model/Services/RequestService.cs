@@ -1,4 +1,5 @@
-﻿using QuanLiCoffeeShop.DTOs;
+﻿using OxyPlot;
+using QuanLiCoffeeShop.DTOs;
 using QuanLiCoffeeShop.MVVM.View.Message;
 using System;
 using System.Collections.Generic;
@@ -126,6 +127,54 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 return (false, "Xảy ra lỗi");
             }
 
+        }
+
+        public async Task<(int xinnghi, int doica)> RequestStatus()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    int xinnghi = await context.REQUESTs.CountAsync(t => t.REQ_TYPE == "Xin nghỉ" && t.REQ_STATUS == "Chờ duyệt");
+                    int doica = await context.REQUESTs.CountAsync(t => t.REQ_TYPE == "Đổi ca" && t.REQ_STATUS == "Chờ duyệt");
+                    return (xinnghi, doica);
+                }
+            }
+            catch
+            {
+                return (0, 0);
+            }
+        }
+
+        internal async Task<List<List<string>>> GetGenralRequestStaffList(int eMP_ID)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    List<List<string>> res = new List<List<string>>();
+                    var temp = await context.REQUESTs
+                                    .Where(g => g.EMP_ID == eMP_ID && g.IS_DELETED == false)
+                                    .ToListAsync();
+                    foreach (var item in temp)
+                    {
+                        res.Add(new List<string>()
+                        {
+                            "Yêu cầu ngày " + item.REQ_DATE.ToString("dd/MM/yyyy"),
+                            (item.REQ_STATUS == "Chờ duyệt" ? "Đang chờ duyệt" :
+                                (item.REQ_STATUS + $" vào ngày {item.APPROVED_DATE?.ToString("dd/MM/yyyy")}"
+                                + (item.APPROVER_COMMENT != null ? $"\nGhi chú: {item.APPROVER_COMMENT}" : "")
+                                + $"\nMã người duyệt: {item.APPROVED_BY:QL000}")
+                            ),
+                        });
+                    }
+                    return res;
+                }
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

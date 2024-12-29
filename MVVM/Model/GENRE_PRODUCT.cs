@@ -22,6 +22,7 @@ namespace QuanLiCoffeeShop.MVVM.Model
     
         public int GP_ID { get; set; }
         public string GP_NAME { get; set; }
+        public Nullable<bool> IS_DELETED { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUCT> PRODUCTs { get; set; }

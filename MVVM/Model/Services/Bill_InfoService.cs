@@ -3,9 +3,11 @@ using QuanLiCoffeeShop.MVVM.View.Message;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Shell;
 
 namespace QuanLiCoffeeShop.MVVM.Model.Services
 {
@@ -58,6 +60,44 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             {
                 MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi khi truy cập database");
                 return false;
+            }
+        }
+
+        public List<Tuple<string, int>> GetTopSeller()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    List<Tuple<string, int>> list;
+                    var templist = context.BILL_INFO
+                        .GroupBy(b => b.PRO_ID)
+                        .Select(g => new
+                        {
+                            ProductId = g.Key,
+                            TotalQuantity = g.Sum(binfo => binfo.QUANTITY) ?? 0
+                        })
+                        .OrderByDescending(x => x.TotalQuantity)
+                        .Take(5)
+                        .Join(context.PRODUCTs,
+                              bi => bi.ProductId,
+                              p => p.PRO_ID,
+                              (bi, p) => new
+                              {
+                                  p.PRO_NAME, 
+                                  bi.TotalQuantity 
+                              })
+                        .ToList();
+                    list = templist
+                            .Select(x => new Tuple<string, int>(x.PRO_NAME, x.TotalQuantity))
+                            .ToList();
+                    return list;
+                }
+            }
+            catch (Exception ex) 
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, ex.Message);
+                return null;
             }
         }
     }

@@ -2,8 +2,10 @@
 using QuanLiCoffeeShop.MVVM.View.Message;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -133,6 +135,26 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             }
         }
 
+        public async Task<(int, int)> GetResStatusToday()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    int pendingReservations = await context.RESERVATIONs.CountAsync(r =>
+                        DbFunctions.TruncateTime(r.RES_DATE) == DateTime.Today && r.RES_STATUS == "Khách chưa nhận bàn");
+
+                    int confirmedReservations = await context.RESERVATIONs.CountAsync(r =>
+                        DbFunctions.TruncateTime(r.RES_DATE) == DateTime.Today && r.RES_STATUS == "Khách đã nhận bàn");
+                    return (pendingReservations, confirmedReservations);
+                }
+            }
+            catch
+            {
+                return (0,0);
+            }
+        }
+
         public async Task<bool> AddNewReservation(ReservationDTO reservation)
         {
             try
@@ -162,6 +184,49 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             {
                 Console.WriteLine($"Lỗi: {ex.Message}");
                 throw;
+            }
+        }
+
+        internal async Task<string> ReservationGenaral()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    int n = await context.RESERVATIONs.CountAsync(t => t.IS_DELETED == false && t.RES_STATUS == "Khách chưa nhận bàn");
+                    return n.ToString() + " (chưa nhận bàn)";
+                }
+            }
+            catch
+            {
+                return "0";
+            }
+        }
+
+        internal async Task<List<List<String>>> GetGenralResList()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    List<List<string>> res = new List<List<string>>();
+                    var temp = await context.RESERVATIONs
+                                    .Where(g => DbFunctions.TruncateTime(g.RES_DATE) == DateTime.Today && g.IS_DELETED == false)
+                                    .ToListAsync();
+                    foreach(var item in temp)
+                    {
+                        res.Add(new List<string>()
+                        {
+                            $"Mã bàn: {item.TABLE_ID:000}, " + $"Thời gian: {item.RES_TIME.ToString("HH:mm")}",
+                            item.RES_STATUS + ((item.SPECIAL_REQUEST != null || item.SPECIAL_REQUEST.Length != 0 ) ? "\nCó yêu cầu đặc biệt" : ""),
+                        });
+                    }
+                    return res;
+                }
+            }
+            catch
+            {
+                return null;
             }
         }
     }

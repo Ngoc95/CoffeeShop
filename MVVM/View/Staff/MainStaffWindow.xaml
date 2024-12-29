@@ -57,7 +57,7 @@
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True" 
-                             Command="{Binding TableViewCommand}"
+                             Command="{Binding HomeViewCommand}"
                              Content="Trang chủ"
                              Cursor="Hand">
                     <RadioButton.Tag>
