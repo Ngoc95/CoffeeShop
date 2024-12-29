@@ -513,6 +513,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\Model\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\Model\Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -815,6 +820,11 @@
     <Resource Include="Images\Home\typeProduct.png" />
     <Resource Include="Images\Home\Reservation.png" />
     <Resource Include="Images\Home\staffbgr.png" />
+    <Resource Include="Images\Home\addgenprd.png" />
+    <Resource Include="Images\Home\savegenprd.png" />
+    <Resource Include="Images\Home\xgenmark.png" />
+    <Resource Include="Images\Home\editgenprd.png" />
+    <Resource Include="Images\Home\deletegenprd.png" />
     <Content Include="MVVM\Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

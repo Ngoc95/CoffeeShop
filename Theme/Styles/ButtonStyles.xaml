@@ -527,6 +527,95 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style x:Key="ToggButtonAddGenMenu" TargetType="ToggleButton">
+        <Setter Property="Margin" Value="3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Image x:Name="img" Source="../../Images/Home/addgenprd.png" ></Image>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="img" Property="Source" Value="../../Images/Home/xgenmark.png"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Margin" Value="5"/>
+            </Trigger>
 
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ToggButtonEditGenMenu" TargetType="ToggleButton">
+        <Setter Property="Margin" Value="3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Image x:Name="img" Source="../../Images/Home/editgenprd.png" ></Image>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="img" Property="Source" Value="../../Images/Home/xgenmark.png"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Margin" Value="5"/>
+            </Trigger>
+
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ButtonDeleteGenMenu" TargetType="Button">
+        <Setter Property="Margin" Value="3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Image x:Name="img" Source="../../Images/Home/deletegenprd.png" ></Image>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Margin" Value="5"/>
+            </Trigger>
+
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SaveGenMenu" TargetType="Button">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Image x:Name="img" Source="../../Images/Home/savegenprd.png" ></Image>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Margin" Value="3"/>
+            </Trigger>
+
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 </ResourceDictionary>

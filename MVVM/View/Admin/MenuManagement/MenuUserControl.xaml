@@ -23,7 +23,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="90"></RowDefinition>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
@@ -79,42 +79,136 @@
             </Grid>
 
         </Grid>
-        
 
-        <ScrollViewer 
-            Grid.Row="1" 
-            Margin="10"
-            VerticalScrollBarVisibility="Auto">
-            <ItemsControl
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                ItemsSource="{Binding GenreProductList}"
-                Width="auto" Height="auto">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <RadioButton
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            FontSize="25"
-                            Margin="15, 0"
-                            Command="{Binding DataContext.FilterCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                            CommandParameter="{Binding GP_ID}"
-                            Content="{Binding GP_NAME}"
-                            IsChecked="False"
-                            GroupName="ProductTypeGroup"
-                            Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+        <Grid Grid.Row="1" Margin="15,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <Border
+                Grid.Column="1" 
+                Height="50"
+                BorderBrush="Black"
+                BorderThickness="1"
+                CornerRadius="10"
+                Padding="5,5">
+                <StackPanel Orientation="Horizontal">
+                    <ToggleButton
+                        IsChecked="{Binding ischeckedAddTggBtn}"
+                        Style="{StaticResource ToggButtonAddGenMenu}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding Add_EditGenCommand}" 
+                                                   CommandParameter="{Binding ElementName=addTxtBox}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="Unchecked">
+                                <i:InvokeCommandAction Command="{Binding Add_EditGenCommand}" 
+                                                   CommandParameter="{Binding ElementName=addTxtBox}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ToggleButton>
+                    <TextBox
+                        x:Name="addTxtBox"
+                        Visibility="Collapsed"
+                        Margin="5,-5"
+                        Height="25"
+                        Width="100"
+                        FontSize="20"
+                        Style="{StaticResource ReservationTextBoxStyle}"></TextBox>
+                    <Button
+                        Style="{StaticResource SaveGenMenu}"
+                        Command="{Binding SaveGenCommand}"
+                        CommandParameter="{Binding ElementName=addTxtBox}"
+                        Visibility="{Binding Visibility, ElementName=addTxtBox}">
+                    </Button>
+                    <Separator BorderBrush="Gray" BorderThickness="2">
+                        <Separator.LayoutTransform>
+                            <RotateTransform Angle="90" />
+                        </Separator.LayoutTransform>
+                    </Separator>
+                    <ToggleButton
+                        x:Name="EditRadioBtn"
+                        IsChecked="{Binding ischeckedEditTggBtn}"
+                        IsEnabled="{Binding EnbleEditDeleteGenBtn}"
+                        Opacity="{Binding OpacityEditDeletGenBtn}"
+                        Style="{StaticResource ToggButtonEditGenMenu}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding Add_EditGenCommand}" 
+                                                   CommandParameter="{Binding ElementName=editTxtBox}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="Unchecked">
+                                <i:InvokeCommandAction Command="{Binding Add_EditGenCommand}" 
+                                                   CommandParameter="{Binding ElementName=editTxtBox}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ToggleButton>
+                    <TextBox
+                        x:Name="editTxtBox"
+                        Visibility="Collapsed"
+                        Margin="5,-5"
+                        Height="25"
+                        Width="100"
+                        FontSize="20"
+                        Text="{Binding EditingGenPrd}"
+                        Style="{StaticResource ReservationTextBoxStyle}"></TextBox>
+                    <Button
+                        Command="{Binding SaveChangeGenPrdCommand}"
+                        Style="{StaticResource SaveGenMenu}"
+                        Visibility="{Binding Visibility, ElementName=editTxtBox}">
+                    </Button>
+                    <Separator BorderBrush="Gray" BorderThickness="2">
+                        <Separator.LayoutTransform>
+                            <RotateTransform Angle="90" />
+                        </Separator.LayoutTransform>
+                    </Separator>
+                    <Button
+                        Command="{Binding DeleteGenPrdCommand}"
+                        IsEnabled="{Binding EnbleEditDeleteGenBtn}"
+                        Opacity="{Binding OpacityEditDeletGenBtn}"
+                        Style="{StaticResource ButtonDeleteGenMenu}">
+                    </Button>
+                    
+                </StackPanel>
+            </Border>
+            <ScrollViewer 
+                Grid.Column="0"
+                Margin="10,0"
+                VerticalScrollBarVisibility="Hidden"
+                HorizontalScrollBarVisibility="Auto">
+                <ItemsControl
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    ItemsSource="{Binding GenreProductList}"
+                    Width="auto" Height="70">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton
+                                HorizontalAlignment="Stretch"
+                                Cursor="Hand"
+                                FontSize="25"
+                                Margin="5, 10"
+                                Command="{Binding DataContext.FilterCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}"
+                                Content="{Binding GP_NAME}"
+                                IsChecked="False"
+                                GroupName="ProductTypeGroup"
+                                Style="{StaticResource MaterialDesignTabRadioButton}" BorderBrush="#FFC3A1"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            
+        </Grid>
         <!--phan nay viet them vao cai thien de tai them xoa sua loai sp-->
 
-        <Separator Grid.Row="2" Margin="20, 0, 20, 0" ></Separator>
+        <Separator Grid.Row="2" Margin="20, 0, 20, 5" ></Separator>
         
         <ScrollViewer 
             Grid.Row="3" 

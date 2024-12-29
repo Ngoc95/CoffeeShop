@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Shell;
@@ -63,17 +64,44 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 OnPropertyChanged();
             } 
         }
-
+        private GenreProductDTO _SelectedGenPrd;
+        public GenreProductDTO SelectedGenPrd
+        {
+            get => _SelectedGenPrd;
+            set
+            {
+                _SelectedGenPrd = value;
+                OnPropertyChanged();
+            }
+        }
         private string _SelectedItemGenreName;
         public string SelectedItemGenreName { get => _SelectedItemGenreName; set { _SelectedItemGenreName = value; OnPropertyChanged(); } }
 
         private string _SearchText = "";
         public string SearchText { get => _SearchText; set { _SearchText= value; OnPropertyChanged(); } }
 
-        private int _FilterGnereID = 0;
-        public int FilterGnereID { get => _FilterGnereID; set { _FilterGnereID = value; OnPropertyChanged(); } }
+        //private int _FilterGnereID = 0;
+        //public int FilterGnereID { get => _FilterGnereID; set { _FilterGnereID = value; OnPropertyChanged(); } }
 
         private int IDOfNextProduct = 0;
+
+        private double _OpacityEditDeletGenBtn = 0;
+        public double OpacityEditDeletGenBtn { get => _OpacityEditDeletGenBtn; set { _OpacityEditDeletGenBtn= value; OnPropertyChanged(); } }
+
+        private bool _EnbleEditDeleteGenBtn;
+        public bool EnbleEditDeleteGenBtn { get => _EnbleEditDeleteGenBtn; set { _EnbleEditDeleteGenBtn= value; OnPropertyChanged(); } }
+
+        private string _EditingGenPrd;
+        public string EditingGenPrd { get => _EditingGenPrd; set { _EditingGenPrd = value; OnPropertyChanged(); }}
+
+        private bool _ischeckedEditTggBtn;
+        public bool ischeckedEditTggBtn { get => _ischeckedEditTggBtn; set { _ischeckedEditTggBtn = value; OnPropertyChanged(); }}
+
+        private bool _ischeckedAddTggBtn;
+        public bool ischeckedAddTggBtn { get => _ischeckedAddTggBtn; set { _ischeckedAddTggBtn = value; OnPropertyChanged(); } }
+
+        private int NextGenPrdID;
+
         #endregion
 
         #region Command
@@ -87,6 +115,13 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public ICommand FilterCommand { get; set; }
         public ICommand BtnImageCommand { get; set; }
         public ICommand BtnAddProductDataComand { get; set; }
+
+
+        public ICommand Add_EditGenCommand { get; set; }
+        public ICommand SaveGenCommand { get; set; }
+        public ICommand SaveChangeGenPrdCommand { get; set; }
+        public ICommand DeleteGenPrdCommand { get; set; }
+
 
         #endregion
         public MenuViewModel()
@@ -114,11 +149,19 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                         
                     }
                 }
-                FilterGnereID = 0;
+                SelectedGenPrd = new GenreProductDTO()
+                {
+                    GP_ID = 0,
+                    GP_NAME = "Tất cả"
+                };
                 SearchText = "";
-                FilterProduct(FilterGnereID, SearchText);
+                FilterProduct(SelectedGenPrd.GP_ID, SearchText);
                 if (IDOfNextProduct == 0)
                     IDOfNextProduct = await ProductService.Ins.IDOfProduct() + 1;
+                EnbleEditDeleteGenBtn = false;
+                OpacityEditDeletGenBtn = 0.5;
+                NextGenPrdID = await GenreProService.Ins.IDOfGenPrd() + 1;
+                ischeckedEditTggBtn = false;
             });
 
             OpenAddProWDCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -152,7 +195,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     if (IsDeleted)
                     {
                         DeleteProductCoreList(SelectedItem);
-                        FilterProduct(FilterGnereID, SearchText);
+                        FilterProduct(SelectedGenPrd.GP_ID, SearchText);
                         MessageBoxCustom.Show(MessageBoxCustom.Success, messageDelete);
                     }
                     else
@@ -174,7 +217,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 {
                     p.Close();
                     UpdateProductCoreList(SelectedItem);
-                    FilterProduct(FilterGnereID, SearchText);
+                    FilterProduct(SelectedGenPrd.GP_ID, SearchText);
                     MessageBoxCustom.Show(MessageBoxCustom.Success, messageAdd);
                 }
                 else
@@ -183,16 +226,33 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 }
             });
 
-            FilterCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            FilterCommand = new RelayCommand<GenreProductDTO>((p) => { return true; }, (p) =>
             {
-                if(p != null && int.TryParse(p.ToString(), out int temp))
-                    FilterGnereID = temp;
-                FilterProduct(FilterGnereID, SearchText);
+                SelectedGenPrd = new GenreProductDTO()
+                {
+                    GP_ID = p.GP_ID,
+                    GP_NAME = p.GP_NAME,
+                };
+
+                if(SelectedGenPrd.GP_ID != 0)
+                {
+                    OpacityEditDeletGenBtn = 1;
+                    EnbleEditDeleteGenBtn = true;
+                    EditingGenPrd = p.GP_NAME;
+                }
+                else
+                {
+                    ischeckedEditTggBtn = false;
+                    OpacityEditDeletGenBtn = 0.5;
+                    EnbleEditDeleteGenBtn = false;
+                    EditingGenPrd = "";
+                }
+                FilterProduct(SelectedGenPrd.GP_ID, SearchText);
             });
 
             SearchMenuCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                FilterProduct(FilterGnereID, SearchText);   
+                FilterProduct(SelectedGenPrd.GP_ID, SearchText);   
             });
 
 
@@ -231,7 +291,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                         p.Close();
                         MessageBoxCustom.Show(MessageBoxCustom.Success, messageAdd);
                         AddProductCoreList(SelectedItem);
-                        FilterProduct(FilterGnereID, SearchText);
+                        FilterProduct(SelectedGenPrd.GP_ID, SearchText);
                     }
                     else
                     {
@@ -245,6 +305,132 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             {
                 ExportMenuExcel();
             });
+
+            Add_EditGenCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            {
+                if (p.Visibility == Visibility.Collapsed)
+                {
+                    p.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    p.Visibility = Visibility.Collapsed;
+                }
+            });
+
+            SaveGenCommand = new RelayCommand<TextBox>((p) => { return true; }, async (p) =>
+            {
+                if (p.Text == null || p.Text.Length == 0)
+                {
+                    return;
+                }
+                if(!CanAddGenPrd(p.Text))
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Đã có loại sản phẩm này!");
+                    return;
+                }    
+                GenreProductDTO temp = new GenreProductDTO()
+                {
+                    GP_ID = NextGenPrdID,
+                    GP_NAME = p.Text,
+                };
+                bool saveGenprd = await GenreProService.Ins.AddNewGen(temp);
+                if (saveGenprd)
+                {
+                    GenreProductList.Add(temp);
+                    UpdateGenPrdNameList();
+                    p.Text = "";
+                    ischeckedAddTggBtn = false;
+                }
+            });
+
+            SaveChangeGenPrdCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                if (EditingGenPrd == null || EditingGenPrd == "")
+                {
+                    return;
+                }
+                GenreProductDTO temp = new GenreProductDTO()
+                {
+                    GP_ID = SelectedGenPrd.GP_ID,
+                    GP_NAME = EditingGenPrd,
+                };
+                bool saveChangeGenprd = await GenreProService.Ins.SaveChangeGen(temp);
+                if (saveChangeGenprd)
+                {
+                    foreach (var item in GenreProductList)
+                    {
+                        if(item.GP_ID == SelectedGenPrd.GP_ID)
+                        {
+                            item.GP_NAME = EditingGenPrd;
+                            break;
+                        }
+                    }
+                    GenreProductList = new ObservableCollection<GenreProductDTO>(GenreProductList);
+                    UpdateGenPrdNameList();
+                }
+                ischeckedEditTggBtn = !ischeckedEditTggBtn;
+            });
+
+            DeleteGenPrdCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                if (SelectedGenPrd == null) return;
+                if(!CanDeleteGen(SelectedGenPrd.GP_ID))
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Không thể xóa loại sản phẩm vì có sản phẩm thuộc loại này!");
+                    return;
+                }
+                bool saveDeleteGen = await GenreProService.Ins.DeleteGenprd(SelectedGenPrd);
+                if (saveDeleteGen)
+                {
+                    DeleteFromGenList(SelectedGenPrd);
+                    UpdateGenPrdNameList();
+                    SelectedGenPrd = null;
+                    FilterProduct(0, SearchText);
+                    ischeckedEditTggBtn = false;
+                    OpacityEditDeletGenBtn = 0.5;
+                    EnbleEditDeleteGenBtn = false;
+                }
+            });
+        }
+
+        private bool CanAddGenPrd(string text)
+        {
+            foreach (var item in GenreProductList)
+            {
+                if (item.GP_NAME == text)
+                    return false;
+            }
+            return true;
+        }
+
+        private void UpdateGenPrdNameList()
+        {
+            GenPrdNameList = new List<string>();
+            foreach (var item in GenreProductList)
+            {
+                GenPrdNameList.Add(item.GP_NAME);
+            }
+        }
+
+        private void DeleteFromGenList(GenreProductDTO selectedGenPrd)
+        {
+            for (int i = 0; i < GenreProductList.Count; i++)
+            {
+                if (GenreProductList[i].GP_ID == selectedGenPrd.GP_ID)
+                    GenreProductList.RemoveAt(i);
+            }
+            GenreProductList = new ObservableCollection<GenreProductDTO>(GenreProductList);
+        }
+
+        private bool CanDeleteGen(int gP_ID)
+        {
+            foreach(ProductDTO i in CoreProductList)
+            {
+                if (i.GP_ID == gP_ID)
+                    return false;
+            }
+            return true;
         }
 
         private bool CanAddProduct(ProductDTO selectedItem)

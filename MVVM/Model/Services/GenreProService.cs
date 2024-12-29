@@ -36,6 +36,7 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                 using (var context = new CoffeeShopDBEntities())
                 {
                     var GenreProList = (from c in context.GENRE_PRODUCT
+                                        where(c.IS_DELETED == false)
                                         select new GenreProductDTO
                                         {
                                             GP_ID = c.GP_ID,
@@ -51,5 +52,82 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
             }
         }
 
+        internal async Task<int> IDOfGenPrd()
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    return await context.GENRE_PRODUCT.CountAsync();
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return 0;
+            }
+        }
+
+        internal async Task<bool> AddNewGen(GenreProductDTO temp)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    GENRE_PRODUCT item = new GENRE_PRODUCT()
+                    {
+                        GP_ID = temp.GP_ID,
+                        GP_NAME = temp.GP_NAME,
+                        IS_DELETED = false,
+                    };
+                    context.GENRE_PRODUCT.Add(item);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return false;
+            }
+        }
+
+        internal async Task<bool> SaveChangeGen(GenreProductDTO temp)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var genprd = await context.GENRE_PRODUCT.FirstOrDefaultAsync(g => g.GP_ID == temp.GP_ID);
+                    genprd.GP_NAME = temp.GP_NAME;
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return false;
+            }
+        }
+
+        internal async Task<bool> DeleteGenprd(GenreProductDTO selectedGenPrd)
+        {
+            try
+            {
+                using (var context = new CoffeeShopDBEntities())
+                {
+                    var genprd = await context.GENRE_PRODUCT.FirstOrDefaultAsync(g => g.GP_ID == selectedGenPrd.GP_ID);
+                    genprd.IS_DELETED = true;
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return false;
+            }
+        }
     }
 }

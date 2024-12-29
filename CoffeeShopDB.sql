@@ -6,8 +6,10 @@ create table GENRE_PRODUCT
 (
 	GP_ID int identity(1,1),
 	GP_NAME nvarchar(max) not null,
+	IS_DELETED bit default 0,
 	constraint pk_GP_ver1 primary key(GP_ID),
 )
+
 
 create table PRODUCT
 (	
@@ -28,6 +30,8 @@ create table GENRE_TABLE
 	GT_NAME nvarchar(max) not null,
 	constraint pk_GT primary key(GT_ID),
 )
+
+
 create table _TABLE
 (	
 	TB_ID int identity(1,1),
