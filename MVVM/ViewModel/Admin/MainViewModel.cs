@@ -92,9 +92,9 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
 
             CurrentView = AdminHomeViewModel;
 
-            HomePageViewCommand = new RelayCommand<ContentControl>((p)=> { return true; }, (p)=> { CurrentView = AdminHomeViewModel; });
-            AccountViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CustomerViewCommand.Execute(null); IsAccountSelected = true; CurrentView = AccountVM; });
-            CustomerViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = CustomerVM; IsAccountSelected = false; });
+            HomePageViewCommand = new RelayCommand<ContentControl>((p)=> { return true; }, (p)=> { CurrentView = AdminHomeViewModel; IsAccountSelected = false; });
+            AccountViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { HomePageViewCommand.Execute(null); IsAccountSelected = true; CurrentView = AccountVM; });
+            CustomerViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = CustomerVM; });
             EmployeeViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = EmployeeVM; });
             ErrorViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = ErrorVM; });
             MenuViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = MenuVM; });
