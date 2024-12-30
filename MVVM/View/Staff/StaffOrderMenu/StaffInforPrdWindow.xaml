@@ -117,8 +117,7 @@
 
             <Button 
                 Grid.Row="3"
-                Command="{Binding CloseWDCommand}"
-                CommandParameter="{Binding ElementName=InforPrdWD}"
+                Click="Button_Click"
                 HorizontalAlignment="Right"
                 Margin="0,0,20,0"
                 Content="Xong"

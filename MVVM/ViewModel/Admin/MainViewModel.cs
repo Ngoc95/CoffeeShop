@@ -90,7 +90,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             IngredientSourceVM = new IngredientSourceViewModel();
             ThongKeVM = new ThongKeViewModel();
 
-            CurrentView = CustomerVM;
+            CurrentView = AdminHomeViewModel;
 
             HomePageViewCommand = new RelayCommand<ContentControl>((p)=> { return true; }, (p)=> { CurrentView = AdminHomeViewModel; });
             AccountViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CustomerViewCommand.Execute(null); IsAccountSelected = true; CurrentView = AccountVM; });

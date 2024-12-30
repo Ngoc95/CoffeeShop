@@ -454,6 +454,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
                     {
                         table.TB_STATUS = "Đang bận";
                         await TableService.Ins.UpdateATable(table);
+                        TableList = new ObservableCollection<TableDTO>(CoreTableList);
+                        FilterTableList();
                         return true;
                     }
                     else

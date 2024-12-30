@@ -145,6 +145,7 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                     if (table != null)
                     {
                         table.TB_STATUS = temp.TB_STATUS;
+                        table.GT_ID = temp.GT_ID;
                         await context.SaveChangesAsync();
                         return true;
                     }

@@ -92,8 +92,7 @@
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding CustomerViewCommand}"
-                             Content="Khách hàng"
-                             IsChecked="{Binding IsAccountSelected, Converter={StaticResource InverseBooleanConverter}}">
+                             Content="Khách hàng">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/cusMenu.png" />
                     </RadioButton.Tag>

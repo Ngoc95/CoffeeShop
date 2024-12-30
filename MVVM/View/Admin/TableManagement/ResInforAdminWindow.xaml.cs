@@ -49,8 +49,7 @@ namespace QuanLiCoffeeShop.MVVM.View.Admin.TableManagement
             }
 
         }
-
-        private void Button_KeyDown(object sender, KeyEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

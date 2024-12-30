@@ -30,5 +30,10 @@ namespace QuanLiCoffeeShop.MVVM.View.Staff.StaffOrderMenu
                 this.DragMove();
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
