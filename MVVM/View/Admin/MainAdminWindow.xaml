@@ -53,12 +53,12 @@
             <StackPanel Margin="0,10,0,0">
                 <RadioButton Margin="5,0,0,5"
                              Height="65"
-                             IsChecked="True"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"                             
                              Command="{Binding HomePageViewCommand}"
                              Content="Trang chủ"
-                             Cursor="Hand">
+                             Cursor="Hand"
+                             IsChecked="{Binding IsAccountSelected, Converter={StaticResource InverseBooleanConverter}}">
                     <RadioButton.Tag>
                         <BitmapImage UriSource="/Images/Menu/homeMenu.png" />
                     </RadioButton.Tag>

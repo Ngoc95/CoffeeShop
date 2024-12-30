@@ -56,7 +56,7 @@
                              Height="65"
                              FontSize="30"
                              Style="{StaticResource MenuButtonTheme}"
-                             IsChecked="True" 
+                             IsChecked="{Binding IsAccountSelected, Converter={StaticResource InverseBooleanConverter}}"
                              Command="{Binding HomeViewCommand}"
                              Content="Trang chủ"
                              Cursor="Hand">

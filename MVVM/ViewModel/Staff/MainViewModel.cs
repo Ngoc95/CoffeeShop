@@ -107,14 +107,14 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             TableVM = new StaffTableResViewModel();
             HomeVM = new StaffHomeViewModel();
             IngredientSourceVM = new IngredientSourceViewModel();
-            CurrentView = CustomerVM;
+            CurrentView = HomeVM;
 
-            AccountViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CustomerViewCommand.Execute(null); IsAccountSelected = true; CurrentView = new AccountViewModel(); });
-            CustomerViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new CustomerViewModel(); IsAccountSelected = false; });
-            ErrorViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new ErrorViewModel(); ; });
+            AccountViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { HomeViewCommand.Execute(null); IsAccountSelected = true; CurrentView = new AccountViewModel(); });
+            CustomerViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new CustomerViewModel(); });
+            ErrorViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new ErrorViewModel(); });
             MenuViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = MenuOrderVM; });
             TableViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = TableVM; });
-            HomeViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = HomeVM; });
+            HomeViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = HomeVM; IsAccountSelected = false; });
             WorkshiftViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new WorkshiftViewModel(); });
             IngredientSourceViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new IngredientSourceViewModel(); });
 
