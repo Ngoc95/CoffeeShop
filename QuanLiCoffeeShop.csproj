@@ -662,9 +662,6 @@
     <Compile Include="MVVM\Model\SUPPLIER.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\Model\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="MVVM\Model\WORK_SHIFT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
