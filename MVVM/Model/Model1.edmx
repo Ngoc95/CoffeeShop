@@ -209,16 +209,6 @@
           <Property Name="SUP_ADDR" Type="nvarchar(max)" />
           <Property Name="IS_DELETED" Type="bit" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="WORK_SHIFT">
           <Key>
             <PropertyRef Name="SHIFT_ID" />
@@ -465,7 +455,6 @@
           <EntitySet Name="REQUEST" EntityType="Self.REQUEST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RESERVATION" EntityType="Self.RESERVATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SUPPLIER" EntityType="Self.SUPPLIER" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WORK_SHIFT" EntityType="Self.WORK_SHIFT" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="fk_BILL_CUS" Association="Self.fk_BILL_CUS">
             <End Role="CUSTOMER" EntitySet="CUSTOMER" />
@@ -545,7 +534,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="CoffeeShopDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CoffeeShopDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="sysdiagrams" EntityType="CoffeeShopDBModel.sysdiagram" />
           <EntitySet Name="C_TABLE" EntityType="CoffeeShopDBModel.C_TABLE" />
           <EntitySet Name="BILLs" EntityType="CoffeeShopDBModel.BILL" />
           <EntitySet Name="BILL_INFO" EntityType="CoffeeShopDBModel.BILL_INFO" />
@@ -637,17 +625,7 @@
             <End Role="INGREDIENT" EntitySet="INGREDIENTs" />
             <End Role="IMPORT_INFO" EntitySet="IMPORT_INFO" />
           </AssociationSet>
-          </EntityContainer>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
+        </EntityContainer>
         <EntityType Name="C_TABLE">
           <Key>
             <PropertyRef Name="TB_ID" />
@@ -1121,17 +1099,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CoffeeShopDBModelStoreContainer" CdmEntityContainer="CoffeeShopDBEntities">
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="CoffeeShopDBModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="C_TABLE">
             <EntityTypeMapping TypeName="CoffeeShopDBModel.C_TABLE">
               <MappingFragment StoreEntitySet="_TABLE">
@@ -1361,7 +1328,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
