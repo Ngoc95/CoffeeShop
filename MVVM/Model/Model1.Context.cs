@@ -25,6 +25,7 @@ namespace QuanLiCoffeeShop.MVVM.Model
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<C_TABLE> C_TABLE { get; set; }
         public virtual DbSet<BILL> BILLs { get; set; }
         public virtual DbSet<BILL_INFO> BILL_INFO { get; set; }
