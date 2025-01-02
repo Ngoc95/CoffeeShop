@@ -21,7 +21,7 @@
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
 
-            <Label Content="Thêm khách hàng" FontSize="30" Foreground="Black"
+            <Label Content="Thêm nhà cung cấp" FontSize="30" Foreground="Black"
                    FontFamily="Fonts/Roboto-Light.ttf #Roboto" FontWeight="Medium"
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
