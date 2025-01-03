@@ -215,7 +215,6 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
         }
         #endregion
 
-
         #region Command
         public ICommand FirstLoadCM { get; set; }  
         public ICommand FilterCommand { get; set; }
