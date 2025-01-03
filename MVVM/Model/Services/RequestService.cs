@@ -164,7 +164,7 @@ namespace QuanLiCoffeeShop.MVVM.Model.Services
                             (item.REQ_STATUS == "Chờ duyệt" ? "Đang chờ duyệt" :
                                 (item.REQ_STATUS + $" vào ngày {item.APPROVED_DATE?.ToString("dd/MM/yyyy")}"
                                 + ((item.APPROVER_COMMENT == null || item.APPROVER_COMMENT.Length == 0) ? "" : $"\nGhi chú: {item.APPROVER_COMMENT}")
-                                + $"\nMã người duyệt: {item.APPROVED_BY:QL000}")
+                                + $"\nMã người duyệt: {item.APPROVED_BY:NV000}")
                             ),
                         });
                     }
