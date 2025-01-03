@@ -363,6 +363,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     UpdateGenPrdNameList();
                     p.Text = "";
                     ischeckedAddTggBtn = false;
+                    NextGenPrdID++;
                 }
             });
 
