@@ -107,7 +107,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Staff
             TableVM = new StaffTableResViewModel();
             HomeVM = new StaffHomeViewModel();
             IngredientSourceVM = new IngredientSourceViewModel();
-            CurrentView = CustomerVM;
+            CurrentView = HomeVM;
 
             AccountViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CustomerViewCommand.Execute(null); IsAccountSelected = true; CurrentView = new AccountViewModel(); });
             CustomerViewCommand = new RelayCommand<ContentControl>((p) => { return true; }, (p) => { CurrentView = new CustomerViewModel(); IsAccountSelected = false; });

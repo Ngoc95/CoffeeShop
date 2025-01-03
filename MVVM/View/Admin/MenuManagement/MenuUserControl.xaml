@@ -46,7 +46,7 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="TextChanged">
                         <i:InvokeCommandAction 
-                            Command="{Binding FilterCommand}" 
+                            Command="{Binding FilterByTextCommand}" 
                             CommandParameter="{Binding Text, ElementName=searchTxtBox}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
