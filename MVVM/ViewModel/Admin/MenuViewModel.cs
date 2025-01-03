@@ -112,6 +112,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
         public ICommand SearchMenuCommand { get; set; }
         public ICommand DeleteProductCommand {  get; set; }
         public ICommand BtnEditProductDataComand { get; set; }
+        public ICommand FilterByTextCommand { get; set; }
         public ICommand FilterCommand { get; set; }
         public ICommand BtnImageCommand { get; set; }
         public ICommand BtnAddProductDataComand { get; set; }
@@ -227,6 +228,12 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 }
             });
 
+            FilterByTextCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                if(SearchText != null || SearchText.Length > 0) 
+                    FilterProduct(SelectedGenPrd.GP_ID, SearchText);
+            });
+
             FilterCommand = new RelayCommand<GenreProductDTO>((p) => { return true; }, (p) =>
             {
                 SelectedGenPrd = new GenreProductDTO()
@@ -235,7 +242,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     GP_NAME = p.GP_NAME,
                 };
 
-                if(SelectedGenPrd.GP_ID != 0)
+
+                if (SelectedGenPrd.GP_ID != 0)
                 {
                     OpacityEditDeletGenBtn = 1;
                     EnbleEditDeleteGenBtn = true;
@@ -382,6 +390,7 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     }
                     GenreProductList = new ObservableCollection<GenreProductDTO>(GenreProductList);
                     UpdateGenPrdNameList();
+                    ProductList = new ObservableCollection<ProductDTO>(CoreProductList);
                 }
                 ischeckedEditTggBtn = !ischeckedEditTggBtn;
             });
