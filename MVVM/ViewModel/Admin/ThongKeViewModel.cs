@@ -87,7 +87,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     {
                         BillList = new ObservableCollection<BillDTO>(bills);
                         billList = new List<BillDTO>(BillList);
-                        BillList = new ObservableCollection<BillDTO>(billList.FindAll(x => x.CREATE_AT >= SelectedDateFrom && x.CREATE_AT <= SelectedDateTo));
+                        BillList = new ObservableCollection<BillDTO>(billList.FindAll(x => x.CREATE_AT.GetValueOrDefault().Date >= SelectedDateFrom.Date 
+                                                                                        && x.CREATE_AT.GetValueOrDefault().Date <= SelectedDateTo.Date));
                         p.Content = new LichSuTable();
                     });
 
@@ -112,7 +113,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                     IsBusy = true;
                     await Task.Run(() =>
                     {
-                        BillList = new ObservableCollection<BillDTO>(billList.FindAll(x => x.CREATE_AT >= SelectedDateFrom && x.CREATE_AT <= SelectedDateTo));
+                        BillList = new ObservableCollection<BillDTO>(billList.FindAll(x => x.CREATE_AT.GetValueOrDefault().Date >= SelectedDateFrom.Date
+                                                                                        && x.CREATE_AT.GetValueOrDefault().Date <= SelectedDateTo.Date));
                     });
 
                     // Doanh thu
@@ -130,7 +132,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
             {
                 p.Content = new LichSuTable();
 
-                BillList = new ObservableCollection<BillDTO>(billList.FindAll(x => x.CREATE_AT >= SelectedDateFrom && x.CREATE_AT <= SelectedDateTo));
+                BillList = new ObservableCollection<BillDTO>(billList.FindAll(x => x.CREATE_AT.GetValueOrDefault().Date >= SelectedDateFrom.Date
+                                                                                        && x.CREATE_AT.GetValueOrDefault().Date <= SelectedDateTo.Date));
             });
 
             CloseWdCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -178,7 +181,8 @@ namespace QuanLiCoffeeShop.MVVM.ViewModel.Admin
                 else
                 {
                     BillDTO a = SelectedItem;
-                    CusName = SelectedItem.CUSTOMER.CUS_NAME;
+                    if (SelectedItem.CUS_ID != null) CusName = SelectedItem.CUSTOMER.CUS_NAME;
+                    else CusName = "Khách vãng lai";
                     EmpName = SelectedItem.EMPLOYEE.EMP_NAME;
                     BillDate = SelectedItem.CREATE_AT.ToString();
                     BillValue = SelectedItem.TOTAL_COST ?? 0;
