@@ -236,13 +236,13 @@ set dateformat dmy
 INSERT INTO EMPLOYEE (EMP_NAME, EMP_PHONE, EMP_CCCD, EMP_BIRTHDAY, EMP_USERNAME, EMP_PASSWORD, EMP_EMAIL, EMP_GENDER, EMP_ROLE)
 VALUES 
 (N'Ngọc Nguyên', '0912345678',	'012345678901', '01-01-2005', 'admin', '202cb962ac59075b964b07152d234b70', 'ngocnguyen@example.com', N'Nữ', N'Quản lý'),
-(N'Khánh Ngọc', '0704768077',	'079358699603', '09-05-2005', 'ngoc', '202cb962ac59075b964b07152d234b70', 'duongkhanhngoc2005@gmail.com', N'Nữ', N'Pha chế'),
-(N'Bảo Ngọc', '0704768088',	'079578699803', '22-02-2005', 'baongoc', '202cb962ac59075b964b07152d234b70', 'daolebaongoc@gmail.com', N'Nữ', N'Pha chế'),
-(N'Huệ Nguyên', '0954768088',	'079658699803', '31-10-2005', 'nguyen', '202cb962ac59075b964b07152d234b70', 'huenguyen@gmail.com', N'Nữ', N'Quản lý'),
-(N'Phong Linh', '0934567890', '123456789012', '15-02-2005', 'phonglinh', '202cb962ac59075b964b07152d234b70', 'phonglinh@example.com', N'Nữ', N'Phục vụ'),
-(N'Quốc Bảo', '0912345679', '012345678902', '10-03-2005', 'quocbao', '202cb962ac59075b964b07152d234b70', 'quocbao@example.com', N'Nam', N'Pha chế'),
-(N'Lan Anh', '0934768099', '079578699804', '20-06-2005', 'lananh', '202cb962ac59075b964b07152d234b70', 'lananh@gmail.com', N'Nữ', N'Phục vụ'),
-(N'Tiến Dũng', '0904768099', '079678699804', '25-07-2005', 'tiendung', '202cb962ac59075b964b07152d234b70', 'tiendung@example.com', N'Nam', N'Thu ngân');
+(N'Khánh Ngọc', '0704768077',	'079358699603', '09-05-2005', 'ngoc', '63b63159b50d87d00baabfb3f679fe23', 'duongkhanhngoc2005@gmail.com', N'Nữ', N'Pha chế'),
+(N'Bảo Ngọc', '0704768088',	'079578699803', '22-02-2005', 'baongoc', '0d88c2b05d966896ecf7e2983c5383bc', 'daolebaongoc@gmail.com', N'Nữ', N'Pha chế'),
+(N'Huệ Nguyên', '0954768088',	'079658699803', '31-10-2005', 'nguyen', '27ff2ffe376b2edcc7c2de309173f0d8', 'huenguyen@gmail.com', N'Nữ', N'Quản lý'),
+(N'Phong Linh', '0934567890', '123456789012', '15-02-2004', 'phonglinh', '30421bbcdcefc1d3da04228f722d74ae', 'phonglinh@example.com', N'Nữ', N'Phục vụ'),
+(N'Quốc Bảo', '0912345679', '012345678902', '10-03-2003', 'quocbao', '7c90dee826557e9a536a59daf64bf87c', 'quocbao@example.com', N'Nam', N'Pha chế'),
+(N'Lan Anh', '0934768099', '079578699804', '20-06-2002', 'lananh', '9d9ca0162c8cc09f018f37c3d37bc8b3', 'lananh@gmail.com', N'Nữ', N'Phục vụ'),
+(N'Tiến Dũng', '0904768099', '079678699804', '25-07-2002', 'tiendung', '6b12523e2367e1de9b8936caad798a1f', 'tiendung@example.com', N'Nam', N'Thu ngân');
 
 INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Coffee')
 INSERT INTO GENRE_PRODUCT (GP_NAME) VALUES (N'Trà sữa')
@@ -283,22 +283,22 @@ INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Còn trống')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (4, N'Còn trống')
 INSERT INTO _TABLE (GT_ID, TB_STATUS) VALUES (2, N'Đang bận')
 
-INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà đào', 3, 'pack://application:,,,/DemoDataPrdImg/tradao.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_DESCRIPTION, PRO_PRICE) VALUES (N'Trà đào', 3, 'pack://application:,,,/DemoDataPrdImg/tradao.jpg',N'Đào tươi ngon theo mùa', 15000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Cacao sữa xay', 1, 'pack://application:,,,/DemoDataPrdImg/cacaoSua.jpg', 20000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Espresso', 1, 'pack://application:,,,/DemoDataPrdImg/espresso.jpg', 18000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà sữa pudding', 2, 'pack://application:,,,/DemoDataPrdImg/trasuapudding.jpg', 23000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Coffee muối', 1, 'pack://application:,,,/DemoDataPrdImg/coffeemuoi.jpg', 18000)
-INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà ổi', 3, 'pack://application:,,,/DemoDataPrdImg/traoi.jpg', 20000)
-INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Ép cam', 5, 'pack://application:,,,/DemoDataPrdImg/epcam.jpg', 18000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_DESCRIPTION, PRO_PRICE) VALUES (N'Trà ổi', 3, 'pack://application:,,,/DemoDataPrdImg/traoi.jpg', N'Ổi mới nhập hàng', 20000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_DESCRIPTION, PRO_PRICE) VALUES (N'Ép cam', 5, 'pack://application:,,,/DemoDataPrdImg/epcam.jpg',N'Ép bằng máy', 18000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Bạc xỉu', 1, 'pack://application:,,,/DemoDataPrdImg/bacxiu.jpg', 18000)
-INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà chanh', 3, 'pack://application:,,,/DemoDataPrdImg/trachanh.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_DESCRIPTION, PRO_PRICE) VALUES (N'Trà chanh', 3, 'pack://application:,,,/DemoDataPrdImg/trachanh.jpg', N'Chanh tươi không đắng', 15000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố xoài', 4, 'pack://application:,,,/DemoDataPrdImg/sinhtoxoai.jpg', 20000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà tắc', 3, 'pack://application:,,,/DemoDataPrdImg/tratac.jpg', 15000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố dâu', 4, 'pack://application:,,,/DemoDataPrdImg/sinhtoDau.jpg', 20000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sữa tươi đường đen', 2, 'pack://application:,,,/DemoDataPrdImg/suatuoitc.jpg', 23000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố dưa hấu', 4, 'pack://application:,,,/DemoDataPrdImg/sinhtoduahau.png', 20000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Ép táo', 5, 'pack://application:,,,/DemoDataPrdImg/eptao.jpg', 18000)
-INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Coffee', 1, 'pack://application:,,,/DemoDataPrdImg/coffee.jpg', 15000)
+INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_DESCRIPTION, PRO_PRICE) VALUES (N'Coffee', 1, 'pack://application:,,,/DemoDataPrdImg/coffee.jpg', N'Cà phê pha máy', 15000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Sinh tố mãng cầu', 4, 'pack://application:,,,/DemoDataPrdImg/stmangcau.jpg', 20000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Ép lê', 5, 'pack://application:,,,/DemoDataPrdImg/eple.jpg', 18000)
 INSERT INTO PRODUCT (PRO_NAME, GP_ID, PRO_IMG, PRO_PRICE) VALUES (N'Trà sữa thái xanh', 2, 'pack://application:,,,/DemoDataPrdImg/tsthaixanh.jpg', 15000)
@@ -365,7 +365,7 @@ INSERT INTO REQUEST(EMP_ID, REQ_TYPE, EMP_COMMENT) VALUES
 set dateformat dmy;
 INSERT INTO REQUEST(EMP_ID, REQ_DATE, REQ_TYPE, EMP_COMMENT, APPROVED_BY, REQ_STATUS, APPROVED_DATE, APPROVER_COMMENT) VALUES 
 (2,'18-12-2024',N'Đổi ca',N'Xin nghỉ ca sáng chủ nhật ngày 22/12/2024', 4, N'Từ chối', '20-12-2024', N'Có thể đổi với ca chiều hoặc vào ngày thứ 2 hôm sau'),
-(2,'27-12-2024',N'Xin nghỉ',N'Xin nghỉ ca sáng thứ 6 ngày 3/1/2025', 1, N'Đã duyệt', '29-12-2024', 'Oke em check lịch lại trên app nhé');
+(2,'27-12-2024',N'Xin nghỉ',N'Xin nghỉ ca sáng thứ 6 ngày 3/1/2025', 1, N'Đã duyệt', '29-12-2024', N'Oke em check lịch lại trên app nhé');
 
 -- Bill
 INSERT INTO Bill (CUS_ID, EMP_ID, SUBTOTAL, DISCOUNT, TOTAL_COST, CREATE_AT) VALUES (1, 2, 56000, 0, 56000, '27-12-2024 7:40:00');
